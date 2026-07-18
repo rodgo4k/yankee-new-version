@@ -1,6 +1,6 @@
 # Yankee
 
-Site institucional do Yankee — a rede social sem algoritmo oculto.
+Site institucional do Yankee, a rede social sem algoritmo oculto.
 
 ## Desenvolvimento
 

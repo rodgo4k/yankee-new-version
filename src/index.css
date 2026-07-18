@@ -60,8 +60,8 @@
 @layer utilities {
   .font-serif-display { font-family: 'Fraunces', Georgia, serif; }
   .dotted-bg {
-    background-image: radial-gradient(hsl(30 12% 60% / 0.35) 1px, transparent 1px);
-    background-size: 18px 18px;
+    background-image: radial-gradient(hsl(30 12% 55% / 0.28) 1.1px, transparent 1.1px);
+    background-size: 16px 16px;
   }
   .grain::after {
     content: '';

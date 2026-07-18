@@ -5,255 +5,270 @@ import Layout from "@/components/Layout";
 import AnimatedSection from "@/components/AnimatedSection";
 import FAQ from "@/components/FAQ";
 import { SpeechBubble, PillTag } from "@/components/Bubble";
-import { FolkBubble } from "@/components/FolkBubble";
-import heroMeadow from "@/assets/hero-meadow.jpg";
-import heroMountain from "@/assets/hero-mountain.jpg";
+import PromoPill from "@/components/home/PromoPill";
+import HeroComposer from "@/components/home/HeroComposer";
+import TestimonialCarousel from "@/components/home/TestimonialCarousel";
+import ChatSequence from "@/components/home/ChatSequence";
+import OrbitNodes from "@/components/home/OrbitNodes";
+import ReachScene, { FeedStatusPill } from "@/components/home/ReachScene";
 import heroFolkMountains from "@/assets/hero-folk-mountains.jpg";
-import rememberOffice from "@/assets/remember-office.jpg";
 import heroParty from "@/assets/hero-party.jpg";
-import mockupScene from "@/assets/yankee-scene.jpg";
+import cafeFriends from "@/assets/cafe-friends.jpg";
+import studentsHero from "@/assets/students-hero.jpg";
+import communityShot from "@/assets/yankee/community.png";
 import homeFeed from "@/assets/yankee/home-feed.png";
-import crowdsHome from "@/assets/yankee/crowds-home.png";
 import chat from "@/assets/yankee/chat.png";
 import videoCall from "@/assets/yankee/video-call.png";
-import aiHello from "@/assets/yankee/ai-hello.png";
-import profileView from "@/assets/yankee/profile-view.png";
+
 const faqItems = [
-    {
-        q: "What is Yankee?",
-        a: "A social network with no hidden algorithm: a chronological feed, no shadow bans, native communities (Crowds), chat, calls and integrated AI, all in a single app.",
-    },
-    {
-        q: "Is it free?",
-        a: "Yes. Yankee is free for everyone: post, chat, join Crowds and use Yankee AI without ever paying. No tiers, no locked features.",
-    },
-    {
-        q: "How does it work without an algorithm?",
-        a: "Your feed shows posts from the people you follow in reverse chronological order. No 'suggested', no reordering. Who you follow is who you see.",
-    },
-    {
-        q: "Is my data safe?",
-        a: "Yes. Everything is encrypted, we never sell your data and we never train AI on your posts. You can delete your account at any time.",
-    },
+  {
+    q: "What is Yankee?",
+    a: "A social network with no hidden algorithm: a chronological feed, no shadow bans, native communities (Crowds), chat, calls and integrated AI, all in a single app.",
+  },
+  {
+    q: "Is it free?",
+    a: "Yes. Yankee is free for everyone: post, chat, join Crowds and use Yankee AI without ever paying. No tiers, no locked features.",
+  },
+  {
+    q: "How does it work without an algorithm?",
+    a: "Your feed shows posts from the people you follow in reverse chronological order. No 'suggested', no reordering. Who you follow is who you see.",
+  },
+  {
+    q: "Is my data safe?",
+    a: "Yes. Everything is encrypted, we never sell your data and we never train AI on your posts. You can delete your account at any time.",
+  },
 ];
-const Index = () => (<Layout>
 
-    <section className="relative -mt-24 min-h-[100vh] flex items-center justify-center overflow-hidden">
+const featureCards = [
+  {
+    icon: Clock,
+    title: "chronological order",
+    text: "your feed is reverse chronological, always. the latest post is at the top. no opaque ranking.",
+  },
+  {
+    icon: Users,
+    title: "complete reach",
+    text: "every post you publish reaches every person who follows you. no hidden suppression, ever.",
+  },
+  {
+    icon: BellOff,
+    title: "no suggested noise",
+    text: "only the people and crowds you follow. no 'recommended for you' pulling you away from friends.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "your crowd, your rules",
+    text: "communities are small, self moderated and built around what you actually care about.",
+  },
+];
+
+const Index = () => (
+  <Layout>
+    <section className="relative -mt-24 overflow-hidden">
       <div className="absolute inset-0">
-        <img src={heroFolkMountains} alt="" className="w-full h-full object-cover object-center" width={1920} height={1200}/>
-
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-background"/>
+        <img
+          src={heroFolkMountains}
+          alt=""
+          className="w-full h-full object-cover object-[50%_40%]"
+          width={1920}
+          height={1200}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-transparent to-background" />
       </div>
 
-      <div className="relative w-full max-w-[1200px] mx-auto px-6 pt-32 pb-20 text-center">
-        <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <SpeechBubble tail="none" size="sm">
-            <PillTag>new</PillTag>
-            <span className="text-foreground/80">a social feed you actually control</span>
-            <ArrowRight size={13} className="text-muted-foreground"/>
-          </SpeechBubble>
+      <div className="relative w-full max-w-[920px] mx-auto px-5 md:px-6 pt-28 md:pt-36 pb-16 md:pb-24 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55 }}
+          className="flex justify-center"
+        >
+          <PromoPill tag="new" text="a social feed you actually control" to="/features" />
         </motion.div>
 
-        <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: [0.25, 0.4, 0.25, 1] }} className="mt-10 text-5xl md:text-7xl lg:text-[5.75rem] font-semibold text-foreground leading-[1.02] tracking-tight">
-          Yankee wants you to
+        <motion.h1
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.85, ease: [0.25, 0.4, 0.25, 1] }}
+          className="mt-7 md:mt-9 text-[2.15rem] sm:text-[2.75rem] md:text-5xl lg:text-[3.65rem] font-semibold text-foreground leading-[1.05] tracking-tight lowercase max-w-[18ch] sm:max-w-[22ch] mx-auto"
+        >
+          the social feed that puts your friends back in front of you
         </motion.h1>
 
-        <motion.div initial={{ opacity: 0, y: 20, scale: 0.96 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.7, delay: 0.2, ease: [0.25, 0.4, 0.25, 1] }} className="mt-8 flex justify-center">
-          <FolkBubble>
-            <span className="font-semibold tracking-tight text-3xl md:text-5xl lg:text-6xl">
-              post again
-            </span>
-          </FolkBubble>
-        </motion.div>
-
-        <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.35 }} className="mt-10 max-w-xl mx-auto text-[17px] md:text-[19px] text-foreground/70 leading-relaxed">
-          The social network where a post reaches all of your friends. No hidden algorithm, no shadow bans, just Crowds,
-          chat and calls in one calm app.
+        <motion.p
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.18 }}
+          className="mt-5 md:mt-6 max-w-xl mx-auto text-[15px] md:text-[17px] text-foreground/65 leading-relaxed lowercase"
+        >
+          post once, reach everyone. no hidden algorithm, no shadow bans. crowds, chat and calls in one calm app.
         </motion.p>
 
-        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.5 }} className="mt-10">
-          <Link to="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground text-[15px] font-medium hover:opacity-90 transition-opacity shadow-lg">
-            Get the app <ArrowRight size={16}/>
-          </Link>
-          <p className="mt-4 text-[13px] text-foreground/60">Free forever. No card needed.</p>
-        </motion.div>
+        <div className="mt-8 md:mt-10">
+          <HeroComposer />
+        </div>
       </div>
     </section>
 
-    <section className="py-24 md:py-32">
-      <div className="max-w-[1200px] mx-auto px-6">
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/70" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
         <AnimatedSection>
           <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02]">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
               it fights for your feed
             </h2>
-            <p className="mt-6 text-[16px] md:text-[17px] text-muted-foreground leading-relaxed">
-              Yankee shows you every post from the people you follow, in the order they shared it. No hidden algorithm,
+            <p className="mt-5 md:mt-6 text-[15px] md:text-[17px] text-muted-foreground leading-relaxed lowercase">
+              yankee shows you every post from the people you follow, in the order they shared it. no hidden algorithm,
               no shadow bans, no suggested content you never asked for.
             </p>
           </div>
         </AnimatedSection>
 
-        <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {[
-        {
-            icon: Clock,
-            title: "chronological order",
-            text: "Your feed is reverse chronological, always. The latest post is at the top. No opaque ranking.",
-        },
-        {
-            icon: Users,
-            title: "complete reach",
-            text: "Every post you publish reaches every person who follows you. No hidden suppression, ever.",
-        },
-        {
-            icon: BellOff,
-            title: "no suggested noise",
-            text: "Only the people and Crowds you follow. No 'recommended for you' pulling you away from friends.",
-        },
-        {
-            icon: ShieldCheck,
-            title: "your Crowd, your rules",
-            text: "Communities are small, self moderated and built around what you actually care about.",
-        },
-    ].map((c, i) => (<AnimatedSection key={c.title} delay={i * 0.06}>
-              <div className="h-full rounded-[2rem] border-2 border-border bg-card p-7 hover:shadow-lg transition-shadow duration-300">
-                <div className="w-10 h-10 rounded-xl bg-primary/5 border border-border flex items-center justify-center mb-5">
-                  <c.icon size={18} className="text-foreground"/>
+        <div className="mt-12 md:mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {featureCards.map((c, i) => (
+            <AnimatedSection key={c.title} delay={i * 0.06}>
+              <div className="h-full rounded-[1.5rem] border-2 border-foreground/90 bg-card p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[3px_3px_0_0_hsl(var(--foreground))] transition-all">
+                <div className="w-10 h-10 rounded-xl bg-primary text-primary-foreground flex items-center justify-center mb-5">
+                  <c.icon size={18} />
                 </div>
-                <h3 className="text-[16px] font-semibold text-foreground tracking-tight">{c.title}</h3>
-                <p className="mt-3 text-[13px] text-muted-foreground leading-relaxed">{c.text}</p>
+                <h3 className="text-[15px] md:text-[16px] font-semibold text-foreground tracking-tight lowercase">
+                  {c.title}
+                </h3>
+                <p className="mt-3 text-[13px] text-muted-foreground leading-relaxed lowercase">{c.text}</p>
               </div>
-            </AnimatedSection>))}
+            </AnimatedSection>
+          ))}
         </div>
 
-        <AnimatedSection delay={0.25}>
-          <div className="mt-12 text-center">
-            <p className="text-[13px] text-muted-foreground">no algorithmic feed · your attention isn't the product</p>
-            <Link to="/features" className="mt-4 inline-flex items-center gap-1.5 text-[14px] font-medium text-accent hover:opacity-80">
-              See how the feed works <ArrowRight size={14}/>
+        <AnimatedSection delay={0.2}>
+          <div className="mt-10 md:mt-12 text-center">
+            <p className="text-[13px] text-muted-foreground lowercase">
+              no algorithmic feed · your attention isn&apos;t the product
+            </p>
+            <Link
+              to="/feed"
+              className="mt-4 inline-flex items-center gap-1.5 text-[14px] font-medium text-accent hover:opacity-80 lowercase"
+            >
+              see how the feed works <ArrowRight size={14} />
             </Link>
           </div>
         </AnimatedSection>
       </div>
     </section>
 
-    
-    <section className="relative py-24 md:py-36">
-      <div className="max-w-[1200px] mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/75" />
+      <div className="relative max-w-[1100px] mx-auto px-5 md:px-6">
+        <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+          <AnimatedSection>
+            <OrbitNodes />
+          </AnimatedSection>
+          <AnimatedSection delay={0.1}>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+              always on, all yours
+            </h2>
+            <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md">
+              feed, chat, calls, crowds and yankee ai live in one place, private by design, connected only to the people
+              and rooms you choose.
+            </p>
+            <Link
+              to="/features"
+              className="mt-6 inline-flex items-center gap-1.5 text-[14px] font-medium text-accent hover:opacity-80 lowercase"
+            >
+              learn more <ArrowRight size={14} />
+            </Link>
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/75" />
+      <div className="relative max-w-[1100px] mx-auto px-5 md:px-6">
+        <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+          <AnimatedSection>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+              it keeps you locked in
+            </h2>
+            <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md">
+              post once and it keeps going. notifications you asked for, a feed that stays honest, and chats that pick up
+              exactly where you left them.
+            </p>
+            <Link
+              to="/notifications"
+              className="mt-6 inline-flex items-center gap-1.5 text-[14px] font-medium text-accent hover:opacity-80 lowercase"
+            >
+              learn more <ArrowRight size={14} />
+            </Link>
+          </AnimatedSection>
+          <AnimatedSection delay={0.1}>
+            <ChatSequence />
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/70" />
+      <div className="relative max-w-[900px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="text-center mb-10 md:mb-12">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+            people who let yankee run their social life
+          </h2>
+          <p className="mt-4 text-[15px] text-muted-foreground lowercase max-w-lg mx-auto">
+            real ways people are already posting, chatting and staying close without the noise.
+          </p>
+        </AnimatedSection>
+        <AnimatedSection delay={0.08}>
+          <TestimonialCarousel />
+        </AnimatedSection>
+      </div>
+    </section>
+
+    <section className="relative py-20 md:py-28">
+      <div className="max-w-[1200px] mx-auto px-5 md:px-6 grid md:grid-cols-2 gap-12 md:gap-16 items-center">
         <AnimatedSection>
-          <SpeechBubble tail="none" size="sm" className="mb-6">
-            <PillTag>the feed</PillTag>
-            chronological, always
-          </SpeechBubble>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02]">
+          <FeedStatusPill />
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02]">
             Post once, <span className="font-serif-display italic">it reaches everyone.</span>
           </h2>
-          <p className="mt-6 text-[16px] text-muted-foreground leading-relaxed max-w-md">
-            No opaque ranking. Every post you publish reaches every person who follows you, in the order you posted. The
-            way a feed was always meant to work.
+          <p className="mt-6 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed max-w-md lowercase">
+            no opaque ranking. every post you publish reaches every person who follows you, in the order you posted.
           </p>
-          <Link to="/features" className="mt-8 inline-flex items-center gap-1.5 text-[14px] font-medium text-accent hover:opacity-80">
-            Learn more <ArrowRight size={14}/>
+          <Link
+            to="/feed"
+            className="mt-8 inline-flex items-center gap-1.5 text-[14px] font-medium text-accent hover:opacity-80 lowercase"
+          >
+            learn more <ArrowRight size={14} />
           </Link>
         </AnimatedSection>
-
         <AnimatedSection delay={0.1}>
-          <div className="relative rounded-[2rem] overflow-hidden aspect-[4/5]">
-            <img src={mockupScene} alt="" className="w-full h-full object-cover object-bottom" loading="lazy"/>
-            <div className="absolute top-6 left-6">
-              <SpeechBubble variant="dark" tail="bl" size="sm">
-                just posted 📷
-              </SpeechBubble>
-            </div>
-            <div className="absolute bottom-8 right-6">
-              <SpeechBubble tail="br" size="sm">
-                seen by <span className="font-semibold">all 812</span> friends
-              </SpeechBubble>
-            </div>
-          </div>
+          <ReachScene />
         </AnimatedSection>
       </div>
     </section>
 
-    
-    <section className="py-24 md:py-36">
-      <div className="max-w-[1200px] mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-        <AnimatedSection direction="left">
-          <div className="relative rounded-[2.5rem] overflow-hidden aspect-square bg-muted border-2 border-border">
-            
-            <img src={rememberOffice} alt="" className="absolute inset-0 w-full h-full object-cover" loading="lazy"/>
-            
-            <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/10 to-transparent"/>
-
-            
-            <div className="absolute inset-0 p-6 md:p-8">
-              <motion.div initial={{ opacity: 0, y: 20, scale: 0.9 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.4, 0.25, 1] }} animate={{ y: [0, -6, 0] }} className="absolute top-4 left-4 md:top-12 md:left-10">
-                <SpeechBubble tail="bl" size="sm" variant="dark" className="shadow-[0_8px_24px_-6px_rgba(0,0,0,0.22)] scale-[0.92] md:scale-100">
-                  nailed the deck today 🎯
-                </SpeechBubble>
-              </motion.div>
-
-              <motion.div initial={{ opacity: 0, y: 20, scale: 0.9 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.6, delay: 0.3, ease: [0.25, 0.4, 0.25, 1] }} animate={{ y: [0, -8, 0] }} className="absolute top-[28%] right-4 md:top-[40%] md:right-10">
-                <SpeechBubble tail="br" size="sm" variant="dark" className="shadow-[0_8px_24px_-6px_rgba(0,0,0,0.22)] scale-[0.92] md:scale-100">
-                  still planning this?
-                </SpeechBubble>
-              </motion.div>
-
-              <motion.div initial={{ opacity: 0, y: 20, scale: 0.9 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.6, delay: 0.5, ease: [0.25, 0.4, 0.25, 1] }} animate={{ y: [0, -5, 0] }} className="absolute bottom-[28%] left-4 md:bottom-[45%] md:left-1/2 md:-translate-x-1/2">
-                <SpeechBubble tail="bl" size="sm" variant="dark" className="shadow-[0_8px_24px_-6px_rgba(0,0,0,0.22)] scale-[0.92] md:scale-100">
-                  right where you left it.
-                </SpeechBubble>
-              </motion.div>
-            </div>
-          </div>
-        </AnimatedSection>
-
-        <AnimatedSection direction="right">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02]">
-            Everything stays <br />
-            <span className="font-serif-display italic">within reach.</span>
-          </h2>
-          <p className="mt-6 text-[16px] text-muted-foreground leading-relaxed max-w-md">
-            Conversations, plans, photos. Yankee keeps your social history in one place, always private and always yours.
-            Pick up any thread exactly where you left it, even months later.
-          </p>
-
-          <ul className="mt-8 space-y-3 max-w-md">
-            {[
-        "private by default · only you hold the keys",
-        "encrypted at rest and in transit",
-        "find, edit, or remove anything instantly",
-    ].map((item) => (<li key={item} className="flex items-start gap-3 text-[14px] text-foreground/80">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-foreground/40 shrink-0"/>
-                {item}
-              </li>))}
-          </ul>
-
-          <Link to="/story" className="mt-8 inline-flex items-center gap-1.5 text-[14px] font-medium text-accent hover:opacity-80">
-            Learn more <ArrowRight size={14}/>
-          </Link>
-        </AnimatedSection>
-      </div>
-    </section>
-
-    
-    <section className="relative py-24 md:py-32 overflow-hidden">
-      <div className="max-w-[1400px] mx-auto px-6">
+    <section className="relative py-16 md:py-24">
+      <div className="max-w-[1400px] mx-auto px-5 md:px-6">
         <AnimatedSection>
-          <div className="relative rounded-[2.5rem] overflow-hidden aspect-[16/10] md:aspect-[21/9]">
-            <img src={heroParty} alt="" className="absolute inset-0 w-full h-full object-cover object-[50%_55%] scale-[1.20]" loading="lazy"/>
-            
-            <div className="relative h-full flex flex-col items-center justify-center px-8 text-center gap-6">
+          <div className="relative rounded-[2rem] md:rounded-[2.5rem] overflow-hidden aspect-[16/11] md:aspect-[21/9] border-2 border-foreground shadow-[6px_6px_0_0_hsl(var(--foreground))]">
+            <img
+              src={heroParty}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover object-[50%_55%] scale-[1.15] md:scale-[1.2]"
+              loading="lazy"
+            />
+            <div className="relative h-full flex flex-col items-center justify-center px-6 md:px-8 text-center gap-5 md:gap-6">
               <SpeechBubble tail="none" size="sm">
                 <PillTag>text it once</PillTag>
                 it keeps going
               </SpeechBubble>
-              <h2 className="text-4xl md:text-6xl lg:text-7xl font-semibold text-white tracking-tight leading-[0.98] max-w-3xl">
-                Your feed should show <br className="hidden md:block"/>
+              <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-semibold text-white tracking-tight leading-[0.98] max-w-3xl">
+                Your feed should show <br className="hidden md:block" />
                 <span className="font-serif-display italic">your friends.</span>
               </h2>
-              <p className="max-w-md text-[15px] md:text-[16px] text-white/80 leading-relaxed">
+              <p className="max-w-md text-[14px] md:text-[16px] text-white/80 leading-relaxed">
                 We just went back to doing the basics well.
               </p>
             </div>
@@ -262,178 +277,348 @@ const Index = () => (<Layout>
       </div>
     </section>
 
-    
-    <section className="py-24 md:py-32">
-      <div className="max-w-[1200px] mx-auto px-6">
+    <section className="py-20 md:py-28">
+      <div className="max-w-[1200px] mx-auto px-5 md:px-6">
         <AnimatedSection className="text-center">
           <p className="text-[11px] uppercase tracking-widest text-muted-foreground mb-4">a closer look</p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight max-w-2xl mx-auto leading-[1.02]">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight max-w-2xl mx-auto leading-[1.02]">
             Feed. Chat. <span className="font-serif-display italic">Calls.</span> All in one calm place.
           </h2>
         </AnimatedSection>
 
-        <div className="mt-16 grid md:grid-cols-3 gap-8 md:gap-4">
+        <div className="mt-12 md:mt-16 grid md:grid-cols-3 gap-10 md:gap-4">
           {[
-        { src: homeFeed, title: "Your feed", text: "Reverse-chronological. Nothing else.", rotate: "md:-rotate-2" },
-        {
-            src: chat,
-            title: "Real chat",
-            text: "Text, voice notes, groups. No strange limits.",
-            rotate: "md:rotate-1",
-        },
-        {
-            src: videoCall,
-            title: "Clear calls",
-            text: "Voice and video, right in the app.",
-            rotate: "md:-rotate-1",
-        },
-    ].map((c, i) => (<AnimatedSection key={c.title} delay={i * 0.08}>
+            { src: homeFeed, title: "Your feed", text: "Reverse-chronological. Nothing else.", rotate: "md:-rotate-2" },
+            { src: chat, title: "Real chat", text: "Text, voice notes, groups. No strange limits.", rotate: "md:rotate-1" },
+            { src: videoCall, title: "Clear calls", text: "Voice and video, right in the app.", rotate: "md:-rotate-1" },
+          ].map((c, i) => (
+            <AnimatedSection key={c.title} delay={i * 0.08}>
               <div className={`transition-transform hover:rotate-0 hover:scale-[1.02] duration-500 ${c.rotate}`}>
-                <div className="aspect-[9/17] rounded-[2rem] overflow-hidden shadow-2xl shadow-primary/10 border border-border/50 bg-card">
-                  <img src={c.src} alt={c.title} className="w-full h-full object-cover object-top" loading="lazy"/>
+                <div className="aspect-[9/17] max-w-[280px] mx-auto md:max-w-none rounded-[2rem] overflow-hidden shadow-2xl shadow-primary/10 border border-border/50 bg-card">
+                  <img src={c.src} alt={c.title} className="w-full h-full object-cover object-top" loading="lazy" />
                 </div>
-                <div className="mt-6 px-2">
+                <div className="mt-6 px-2 text-center md:text-left">
                   <h3 className="text-[18px] font-semibold text-foreground">{c.title}</h3>
                   <p className="mt-1.5 text-[14px] text-muted-foreground leading-relaxed">{c.text}</p>
                 </div>
               </div>
-            </AnimatedSection>))}
+            </AnimatedSection>
+          ))}
         </div>
       </div>
     </section>
 
-    
-    <section className="py-24 md:py-32">
-      <div className="max-w-[1400px] mx-auto px-6">
-        <div className="relative rounded-[2.5rem] overflow-hidden bg-primary text-primary-foreground">
-          <div className="grid md:grid-cols-2 items-center gap-0">
-            <div className="p-10 md:p-16 lg:p-20">
-              <AnimatedSection>
-                <SpeechBubble variant="light" tail="none" size="sm" className="mb-6 !bg-primary-foreground/10 !text-primary-foreground !border-primary-foreground/20 !shadow-none">
-                  <PillTag variant="light" className="!bg-primary-foreground !text-primary">
-                    crowds
-                  </PillTag>
-                  communities that stay yours
-                </SpeechBubble>
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.02]">
-                  Find your people. <br />
-                  <span className="font-serif-display italic opacity-80">Keep them close.</span>
-                </h2>
-                <p className="mt-6 text-[16px] opacity-70 leading-relaxed max-w-md">
-                  Crowds are small, self moderated communities around what you actually care about. No trending page
-                  pulling you into fights you never signed up for.
+    <section className="relative py-20 md:py-28 overflow-hidden dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1100px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="text-center max-w-2xl mx-auto">
+          <motion.p
+            initial={{ opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="font-serif-display italic text-[1.25rem] md:text-[1.45rem] text-foreground/50 lowercase"
+          >
+            crowds
+          </motion.p>
+          <h2 className="mt-3 text-[2.4rem] sm:text-5xl md:text-6xl font-semibold text-foreground tracking-tight leading-[0.98]">
+            Find your people.
+            <br />
+            <span className="font-serif-display italic font-medium">Keep them close.</span>
+          </h2>
+          <p className="mt-5 md:mt-6 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase">
+            small, self moderated communities around what you actually care about. no endless feeds of strangers.
+          </p>
+        </AnimatedSection>
+
+        <div className="mt-12 md:mt-14 grid grid-cols-2 md:grid-cols-6 gap-3 md:gap-4">
+          <AnimatedSection delay={0.05} className="col-span-1 md:col-span-2">
+            <motion.div
+              whileHover={{ y: -3 }}
+              className="h-full min-h-[160px] md:min-h-[200px] rounded-[1.35rem] border-2 border-foreground bg-[#F3EDE3] p-5 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col justify-between"
+            >
+              <div className="w-12 h-12 rounded-full border-2 border-foreground bg-card flex items-center justify-center font-serif-display text-xl italic">
+                H
+              </div>
+              <div>
+                <p className="text-[15px] font-semibold lowercase">harvard</p>
+                <p className="mt-1 text-[12px] text-foreground/55 lowercase">campus crowd</p>
+              </div>
+            </motion.div>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.1} className="col-span-1 md:col-span-2">
+            <motion.div
+              whileHover={{ y: -3 }}
+              className="h-full min-h-[160px] md:min-h-[200px] rounded-[1.35rem] border-2 border-foreground bg-[#E8EEF7] p-5 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col justify-between"
+            >
+              <div className="w-12 h-12 rounded-full border-2 border-foreground bg-card flex items-center justify-center font-semibold text-sm tracking-tight">
+                S
+              </div>
+              <div>
+                <p className="text-[15px] font-semibold lowercase">stanford</p>
+                <p className="mt-1 text-[12px] text-foreground/55 lowercase">alumni room</p>
+              </div>
+            </motion.div>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.15} className="col-span-2 md:col-span-2 md:row-span-2">
+            <motion.div
+              whileHover={{ y: -3 }}
+              className="relative h-full min-h-[220px] md:min-h-full rounded-[1.35rem] border-2 border-foreground overflow-hidden shadow-[4px_4px_0_0_hsl(var(--foreground))] bg-card"
+            >
+              <img src={cafeFriends} alt="" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4">
+                <p className="font-serif-display italic text-[1.35rem] md:text-[1.6rem] text-white leading-none">
+                  slow coffee club
                 </p>
-                <Link to="/communities" className="mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary-foreground text-primary text-[14px] font-medium hover:opacity-90 transition-opacity">
-                  Browse Crowds <ArrowRight size={14}/>
-                </Link>
-              </AnimatedSection>
-            </div>
-            <div className="relative min-h-[420px] md:min-h-[560px]">
-              <img src={crowdsHome} alt="Crowds" className="absolute inset-0 w-full h-full object-cover object-top md:object-center opacity-95" loading="lazy"/>
-              <div className="absolute inset-0 bg-gradient-to-l from-transparent to-primary/80 md:to-primary/40"/>
-            </div>
+                <span className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-[#3DDC97] px-2.5 py-1 text-[11px] font-medium text-foreground lowercase">
+                  <span className="w-1.5 h-1.5 rounded-full bg-foreground" />
+                  1,219 online
+                </span>
+              </div>
+            </motion.div>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.18} className="col-span-2 md:col-span-4">
+            <motion.div
+              whileHover={{ y: -3 }}
+              className="relative h-full min-h-[180px] md:min-h-[210px] rounded-[1.35rem] border-2 border-foreground overflow-hidden shadow-[4px_4px_0_0_hsl(var(--foreground))] bg-card"
+            >
+              <img
+                src={studentsHero}
+                alt=""
+                className="absolute inset-0 w-full h-full object-cover object-[50%_35%]"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/55 to-transparent" />
+              <div className="relative h-full flex flex-col justify-end p-5 md:p-6 max-w-md">
+                <p className="text-[13px] uppercase tracking-widest text-foreground/50">this week</p>
+                <p className="mt-2 text-[18px] md:text-[22px] font-semibold tracking-tight lowercase leading-snug">
+                  film night in the backyard crowd
+                </p>
+                <p className="mt-2 text-[13px] text-foreground/60 lowercase">self moderated · capped · yours</p>
+              </div>
+            </motion.div>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.22} className="col-span-1 md:col-span-3">
+            <motion.div
+              whileHover={{ y: -3 }}
+              className="h-full min-h-[140px] rounded-[1.35rem] border-2 border-foreground bg-card p-4 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex gap-4 items-center"
+            >
+              <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden border-2 border-foreground/15 shrink-0">
+                <img src={communityShot} alt="" className="w-full h-full object-cover object-top" loading="lazy" />
+              </div>
+              <div>
+                <p className="text-[15px] font-semibold lowercase">running club</p>
+                <p className="mt-1 text-[12px] text-muted-foreground lowercase leading-relaxed">
+                  meetups, routes, no noisy threads.
+                </p>
+              </div>
+            </motion.div>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.26} className="col-span-1 md:col-span-3">
+            <Link to="/communities" className="block h-full">
+              <motion.div
+                whileHover={{ y: -3, x: 1 }}
+                className="h-full min-h-[140px] rounded-[1.35rem] border-2 border-foreground bg-[#5B9CFF] p-5 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col justify-between text-white"
+              >
+                <div className="w-10 h-10 rounded-full border-2 border-white/40 flex items-center justify-center">
+                  <ArrowRight size={16} />
+                </div>
+                <div>
+                  <p className="text-[16px] md:text-[18px] font-semibold lowercase leading-snug">
+                    explore new crowds
+                  </p>
+                  <p className="mt-1 text-[12px] text-white/75 lowercase">find a room that fits</p>
+                </div>
+              </motion.div>
+            </Link>
+          </AnimatedSection>
+        </div>
+
+        <AnimatedSection delay={0.3}>
+          <div className="mt-10 md:mt-12 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Link
+              to="/communities"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+            >
+              browse crowds <ArrowRight size={14} />
+            </Link>
+            <p className="text-[12px] text-foreground/45 lowercase">small by design · moderated by people</p>
           </div>
+        </AnimatedSection>
+      </div>
+    </section>
+
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/75" />
+      <div className="relative max-w-[1100px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="text-center max-w-2xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+            your data stays yours
+          </h2>
+          <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase">
+            yankee remembers things for you, not about you. private, encrypted, and wipeable whenever you want.
+          </p>
+        </AnimatedSection>
+        <div className="mt-12 grid sm:grid-cols-3 gap-4">
+          {[
+            { t: "yours alone", d: "never sold, never used to train ai. ever." },
+            { t: "private + encrypted", d: "your stuff stays isolated and encrypted where we store it." },
+            { t: "gone in seconds", d: "delete your account anytime and your data is destroyed for good." },
+          ].map((c, i) => (
+            <AnimatedSection key={c.t} delay={i * 0.06}>
+              <div className="h-full rounded-[1.5rem] border-2 border-foreground/90 bg-card p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+                <h3 className="text-[16px] font-semibold lowercase">{c.t}</h3>
+                <p className="mt-3 text-[13px] text-muted-foreground leading-relaxed lowercase">{c.d}</p>
+              </div>
+            </AnimatedSection>
+          ))}
         </div>
       </div>
     </section>
 
-    
-    <section className="py-24 md:py-36">
-      <div className="max-w-[1200px] mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-        <AnimatedSection delay={0.1}>
-          <div className="relative rounded-[2rem] overflow-hidden aspect-[4/5] bg-muted">
-            <img src={aiHello} alt="Yankee AI" className="w-full h-full object-cover object-top" loading="lazy"/>
-          </div>
-        </AnimatedSection>
-        <AnimatedSection>
-          <SpeechBubble tail="none" size="sm" className="mb-6">
-            <PillTag>yankee ai</PillTag>
-            inline, never in the way
-          </SpeechBubble>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02]">
-            Ask it once. <span className="font-serif-display italic">It follows through.</span>
-          </h2>
-          <p className="mt-6 text-[16px] text-muted-foreground leading-relaxed max-w-md">
-            Translate a thread. Summarize a long DM. Draft a caption. Generate an image. Yankee AI lives inside the chat
-            you already use, never a separate app.
-          </p>
-          <div className="mt-8 flex flex-col gap-2 max-w-sm">
-            <SpeechBubble variant="dark" tail="none" size="sm" className="self-end">
-              summarize the last 30 messages
-            </SpeechBubble>
-            <SpeechBubble tail="none" size="sm" className="self-start">
-              <PillTag>done</PillTag>
-              dinner moved to friday · 8pm
-            </SpeechBubble>
-          </div>
-        </AnimatedSection>
-      </div>
-    </section>
-
-    
-    <section className="py-24 md:py-32">
-      <div className="max-w-[1200px] mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-        <AnimatedSection>
-          <SpeechBubble tail="none" size="sm" className="mb-6">
-            <PillTag>you</PillTag>a profile that feels like you
-          </SpeechBubble>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02]">
-            Yourself, <span className="font-serif-display italic">on the internet.</span>
-          </h2>
-          <p className="mt-6 text-[16px] text-muted-foreground leading-relaxed max-w-md">
-            Custom bios, pinned moments, private highlights. No follower counts as vanity metrics. Just a page that
-            shows who you actually are online.
-          </p>
-        </AnimatedSection>
-        <AnimatedSection delay={0.1}>
-          <div className="relative rounded-[2rem] overflow-hidden aspect-[9/16] max-h-[600px] mx-auto max-w-sm shadow-2xl border border-border/50">
-            <img src={profileView} alt="Profile" className="w-full h-full object-cover object-top" loading="lazy"/>
-          </div>
-        </AnimatedSection>
-      </div>
-    </section>
-
-    
-    <section className="py-24 md:py-32">
-      <div className="max-w-[900px] mx-auto px-6">
+    <section className="py-20 md:py-28">
+      <div className="max-w-[900px] mx-auto px-5 md:px-6">
         <AnimatedSection className="text-center">
-          <SpeechBubble tail="none" size="sm" className="mb-6">
-            <PillTag>faq</PillTag>
-            common questions
-          </SpeechBubble>
-          <h2 className="text-4xl md:text-5xl font-semibold text-foreground tracking-tight">
-            Frequently <span className="font-serif-display italic">asked.</span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight lowercase">
+            the things people ask before downloading yankee
           </h2>
+          <p className="mt-4 text-[15px] text-muted-foreground lowercase">
+            short answers about what yankee can do and how your data stays yours.
+          </p>
         </AnimatedSection>
-        <div className="mt-12">
-          <FAQ items={faqItems}/>
+        <div className="mt-10 md:mt-12">
+          <FAQ items={faqItems} />
         </div>
       </div>
     </section>
 
-    
-    <section className="relative pt-24 md:pt-32 pb-24 overflow-hidden">
-      <div className="max-w-[1400px] mx-auto px-6">
+    <section className="relative py-20 md:py-28 overflow-hidden dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
         <AnimatedSection>
-          <div className="relative rounded-[2.5rem] overflow-hidden aspect-[16/10] md:aspect-[16/8]">
-            <img src={heroMountain} alt="" className="absolute inset-0 w-full h-full object-cover object-bottom" loading="lazy"/>
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-stretch">
+            <div className="lg:col-span-7 flex flex-col justify-center">
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="font-serif-display italic text-[1.35rem] md:text-[1.6rem] text-foreground/55 lowercase leading-none"
+              >
+                yankee
+              </motion.p>
 
-            <div className="relative h-full flex flex-col items-center justify-center gap-6 text-center px-6">
-              <h2 className="text-5xl md:text-7xl font-semibold text-foreground tracking-tight leading-[0.98] max-w-3xl">
-                Less algorithm. <br />
-                <span className="font-serif-display italic">More people.</span>
-              </h2>
-              <p className="max-w-md text-[16px] text-foreground/75 leading-relaxed">
-                Download Yankee and see the people who actually matter to you again.
+              <motion.h2
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.08, ease: [0.25, 0.4, 0.25, 1] }}
+                className="mt-4 md:mt-5 text-[2.6rem] sm:text-5xl md:text-6xl lg:text-[4.35rem] font-semibold text-foreground tracking-tight leading-[0.95] max-w-[11ch]"
+              >
+                Less algorithm.
+                <br />
+                <span className="font-serif-display italic font-medium">More people.</span>
+              </motion.h2>
+
+              <motion.p
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: 0.16 }}
+                className="mt-6 md:mt-7 max-w-md text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase"
+              >
+                see the people who actually matter to you again. chronological, private, and free forever.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: 0.24 }}
+                className="mt-8 md:mt-10 flex flex-wrap items-center gap-3"
+              >
+                <Link
+                  to="/contact"
+                  className="group relative inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-white lowercase tracking-tight
+                    bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                    shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
+                    hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+                >
+                  get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                </Link>
+                <Link
+                  to="/features"
+                  className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+                >
+                  see the product
+                </Link>
+              </motion.div>
+
+              <p className="mt-5 text-[12px] md:text-[13px] text-foreground/45 lowercase">
+                free forever · no card needed · no algorithm
               </p>
-              <Link to="/contact" className="mt-4 inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground text-[15px] font-medium hover:opacity-90 transition-opacity shadow-lg">
-                Get the app <ArrowRight size={16}/>
-              </Link>
-              <p className="text-[13px] text-foreground/60">Free forever. No card needed.</p>
+            </div>
+
+            <div className="lg:col-span-5 relative">
+              <div className="relative mx-auto max-w-md lg:max-w-none lg:min-h-[400px]">
+                <motion.div
+                  initial={{ opacity: 0, y: 28, rotate: -2 }}
+                  whileInView={{ opacity: 1, y: 0, rotate: -1.5 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.12, ease: [0.25, 0.4, 0.25, 1] }}
+                  className="relative z-0 ml-auto w-[92%] rounded-[1.5rem] border-2 border-foreground bg-card p-4 shadow-[6px_6px_0_0_hsl(var(--foreground))]"
+                >
+                  <div className="rounded-[1.1rem] overflow-hidden aspect-[5/3] bg-muted">
+                    <img
+                      src={heroFolkMountains}
+                      alt=""
+                      className="w-full h-full object-cover object-[50%_45%]"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="mt-3 flex items-center justify-between gap-2">
+                    <span className="text-[12px] lowercase text-foreground/70">trail photos · just now</span>
+                    <span className="inline-flex items-center rounded-full bg-foreground px-2.5 py-1 text-[11px] text-background lowercase">
+                      seen by all
+                    </span>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: -18, y: 12 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.55, delay: 0.28 }}
+                  className="relative z-10 -mt-6 mr-auto max-w-[85%] lg:absolute lg:left-0 lg:top-[44%] lg:mt-0 lg:max-w-[78%]"
+                >
+                  <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-[#E8E6E1] px-4 py-3 text-[13px] leading-snug lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+                    <span className="font-semibold">maya</span> everyone actually saw this?
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: 18, y: 12 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.55, delay: 0.4 }}
+                  className="relative z-10 mt-3 ml-auto max-w-[80%] lg:absolute lg:right-2 lg:bottom-0 lg:mt-0 lg:max-w-[72%]"
+                >
+                  <div className="rounded-2xl rounded-br-md bg-[#5B9CFF] px-4 py-3 text-[13px] leading-snug text-white lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+                    yeah. no ranking. every friend.
+                  </div>
+                </motion.div>
+              </div>
             </div>
           </div>
         </AnimatedSection>
       </div>
     </section>
-  </Layout>);
+  </Layout>
+);
+
 export default Index;
