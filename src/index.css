@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Figtree:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+
+    --background: 40 30% 94%;
+    --foreground: 30 12% 8%;
+
+    --card: 40 30% 97%;
+    --card-foreground: 30 12% 8%;
+
+    --popover: 40 30% 97%;
+    --popover-foreground: 30 12% 8%;
+
+    --primary: 30 10% 8%;
+    --primary-foreground: 40 30% 96%;
+
+    --secondary: 40 20% 88%;
+    --secondary-foreground: 30 12% 8%;
+
+    --muted: 40 20% 90%;
+    --muted-foreground: 30 8% 40%;
+
+    --accent: 210 60% 45%;
+    --accent-foreground: 40 30% 96%;
+
+    --folk-amber: 38 45% 58%;
+    --folk-amber-foreground: 30 12% 8%;
+
+    --destructive: 0 60% 45%;
+    --destructive-foreground: 40 30% 96%;
+
+    --border: 30 12% 82%;
+    --input: 30 12% 82%;
+    --ring: 30 12% 30%;
+
+    --radius: 1rem;
+
+    --sidebar-background: 40 30% 94%;
+    --sidebar-foreground: 30 12% 8%;
+    --sidebar-primary: 30 10% 8%;
+    --sidebar-primary-foreground: 40 30% 96%;
+    --sidebar-accent: 40 20% 90%;
+    --sidebar-accent-foreground: 30 12% 8%;
+    --sidebar-border: 30 12% 82%;
+    --sidebar-ring: 30 12% 30%;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground font-sans antialiased; }
+  h1, h2, h3, h4, h5, h6 { @apply font-display tracking-tight; }
+}
+
+@layer utilities {
+  .font-serif-display { font-family: 'Fraunces', Georgia, serif; }
+  .dotted-bg {
+    background-image: radial-gradient(hsl(30 12% 60% / 0.35) 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+  .grain::after {
+    content: '';
+    position: absolute; inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+    opacity: 0.08;
+    mix-blend-mode: multiply;
+  }
+}
+
+html { scroll-behavior: smooth; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: hsl(40 30% 94%); }
+::-webkit-scrollbar-thumb { background: hsl(30 12% 70%); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(30 12% 45%); }
+
+@keyframes yankee-scroll-up {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+@keyframes yankee-scroll-down {
+  0%   { transform: translateY(-50%); }
+  100% { transform: translateY(0); }
+}
