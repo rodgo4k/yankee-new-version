@@ -21,7 +21,7 @@ const navItems: NavItem[] = [
             { label: "The feed", path: "/feed", desc: "Chronological, finite, honest" },
             { label: "Communities", path: "/communities", desc: "Small rooms, on purpose" },
             { label: "Memory", path: "/memory", desc: "Private, encrypted library" },
-            { label: "Cross posting", path: "/cross-posting", desc: "Post once, reach everywhere" },
+            { label: "Reach", path: "/reach", desc: "Every follower, every time" },
             { label: "Notifications", path: "/notifications", desc: "Only pings you asked for" },
             { label: "Privacy", path: "/privacy-first", desc: "Private by design" },
         ],
@@ -99,7 +99,7 @@ const Navbar = () => {
           <Link to="/contact" className="px-4 py-1.5 rounded-full text-[13px] text-muted-foreground hover:text-foreground transition-colors">
             Contact
           </Link>
-          <Link to="/contact" className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary text-primary-foreground text-[13px] font-medium hover:opacity-90 transition-opacity">
+          <Link to="/download" className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary text-primary-foreground text-[13px] font-medium hover:opacity-90 transition-opacity">
             Download
           </Link>
         </div>
@@ -125,7 +125,7 @@ const Navbar = () => {
                       </motion.div>)}
                   </AnimatePresence>
                 </div>))}
-              <Link to="/contact" className="mt-2 mx-2 py-3 rounded-full bg-primary text-primary-foreground text-[14px] font-medium text-center">
+              <Link to="/download" className="mt-2 mx-2 py-3 rounded-full bg-primary text-primary-foreground text-[14px] font-medium text-center">
                 Download
               </Link>
             </div>

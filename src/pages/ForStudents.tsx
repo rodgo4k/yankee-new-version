@@ -1,236 +1,480 @@
-import { ArrowRight, MessageCircle } from "lucide-react";
+import { ArrowRight, BookOpen, Moon, Download, GraduationCap, Shield } from "lucide-react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import AnimatedSection from "@/components/AnimatedSection";
-import studentsHero from "@/assets/students-hero.jpg";
+import FAQ from "@/components/FAQ";
+import PromoPill from "@/components/home/PromoPill";
+import StudentHeroScene from "@/components/home/StudentHeroScene";
 import studentChat from "@/assets/yankee/chat.png";
-const studentBlocks = [
-    {
-        kicker: "class first",
-        title: (<>
+import harvardHall from "@/assets/harvard-hall.png";
+
+const ease = [0.25, 0.4, 0.25, 1] as const;
+
+const principles = [
+  {
+    icon: BookOpen,
+    title: "one room per class",
+    text: "notes, questions and recordings stay in a capped, chronological room you can find when you are cramming.",
+  },
+  {
+    icon: Moon,
+    title: "study mode built in",
+    text: "snooze the app for a set number of hours. only urgent dms and calls break through.",
+  },
+  {
+    icon: GraduationCap,
+    title: "free with .edu",
+    text: "verify your student email. every feature is free while you are enrolled. no credit card.",
+  },
+  {
+    icon: Download,
+    title: "yours after graduation",
+    text: "export every message, file and thread. nothing is trapped inside a platform you leave behind.",
+  },
+];
+
+const blocks = [
+  {
+    kicker: "class first",
+    title: (
+      <>
         one room for each course,{" "}
-        <span className="font-serif-display italic">not a noisy channel</span>
-      </>),
-        body: "Post notes, ask questions, share the recording link. Each class room is capped, chronological, and easy to find when you are cramming.",
-        chat: [
-            { from: "you" as const, text: "lecture recording is up" },
-            { from: "them" as const, text: "saved to the psych 101 room" },
-        ],
-    },
-    {
-        kicker: "focus built in",
-        title: (<>
+        <span className="font-serif-display italic font-medium">not a noisy channel</span>
+      </>
+    ),
+    body: "post notes, ask questions, share the recording link. each class room is capped, chronological and easy to find.",
+    chat: [
+      { from: "you" as const, text: "lecture recording is up" },
+      { from: "them" as const, text: "saved to the psych 101 room" },
+    ],
+  },
+  {
+    kicker: "focus built in",
+    title: (
+      <>
         study mode on,{" "}
-        <span className="font-serif-display italic">emergencies still through</span>
-      </>),
-        body: "Snooze the whole app for a set number of hours. Only urgent DMs and calls break through. Your focus belongs to you.",
-        chat: [
-            { from: "you" as const, text: "focus mode is on for 3 hours" },
-            { from: "them" as const, text: "got it. emergency calls still come through" },
-        ],
-    },
-    {
-        kicker: "yours after graduation",
-        title: (<>
+        <span className="font-serif-display italic font-medium">emergencies still through</span>
+      </>
+    ),
+    body: "snooze the whole app for a set number of hours. your focus belongs to you.",
+    chat: [
+      { from: "you" as const, text: "focus mode is on for 3 hours" },
+      { from: "them" as const, text: "got it. emergency calls still come through" },
+    ],
+  },
+  {
+    kicker: "yours after graduation",
+    title: (
+      <>
         your notes,{" "}
-        <span className="font-serif-display italic">always portable</span>
-      </>),
-        body: "Export every message, file and thread when you graduate. Nothing is trapped inside a platform you no longer use.",
-        chat: [
-            { from: "you" as const, text: "graduating next semester" },
-            { from: "them" as const, text: "your archive is ready. download anytime." },
-        ],
-    },
+        <span className="font-serif-display italic font-medium">always portable</span>
+      </>
+    ),
+    body: "export every message, file and thread when you graduate. nothing trapped inside a platform you no longer use.",
+    chat: [
+      { from: "you" as const, text: "graduating next semester" },
+      { from: "them" as const, text: "your archive is ready. download anytime." },
+    ],
+  },
 ];
+
 const steps = [
-    {
-        n: "01",
-        t: "verify with .edu",
-        d: "Confirm your student email. Yankee is free while you are enrolled, no credit card needed.",
-    },
-    {
-        n: "02",
-        t: "join or start your rooms",
-        d: "Create rooms for courses, clubs, or your crew. Invite people by link, phone, or email.",
-    },
-    {
-        n: "03",
-        t: "study, chat, plan",
-        d: "Share notes, organize meetups, and turn on study mode when it is time to focus.",
-    },
+  {
+    n: "01",
+    t: "verify with .edu",
+    d: "confirm your student email. yankee is free while you are enrolled. no credit card needed.",
+  },
+  {
+    n: "02",
+    t: "join or start your rooms",
+    d: "create rooms for courses, clubs, or your crew. invite people by link, phone or email.",
+  },
+  {
+    n: "03",
+    t: "study, chat, plan",
+    d: "share notes, organize meetups, and turn on study mode when it is time to focus.",
+  },
 ];
+
 const faqs = [
-    {
-        q: "is Yankee really free for students?",
-        a: "Yes. Verify with a .edu email and every feature is free while you are enrolled. Renewed each semester automatically.",
-    },
-    {
-        q: "can I use it for group projects?",
-        a: "Yes. Create encrypted group rooms for projects, share files, pin decisions, and search every message later.",
-    },
-    {
-        q: "what happens when I graduate?",
-        a: "You keep a full export of your messages, files and rooms. You can also switch to a personal plan at a graduate discount.",
-    },
-    {
-        q: "does it work with my class schedule?",
-        a: "Yes. Each room has a quiet calendar for deadlines, meetups and study sessions. Reminders go out before anything starts.",
-    },
-    {
-        q: "is it private?",
-        a: "Yes. Rooms are private by default. Messages and calls are end-to-end encrypted. We can not read the content.",
-    },
-    {
-        q: "do I need to install an app?",
-        a: "No. Yankee works in your browser. There is also a mobile app for iOS and Android if you prefer it.",
-    },
+  {
+    q: "Is Yankee really free for students?",
+    a: "Yes. Verify with a .edu email and every feature is free while you are enrolled. Renewed each semester automatically.",
+  },
+  {
+    q: "Can I use it for group projects?",
+    a: "Yes. Create encrypted group rooms for projects, share files, pin decisions, and search every message later.",
+  },
+  {
+    q: "What happens when I graduate?",
+    a: "You keep a full export of your messages, files and rooms. You can also switch to a personal plan at a graduate discount.",
+  },
+  {
+    q: "Does it work with my class schedule?",
+    a: "Yes. Each room has a quiet calendar for deadlines, meetups and study sessions. Reminders go out before anything starts.",
+  },
+  {
+    q: "Is it private?",
+    a: "Yes. Rooms are private by default. Messages and calls are end-to-end encrypted. We cannot read the content.",
+  },
+  {
+    q: "Do I need to install an app?",
+    a: "No. Yankee works in your browser. There is also a mobile app for iOS and Android if you prefer it.",
+  },
 ];
-const ForStudents = () => (<Layout>
 
-    <section className="pt-28 pb-16">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <AnimatedSection>
-          <div className="relative rounded-[2.5rem] overflow-hidden border border-border">
-            <img src={studentsHero} alt="" className="absolute inset-0 w-full h-full object-cover"/>
-            <div className="absolute inset-0 bg-background/5"/>
-            <div className="absolute inset-0 bg-gradient-to-b from-background/35 via-background/10 to-transparent"/>
+const ForStudents = () => (
+  <Layout>
+    <section className="relative -mt-24 pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden dotted-bg">
+      <div className="absolute inset-0 bg-background/85" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <div className="lg:col-span-5 text-center lg:text-left">
+            <motion.div
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="flex justify-center lg:justify-start"
+            >
+              <PromoPill tag="for students" text="free with a valid .edu" to="/features" />
+            </motion.div>
 
-            <div className="relative px-6 md:px-16 pt-20 md:pt-28 pb-10 md:pb-16 text-center">
-              <h1 className="text-[42px] md:text-[72px] leading-[0.98] tracking-[-0.02em] text-foreground font-semibold max-w-4xl mx-auto">
-                a campus feed that respects{" "}
-                <br className="hidden md:block"/>
-                <span className="font-serif-display italic">your focus</span>
-              </h1>
-              <p className="mt-6 text-[15px] md:text-[17px] text-foreground/75 max-w-xl mx-auto leading-relaxed">
-                One calm place for classes, clubs and your crew. Study mode, group rooms, and free while you have an .edu.
-              </p>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, delay: 0.08, ease }}
+              className="mt-6 text-[2.4rem] sm:text-5xl md:text-[3.4rem] font-semibold text-foreground tracking-tight leading-[0.95] lowercase max-w-[12ch] mx-auto lg:mx-0"
+            >
+              a campus feed that respects{" "}
+              <span className="font-serif-display italic font-medium">your focus.</span>
+            </motion.h1>
 
-              <div className="mt-8 flex items-center justify-center">
-                <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-foreground text-background text-[14px] font-medium hover:opacity-90 transition-opacity shadow-[0_10px_30px_-10px_rgba(0,0,0,0.35)]">
-                  <MessageCircle size={16}/>
-                  verify with .edu
-                </Link>
-              </div>
-              <p className="mt-3 text-[12px] text-foreground/60">free while you are enrolled · no ads</p>
+            <motion.p
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.18 }}
+              className="mt-6 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto lg:mx-0"
+            >
+              one calm place for classes, clubs and your crew. study mode, group rooms, and free while you have an .edu.
+            </motion.p>
 
-              <div className="mt-12 md:mt-16 flex justify-center">
-                <div className="w-[260px] md:w-[300px] aspect-[9/19] rounded-[2.2rem] border-[6px] border-foreground/85 bg-card overflow-hidden shadow-[0_40px_80px_-30px_rgba(0,0,0,0.5)]">
-                  <img src={studentChat} alt="Yankee chat on iPhone" className="w-full h-full object-cover object-top"/>
-                </div>
-              </div>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.26 }}
+              className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-3"
+            >
+              <Link
+                to="/contact"
+                className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-white lowercase tracking-tight
+                  bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                  shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
+                  hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+              >
+                verify with .edu <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+              </Link>
+              <a
+                href="#how"
+                className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+              >
+                see how it works
+              </a>
+            </motion.div>
+            <p className="mt-5 text-[12px] text-foreground/45 lowercase">free while you are enrolled · no ads</p>
           </div>
-        </AnimatedSection>
 
-        <AnimatedSection delay={0.1}>
-          <div className="mt-10 flex flex-col items-center gap-3">
-            <div className="flex -space-x-2">
-              {["🎓", "📚", "🧪", "🎨", "💻", "🌍"].map((e, i) => (<span key={i} className="w-9 h-9 rounded-full border-2 border-background bg-card flex items-center justify-center text-[16px]">
-                  {e}
-                </span>))}
-            </div>
-            <p className="text-[13px] text-muted-foreground">10,000+ students already studying calmer on Yankee</p>
+          <div className="lg:col-span-7">
+            <StudentHeroScene />
           </div>
-        </AnimatedSection>
+        </div>
       </div>
     </section>
 
-    <section className="py-24 md:py-32 border-t border-border/40">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <AnimatedSection>
-          <h2 className="text-center text-4xl md:text-6xl font-semibold text-foreground tracking-[-0.02em] leading-[1.02]">
-            what Yankee does <br className="hidden md:block"/>
-            <span className="font-serif-display italic">for students</span>
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/70" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="max-w-2xl mx-auto text-center">
+          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">the idea</p>
+          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+            campus life without the{" "}
+            <span className="font-serif-display italic font-medium">notification tax</span>
           </h2>
         </AnimatedSection>
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-4">
-          {studentBlocks.map((b, i) => (<AnimatedSection key={i} delay={i * 0.05}>
-              <div className="h-full rounded-[2rem] border border-border bg-card p-7 flex flex-col gap-6">
-                <p className="text-[11px] uppercase tracking-widest text-muted-foreground">{b.kicker}</p>
-                <h3 className="text-[26px] md:text-[28px] font-semibold text-foreground leading-[1.05] tracking-[-0.01em]">
+        <div className="mt-12 md:mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {principles.map((p, i) => {
+            const Icon = p.icon;
+            return (
+              <AnimatedSection key={p.title} delay={i * 0.06}>
+                <motion.div
+                  whileHover={{ y: -3 }}
+                  className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))]"
+                >
+                  <div className="w-10 h-10 rounded-xl border-2 border-foreground bg-primary text-primary-foreground flex items-center justify-center mb-5">
+                    <Icon size={18} />
+                  </div>
+                  <h3 className="text-[15px] font-semibold lowercase tracking-tight">{p.title}</h3>
+                  <p className="mt-3 text-[13px] text-muted-foreground leading-relaxed lowercase">{p.text}</p>
+                </motion.div>
+              </AnimatedSection>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="max-w-2xl mx-auto text-center">
+          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">what it does</p>
+          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+            what yankee does{" "}
+            <span className="font-serif-display italic font-medium">for students</span>
+          </h2>
+        </AnimatedSection>
+
+        <div className="mt-12 md:mt-16 grid md:grid-cols-3 gap-4">
+          {blocks.map((b, i) => (
+            <AnimatedSection key={b.kicker} delay={i * 0.08}>
+              <motion.div
+                whileHover={{ y: -3 }}
+                className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 md:p-7 flex flex-col gap-5 shadow-[4px_4px_0_0_hsl(var(--foreground))]"
+              >
+                <p className="font-serif-display italic text-[1.05rem] text-foreground/45 lowercase leading-none">
+                  {b.kicker}
+                </p>
+                <h3 className="text-[22px] md:text-[24px] font-semibold text-foreground leading-[1.08] tracking-tight lowercase">
                   {b.title}
                 </h3>
-                <p className="text-[14px] text-muted-foreground leading-relaxed">{b.body}</p>
-
-                <div className="mt-auto flex flex-col gap-2 pt-4">
-                  {b.chat.map((m, j) => (<div key={j} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>
-                      <span className={`inline-block max-w-[85%] px-3.5 py-2 text-[13.5px] leading-snug rounded-[1.2rem] ${m.from === "you"
-                ? "bg-folk text-folk-foreground rounded-br-md"
-                : "bg-muted text-foreground rounded-bl-md"}`}>
+                <p className="text-[13px] md:text-[14px] text-muted-foreground leading-relaxed lowercase">{b.body}</p>
+                <div className="mt-auto flex flex-col gap-2.5 pt-2">
+                  {b.chat.map((m, j) => (
+                    <div key={j} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>
+                      <span
+                        className={`inline-block max-w-[90%] px-3.5 py-2 text-[12.5px] md:text-[13px] leading-snug lowercase rounded-2xl ${
+                          m.from === "you"
+                            ? "bg-[#5B9CFF] text-white rounded-br-md shadow-[3px_3px_0_0_hsl(var(--foreground))]"
+                            : "bg-[#E8E6E1] text-foreground rounded-bl-md border-2 border-foreground shadow-[3px_3px_0_0_hsl(var(--foreground))]"
+                        }`}
+                      >
                         {m.text}
                       </span>
-                    </div>))}
+                    </div>
+                  ))}
                 </div>
-              </div>
-            </AnimatedSection>))}
+              </motion.div>
+            </AnimatedSection>
+          ))}
         </div>
       </div>
     </section>
 
-    <section className="py-24 md:py-32 border-t border-border/40">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <AnimatedSection>
-          <h2 className="text-center text-4xl md:text-6xl font-semibold text-foreground tracking-[-0.02em] leading-[1.02]">
-            how it <span className="font-serif-display italic">works</span>
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/75" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+          <AnimatedSection className="lg:col-span-5">
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">together</p>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+              project rooms that{" "}
+              <span className="font-serif-display italic font-medium">stay searchable</span>
+            </h2>
+            <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md">
+              encrypted group rooms for projects, clubs and your crew. pin decisions, share files, find it later when the exam hits.
+            </p>
+            <ul className="mt-8 space-y-3 max-w-md">
+              {[
+                "private rooms by default",
+                "end to end encrypted chat and calls",
+                "export everything when you graduate",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3 text-[14px] text-foreground/80 lowercase">
+                  <Shield size={14} className="mt-1 shrink-0 text-foreground/40" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </AnimatedSection>
+
+          <AnimatedSection className="lg:col-span-7" delay={0.1}>
+            <div className="relative mx-auto max-w-[300px]">
+              <motion.div
+                initial={{ opacity: 0, y: 24, rotate: -2 }}
+                whileInView={{ opacity: 1, y: 0, rotate: -1.5 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease }}
+                className="rounded-[1.75rem] border-2 border-foreground bg-card p-3 shadow-[6px_6px_0_0_hsl(var(--foreground))] overflow-hidden aspect-[9/17]"
+              >
+                <img
+                  src={studentChat}
+                  alt="Yankee student chat"
+                  className="w-full h-full object-cover object-top rounded-[1.25rem]"
+                  loading="lazy"
+                />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 14 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.25 }}
+                className="absolute -right-2 bottom-[18%] z-10 max-w-[70%]"
+              >
+                <div className="rounded-2xl rounded-br-md bg-[#5B9CFF] px-3.5 py-2.5 text-[12px] leading-snug text-white lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                  study mode · 2h 54m left
+                </div>
+              </motion.div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/70" />
+      <div className="relative max-w-[1100px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="max-w-2xl mx-auto text-center">
+          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">how it works</p>
+          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+            three steps. <span className="font-serif-display italic font-medium">then you&apos;re in.</span>
           </h2>
         </AnimatedSection>
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-4">
-          {steps.map((s, i) => (<AnimatedSection key={s.n} delay={i * 0.05}>
-              <div className="h-full rounded-[2rem] border border-border bg-card p-8 flex flex-col gap-6">
-                <span className="text-[13px] font-medium text-foreground/50">{s.n}</span>
-                <h3 className="text-[22px] font-semibold text-foreground leading-tight">{s.t}</h3>
-                <p className="text-[14px] text-muted-foreground leading-relaxed">{s.d}</p>
-              </div>
-            </AnimatedSection>))}
+        <div className="mt-12 md:mt-14 grid md:grid-cols-3 gap-4">
+          {steps.map((s, i) => (
+            <AnimatedSection key={s.n} delay={i * 0.08}>
+              <motion.div
+                whileHover={{ y: -3 }}
+                className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col"
+              >
+                <span className="font-serif-display italic text-[1.5rem] text-foreground/35 leading-none">{s.n}</span>
+                <h3 className="mt-5 text-[17px] font-semibold lowercase tracking-tight">{s.t}</h3>
+                <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed lowercase">{s.d}</p>
+              </motion.div>
+            </AnimatedSection>
+          ))}
         </div>
       </div>
     </section>
 
-    <section className="py-24 md:py-32 border-t border-border/40">
-      <div className="max-w-3xl mx-auto px-6">
-        <AnimatedSection>
-          <h2 className="text-center text-4xl md:text-6xl font-semibold text-foreground tracking-[-0.02em] leading-[1.02]">
-            frequently <span className="font-serif-display italic">asked</span>
+    <section className="py-20 md:py-28">
+      <div className="max-w-[900px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="text-center">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight lowercase">
+            frequently <span className="font-serif-display italic font-medium">asked</span>
           </h2>
-        </AnimatedSection>
-
-        <div className="mt-14 flex flex-col gap-3">
-          {faqs.map((f, i) => (<AnimatedSection key={i} delay={i * 0.03}>
-              <details className="group rounded-[1.5rem] border border-border bg-card p-6 open:pb-7">
-                <summary className="flex items-center justify-between gap-4 cursor-pointer list-none">
-                  <span className="text-[16px] md:text-[17px] font-medium text-foreground">{f.q}</span>
-                  <span className="w-8 h-8 rounded-full bg-foreground/5 flex items-center justify-center text-foreground/60 group-open:rotate-45 transition-transform">
-                    +
-                  </span>
-                </summary>
-                <p className="mt-4 text-[14.5px] text-muted-foreground leading-relaxed">{f.a}</p>
-              </details>
-            </AnimatedSection>))}
-        </div>
-      </div>
-    </section>
-
-    <section className="py-24 md:py-32 border-t border-border/40">
-      <div className="max-w-3xl mx-auto px-6 text-center">
-        <AnimatedSection>
-          <h2 className="text-4xl md:text-6xl font-semibold text-foreground tracking-[-0.02em] leading-[1.02]">
-            ready to study <span className="font-serif-display italic">calmer?</span>
-          </h2>
-          <p className="mt-6 text-[16px] text-muted-foreground leading-relaxed max-w-xl mx-auto">
-            Free with a .edu email. No ads, no data resale, no distractions.
+          <p className="mt-4 text-[15px] text-muted-foreground lowercase">
+            short answers about .edu, projects, graduation and privacy.
           </p>
-          <div className="mt-10 flex items-center justify-center gap-3 flex-wrap">
-            <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-foreground text-background text-[14px] font-medium hover:opacity-90 transition-opacity">
-              verify with .edu <ArrowRight size={14}/>
-            </Link>
-            <Link to="/features" className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border/60 bg-card text-foreground text-[14px] font-medium hover:bg-card/80 transition-colors">
-              see all features
-            </Link>
+        </AnimatedSection>
+        <div className="mt-10 md:mt-12">
+          <FAQ items={faqs} />
+        </div>
+      </div>
+    </section>
+
+    <section className="relative py-20 md:py-28 overflow-hidden dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <AnimatedSection>
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+            <div className="lg:col-span-7 flex flex-col justify-center">
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="font-serif-display italic text-[1.35rem] md:text-[1.6rem] text-foreground/55 lowercase leading-none"
+              >
+                yankee
+              </motion.p>
+              <motion.h2
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.08, ease }}
+                className="mt-4 md:mt-5 text-[2.4rem] sm:text-5xl md:text-6xl font-semibold text-foreground tracking-tight leading-[0.95] max-w-[12ch]"
+              >
+                ready to study{" "}
+                <span className="font-serif-display italic font-medium">calmer?</span>
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: 0.16 }}
+                className="mt-6 max-w-md text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase"
+              >
+                free with a .edu email. no ads, no data resale, no distractions.
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: 0.24 }}
+                className="mt-8 md:mt-10 flex flex-wrap items-center gap-3"
+              >
+                <Link
+                  to="/contact"
+                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-white lowercase tracking-tight
+                    bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                    shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
+                    hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+                >
+                  verify with .edu <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                </Link>
+                <Link
+                  to="/features"
+                  className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+                >
+                  see all features
+                </Link>
+              </motion.div>
+            </div>
+
+            <div className="lg:col-span-5">
+              <div className="relative mx-auto max-w-md">
+                <motion.div
+                  initial={{ opacity: 0, y: 28, rotate: -2 }}
+                  whileInView={{ opacity: 1, y: 0, rotate: -1.5 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.12, ease }}
+                  className="ml-auto w-[92%] rounded-[1.5rem] border-2 border-foreground bg-card p-4 shadow-[6px_6px_0_0_hsl(var(--foreground))]"
+                >
+                  <div className="rounded-[1.1rem] overflow-hidden aspect-[5/3] bg-muted">
+                    <img
+                      src={harvardHall}
+                      alt=""
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="mt-3 flex items-center justify-between gap-2">
+                    <span className="text-[12px] lowercase text-foreground/70">verified · .edu</span>
+                    <span className="inline-flex items-center rounded-full bg-foreground px-2.5 py-1 text-[11px] text-background lowercase">
+                      free forever*
+                    </span>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: -18, y: 12 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.55, delay: 0.3 }}
+                  className="relative z-10 -mt-5 mr-auto max-w-[85%]"
+                >
+                  <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-[#E8E6E1] px-4 py-3 text-[13px] leading-snug lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+                    *while you are enrolled
+                  </div>
+                </motion.div>
+              </div>
+            </div>
           </div>
         </AnimatedSection>
       </div>
     </section>
-  </Layout>);
+  </Layout>
+);
+
 export default ForStudents;

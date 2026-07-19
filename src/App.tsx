@@ -12,7 +12,7 @@ import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import Feed from "./pages/Feed";
 import Memory from "./pages/Memory";
-import CrossPosting from "./pages/CrossPosting";
+import Reach from "./pages/Reach";
 import PrivacyFirst from "./pages/PrivacyFirst";
 import Notifications from "./pages/Notifications";
 import Careers from "./pages/Careers";
@@ -25,6 +25,7 @@ import ForFriendsFamily from "./pages/ForFriendsFamily";
 import ForSmallTeams from "./pages/ForSmallTeams";
 import ForCommunities from "./pages/ForCommunities";
 import ForStudents from "./pages/ForStudents";
+import Download from "./pages/Download";
 import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 const App = () => (<QueryClientProvider client={queryClient}>
@@ -38,11 +39,13 @@ const App = () => (<QueryClientProvider client={queryClient}>
           <Route path="/communities" element={<Communities />}/>
           <Route path="/story" element={<Story />}/>
           <Route path="/contact" element={<Contact />}/>
+          <Route path="/download" element={<Download />}/>
           <Route path="/terms" element={<Terms />}/>
           <Route path="/privacy" element={<Privacy />}/>
           <Route path="/feed" element={<Feed />}/>
           <Route path="/memory" element={<Memory />}/>
-          <Route path="/cross-posting" element={<CrossPosting />}/>
+          <Route path="/reach" element={<Reach />}/>
+          <Route path="/cross-posting" element={<Navigate to="/reach" replace />}/>
           <Route path="/privacy-first" element={<PrivacyFirst />}/>
           <Route path="/notifications" element={<Notifications />}/>
           <Route path="/careers" element={<Careers />}/>

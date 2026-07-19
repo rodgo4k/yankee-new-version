@@ -5,7 +5,7 @@ const Changelog = () => (<SimplePage tag="company" eyebrow="what shipped this mo
             kicker: "2026 · Q3",
             title: <>Recent <span className="font-serif-display italic">releases.</span></>,
             cards: [
-                { n: "3.4", t: "Cross posting to Threads", d: "Native Threads publishing, per platform edits, and scheduled queues. Delivery reports per destination." },
+                { n: "3.4", t: "Complete reach", d: "Every post reaches every follower, with clear audiences for close friends and Crowds. No ranking, no quiet demotion." },
                 { n: "3.3", t: "Quieter notifications", d: "New quiet hours engine, weekly digest option, and per community mute without leave." },
                 { n: "3.2", t: "Private memory sync", d: "End to end encrypted sync of drafts, saved posts, and notes across devices." },
                 { n: "3.1", t: "The finite feed", d: "Feed now ends when you're caught up. No 'you might have missed' backfill." },

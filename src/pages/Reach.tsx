@@ -1,77 +1,77 @@
-import { ArrowRight, Heart, Phone, Moon, Shield, Users } from "lucide-react";
+import { ArrowRight, Eye, Ban, Clock, Bell, Heart } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import AnimatedSection from "@/components/AnimatedSection";
 import FAQ from "@/components/FAQ";
 import PromoPill from "@/components/home/PromoPill";
-import FamilyHeroScene from "@/components/home/FamilyHeroScene";
-import videoCall from "@/assets/yankee/video-call.png";
-import cafeFriends from "@/assets/cafe-friends.jpg";
+import ReachHeroScene from "@/components/home/ReachHeroScene";
+import homeFeed from "@/assets/yankee/home-feed.png";
+import heroParty from "@/assets/hero-party.jpg";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 
 const principles = [
   {
-    icon: Shield,
-    title: "private by default",
-    text: "profiles start closed. every follow and invite is approved by you. no strangers, no discovery feed.",
+    icon: Eye,
+    title: "every follower, every time",
+    text: "what you post reaches everyone who follows you. no hidden suppression, no quiet demotion.",
   },
   {
-    icon: Heart,
-    title: "only your people",
-    text: "no public metrics, no like counts, no pressure to perform. just the people you actually love.",
+    icon: Ban,
+    title: "no shadow bans",
+    text: "yankee does not bury posts based on engagement. chronological means chronological.",
   },
   {
-    icon: Phone,
-    title: "chat and calls together",
-    text: "threads, albums, voice and video in one calm place. stop jumping between five apps.",
+    icon: Clock,
+    title: "in the order you posted",
+    text: "your people see it when it lands, in the order it landed. nothing reshuffled overnight.",
   },
   {
-    icon: Moon,
-    title: "quiet when you are",
-    text: "quiet hours on by default. family can still reach you. everything else waits until morning.",
+    icon: Bell,
+    title: "alerts they asked for",
+    text: "close friends and people who opted in get a ping. everyone else finds it in the feed.",
   },
 ];
 
 const blocks = [
   {
-    kicker: "only who you chose",
+    kicker: "complete reach",
     title: (
       <>
-        a private space for <span className="font-serif-display italic font-medium">your people</span>
+        post once. <span className="font-serif-display italic font-medium">it actually lands.</span>
       </>
     ),
-    body: "no public feeds, no suggested accounts, no ads. every circle stays closed to everyone else.",
+    body: "no opaque ranking deciding who sees you. every account that follows you gets the post in their feed.",
     chat: [
-      { from: "you" as const, text: "did mom see the hike photos?" },
-      { from: "them" as const, text: "yes. saved to the family album." },
+      { from: "you" as const, text: "did everyone get the trail dump?" },
+      { from: "them" as const, text: "yes. 248 followers. all of them." },
     ],
   },
   {
-    kicker: "real conversations",
+    kicker: "choose the room",
     title: (
       <>
-        groups and calls, <span className="font-serif-display italic font-medium">no performance</span>
+        share wide, or <span className="font-serif-display italic font-medium">keep it close.</span>
       </>
     ),
-    body: "one thread for each side of the family. voice and video built in. no streaks, no pressure to post.",
+    body: "post to all followers, a crowd, or close friends. same calm composer, clear audience every time.",
     chat: [
-      { from: "them" as const, text: "cousins group call at 7?" },
-      { from: "you" as const, text: "i'm in. bring the pizza story." },
+      { from: "you" as const, text: "close friends only for this one" },
+      { from: "them" as const, text: "saved. 12 people. nobody else." },
     ],
   },
   {
-    kicker: "quiet by design",
+    kicker: "honest delivery",
     title: (
       <>
-        notifications that <span className="font-serif-display italic font-medium">know their place</span>
+        see who got it. <span className="font-serif-display italic font-medium">not vanity math.</span>
       </>
     ),
-    body: "important people can still reach you. the rest waits for the morning digest.",
+    body: "delivery is simple: reached, opened, replied. no reshuffled reach graphs, no mystery percentages.",
     chat: [
-      { from: "them" as const, text: "quiet mode on. only family calls ring." },
-      { from: "you" as const, text: "perfect. finally a real dinner." },
+      { from: "them" as const, text: "248 reached · 61 opened · 9 replies" },
+      { from: "you" as const, text: "that's the real number. good." },
     ],
   },
 ];
@@ -79,76 +79,72 @@ const blocks = [
 const steps = [
   {
     n: "01",
-    t: "create your circle",
-    d: "start a private group for your family, your closest friends, or both. no one else can find it.",
+    t: "write the post",
+    d: "open the composer, drop the photo, the caption, the clip. yankee holds the draft on your device.",
   },
   {
     n: "02",
-    t: "invite your people",
-    d: "send a simple link. they join with their phone number. no public profile needed.",
+    t: "pick who sees it",
+    d: "all followers, a crowd, or close friends. one clear audience, no accidental leaks.",
   },
   {
     n: "03",
-    t: "chat, share, call",
-    d: "post updates, share albums, start a group call. everything stays inside your circle.",
+    t: "ship it",
+    d: "it lands in every chosen feed in order. no algorithm deciding who is worthy of seeing you.",
   },
 ];
 
 const faqs = [
   {
-    q: "Do my family members need another app?",
-    a: "Yes — but it is one app for everything. Chat, calls, photos and updates live together, so you stop jumping between five different apps.",
+    q: "Does every follower really see my posts?",
+    a: "Yes. Yankee is chronological. Every post you publish appears in the feed of everyone who follows you, in the order you posted it. There is no engagement ranking that quietly hides you.",
   },
   {
-    q: "Is it safe for kids?",
-    a: "Profiles are private by default. Parents approve contacts and group invites. There are no public metrics, no discovery algorithms and no strangers.",
+    q: "Can I post to only some people?",
+    a: "Yes. Choose all followers, a specific Crowd, or close friends before you ship. The audience is always visible in the composer so there are no surprises.",
   },
   {
-    q: "Can we share photos privately?",
-    a: "Yes. Every album lives inside a private circle and is only visible to members. Downloads are optional and you can revoke access any time.",
+    q: "What about shadow bans?",
+    a: "Yankee does not shadow ban. We do not demote posts based on how they perform, and we do not run a secret reach penalty. If someone follows you, they get the post.",
   },
   {
-    q: "Are calls and messages encrypted?",
-    a: "Yes. Group chats and calls are end-to-end encrypted. We cannot read the content of your conversations.",
+    q: "Will my post get reshuffled later?",
+    a: "No. Once it lands, it stays in chronological order. Nothing resurfaces out of nowhere to farm attention.",
   },
   {
-    q: "Does it cost money?",
-    a: "Free for groups up to 12 people. Yankee Family Pro is $8/month for unlimited members, shared albums and admin controls. Cancel any time.",
+    q: "How do notifications work with reach?",
+    a: "People who asked for alerts — close friends, mentions, Crowds they care about — can get a ping. Everyone else finds the post when they open their feed.",
   },
   {
-    q: "Can I have separate circles for family and friends?",
-    a: "Yes. Create as many circles as you want, each with its own members, albums and notification rules.",
+    q: "Is this different from cross posting to Instagram or X?",
+    a: "Yes. Yankee does not publish to other social networks. Reach is about what happens inside Yankee: one post, complete delivery to the people who chose to follow you.",
   },
 ];
 
-const ForFriendsFamily = () => (
+const Reach = () => (
   <Layout>
     <section className="relative -mt-24 pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden dotted-bg">
       <div className="absolute inset-0 bg-background/85" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
-          <div className="lg:col-span-6 order-2 lg:order-1">
-            <FamilyHeroScene />
-          </div>
-
-          <div className="lg:col-span-6 order-1 lg:order-2 text-center lg:text-left">
+          <div className="lg:col-span-5 text-center lg:text-left">
             <motion.div
               initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               className="flex justify-center lg:justify-start"
             >
-              <PromoPill tag="friends & family" text="a feed of only your people" to="/features" />
+              <PromoPill tag="reach" text="every follower · every time" to="/features" />
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, delay: 0.08, ease }}
-              className="mt-6 text-[2.4rem] sm:text-5xl md:text-[3.4rem] font-semibold text-foreground tracking-tight leading-[0.95] lowercase max-w-[13ch] mx-auto lg:mx-0"
+              className="mt-6 text-[2.4rem] sm:text-5xl md:text-[3.4rem] font-semibold text-foreground tracking-tight leading-[0.95] lowercase max-w-[11ch] mx-auto lg:mx-0"
             >
-              a space for the people{" "}
-              <span className="font-serif-display italic font-medium">you actually love.</span>
+              post once,{" "}
+              <span className="font-serif-display italic font-medium">reach everyone.</span>
             </motion.h1>
 
             <motion.p
@@ -157,7 +153,7 @@ const ForFriendsFamily = () => (
               transition={{ duration: 0.55, delay: 0.18 }}
               className="mt-6 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto lg:mx-0"
             >
-              no public feeds, no algorithms, no strangers. just your family and friends, in one calm place.
+              no opaque ranking. every post you publish reaches every person who follows you, in the order you posted.
             </motion.p>
 
             <motion.div
@@ -182,7 +178,17 @@ const ForFriendsFamily = () => (
                 see how it works
               </a>
             </motion.div>
-            <p className="mt-5 text-[12px] text-foreground/45 lowercase">free for up to 12 people · no ads</p>
+            <p className="mt-5 text-[12px] text-foreground/45 lowercase">free forever · no card needed</p>
+          </div>
+
+          <div className="lg:col-span-7">
+            <motion.div
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, delay: 0.2, ease }}
+            >
+              <ReachHeroScene />
+            </motion.div>
           </div>
         </div>
       </div>
@@ -192,10 +198,9 @@ const ForFriendsFamily = () => (
       <div className="absolute inset-0 bg-background/70" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
         <AnimatedSection className="max-w-2xl mx-auto text-center">
-          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">the idea</p>
+          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">the promise</p>
           <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
-            built for circles,{" "}
-            <span className="font-serif-display italic font-medium">not audiences</span>
+            complete reach. <span className="font-serif-display italic font-medium">no tricks.</span>
           </h2>
         </AnimatedSection>
 
@@ -228,7 +233,7 @@ const ForFriendsFamily = () => (
           <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">what it does</p>
           <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
             what yankee does{" "}
-            <span className="font-serif-display italic font-medium">for your people</span>
+            <span className="font-serif-display italic font-medium">when you post</span>
           </h2>
         </AnimatedSection>
 
@@ -268,73 +273,13 @@ const ForFriendsFamily = () => (
       </div>
     </section>
 
-    <section className="relative py-20 md:py-28 dotted-bg">
-      <div className="absolute inset-0 bg-background/75" />
-      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
-          <AnimatedSection className="lg:col-span-5">
-            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">together</p>
-            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
-              calls that feel{" "}
-              <span className="font-serif-display italic font-medium">like home</span>
-            </h2>
-            <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md">
-              start a group call from the same thread where the photos live. no new app, no meeting link chaos.
-            </p>
-            <ul className="mt-8 space-y-3 max-w-md">
-              {[
-                "voice and video built into the circle",
-                "albums only members can see",
-                "quiet hours that still let family through",
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-3 text-[14px] text-foreground/80 lowercase">
-                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-foreground/40 shrink-0" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </AnimatedSection>
-
-          <AnimatedSection className="lg:col-span-7" delay={0.1}>
-            <div className="relative mx-auto max-w-[300px]">
-              <motion.div
-                initial={{ opacity: 0, y: 24, rotate: 2 }}
-                whileInView={{ opacity: 1, y: 0, rotate: 1.5 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, ease }}
-                className="rounded-[1.75rem] border-2 border-foreground bg-card p-3 shadow-[6px_6px_0_0_hsl(var(--foreground))] overflow-hidden aspect-[9/17]"
-              >
-                <img
-                  src={videoCall}
-                  alt="Yankee video call"
-                  className="w-full h-full object-cover object-top rounded-[1.25rem]"
-                  loading="lazy"
-                />
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, x: -14 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.25 }}
-                className="absolute -left-3 bottom-[18%] z-10 max-w-[70%]"
-              >
-                <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-[#E8E6E1] px-3.5 py-2.5 text-[12px] leading-snug lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
-                  6 in the call · no strangers
-                </div>
-              </motion.div>
-            </div>
-          </AnimatedSection>
-        </div>
-      </div>
-    </section>
-
     <section id="how" className="relative py-20 md:py-28 dotted-bg">
-      <div className="absolute inset-0 bg-background/70" />
+      <div className="absolute inset-0 bg-background/75" />
       <div className="relative max-w-[1100px] mx-auto px-5 md:px-6">
         <AnimatedSection className="max-w-2xl mx-auto text-center">
           <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">how it works</p>
           <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
-            three steps. <span className="font-serif-display italic font-medium">then you&apos;re together.</span>
+            three steps. <span className="font-serif-display italic font-medium">then it lands.</span>
           </h2>
         </AnimatedSection>
 
@@ -355,6 +300,62 @@ const ForFriendsFamily = () => (
       </div>
     </section>
 
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <AnimatedSection>
+          <div className="rounded-[1.75rem] border-2 border-foreground bg-card overflow-hidden shadow-[6px_6px_0_0_hsl(var(--foreground))]">
+            <div className="grid lg:grid-cols-12 gap-0 items-stretch">
+              <div className="lg:col-span-7 p-7 md:p-10 flex flex-col justify-center">
+                <span className="inline-flex self-start items-center gap-2 rounded-full border-2 border-foreground px-3 py-1.5 text-[11px] lowercase">
+                  <Heart size={12} />
+                  for people who post
+                </span>
+                <h2 className="mt-5 text-[2rem] sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+                  your people follow you.{" "}
+                  <span className="font-serif-display italic font-medium">let them actually see you.</span>
+                </h2>
+                <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-lg">
+                  yankee was built so a quiet post still reaches the room. no fighting an algorithm for the right to be seen.
+                </p>
+                <div className="mt-8">
+                  <Link
+                    to="/contact"
+                    className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-white lowercase tracking-tight
+                      bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                      shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
+                      hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+                  >
+                    start posting <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                  </Link>
+                </div>
+              </div>
+
+              <div className="lg:col-span-5 relative min-h-[280px] lg:min-h-full border-t-2 lg:border-t-0 lg:border-l-2 border-foreground bg-[#E8E6E1]">
+                <img
+                  src={homeFeed}
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover object-top"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2">
+                  {["all followers", "close friends", "crowds", "no ranking"].map((label) => (
+                    <span
+                      key={label}
+                      className="px-2.5 py-1 rounded-full border-2 border-foreground bg-card text-[11px] lowercase shadow-[2px_2px_0_0_hsl(var(--foreground))]"
+                    >
+                      {label}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </AnimatedSection>
+      </div>
+    </section>
+
     <section className="py-20 md:py-28">
       <div className="max-w-[900px] mx-auto px-5 md:px-6">
         <AnimatedSection className="text-center">
@@ -362,7 +363,7 @@ const ForFriendsFamily = () => (
             frequently <span className="font-serif-display italic font-medium">asked</span>
           </h2>
           <p className="mt-4 text-[15px] text-muted-foreground lowercase">
-            short answers about privacy, kids, albums and pricing.
+            short answers about delivery, audiences and why reach stays honest.
           </p>
         </AnimatedSection>
         <div className="mt-10 md:mt-12">
@@ -392,8 +393,8 @@ const ForFriendsFamily = () => (
                 transition={{ duration: 0.7, delay: 0.08, ease }}
                 className="mt-4 md:mt-5 text-[2.4rem] sm:text-5xl md:text-6xl font-semibold text-foreground tracking-tight leading-[0.95] max-w-[14ch]"
               >
-                ready to bring your{" "}
-                <span className="font-serif-display italic font-medium">people back?</span>
+                ready for a feed that{" "}
+                <span className="font-serif-display italic font-medium">actually shows you?</span>
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0, y: 14 }}
@@ -402,7 +403,7 @@ const ForFriendsFamily = () => (
                 transition={{ duration: 0.55, delay: 0.16 }}
                 className="mt-6 max-w-md text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase"
               >
-                free for groups up to 12 people. family pro at $8/month. cancel any time.
+                post once. reach everyone who chose to follow you. no fighting an algorithm for the right to be seen.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 14 }}
@@ -421,10 +422,10 @@ const ForFriendsFamily = () => (
                   get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
                 </Link>
                 <Link
-                  to="/features"
+                  to="/feed"
                   className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
                 >
-                  see all features
+                  see the feed
                 </Link>
               </motion.div>
             </div>
@@ -432,24 +433,24 @@ const ForFriendsFamily = () => (
             <div className="lg:col-span-5">
               <div className="relative mx-auto max-w-md">
                 <motion.div
-                  initial={{ opacity: 0, y: 28, rotate: 2 }}
-                  whileInView={{ opacity: 1, y: 0, rotate: 1.5 }}
+                  initial={{ opacity: 0, y: 28, rotate: -2 }}
+                  whileInView={{ opacity: 1, y: 0, rotate: -1.5 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.7, delay: 0.12, ease }}
                   className="ml-auto w-[92%] rounded-[1.5rem] border-2 border-foreground bg-card p-4 shadow-[6px_6px_0_0_hsl(var(--foreground))]"
                 >
                   <div className="rounded-[1.1rem] overflow-hidden aspect-[5/3] bg-muted">
                     <img
-                      src={cafeFriends}
+                      src={heroParty}
                       alt=""
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
                   </div>
                   <div className="mt-3 flex items-center justify-between gap-2">
-                    <span className="text-[12px] lowercase text-foreground/70">saturday coffee · close friends</span>
-                    <span className="inline-flex items-center gap-1 rounded-full bg-foreground px-2.5 py-1 text-[11px] text-background lowercase">
-                      <Users size={10} /> 8
+                    <span className="text-[12px] lowercase text-foreground/70">just posted · listening party</span>
+                    <span className="inline-flex items-center rounded-full bg-foreground px-2.5 py-1 text-[11px] text-background lowercase">
+                      seen by all
                     </span>
                   </div>
                 </motion.div>
@@ -462,7 +463,7 @@ const ForFriendsFamily = () => (
                   className="relative z-10 -mt-5 mr-auto max-w-[85%]"
                 >
                   <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-[#E8E6E1] px-4 py-3 text-[13px] leading-snug lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
-                    no strangers. just your people.
+                    no ranking. every friend got it.
                   </div>
                 </motion.div>
               </div>
@@ -474,4 +475,4 @@ const ForFriendsFamily = () => (
   </Layout>
 );
 
-export default ForFriendsFamily;
+export default Reach;

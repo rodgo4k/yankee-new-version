@@ -88,3 +88,7 @@ html { scroll-behavior: smooth; }
   0%   { transform: translateY(-50%); }
   100% { transform: translateY(0); }
 }
+@keyframes yankee-marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

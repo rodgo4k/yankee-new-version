@@ -1,104 +1,338 @@
-import { Mail, Instagram, Twitter, Music2, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Mail, Instagram, Twitter, Music2, Handshake, Newspaper, LifeBuoy, Briefcase, Globe2, Clock } from "lucide-react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
 import AnimatedSection from "@/components/AnimatedSection";
-import { SpeechBubble, PillTag } from "@/components/Bubble";
-import heroMountain from "@/assets/hero-mountain.jpg";
-const channels = [
-    { name: "General", handle: "hello@yankee.app", href: "mailto:hello@yankee.app", icon: Mail },
-    { name: "Press", handle: "press@yankee.app", href: "mailto:press@yankee.app", icon: Mail },
-    { name: "Partnerships", handle: "partners@yankee.app", href: "mailto:partners@yankee.app", icon: Mail },
-    { name: "Jobs", handle: "jobs@yankee.app", href: "mailto:jobs@yankee.app", icon: Mail },
-    { name: "Instagram", handle: "@yankeeapp", href: "https://instagram.com/yankeeapp", icon: Instagram },
-    { name: "X / Twitter", handle: "@yankeeapp", href: "https://x.com/yankeeapp", icon: Twitter },
-    { name: "TikTok", handle: "@yankeeapp", href: "https://tiktok.com/@yankeeapp", icon: Music2 },
-];
-const helps = [
-    { t: "Partnerships", d: "Brands, creators or Crowds interested in collaborating with us." },
-    { t: "Press", d: "Interviews, coverage requests or background on the company." },
-    { t: "Support", d: "Trouble with your account, a bug, or a moderation question." },
-    { t: "Careers", d: "Engineering, design and community roles. We&apos;re hiring." },
-];
-const Contact = () => (<Layout>
-    <section className="relative -mt-24 pt-32 pb-24 md:pb-32 overflow-hidden">
-      <div className="absolute inset-0">
-        <img src={heroMountain} alt="" className="w-full h-full object-cover object-bottom"/>
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background"/>
-      </div>
-      <div className="relative max-w-[1000px] mx-auto px-6 text-center">
-        <SpeechBubble tail="none" className="text-[13px]"><PillTag>contact</PillTag>we read everything</SpeechBubble>
-        <h1 className="mt-8 text-5xl md:text-7xl font-semibold text-foreground tracking-tight leading-[0.98]">
-          Get in touch.{" "}
-          <span className="font-serif-display italic">Directly.</span>
-        </h1>
-        <p className="mt-6 text-[17px] text-foreground/70 max-w-xl mx-auto leading-relaxed">
-          No forms, no ticket queues. Every email below reaches a real person on the Yankee team.
-        </p>
-      </div>
-    </section>
+import friendsVideoCall from "@/assets/friends-video-call.jpg";
+import cafeFriends from "@/assets/cafe-friends.jpg";
+import smallTeamCollab from "@/assets/small-team-collab.jpg";
+import rememberOffice from "@/assets/remember-office.jpg";
 
-    <section className="py-16 md:py-24 border-t border-border/40">
-      <div className="max-w-[900px] mx-auto px-6">
-        <AnimatedSection>
-          <p className="text-[11px] uppercase tracking-widest text-muted-foreground mb-8">our channels</p>
-        </AnimatedSection>
-        <div className="rounded-[2rem] border border-border bg-card divide-y divide-border overflow-hidden">
-          {channels.map((c, i) => {
-        const Icon = c.icon;
-        return (<AnimatedSection key={c.name} delay={i * 0.03}>
-                <a href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="flex items-center justify-between gap-4 p-6 md:p-7 hover:bg-muted/40 transition-colors group">
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-full bg-background border border-border flex items-center justify-center">
-                      <Icon size={16} className="text-foreground/70"/>
+const ease = [0.25, 0.4, 0.25, 1] as const;
+
+const channels = [
+  { name: "general", handle: "hello@yankee.app", href: "mailto:hello@yankee.app", icon: Mail, kind: "email" as const },
+  { name: "press", handle: "press@yankee.app", href: "mailto:press@yankee.app", icon: Mail, kind: "email" as const },
+  { name: "partnerships", handle: "partners@yankee.app", href: "mailto:partners@yankee.app", icon: Mail, kind: "email" as const },
+  { name: "jobs", handle: "jobs@yankee.app", href: "mailto:jobs@yankee.app", icon: Mail, kind: "email" as const },
+  { name: "instagram", handle: "@yankeeapp", href: "https://instagram.com/yankeeapp", icon: Instagram, kind: "social" as const },
+  { name: "x / twitter", handle: "@yankeeapp", href: "https://x.com/yankeeapp", icon: Twitter, kind: "social" as const },
+  { name: "tiktok", handle: "@yankeeapp", href: "https://tiktok.com/@yankeeapp", icon: Music2, kind: "social" as const },
+];
+
+const helps = [
+  {
+    icon: Handshake,
+    bubble: "collabs welcome",
+    t: "partnerships",
+    d: "brands, creators or crowds interested in collaborating with us.",
+  },
+  {
+    icon: Newspaper,
+    bubble: "we reply fast",
+    t: "press",
+    d: "interviews, coverage requests or background on the company.",
+  },
+  {
+    icon: LifeBuoy,
+    bubble: "real humans",
+    t: "support",
+    d: "trouble with your account, a bug, or a moderation question.",
+  },
+  {
+    icon: Briefcase,
+    bubble: "we're hiring",
+    t: "careers",
+    d: "engineering, design and community roles. come build with us.",
+  },
+];
+
+const inboxPreview = [
+  { from: "hello@", subject: "say anything", rotate: -2.5, z: 10 },
+  { from: "press@", subject: "for journalists", rotate: 1.5, z: 20 },
+  { from: "jobs@", subject: "open roles", rotate: -1, z: 30 },
+];
+
+const heroPhotos = [
+  { src: friendsVideoCall, rotate: -3 },
+  { src: cafeFriends, rotate: 2 },
+  { src: smallTeamCollab, rotate: -1.5 },
+  { src: rememberOffice, rotate: 2.5 },
+];
+
+const Contact = () => (
+  <Layout>
+    <section className="relative -mt-24 pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden dotted-bg">
+      <div className="absolute inset-0 bg-background/85" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] gap-8 lg:gap-6 xl:gap-8 items-center">
+          <div className="text-center lg:text-left lg:pr-2">
+            <motion.div
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="flex justify-center lg:justify-start"
+            >
+              <span className="inline-flex rounded-2xl rounded-bl-md bg-[#5B9CFF] px-3.5 py-2 text-[13px] leading-snug text-white lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                we read everything
+              </span>
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, delay: 0.08, ease }}
+              className="mt-6 text-[2.4rem] sm:text-5xl md:text-[3.5rem] font-semibold text-foreground tracking-tight leading-[0.95] lowercase max-w-[12ch] mx-auto lg:mx-0"
+            >
+              get in touch.{" "}
+              <span className="font-serif-display italic font-medium">directly.</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.18 }}
+              className="mt-6 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto lg:mx-0"
+            >
+              no forms, no ticket queues. every email below reaches a real person on the yankee team.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.26 }}
+              className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-3"
+            >
+              <a
+                href="mailto:hello@yankee.app"
+                className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-white lowercase tracking-tight
+                  bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                  shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
+                  hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+              >
+                email hello@ <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+              </a>
+              <a
+                href="#channels"
+                className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+              >
+                all channels
+              </a>
+            </motion.div>
+          </div>
+
+          <div className="w-full max-w-[520px] mx-auto lg:max-w-none lg:mx-0">
+            <div className="relative w-full">
+              <div className="relative h-[200px] md:h-[230px]">
+                {inboxPreview.map((card, i) => (
+                  <motion.div
+                    key={card.from}
+                    initial={{ opacity: 0, y: 28, rotate: card.rotate + 4 }}
+                    animate={{ opacity: 1, y: i * 18, rotate: card.rotate }}
+                    transition={{ duration: 0.7, delay: 0.15 + i * 0.1, ease }}
+                    whileHover={{ y: i * 18 - 10, scale: 1.02, zIndex: 40 }}
+                    className="absolute left-0 right-0 rounded-[1.35rem] border-2 border-foreground bg-card p-5 shadow-[5px_5px_0_0_hsl(var(--foreground))] cursor-default"
+                    style={{ zIndex: card.z, top: 8 }}
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <span className="w-9 h-9 shrink-0 rounded-xl border-2 border-foreground bg-primary text-primary-foreground flex items-center justify-center">
+                          <Mail size={15} />
+                        </span>
+                        <div className="min-w-0">
+                          <p className="text-[13px] font-semibold lowercase truncate">{card.from}yankee.app</p>
+                          <p className="text-[12px] text-muted-foreground lowercase truncate">{card.subject}</p>
+                        </div>
+                      </div>
+                      <span className="text-[11px] text-muted-foreground lowercase shrink-0">inbox</span>
                     </div>
-                    <div>
-                      <p className="text-[15px] font-semibold text-foreground">{c.name}</p>
-                      <p className="text-[13px] text-muted-foreground">{c.handle}</p>
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="relative z-40 mt-1 flex items-end justify-between gap-2 md:gap-3">
+                {heroPhotos.map((photo, i) => (
+                  <motion.div
+                    key={photo.src}
+                    initial={{ opacity: 0, y: 20, rotate: photo.rotate + 3 }}
+                    animate={{ opacity: 1, y: 0, rotate: photo.rotate }}
+                    transition={{ duration: 0.55, delay: 0.45 + i * 0.08, ease }}
+                    whileHover={{ y: -8, rotate: 0, scale: 1.05, zIndex: 50 }}
+                    className="flex-1 rounded-[1rem] border-2 border-foreground bg-card p-1.5 shadow-[4px_4px_0_0_hsl(var(--foreground))] cursor-pointer"
+                  >
+                    <div className="rounded-[0.7rem] overflow-hidden aspect-square bg-muted">
+                      <img src={photo.src} alt="" className="w-full h-full object-cover" />
                     </div>
-                  </div>
-                  <ArrowUpRight size={18} className="text-muted-foreground group-hover:text-foreground transition-colors"/>
-                </a>
-              </AnimatedSection>);
-    })}
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section className="py-24 md:py-32 border-t border-border/40">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <AnimatedSection>
-          <p className="text-[11px] uppercase tracking-widest text-muted-foreground mb-4">how we can help</p>
-          <h2 className="text-4xl md:text-5xl font-semibold text-foreground tracking-tight max-w-xl leading-[1.02]">
-            Reach the right <span className="font-serif-display italic">team.</span>
+    <section id="channels" className="relative py-20 md:py-28 dotted-bg scroll-mt-24">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[900px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="text-center mb-12 md:mb-14">
+          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">our channels</p>
+          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+            pick a line.{" "}
+            <span className="font-serif-display italic font-medium">we answer.</span>
           </h2>
         </AnimatedSection>
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {helps.map((h, i) => (<AnimatedSection key={h.t} delay={i * 0.05}>
-              <div className="h-full rounded-[2rem] border border-border bg-card p-7">
-                <h3 className="text-[16px] font-semibold text-foreground">{h.t}</h3>
-                <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed">{h.d}</p>
-              </div>
-            </AnimatedSection>))}
+
+        <div className="rounded-[1.75rem] border-2 border-foreground bg-card overflow-hidden shadow-[6px_6px_0_0_hsl(var(--foreground))]">
+          {channels.map((c, i) => {
+            const Icon = c.icon;
+            return (
+              <AnimatedSection key={c.name} delay={i * 0.03}>
+                <a
+                  href={c.href}
+                  target={c.href.startsWith("http") ? "_blank" : undefined}
+                  rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className={`group flex items-center justify-between gap-4 p-5 md:p-6 hover:bg-[#F3F1EC] transition-colors ${
+                    i < channels.length - 1 ? "border-b-2 border-foreground" : ""
+                  }`}
+                >
+                  <div className="flex items-center gap-4 min-w-0">
+                    <div className="w-10 h-10 shrink-0 rounded-xl border-2 border-foreground bg-background flex items-center justify-center shadow-[2px_2px_0_0_hsl(var(--foreground))]">
+                      <Icon size={16} className="text-foreground" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <p className="text-[15px] font-semibold text-foreground lowercase">{c.name}</p>
+                        <span className="inline-flex rounded-full border border-foreground/20 px-2 py-0.5 text-[10px] lowercase text-muted-foreground">
+                          {c.kind}
+                        </span>
+                      </div>
+                      <p className="text-[13px] text-muted-foreground lowercase truncate">{c.handle}</p>
+                    </div>
+                  </div>
+                  <span className="inline-flex items-center justify-center w-9 h-9 shrink-0 rounded-full border-2 border-foreground bg-primary text-primary-foreground shadow-[2px_2px_0_0_hsl(var(--foreground))] group-hover:translate-x-[1px] group-hover:-translate-y-[1px] transition-transform">
+                    <ArrowUpRight size={15} />
+                  </span>
+                </a>
+              </AnimatedSection>
+            );
+          })}
         </div>
       </div>
     </section>
 
-    <section className="py-24 md:py-32 border-t border-border/40">
-      <div className="max-w-[1200px] mx-auto px-6 grid md:grid-cols-2 gap-4">
-        <AnimatedSection>
-          <div className="rounded-[2rem] border border-border bg-card p-8">
-            <p className="text-[11px] uppercase tracking-widest text-muted-foreground">office</p>
-            <h3 className="mt-3 text-2xl font-semibold text-foreground">Global · remote-first</h3>
-            <p className="mt-3 text-[14px] text-muted-foreground leading-relaxed">The Yankee team is distributed across three continents. We publish our current locations in the Careers listings.</p>
-          </div>
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/75" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="max-w-2xl mx-auto text-center mb-12 md:mb-14">
+          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">how we can help</p>
+          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+            reach the right{" "}
+            <span className="font-serif-display italic font-medium">team</span>
+          </h2>
         </AnimatedSection>
-        <AnimatedSection delay={0.06}>
-          <div className="rounded-[2rem] border border-border bg-card p-8">
-            <p className="text-[11px] uppercase tracking-widest text-muted-foreground">response time</p>
-            <h3 className="mt-3 text-2xl font-semibold text-foreground">Under 48 hours</h3>
-            <p className="mt-3 text-[14px] text-muted-foreground leading-relaxed">Every email is triaged the same day it arrives. If it&apos;s urgent (a moderation issue or a security report), we escalate immediately.</p>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {helps.map((h, i) => {
+            const Icon = h.icon;
+            return (
+              <AnimatedSection key={h.t} delay={i * 0.06}>
+                <motion.div
+                  whileHover={{ y: -3 }}
+                  className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 flex flex-col gap-5 shadow-[4px_4px_0_0_hsl(var(--foreground))]"
+                >
+                  <span className="inline-block self-start px-3.5 py-2 text-[13px] leading-snug lowercase rounded-2xl rounded-bl-md bg-[#5B9CFF] text-white shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                    {h.bubble}
+                  </span>
+                  <div className="mt-auto">
+                    <div className="w-9 h-9 rounded-xl border-2 border-foreground bg-primary text-primary-foreground flex items-center justify-center mb-4">
+                      <Icon size={16} />
+                    </div>
+                    <h3 className="text-[16px] font-semibold lowercase tracking-tight">{h.t}</h3>
+                    <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed lowercase">{h.d}</p>
+                  </div>
+                </motion.div>
+              </AnimatedSection>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="grid md:grid-cols-2 gap-4">
+          <AnimatedSection>
+            <div className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-7 md:p-8 shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+              <div className="w-9 h-9 rounded-xl border-2 border-foreground bg-primary text-primary-foreground flex items-center justify-center mb-5">
+                <Globe2 size={16} />
+              </div>
+              <p className="font-serif-display italic text-[1.1rem] text-foreground/50 lowercase">office</p>
+              <h3 className="mt-2 text-2xl md:text-3xl font-semibold text-foreground lowercase tracking-tight">
+                global · remote-first
+              </h3>
+              <p className="mt-3 text-[14px] text-muted-foreground leading-relaxed lowercase">
+                the yankee team is distributed across three continents. we publish our current locations in the careers listings.
+              </p>
+              <Link
+                to="/careers"
+                className="mt-6 inline-flex items-center gap-1.5 text-[13px] font-medium lowercase text-foreground underline underline-offset-4 decoration-2"
+              >
+                see careers <ArrowRight size={13} />
+              </Link>
+            </div>
+          </AnimatedSection>
+          <AnimatedSection delay={0.08}>
+            <div className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-7 md:p-8 shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+              <div className="w-9 h-9 rounded-xl border-2 border-foreground bg-primary text-primary-foreground flex items-center justify-center mb-5">
+                <Clock size={16} />
+              </div>
+              <p className="font-serif-display italic text-[1.1rem] text-foreground/50 lowercase">response time</p>
+              <h3 className="mt-2 text-2xl md:text-3xl font-semibold text-foreground lowercase tracking-tight">
+                under 48 hours
+              </h3>
+              <p className="mt-3 text-[14px] text-muted-foreground leading-relaxed lowercase">
+                every email is triaged the same day it arrives. if it&apos;s urgent — a moderation issue or a security report — we escalate immediately.
+              </p>
+            </div>
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+
+    <section className="relative py-20 md:py-28 overflow-hidden dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[900px] mx-auto px-5 md:px-6 text-center">
+        <AnimatedSection>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+            still unsure{" "}
+            <span className="font-serif-display italic font-medium">where to write?</span>
+          </h2>
+          <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto">
+            start with hello@. we&apos;ll route it to the right person.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <a
+              href="mailto:hello@yankee.app"
+              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-white lowercase tracking-tight
+                bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
+                hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+            >
+              hello@yankee.app <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+            </a>
+            <Link
+              to="/story"
+              className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+            >
+              read our story
+            </Link>
           </div>
         </AnimatedSection>
       </div>
     </section>
-  </Layout>);
+  </Layout>
+);
+
 export default Contact;

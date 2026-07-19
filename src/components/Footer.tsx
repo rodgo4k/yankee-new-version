@@ -8,7 +8,7 @@ const footerLinks = [
             { label: "The feed", to: "/feed" },
             { label: "Communities", to: "/communities" },
             { label: "Memory", to: "/memory" },
-            { label: "Cross posting", to: "/cross-posting" },
+            { label: "Reach", to: "/reach" },
             { label: "Notifications", to: "/notifications" },
             { label: "Privacy", to: "/privacy-first" },
         ],
@@ -29,6 +29,7 @@ const footerLinks = [
             { label: "Story", to: "/story" },
             { label: "Careers", to: "/careers" },
             { label: "Contact", to: "/contact" },
+            { label: "Download", to: "/download" },
         ],
     },
     {

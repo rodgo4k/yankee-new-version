@@ -1,309 +1,534 @@
-import { ArrowRight, ArrowUp, Check } from "lucide-react";
+import { ArrowRight, Lock, Share2, Shield, Trash2, KeyRound, Brain } from "lucide-react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import AnimatedSection from "@/components/AnimatedSection";
-import homeFeed from "@/assets/yankee/home-feed.png";
-const steps = [
-    {
-        n: "1",
-        t: "text yankee",
-        d: "No new app to learn. Yankee sits inside the threads you already use, ready to hold anything you toss its way.",
-    },
-    {
-        n: "2",
-        t: "save the moment",
-        d: "A link, a voice note, an idea, a preference. Say “remember this” and Yankee files it, encrypted, tagged, searchable.",
-    },
-    {
-        n: "3",
-        t: "recall it later",
-        d: "Ask in plain words, months later. Yankee returns the exact quote, link, or draft, in the same context it was saved.",
-    },
+import FAQ from "@/components/FAQ";
+import PromoPill from "@/components/home/PromoPill";
+import MemoryHeroScene from "@/components/home/MemoryHeroScene";
+import rememberOffice from "@/assets/remember-office.jpg";
+import tripPhotos from "@/assets/trip-photos.png";
+
+const ease = [0.25, 0.4, 0.25, 1] as const;
+
+const principles = [
+  {
+    icon: Lock,
+    title: "private by default",
+    text: "everything you save stays on your phone first. backed up as ciphertext only.",
+  },
+  {
+    icon: KeyRound,
+    title: "your keys, not ours",
+    text: "decryption keys live on your devices. we only ever hold encrypted blobs.",
+  },
+  {
+    icon: Brain,
+    title: "never trained on",
+    text: "your writing, saves and notes are never used to train a model. not ours, not anyone else's.",
+  },
+  {
+    icon: Trash2,
+    title: "erase anything, anytime",
+    text: "delete a memory and it is wiped from your device and our backups within 30 days.",
+  },
 ];
+
 const engines = [
-    {
-        badge: "on device · encrypted",
-        title: "your private memory.",
-        body: "Everything you save lives on your phone first. Backed up as ciphertext only. Your keys, not ours. Nothing feeds a model, nothing trains an AI, nothing gets sold.",
-        chips: ["a draft", "a bookmark", "a preference", "a voice note"],
-    },
-    {
-        badge: "shared · opt in per person",
-        title: "memory you share.",
-        body: "Hand a single memory to a Crowd or a friend. They only see what you passed, nothing else. Revoke access at any time and the memory goes dark on their side.",
-        chips: ["a recipe", "a playlist", "a place", "a plan"],
-    },
+  {
+    badge: "on device · encrypted",
+    icon: Lock,
+    title: (
+      <>
+        your <span className="font-serif-display italic font-medium">private</span> memory
+      </>
+    ),
+    body: "a draft, a bookmark, a preference, a voice note. yankee files it encrypted, tagged and searchable. only you can read it.",
+    chips: ["a draft", "a bookmark", "a preference", "a voice note"],
+    chat: [
+      { from: "you" as const, text: "remember this draft for alex" },
+      { from: "them" as const, text: "saved. private. ask me anytime." },
+    ],
+  },
+  {
+    badge: "shared · opt in",
+    icon: Share2,
+    title: (
+      <>
+        memory you <span className="font-serif-display italic font-medium">share</span>
+      </>
+    ),
+    body: "hand a single memory to a crowd or a friend. they only see what you passed. revoke access and it goes dark on their side.",
+    chips: ["a recipe", "a playlist", "a place", "a plan"],
+    chat: [
+      { from: "you" as const, text: "share the alfama dessert spot with kayla" },
+      { from: "them" as const, text: "shared. she can open it, nothing else." },
+    ],
+  },
 ];
-type Memory = {
-    emoji: string;
-    chip: string;
-    kind: "private" | "shared";
-    title: string;
-    rows: {
-        label: string;
-        value: string;
-    }[];
-    meta: string;
-};
-const memories: Memory[] = [
-    {
-        emoji: "📎",
-        chip: "link · june",
-        kind: "private",
-        title: "The article Maria sent me",
-        rows: [
-            { label: "slow web design", value: "read later" },
-            { label: "12 min read", value: "unopened" },
-        ],
-        meta: "3 saves this month · private",
-    },
-    {
-        emoji: "🎧",
-        chip: "playlist · shared",
-        kind: "shared",
-        title: "Kitchen playlist for the dinner",
-        rows: [
-            { label: "shared with", value: "the roommates" },
-            { label: "42 tracks", value: "auto updated" },
-        ],
-        meta: "3 friends listening · shared",
-    },
-    {
-        emoji: "📝",
-        chip: "draft · today",
-        kind: "private",
-        title: "Reply to Alex about the Berlin trip",
-        rows: [
-            { label: "hotel option", value: "still open" },
-            { label: "cafe list", value: "3 saved" },
-        ],
-        meta: "started on the train · private",
-    },
-    {
-        emoji: "📍",
-        chip: "place · lisbon",
-        kind: "shared",
-        title: "Dessert spot in Alfama",
-        rows: [
-            { label: "shared by", value: "kayla" },
-            { label: "opens at", value: "5pm daily" },
-        ],
-        meta: "pinned to trip: lisbon · shared",
-    },
-    {
-        emoji: "🎙️",
-        chip: "voice · 44s",
-        kind: "private",
-        title: "Idea for the newsletter intro",
-        rows: [
-            { label: "transcript", value: "auto, on device" },
-            { label: "tags", value: "writing, drafts" },
-        ],
-        meta: "1 idea today · private",
-    },
-    {
-        emoji: "🔕",
-        chip: "preference",
-        kind: "private",
-        title: "Muted topics · quiet hours",
-        rows: [
-            { label: "quiet", value: "10pm → 8am" },
-            { label: "muted", value: "sports, ads" },
-        ],
-        meta: "synced across devices · private",
-    },
+
+const blocks = [
+  {
+    kicker: "save in one line",
+    title: (
+      <>
+        text yankee. <span className="font-serif-display italic font-medium">hold this.</span>
+      </>
+    ),
+    body: "no new app to learn. drop a link, a voice note or an idea into the thread and yankee files it.",
+    chat: [
+      { from: "you" as const, text: "remember this for me" },
+      { from: "them" as const, text: "got it. encrypted and tagged." },
+    ],
+  },
+  {
+    kicker: "recall in plain words",
+    title: (
+      <>
+        ask months later. <span className="font-serif-display italic font-medium">get the exact thing.</span>
+      </>
+    ),
+    body: "yankee returns the quote, link or draft in the same context it was saved. no digging through chats.",
+    chat: [
+      { from: "you" as const, text: "what cafe did we love in lisbon?" },
+      { from: "them" as const, text: "manteigaria. tiny blue door near the tram." },
+    ],
+  },
+  {
+    kicker: "share on purpose",
+    title: (
+      <>
+        pass one piece. <span className="font-serif-display italic font-medium">keep the rest.</span>
+      </>
+    ),
+    body: "hand a playlist, a place or a plan to someone. revoke it anytime and their copy goes dark.",
+    chat: [
+      { from: "them" as const, text: "kayla opened your alfama pin." },
+      { from: "you" as const, text: "good. revoke after the trip." },
+    ],
+  },
 ];
-const safety = [
-    { t: "end to end encrypted", d: "Decryption keys live on your devices. Even under a subpoena, we can only hand over ciphertext blobs." },
-    { t: "your keys, not ours", d: "Yankee servers hold an encrypted backup so you can restore on a new phone. Plaintext never leaves your device." },
-    { t: "never trained on", d: "Your writing, your saves and your notes are never used to train an AI model. Not ours, not anyone else's." },
-    { t: "erase anything, anytime", d: "Delete a memory and it is wiped from your device and our backups within 30 days. No hidden copies." },
+
+const steps = [
+  {
+    n: "01",
+    t: "text yankee",
+    d: "yankee sits inside the threads you already use, ready to hold anything you toss its way.",
+  },
+  {
+    n: "02",
+    t: "save the moment",
+    d: "say “remember this” and yankee files it, encrypted, tagged and searchable.",
+  },
+  {
+    n: "03",
+    t: "recall it later",
+    d: "ask in plain words, months later. yankee returns the exact quote, link or draft.",
+  },
 ];
-const Memory = () => (<Layout>
 
-    <section className="pt-24 md:pt-32 pb-16">
-      <div className="max-w-[1100px] mx-auto px-6 text-center">
-        <AnimatedSection>
-          <p className="text-[13px] md:text-[14px] text-foreground/60">
-            private by default · yours to keep or share
-          </p>
-          <h1 className="mt-6 text-[46px] md:text-[92px] leading-[0.94] tracking-[-0.03em] text-foreground font-semibold max-w-4xl mx-auto">
-            make a memory <br className="hidden md:block"/>
-            <span className="font-serif-display italic text-folk">of anything.</span>
-          </h1>
-          <p className="mt-8 text-[16px] md:text-[18px] text-foreground/70 max-w-2xl mx-auto leading-relaxed">
-            Yankee turns any thread into a place to remember. A draft, a link, a voice note, a plan. Encrypted on your phone, recallable in plain words, shared only when you say so.
-          </p>
-        </AnimatedSection>
+const faqs = [
+  {
+    q: "Where does my memory live?",
+    a: "On your device first. Yankee keeps an encrypted backup so you can restore on a new phone. Plaintext never leaves your devices.",
+  },
+  {
+    q: "Can Yankee read what I save?",
+    a: "No. Decryption keys live on your devices. Even under a subpoena, we can only hand over ciphertext blobs.",
+  },
+  {
+    q: "Is my memory used to train AI?",
+    a: "Never. Your writing, saves and notes are not used to train a model — not ours, not anyone else's.",
+  },
+  {
+    q: "What can I share with someone else?",
+    a: "A single memory at a time — a playlist, a place, a plan, a recipe. They only see what you passed. You can revoke access any time.",
+  },
+  {
+    q: "What happens when I delete a memory?",
+    a: "It is wiped from your device and our encrypted backups within 30 days. No hidden copies.",
+  },
+  {
+    q: "Is Memory included in the free plan?",
+    a: "Basic save and recall are free. Yankee Pro ($8/month) unlocks unlimited memory, shared handoffs and cross-device sync. Cancel any time.",
+  },
+];
 
-        <AnimatedSection delay={0.08}>
-          <div className="mt-12 mx-auto max-w-[560px]">
-            <div className="flex items-center gap-2 px-2 py-2 rounded-full border border-border bg-card shadow-[0_20px_60px_-30px_rgba(0,0,0,0.25)]">
-              <span className="w-9 h-9 shrink-0 rounded-full bg-foreground/5 flex items-center justify-center text-foreground/50 text-[18px]">+</span>
-              <input readOnly placeholder="remember this for me…" className="flex-1 bg-transparent outline-none text-[14.5px] text-foreground placeholder:text-foreground/40 px-2"/>
-              <button className="w-9 h-9 shrink-0 rounded-full bg-folk text-folk-foreground flex items-center justify-center">
-                <ArrowUp size={16}/>
-              </button>
-            </div>
-            <p className="mt-4 text-[12.5px] text-foreground/60">free forever. no card needed.</p>
-          </div>
-        </AnimatedSection>
+const Memory = () => (
+  <Layout>
+    <section className="relative -mt-24 pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden dotted-bg">
+      <div className="absolute inset-0 bg-background/85" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="max-w-[720px] mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex justify-center"
+          >
+            <PromoPill tag="memory" text="private by default · yours to keep or share" to="/features" />
+          </motion.div>
 
-        <AnimatedSection delay={0.15}>
-          <div className="relative mt-20 mx-auto max-w-[900px]">
-            <div className="absolute inset-x-0 bottom-0 h-[70%] rounded-[3rem] bg-gradient-to-b from-folk/15 via-folk/5 to-transparent"/>
-            <div className="relative flex justify-center pt-8">
-              <div className="w-[280px] md:w-[340px] aspect-[9/19] rounded-[2.4rem] border-[8px] border-foreground/90 bg-card overflow-hidden shadow-[0_60px_120px_-40px_rgba(0,0,0,0.45)]">
-                <img src={homeFeed} alt="Yankee memory on iPhone" className="w-full h-full object-cover object-top"/>
-              </div>
-            </div>
-          </div>
-        </AnimatedSection>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, delay: 0.08, ease }}
+            className="mt-6 text-[2.4rem] sm:text-5xl md:text-[3.6rem] font-semibold text-foreground tracking-tight leading-[0.95] lowercase"
+          >
+            make a memory{" "}
+            <span className="font-serif-display italic font-medium">of anything.</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.18 }}
+            className="mt-6 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-lg mx-auto"
+          >
+            a draft, a link, a voice note, a plan. encrypted on your phone, recallable in plain words, shared only when you say so.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.26 }}
+            className="mt-8 flex flex-wrap items-center justify-center gap-3"
+          >
+            <Link
+              to="/contact"
+              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-white lowercase tracking-tight
+                bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
+                hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+            >
+              get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+            </Link>
+            <a
+              href="#how"
+              className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+            >
+              see how it works
+            </a>
+          </motion.div>
+          <p className="mt-5 text-[12px] text-foreground/45 lowercase">free forever · no card needed</p>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.75, delay: 0.35, ease }}
+          className="mt-12 md:mt-16"
+        >
+          <MemoryHeroScene />
+        </motion.div>
       </div>
     </section>
 
-    <section className="py-24 md:py-32 border-t border-border/40">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <AnimatedSection>
-          <p className="text-center text-[11px] uppercase tracking-widest text-muted-foreground mb-6">how it works</p>
-          <h2 className="text-center text-4xl md:text-6xl font-semibold text-foreground tracking-[-0.02em] leading-[1.02]">
-            text yankee. save the moment. <br className="hidden md:block"/>
-            <span className="font-serif-display italic">recall it later.</span>
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/70" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="max-w-2xl mx-auto text-center">
+          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">safety</p>
+          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+            private, <span className="font-serif-display italic font-medium">not fragile</span>
           </h2>
         </AnimatedSection>
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-4">
-          {steps.map((s, i) => (<AnimatedSection key={s.n} delay={i * 0.05}>
-              <div className="h-full rounded-[2rem] border border-border bg-card p-8 flex flex-col gap-5">
-                <span className="w-8 h-8 rounded-full border border-border flex items-center justify-center text-[13px] font-medium text-foreground/70">{s.n}</span>
-                <h3 className="text-[22px] font-semibold text-foreground leading-tight">{s.t}</h3>
-                <p className="text-[14px] text-muted-foreground leading-relaxed">{s.d}</p>
-              </div>
-            </AnimatedSection>))}
+        <div className="mt-12 md:mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {principles.map((p, i) => {
+            const Icon = p.icon;
+            return (
+              <AnimatedSection key={p.title} delay={i * 0.06}>
+                <motion.div
+                  whileHover={{ y: -3 }}
+                  className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))]"
+                >
+                  <div className="w-10 h-10 rounded-xl border-2 border-foreground bg-primary text-primary-foreground flex items-center justify-center mb-5">
+                    <Icon size={18} />
+                  </div>
+                  <h3 className="text-[15px] font-semibold lowercase tracking-tight">{p.title}</h3>
+                  <p className="mt-3 text-[13px] text-muted-foreground leading-relaxed lowercase">{p.text}</p>
+                </motion.div>
+              </AnimatedSection>
+            );
+          })}
         </div>
       </div>
     </section>
 
-    <section className="py-24 md:py-32 border-t border-border/40">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <AnimatedSection>
-          <p className="text-center text-[11px] uppercase tracking-widest text-muted-foreground mb-6">two engines</p>
-          <h2 className="text-center text-4xl md:text-6xl font-semibold text-foreground tracking-[-0.02em] leading-[1.02]">
-            two kinds of memory. <br className="hidden md:block"/>
-            <span className="font-serif-display italic">one calm app.</span>
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="max-w-2xl mx-auto text-center">
+          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">two engines</p>
+          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+            two kinds of memory.{" "}
+            <span className="font-serif-display italic font-medium">one calm app.</span>
           </h2>
-          <p className="mt-6 text-center text-[15px] md:text-[16px] text-muted-foreground max-w-2xl mx-auto">
-            Keep it entirely to yourself, or hand a single piece to a person or a Crowd. Yankee runs both, so you never lose the thread.
+          <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-xl mx-auto">
+            keep it entirely to yourself, or hand a single piece to a person or a crowd. yankee runs both.
           </p>
         </AnimatedSection>
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-4">
-          {engines.map((e, i) => (<AnimatedSection key={e.title} delay={i * 0.05}>
-              <div className="h-full rounded-[2rem] border border-border bg-card p-8 md:p-10 flex flex-col gap-6">
-                <span className="inline-flex self-start items-center gap-2 px-3 py-1.5 rounded-full border border-border text-[11px] uppercase tracking-widest text-foreground/70">
-                  <span className="w-1.5 h-1.5 rounded-full bg-folk"/>
-                  {e.badge}
-                </span>
-                <h3 className="text-[32px] md:text-[36px] font-semibold text-foreground leading-[1.05] tracking-[-0.02em]">
-                  <span className="font-serif-display italic">{e.title}</span>
+        <div className="mt-12 md:mt-16 grid md:grid-cols-2 gap-4">
+          {engines.map((e, i) => {
+            const Icon = e.icon;
+            return (
+              <AnimatedSection key={e.badge} delay={i * 0.08}>
+                <motion.div
+                  whileHover={{ y: -3 }}
+                  className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 md:p-8 flex flex-col gap-5 shadow-[5px_5px_0_0_hsl(var(--foreground))]"
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="inline-flex items-center gap-2 rounded-full border-2 border-foreground px-3 py-1 text-[11px] lowercase">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#5B9CFF]" />
+                      {e.badge}
+                    </span>
+                    <span className="w-9 h-9 rounded-xl border-2 border-foreground bg-primary text-primary-foreground flex items-center justify-center">
+                      <Icon size={16} />
+                    </span>
+                  </div>
+                  <h3 className="text-[24px] md:text-[28px] font-semibold text-foreground leading-[1.08] tracking-tight lowercase">
+                    {e.title}
+                  </h3>
+                  <p className="text-[14px] text-muted-foreground leading-relaxed lowercase">{e.body}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {e.chips.map((c) => (
+                      <span
+                        key={c}
+                        className="px-3 py-1.5 rounded-full border-2 border-foreground/80 bg-background text-[12px] text-foreground/80 lowercase"
+                      >
+                        {c}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="mt-auto flex flex-col gap-2.5 pt-2">
+                    {e.chat.map((m, j) => (
+                      <div key={j} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>
+                        <span
+                          className={`inline-block max-w-[90%] px-3.5 py-2 text-[12.5px] md:text-[13px] leading-snug lowercase rounded-2xl ${
+                            m.from === "you"
+                              ? "bg-[#5B9CFF] text-white rounded-br-md shadow-[3px_3px_0_0_hsl(var(--foreground))]"
+                              : "bg-[#E8E6E1] text-foreground rounded-bl-md border-2 border-foreground shadow-[3px_3px_0_0_hsl(var(--foreground))]"
+                          }`}
+                        >
+                          {m.text}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              </AnimatedSection>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/75" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="max-w-2xl mx-auto text-center">
+          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">what it does</p>
+          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+            if it matters,{" "}
+            <span className="font-serif-display italic font-medium">it&apos;s a memory</span>
+          </h2>
+        </AnimatedSection>
+
+        <div className="mt-12 md:mt-16 grid md:grid-cols-3 gap-4">
+          {blocks.map((b, i) => (
+            <AnimatedSection key={b.kicker} delay={i * 0.08}>
+              <motion.div
+                whileHover={{ y: -3 }}
+                className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 md:p-7 flex flex-col gap-5 shadow-[4px_4px_0_0_hsl(var(--foreground))]"
+              >
+                <p className="font-serif-display italic text-[1.05rem] text-foreground/45 lowercase leading-none">
+                  {b.kicker}
+                </p>
+                <h3 className="text-[22px] md:text-[24px] font-semibold text-foreground leading-[1.08] tracking-tight lowercase">
+                  {b.title}
                 </h3>
-                <p className="text-[15px] text-muted-foreground leading-relaxed">{e.body}</p>
-                <div className="mt-auto flex flex-wrap gap-2 pt-2">
-                  {e.chips.map((c) => (<span key={c} className="px-3 py-1.5 rounded-full border border-border bg-background text-[12.5px] text-foreground/80">{c}</span>))}
+                <p className="text-[13px] md:text-[14px] text-muted-foreground leading-relaxed lowercase">{b.body}</p>
+                <div className="mt-auto flex flex-col gap-2.5 pt-2">
+                  {b.chat.map((m, j) => (
+                    <div key={j} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>
+                      <span
+                        className={`inline-block max-w-[90%] px-3.5 py-2 text-[12.5px] md:text-[13px] leading-snug lowercase rounded-2xl ${
+                          m.from === "you"
+                            ? "bg-[#5B9CFF] text-white rounded-br-md shadow-[3px_3px_0_0_hsl(var(--foreground))]"
+                            : "bg-[#E8E6E1] text-foreground rounded-bl-md border-2 border-foreground shadow-[3px_3px_0_0_hsl(var(--foreground))]"
+                        }`}
+                      >
+                        {m.text}
+                      </span>
+                    </div>
+                  ))}
                 </div>
-              </div>
-            </AnimatedSection>))}
+              </motion.div>
+            </AnimatedSection>
+          ))}
         </div>
       </div>
     </section>
 
-    <section className="py-24 md:py-32 border-t border-border/40">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <AnimatedSection>
-          <p className="text-center text-[11px] uppercase tracking-widest text-muted-foreground mb-6">memories</p>
-          <h2 className="text-center text-4xl md:text-6xl font-semibold text-foreground tracking-[-0.02em] leading-[1.02]">
-            if it matters, <span className="font-serif-display italic">it's a memory.</span>
-          </h2>
-          <p className="mt-6 text-center text-[15px] text-muted-foreground max-w-xl mx-auto">
-            From a half finished draft to a place you loved, just tell yankee to hold it, or hand it to the group.
-          </p>
-        </AnimatedSection>
-
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {memories.map((m, i) => (<AnimatedSection key={m.title} delay={i * 0.04}>
-              <div className="h-full rounded-[1.75rem] border border-border bg-card p-6 flex flex-col gap-5">
-                <div className="flex items-center justify-between">
-                  <span className="inline-flex items-center gap-2 text-[13px] text-foreground/70">
-                    <span className="text-[16px]">{m.emoji}</span> {m.chip}
-                  </span>
-                  <span className={`text-[10.5px] uppercase tracking-widest px-2 py-1 rounded-full border ${m.kind === "shared" ? "border-folk/40 text-folk" : "border-border text-muted-foreground"}`}>
-                    {m.kind}
-                  </span>
-                </div>
-
-                <h3 className="text-[19px] font-semibold text-foreground leading-snug">{m.title}</h3>
-
-                <div className="flex flex-col divide-y divide-border/60 border-t border-b border-border/60">
-                  {m.rows.map((r) => (<div key={r.label} className="flex items-center justify-between py-2.5 text-[13.5px]">
-                      <span className="text-foreground/80">{r.label}</span>
-                      <span className="text-muted-foreground">{r.value}</span>
-                    </div>))}
-                </div>
-
-                <p className="text-[12px] text-muted-foreground">{m.meta}</p>
-              </div>
-            </AnimatedSection>))}
-        </div>
-      </div>
-    </section>
-
-    
-    <section className="py-24 md:py-32 border-t border-border/40">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <AnimatedSection>
-          <p className="text-center text-[11px] uppercase tracking-widest text-muted-foreground mb-6">safety</p>
-          <h2 className="text-center text-4xl md:text-6xl font-semibold text-foreground tracking-[-0.02em] leading-[1.02]">
-            private, <span className="font-serif-display italic">not fragile.</span>
+    <section id="how" className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/70" />
+      <div className="relative max-w-[1100px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="max-w-2xl mx-auto text-center">
+          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">how it works</p>
+          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+            three steps. <span className="font-serif-display italic font-medium">then it sticks.</span>
           </h2>
         </AnimatedSection>
 
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 max-w-[900px] mx-auto">
-          {safety.map((s, i) => (<AnimatedSection key={s.t} delay={i * 0.04}>
-              <div className="flex gap-4">
-                <span className="shrink-0 w-8 h-8 rounded-full bg-folk/15 text-folk flex items-center justify-center">
-                  <Check size={15}/>
-                </span>
-                <div>
-                  <h3 className="text-[17px] font-semibold text-foreground">{s.t}</h3>
-                  <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">{s.d}</p>
-                </div>
-              </div>
-            </AnimatedSection>))}
+        <div className="mt-12 md:mt-14 grid md:grid-cols-3 gap-4">
+          {steps.map((s, i) => (
+            <AnimatedSection key={s.n} delay={i * 0.08}>
+              <motion.div
+                whileHover={{ y: -3 }}
+                className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col"
+              >
+                <span className="font-serif-display italic text-[1.5rem] text-foreground/35 leading-none">{s.n}</span>
+                <h3 className="mt-5 text-[17px] font-semibold lowercase tracking-tight">{s.t}</h3>
+                <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed lowercase">{s.d}</p>
+              </motion.div>
+            </AnimatedSection>
+          ))}
         </div>
       </div>
     </section>
 
-    
-    <section className="py-24 md:py-32 border-t border-border/40">
-      <div className="max-w-3xl mx-auto px-6 text-center">
-        <AnimatedSection>
-          <p className="text-[11px] uppercase tracking-widest text-muted-foreground mb-6">for memory</p>
-          <h2 className="text-4xl md:text-6xl font-semibold text-foreground tracking-[-0.02em] leading-[1.02]">
-            save the first thing <span className="font-serif-display italic">worth keeping.</span>
+    <section className="py-20 md:py-28">
+      <div className="max-w-[900px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="text-center">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight lowercase">
+            frequently <span className="font-serif-display italic font-medium">asked</span>
           </h2>
-          <p className="mt-6 text-[16px] text-muted-foreground leading-relaxed max-w-xl mx-auto">
-            Text yankee, hand it a draft, a link, a voice note, and watch it come back exactly when you need it.
+          <p className="mt-4 text-[15px] text-muted-foreground lowercase">
+            short answers about privacy, sharing and what memory actually keeps.
           </p>
-          <div className="mt-10 flex items-center justify-center gap-3 flex-wrap">
-            <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-foreground text-background text-[14px] font-medium hover:opacity-90 transition-opacity">
-              get the app <ArrowRight size={14}/>
-            </Link>
-            <Link to="/features" className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border/60 bg-card text-foreground text-[14px] font-medium hover:bg-card/80 transition-colors">
-              see all features
-            </Link>
+        </AnimatedSection>
+        <div className="mt-10 md:mt-12">
+          <FAQ items={faqs} />
+        </div>
+      </div>
+    </section>
+
+    <section className="relative py-20 md:py-28 overflow-hidden dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <AnimatedSection>
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+            <div className="lg:col-span-7 flex flex-col justify-center">
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="font-serif-display italic text-[1.35rem] md:text-[1.6rem] text-foreground/55 lowercase leading-none"
+              >
+                yankee
+              </motion.p>
+              <motion.h2
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.08, ease }}
+                className="mt-4 md:mt-5 text-[2.4rem] sm:text-5xl md:text-6xl font-semibold text-foreground tracking-tight leading-[0.95] max-w-[14ch]"
+              >
+                save the first thing{" "}
+                <span className="font-serif-display italic font-medium">worth keeping.</span>
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: 0.16 }}
+                className="mt-6 max-w-md text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase"
+              >
+                text yankee, hand it a draft, a link, a voice note, and watch it come back exactly when you need it.
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: 0.24 }}
+                className="mt-8 md:mt-10 flex flex-wrap items-center gap-3"
+              >
+                <Link
+                  to="/contact"
+                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-white lowercase tracking-tight
+                    bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                    shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
+                    hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+                >
+                  get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                </Link>
+                <Link
+                  to="/features"
+                  className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+                >
+                  see all features
+                </Link>
+              </motion.div>
+            </div>
+
+            <div className="lg:col-span-5">
+              <div className="relative mx-auto max-w-md">
+                <motion.div
+                  initial={{ opacity: 0, y: 28, rotate: -2 }}
+                  whileInView={{ opacity: 1, y: 0, rotate: -1.5 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.12, ease }}
+                  className="ml-auto w-[92%] rounded-[1.5rem] border-2 border-foreground bg-card p-4 shadow-[6px_6px_0_0_hsl(var(--foreground))]"
+                >
+                  <div className="rounded-[1.1rem] overflow-hidden aspect-[5/3] bg-muted">
+                    <img
+                      src={rememberOffice}
+                      alt=""
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="mt-3 flex items-center justify-between gap-2">
+                    <span className="text-[12px] lowercase text-foreground/70">draft · berlin trip</span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-foreground px-2.5 py-1 text-[11px] text-background lowercase">
+                      <Shield size={10} /> private
+                    </span>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: -18, y: 12, rotate: 2 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0, rotate: 1.5 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.55, delay: 0.28 }}
+                  className="relative z-10 -mt-8 mr-auto w-[78%] rounded-[1.25rem] border-2 border-foreground bg-card p-3 shadow-[4px_4px_0_0_hsl(var(--foreground))]"
+                >
+                  <div className="rounded-[0.9rem] overflow-hidden aspect-[16/10] bg-muted">
+                    <img src={tripPhotos} alt="" className="w-full h-full object-cover" loading="lazy" />
+                  </div>
+                  <p className="mt-2 text-[12px] lowercase text-foreground/70">album · beach week · 34 photos</p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: 18 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.55, delay: 0.4 }}
+                  className="relative z-20 -mt-3 ml-auto max-w-[85%]"
+                >
+                  <div className="rounded-2xl rounded-br-md bg-[#5B9CFF] px-4 py-3 text-[13px] leading-snug text-white lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+                    still got it. encrypted on your phone.
+                  </div>
+                </motion.div>
+              </div>
+            </div>
           </div>
         </AnimatedSection>
       </div>
     </section>
-  </Layout>);
+  </Layout>
+);
+
 export default Memory;

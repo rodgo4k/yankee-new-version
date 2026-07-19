@@ -1,346 +1,566 @@
-import { ArrowRight, ArrowUp, Users } from "lucide-react";
+import { ArrowRight, Users, MapPin, MessageSquare, Split } from "lucide-react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import AnimatedSection from "@/components/AnimatedSection";
+import FAQ from "@/components/FAQ";
+import PromoPill from "@/components/home/PromoPill";
+import CrowdHeroScene from "@/components/home/CrowdHeroScene";
 import cafeFriends from "@/assets/cafe-friends.jpg";
+import studentsHero from "@/assets/students-hero.jpg";
 import community from "@/assets/yankee/community.png";
-import crowdsHome from "@/assets/yankee/crowds-home.png";
+
+const ease = [0.25, 0.4, 0.25, 1] as const;
+
 const blocks = [
-    {
-        kicker: "small on purpose",
-        title: (<>
-        rooms that stay <span className="font-serif-display italic">human sized</span>
-      </>),
-        body: "Every Crowd caps at a few thousand active members. When one grows too big, it splits by region or interest, so conversations stay grounded and moderation stays possible.",
-        chat: [
-            { from: "you" as const, text: "is the film crowd still open?" },
-            { from: "them" as const, text: "just split into film · nyc and film · lisbon. you're a fit for both, want in?" },
-        ],
-    },
-    {
-        kicker: "signal, no karma",
-        title: (<>
-        threads that <span className="font-serif-display italic">actually reply</span>
-      </>),
-        body: "No karma to farm, no downvote brigades, no viral outrage. Yankee surfaces the posts your Crowd is actually replying to, and lets the rest go quiet.",
-        chat: [
-            { from: "you" as const, text: "anything worth reading in #reading this week?" },
-            { from: "them" as const, text: "three threads. one review of intermezzo, a poll on next month's pick, and a lisbon meetup." },
-        ],
-    },
-    {
-        kicker: "leaves the screen",
-        title: (<>
-        meetups that <span className="font-serif-display italic">actually happen</span>
-      </>),
-        body: "Crowds host their own events: photo walks, book clubs, listening parties. Yankee handles the invite, the reminders and the low friction RSVP.",
-        chat: [
-            { from: "them" as const, text: "photo walk saturday, golden hour, williamsburg bridge. 12 going." },
-            { from: "you" as const, text: "count me in" },
-            { from: "them" as const, text: "saved. i'll ping you 1h before." },
-        ],
-    },
+  {
+    kicker: "small on purpose",
+    title: (
+      <>
+        rooms that stay <span className="font-serif-display italic font-medium">human sized</span>
+      </>
+    ),
+    body: "every crowd caps at a few thousand active members. when one grows too big, it splits by region or interest.",
+    chat: [
+      { from: "you" as const, text: "is the film crowd still open?" },
+      {
+        from: "them" as const,
+        text: "just split into film · nyc and film · lisbon. want in?",
+      },
+    ],
+  },
+  {
+    kicker: "signal, no karma",
+    title: (
+      <>
+        threads that <span className="font-serif-display italic font-medium">actually reply</span>
+      </>
+    ),
+    body: "no karma to farm, no downvote brigades. yankee surfaces what your crowd is actually talking about.",
+    chat: [
+      { from: "you" as const, text: "anything worth reading in #reading this week?" },
+      {
+        from: "them" as const,
+        text: "three threads. a review, a poll, and a lisbon meetup.",
+      },
+    ],
+  },
+  {
+    kicker: "leaves the screen",
+    title: (
+      <>
+        meetups that <span className="font-serif-display italic font-medium">actually happen</span>
+      </>
+    ),
+    body: "photo walks, book clubs, listening parties. yankee handles the invite, reminders and rsvp.",
+    chat: [
+      { from: "them" as const, text: "photo walk saturday, golden hour. 12 going." },
+      { from: "you" as const, text: "count me in" },
+      { from: "them" as const, text: "saved. i'll ping you 1h before." },
+    ],
+  },
 ];
+
 const topics = [
-    { name: "photography", members: "48k" },
-    { name: "running", members: "22k" },
-    { name: "reading", members: "17k" },
-    { name: "cooking", members: "35k" },
-    { name: "gaming", members: "61k" },
-    { name: "design", members: "29k" },
-    { name: "music", members: "44k" },
-    { name: "hiking", members: "12k" },
-    { name: "film", members: "26k" },
-    { name: "cycling", members: "14k" },
+  { name: "photography", members: "48k", tint: "bg-[#F3EDE3]" },
+  { name: "running", members: "22k", tint: "bg-[#EAF5EE]" },
+  { name: "reading", members: "17k", tint: "bg-[#E8EEF7]" },
+  { name: "cooking", members: "35k", tint: "bg-[#F7EFE6]" },
+  { name: "gaming", members: "61k", tint: "bg-[#EEE8F5]" },
+  { name: "design", members: "29k", tint: "bg-[#EDEAE4]" },
+  { name: "music", members: "44k", tint: "bg-[#E8F4F2]" },
+  { name: "hiking", members: "12k", tint: "bg-[#F3EDE3]" },
+  { name: "film", members: "26k", tint: "bg-[#E8EEF7]" },
+  { name: "cycling", members: "14k", tint: "bg-[#EAF5EE]" },
 ];
+
 const steps = [
-    {
-        n: "01",
-        t: "pick a Crowd",
-        d: "Search by interest or by city. Peek inside before you join, no lock in, no invisible rules.",
-    },
-    {
-        n: "02",
-        t: "get the good threads only",
-        d: "Yankee filters what your Crowd is actually engaging with, mutes the noise and keeps discovery private.",
-    },
-    {
-        n: "03",
-        t: "show up in person",
-        d: "Meetups appear right in the Crowd feed. RSVP in one tap, get a nudge before it starts, meet the humans behind the handles.",
-    },
+  {
+    n: "01",
+    t: "pick a crowd",
+    d: "search by interest or city. peek inside before you join. no lock in.",
+  },
+  {
+    n: "02",
+    t: "get the good threads",
+    d: "yankee filters what your crowd is actually engaging with and mutes the noise.",
+  },
+  {
+    n: "03",
+    t: "show up in person",
+    d: "meetups appear in the crowd feed. rsvp in one tap, get a nudge before it starts.",
+  },
 ];
+
+const principles = [
+  {
+    icon: Users,
+    title: "capped on purpose",
+    text: "when a crowd gets too big, it splits. conversations stay grounded.",
+  },
+  {
+    icon: MessageSquare,
+    title: "replies over karma",
+    text: "signal comes from real replies, not scores or downvote piles.",
+  },
+  {
+    icon: MapPin,
+    title: "meetups built in",
+    text: "invites, rsvps and reminders live right next to the thread.",
+  },
+  {
+    icon: Split,
+    title: "moderated by members",
+    text: "volunteers from the crowd set the tone. yankee gives the tools.",
+  },
+];
+
 const faqs = [
-    {
-        q: "what is a Crowd?",
-        a: "A Crowd is Yankee's take on a community. Small, topical, capped in size, moderated by real humans and kept alive by regular meetups. Think group chat energy, structured like a magazine.",
-    },
-    {
-        q: "how are Crowds different from a subreddit or a discord server?",
-        a: "Crowds are capped in size, chronological, and split when they get too big. There is no karma, no upvote ranking and no algorithmic resurfacing. Signal comes from replies, not scores.",
-    },
-    {
-        q: "can I create my own Crowd?",
-        a: "Yes. Any member can propose a Crowd. If it hits a small threshold of active members in the first month, Yankee promotes it into the main directory.",
-    },
-    {
-        q: "are Crowds moderated?",
-        a: "Every Crowd has volunteer moderators from its own members. Yankee provides the tooling, they set the tone. Reports are private and handled the same day.",
-    },
-    {
-        q: "do meetups cost anything?",
-        a: "No. Meetups are free to host and free to attend. Some Crowds organise paid events (a dinner, a workshop) and those are always clearly labelled.",
-    },
-    {
-        q: "will my friends see the Crowds I join?",
-        a: "Only if you want them to. Every Crowd membership is private by default. You can pin the ones you're proud of to your profile.",
-    },
+  {
+    q: "What is a Crowd?",
+    a: "A Crowd is Yankee's take on a community. Small, topical, capped in size, moderated by real humans and kept alive by regular meetups. Think group chat energy, structured like a magazine.",
+  },
+  {
+    q: "How are Crowds different from a subreddit or a Discord server?",
+    a: "Crowds are capped in size, chronological, and split when they get too big. There is no karma, no upvote ranking and no algorithmic resurfacing. Signal comes from replies, not scores.",
+  },
+  {
+    q: "Can I create my own Crowd?",
+    a: "Yes. Any member can propose a Crowd. If it hits a small threshold of active members in the first month, Yankee promotes it into the main directory.",
+  },
+  {
+    q: "Are Crowds moderated?",
+    a: "Every Crowd has volunteer moderators from its own members. Yankee provides the tooling, they set the tone. Reports are private and handled the same day.",
+  },
+  {
+    q: "Do meetups cost anything?",
+    a: "No. Meetups are free to host and free to attend. Some Crowds organise paid events (a dinner, a workshop) and those are always clearly labelled.",
+  },
+  {
+    q: "Will my friends see the Crowds I join?",
+    a: "Only if you want them to. Every Crowd membership is private by default. You can pin the ones you're proud of to your profile.",
+  },
 ];
-const Communities = () => (<Layout>
 
-    <section className="pt-24 md:pt-32 pb-16">
-      <div className="max-w-[1100px] mx-auto px-6 text-center">
-        <AnimatedSection>
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border bg-card text-[11.5px] uppercase tracking-widest text-foreground/70">
-            <span className="w-1.5 h-1.5 rounded-full bg-folk"/>
-            new · yankee crowds
-          </span>
+const Communities = () => (
+  <Layout>
+    <section className="relative -mt-24 pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden dotted-bg">
+      <div className="absolute inset-0 bg-background/85" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="max-w-[720px] mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex justify-center"
+          >
+            <PromoPill tag="crowds" text="small rooms, real people" to="/features" />
+          </motion.div>
 
-          <h1 className="mt-8 text-[46px] md:text-[88px] leading-[0.95] tracking-[-0.03em] text-foreground font-semibold max-w-4xl mx-auto">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, delay: 0.08, ease }}
+            className="mt-6 text-[2.4rem] sm:text-5xl md:text-[3.6rem] font-semibold text-foreground tracking-tight leading-[0.95] lowercase"
+          >
             the internet, back to{" "}
-            <span className="font-serif-display italic text-folk">human scale</span>
-          </h1>
+            <span className="font-serif-display italic font-medium">human scale.</span>
+          </motion.h1>
 
-          <p className="mt-8 text-[16px] md:text-[18px] text-foreground/70 max-w-2xl mx-auto leading-relaxed">
-            your Crowd is a small, topical room, moderated by real people. Yankee coordinates the threads, the meetups and the RSVPs, all without a group chat.
-          </p>
-        </AnimatedSection>
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.18 }}
+            className="mt-6 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-lg mx-auto"
+          >
+            your crowd is a small, topical room, moderated by real people. threads, meetups and rsvps, without a messy group chat.
+          </motion.p>
 
-        <AnimatedSection delay={0.08}>
-          <div className="mt-12 mx-auto max-w-[560px]">
-            <div className="flex items-center gap-2 px-2 py-2 rounded-full border border-border bg-card shadow-[0_20px_60px_-30px_rgba(0,0,0,0.25)]">
-              <span className="w-9 h-9 shrink-0 rounded-full bg-foreground/5 flex items-center justify-center text-foreground/50 text-[18px]">+</span>
-              <input readOnly placeholder="text your Crowd, or ask Yankee" className="flex-1 bg-transparent outline-none text-[14.5px] text-foreground placeholder:text-foreground/40 px-2"/>
-              <button className="w-9 h-9 shrink-0 rounded-full bg-folk text-folk-foreground flex items-center justify-center">
-                <ArrowUp size={16}/>
-              </button>
-            </div>
-
-            <p className="mt-4 text-[12.5px] text-foreground/60">free forever. no card needed.</p>
-
-            <div className="mt-6 flex items-center justify-center gap-5 text-[11px] uppercase tracking-widest text-foreground/50">
-              <span>lives inside</span>
-              <span className="w-8 h-8 rounded-[10px] border border-border bg-card flex items-center justify-center text-[15px]">💬</span>
-              <span className="w-8 h-8 rounded-[10px] border border-border bg-card flex items-center justify-center text-[15px]">✈️</span>
-              <span className="w-8 h-8 rounded-[10px] border border-border bg-card flex items-center justify-center text-[15px]">🎧</span>
-              <span className="w-8 h-8 rounded-[10px] border border-border bg-card flex items-center justify-center text-[15px]">🟢</span>
-            </div>
-          </div>
-        </AnimatedSection>
-
-        <AnimatedSection delay={0.15}>
-          <div className="relative mt-20 mx-auto max-w-[900px]">
-            <div className="absolute inset-x-0 bottom-0 h-[70%] rounded-[3rem] bg-gradient-to-b from-folk/15 via-folk/5 to-transparent"/>
-            <div className="relative flex justify-center pt-8">
-              <div className="w-[280px] md:w-[340px] aspect-[9/19] rounded-[2.4rem] border-[8px] border-foreground/90 bg-card overflow-hidden shadow-[0_60px_120px_-40px_rgba(0,0,0,0.45)]">
-                <img src={crowdsHome} alt="Yankee Crowds on iPhone" className="w-full h-full object-cover object-top"/>
-              </div>
-            </div>
-          </div>
-        </AnimatedSection>
-
-        <AnimatedSection delay={0.2}>
-          <div className="mt-14 flex flex-col items-center gap-3">
-            <div className="flex -space-x-2">
-              {["👩🏻", "👨🏽", "👩🏼", "👨🏻", "👩🏾", "👨🏼", "👩🏽"].map((e, i) => (<span key={i} className="w-9 h-9 rounded-full border-2 border-background bg-card flex items-center justify-center text-[16px]">{e}</span>))}
-            </div>
-            <p className="text-[13px] text-muted-foreground">340+ Crowds already meeting up every week</p>
-            <Link to="/features" className="text-[13px] text-foreground/70 hover:text-foreground underline underline-offset-4">
-              new to yankee? see how it works
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.26 }}
+            className="mt-8 flex flex-wrap items-center justify-center gap-3"
+          >
+            <Link
+              to="/contact"
+              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-white lowercase tracking-tight
+                bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
+                hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+            >
+              get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
             </Link>
-          </div>
-        </AnimatedSection>
+            <Link
+              to="/features"
+              className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+            >
+              see how it works
+            </Link>
+          </motion.div>
+          <p className="mt-5 text-[12px] text-foreground/45 lowercase">
+            free forever · 340+ crowds meeting every week
+          </p>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.75, delay: 0.35, ease }}
+          className="mt-12 md:mt-16"
+        >
+          <CrowdHeroScene />
+        </motion.div>
       </div>
     </section>
 
-    <section className="py-24 md:py-32 border-t border-border/40">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <AnimatedSection>
-          <h2 className="text-center text-4xl md:text-6xl font-semibold text-foreground tracking-[-0.02em] leading-[1.02]">
-            what a Crowd <br className="hidden md:block"/>
-            <span className="font-serif-display italic">actually feels like</span>
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/70" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="max-w-2xl mx-auto text-center">
+          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">the idea</p>
+          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+            what makes a <span className="font-serif-display italic font-medium">crowd different</span>
           </h2>
         </AnimatedSection>
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-4">
-          {blocks.map((b, i) => (<AnimatedSection key={i} delay={i * 0.05}>
-              <div className="h-full rounded-[2rem] border border-border bg-card p-7 flex flex-col gap-6">
-                <p className="text-[11px] uppercase tracking-widest text-muted-foreground">{b.kicker}</p>
-                <h3 className="text-[26px] md:text-[28px] font-semibold text-foreground leading-[1.05] tracking-[-0.01em]">{b.title}</h3>
-                <p className="text-[14px] text-muted-foreground leading-relaxed">{b.body}</p>
+        <div className="mt-12 md:mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {principles.map((p, i) => {
+            const Icon = p.icon;
+            return (
+              <AnimatedSection key={p.title} delay={i * 0.06}>
+                <motion.div
+                  whileHover={{ y: -3 }}
+                  className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))]"
+                >
+                  <div className="w-10 h-10 rounded-xl border-2 border-foreground bg-primary text-primary-foreground flex items-center justify-center mb-5">
+                    <Icon size={18} />
+                  </div>
+                  <h3 className="text-[15px] font-semibold lowercase tracking-tight">{p.title}</h3>
+                  <p className="mt-3 text-[13px] text-muted-foreground leading-relaxed lowercase">{p.text}</p>
+                </motion.div>
+              </AnimatedSection>
+            );
+          })}
+        </div>
+      </div>
+    </section>
 
-                <div className="mt-auto flex flex-col gap-2 pt-4">
-                  {b.chat.map((m, j) => (<div key={j} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>
-                      <span className={`inline-block max-w-[85%] px-3.5 py-2 text-[13.5px] leading-snug rounded-[1.2rem] ${m.from === "you"
-                ? "bg-folk text-folk-foreground rounded-br-md"
-                : "bg-muted text-foreground rounded-bl-md"}`}>
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="max-w-2xl mx-auto text-center">
+          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">the feel</p>
+          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+            what a crowd <br className="hidden md:block" />
+            <span className="font-serif-display italic font-medium">actually feels like</span>
+          </h2>
+        </AnimatedSection>
+
+        <div className="mt-12 md:mt-16 grid md:grid-cols-3 gap-4">
+          {blocks.map((b, i) => (
+            <AnimatedSection key={b.kicker} delay={i * 0.08}>
+              <motion.div
+                whileHover={{ y: -3 }}
+                className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 md:p-7 flex flex-col gap-5 shadow-[4px_4px_0_0_hsl(var(--foreground))]"
+              >
+                <p className="font-serif-display italic text-[1.05rem] text-foreground/45 lowercase leading-none">
+                  {b.kicker}
+                </p>
+                <h3 className="text-[22px] md:text-[24px] font-semibold text-foreground leading-[1.08] tracking-tight lowercase">
+                  {b.title}
+                </h3>
+                <p className="text-[13px] md:text-[14px] text-muted-foreground leading-relaxed lowercase">{b.body}</p>
+
+                <div className="mt-auto flex flex-col gap-2.5 pt-2">
+                  {b.chat.map((m, j) => (
+                    <div key={j} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>
+                      <span
+                        className={`inline-block max-w-[90%] px-3.5 py-2 text-[12.5px] md:text-[13px] leading-snug lowercase rounded-2xl ${
+                          m.from === "you"
+                            ? "bg-[#5B9CFF] text-white rounded-br-md shadow-[3px_3px_0_0_hsl(var(--foreground))]"
+                            : "bg-[#E8E6E1] text-foreground rounded-bl-md border-2 border-foreground shadow-[3px_3px_0_0_hsl(var(--foreground))]"
+                        }`}
+                      >
                         {m.text}
                       </span>
-                    </div>))}
+                    </div>
+                  ))}
                 </div>
-              </div>
-            </AnimatedSection>))}
+              </motion.div>
+            </AnimatedSection>
+          ))}
         </div>
       </div>
     </section>
 
-    <section className="py-24 md:py-32 border-t border-border/40">
-      <div className="max-w-[1200px] mx-auto px-6 grid md:grid-cols-12 gap-10 items-stretch">
-        <AnimatedSection className="md:col-span-7">
-          <div className="relative rounded-[2.5rem] overflow-hidden border border-border h-full min-h-[440px]">
-            <img src={cafeFriends} alt="A Crowd meetup" className="absolute inset-0 w-full h-full object-cover"/>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent"/>
-            <div className="absolute bottom-6 left-6 right-6 flex flex-col gap-2">
-              <div className="flex">
-                <span className="inline-block max-w-[85%] px-3.5 py-2 text-[13.5px] leading-snug rounded-[1.2rem] bg-muted text-foreground rounded-bl-md">
-                  who&apos;s in for saturday? 📷
-                </span>
-              </div>
-              <div className="flex justify-end">
-                <span className="inline-block max-w-[85%] px-3.5 py-2 text-[13.5px] leading-snug rounded-[1.2rem] bg-folk text-folk-foreground rounded-br-md">
+    <section className="relative py-20 md:py-28 overflow-hidden dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+          <AnimatedSection className="lg:col-span-7">
+            <motion.div
+              whileHover={{ y: -2 }}
+              className="relative rounded-[1.75rem] border-2 border-foreground overflow-hidden min-h-[360px] md:min-h-[440px] shadow-[6px_6px_0_0_hsl(var(--foreground))]"
+            >
+              <img src={cafeFriends} alt="A Crowd meetup" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+              <div className="absolute bottom-5 left-5 right-5 flex flex-col gap-2.5">
+                <div className="self-start max-w-[85%] rounded-2xl rounded-bl-md border-2 border-foreground bg-[#E8E6E1] px-3.5 py-2 text-[13px] leading-snug lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                  who&apos;s in for saturday?
+                </div>
+                <div className="self-end max-w-[85%] rounded-2xl rounded-br-md bg-[#5B9CFF] px-3.5 py-2 text-[13px] leading-snug text-white lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
                   count me in, bringing the film camera
-                </span>
-              </div>
-              <div className="flex">
-                <span className="inline-block max-w-[85%] px-3.5 py-2 text-[13.5px] leading-snug rounded-[1.2rem] bg-muted text-foreground rounded-bl-md">
+                </div>
+                <div className="self-start max-w-[85%] rounded-2xl rounded-bl-md border-2 border-foreground bg-card px-3.5 py-2 text-[13px] leading-snug lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
                   12 going · rsvp closes friday 8pm
+                </div>
+              </div>
+            </motion.div>
+          </AnimatedSection>
+
+          <AnimatedSection className="lg:col-span-5" delay={0.1}>
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">from thread to table</p>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+              a crowd is <span className="font-serif-display italic font-medium">a place, not a feed.</span>
+            </h2>
+            <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md">
+              every crowd runs its own quiet calendar. yankee sends the invite, tracks the rsvps and reminds you before you leave.
+            </p>
+            <ul className="mt-8 space-y-3 max-w-md">
+              {[
+                "one tap rsvp, no third party links",
+                "location shared only with people going",
+                "a soft reminder one hour before start",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3 text-[14px] text-foreground/80 lowercase">
+                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-foreground/40 shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/75" />
+      <div className="relative max-w-[1100px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="max-w-2xl mx-auto text-center">
+          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">directory</p>
+          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+            a crowd for every <span className="font-serif-display italic font-medium">obsession</span>
+          </h2>
+          <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-lg mx-auto">
+            a snapshot of what people are meeting up around this month.
+          </p>
+        </AnimatedSection>
+
+        <div className="mt-10 md:mt-12 flex flex-wrap justify-center gap-3">
+          {topics.map((t, i) => (
+            <AnimatedSection key={t.name} delay={i * 0.03}>
+              <motion.span
+                whileHover={{ y: -3, rotate: -2 }}
+                className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full border-2 border-foreground ${t.tint} text-[13px] text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]`}
+              >
+                <span className="inline-flex items-center gap-1 text-foreground/55 text-[11px]">
+                  <Users size={11} /> {t.members}
                 </span>
+                <span className="text-foreground/40">·</span>
+                <span className="font-medium">#{t.name}</span>
+              </motion.span>
+            </AnimatedSection>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1100px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="max-w-2xl mx-auto text-center">
+          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">how it works</p>
+          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+            three steps. <span className="font-serif-display italic font-medium">then you&apos;re in.</span>
+          </h2>
+        </AnimatedSection>
+
+        <div className="mt-12 md:mt-14 grid md:grid-cols-3 gap-4">
+          {steps.map((s, i) => (
+            <AnimatedSection key={s.n} delay={i * 0.08}>
+              <motion.div
+                whileHover={{ y: -3 }}
+                className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col"
+              >
+                <span className="font-serif-display italic text-[1.5rem] text-foreground/35 leading-none">{s.n}</span>
+                <h3 className="mt-5 text-[17px] font-semibold lowercase tracking-tight">{s.t}</h3>
+                <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed lowercase">{s.d}</p>
+              </motion.div>
+            </AnimatedSection>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section className="relative py-20 md:py-28 overflow-hidden dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+          <AnimatedSection className="lg:col-span-5 order-2 lg:order-1">
+            <div className="relative mx-auto max-w-[280px]">
+              <motion.div
+                initial={{ opacity: 0, y: 24, rotate: 2 }}
+                whileInView={{ opacity: 1, y: 0, rotate: 1.5 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease }}
+                className="rounded-[1.75rem] border-2 border-foreground bg-card p-3 shadow-[6px_6px_0_0_hsl(var(--foreground))] overflow-hidden aspect-[9/17]"
+              >
+                <img
+                  src={community}
+                  alt="Inside a Crowd"
+                  className="w-full h-full object-cover object-top rounded-[1.25rem]"
+                  loading="lazy"
+                />
+              </motion.div>
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection className="lg:col-span-7 order-1 lg:order-2" delay={0.08}>
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">inside a crowd</p>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[0.98] lowercase max-w-[14ch]">
+              one room, <span className="font-serif-display italic font-medium">many rhythms.</span>
+            </h2>
+            <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md">
+              every crowd is a chronological thread, a small events board and a shared memory. no infinite scroll.
+            </p>
+            <Link
+              to="/features"
+              className="mt-8 inline-flex items-center gap-2 px-6 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+            >
+              explore the product <ArrowRight size={14} />
+            </Link>
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+
+    <section className="py-20 md:py-28">
+      <div className="max-w-[900px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="text-center">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight lowercase">
+            crowds, <span className="font-serif-display italic font-medium">explained.</span>
+          </h2>
+          <p className="mt-4 text-[15px] text-muted-foreground lowercase">
+            short answers about size, moderation, meetups and privacy.
+          </p>
+        </AnimatedSection>
+        <div className="mt-10 md:mt-12">
+          <FAQ items={faqs} />
+        </div>
+      </div>
+    </section>
+
+    <section className="relative py-20 md:py-28 overflow-hidden dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <AnimatedSection>
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+            <div className="lg:col-span-7 flex flex-col justify-center">
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="font-serif-display italic text-[1.35rem] md:text-[1.6rem] text-foreground/55 lowercase leading-none"
+              >
+                yankee
+              </motion.p>
+              <motion.h2
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.08, ease }}
+                className="mt-4 md:mt-5 text-[2.4rem] sm:text-5xl md:text-6xl font-semibold text-foreground tracking-tight leading-[0.95] max-w-[10ch]"
+              >
+                find your <span className="font-serif-display italic font-medium">crowd.</span>
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: 0.16 }}
+                className="mt-6 max-w-md text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase"
+              >
+                free forever for the basics. yankee pro unlocks unlimited crowds and private meetups.
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: 0.24 }}
+                className="mt-8 md:mt-10 flex flex-wrap items-center gap-3"
+              >
+                <Link
+                  to="/contact"
+                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-white lowercase tracking-tight
+                    bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                    shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
+                    hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+                >
+                  get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                </Link>
+                <Link
+                  to="/features"
+                  className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+                >
+                  see all features
+                </Link>
+              </motion.div>
+            </div>
+
+            <div className="lg:col-span-5">
+              <div className="relative mx-auto max-w-md">
+                <motion.div
+                  initial={{ opacity: 0, y: 28, rotate: 2 }}
+                  whileInView={{ opacity: 1, y: 0, rotate: 1.5 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.12, ease }}
+                  className="mr-auto w-[92%] rounded-[1.5rem] border-2 border-foreground bg-card p-4 shadow-[6px_6px_0_0_hsl(var(--foreground))]"
+                >
+                  <div className="rounded-[1.1rem] overflow-hidden aspect-[5/3] bg-muted">
+                    <img
+                      src={studentsHero}
+                      alt=""
+                      className="w-full h-full object-cover object-[50%_35%]"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="mt-3 flex items-center justify-between gap-2">
+                    <span className="text-[12px] lowercase text-foreground/70">slow coffee club</span>
+                    <span className="inline-flex items-center rounded-full bg-[#3DDC97] px-2.5 py-1 text-[11px] text-foreground lowercase">
+                      1,219 online
+                    </span>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: 18, y: 12 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.55, delay: 0.3 }}
+                  className="relative z-10 -mt-5 ml-auto max-w-[85%]"
+                >
+                  <div className="rounded-2xl rounded-br-md bg-[#5B9CFF] px-4 py-3 text-[13px] leading-snug text-white lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+                    your people are already here.
+                  </div>
+                </motion.div>
               </div>
             </div>
           </div>
         </AnimatedSection>
-
-        <AnimatedSection className="md:col-span-5 flex flex-col justify-center" delay={0.1}>
-          <p className="text-[11px] uppercase tracking-widest text-muted-foreground mb-4">from thread to table</p>
-          <h2 className="text-4xl md:text-5xl font-semibold text-foreground tracking-[-0.02em] leading-[1.02]">
-            a Crowd is <span className="font-serif-display italic">a place, not a feed.</span>
-          </h2>
-          <p className="mt-6 text-[15px] text-muted-foreground leading-relaxed max-w-md">
-            Every Crowd runs its own quiet calendar. Photo walks, book clubs, dinners, listening parties. Yankee sends the invite, tracks the RSVPs and reminds you before you leave the house.
-          </p>
-          <ul className="mt-6 space-y-3 text-[14px] text-foreground/80">
-            <li className="flex gap-3"><span className="text-muted-foreground">·</span> one tap RSVP, no third party links</li>
-            <li className="flex gap-3"><span className="text-muted-foreground">·</span> location shared only with people going</li>
-            <li className="flex gap-3"><span className="text-muted-foreground">·</span> a soft reminder one hour before start</li>
-          </ul>
-        </AnimatedSection>
       </div>
     </section>
+  </Layout>
+);
 
-    <section className="py-24 md:py-32 border-t border-border/40">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <AnimatedSection>
-          <h2 className="text-center text-4xl md:text-6xl font-semibold text-foreground tracking-[-0.02em] leading-[1.02]">
-            a Crowd for every <span className="font-serif-display italic">obsession</span>
-          </h2>
-          <p className="mt-6 text-center text-[15px] text-muted-foreground max-w-xl mx-auto">
-            A snapshot of what people are meeting up around this month.
-          </p>
-        </AnimatedSection>
-        <div className="mt-12 flex flex-wrap justify-center gap-2.5">
-          {topics.map((t, i) => (<AnimatedSection key={t.name} delay={i * 0.02}>
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-card text-[13.5px] text-foreground">
-                <span className="inline-flex items-center gap-1 text-muted-foreground text-[11px] uppercase tracking-widest">
-                  <Users size={11}/> {t.members}
-                </span>
-                <span className="text-foreground/80">·</span>
-                <span>#{t.name}</span>
-              </span>
-            </AnimatedSection>))}
-        </div>
-      </div>
-    </section>
-
-    <section className="py-24 md:py-32 border-t border-border/40">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <AnimatedSection>
-          <h2 className="text-center text-4xl md:text-6xl font-semibold text-foreground tracking-[-0.02em] leading-[1.02]">
-            how it <span className="font-serif-display italic">works</span>
-          </h2>
-        </AnimatedSection>
-
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-4">
-          {steps.map((s, i) => (<AnimatedSection key={s.n} delay={i * 0.05}>
-              <div className="h-full rounded-[2rem] border border-border bg-card p-8 flex flex-col gap-6">
-                <span className="text-[13px] font-medium text-foreground/50">{s.n}</span>
-                <h3 className="text-[22px] font-semibold text-foreground leading-tight">{s.t}</h3>
-                <p className="text-[14px] text-muted-foreground leading-relaxed">{s.d}</p>
-              </div>
-            </AnimatedSection>))}
-        </div>
-      </div>
-    </section>
-
-    <section className="py-24 md:py-32 border-t border-border/40">
-      <div className="max-w-[1200px] mx-auto px-6 grid md:grid-cols-12 gap-14 items-center">
-        <AnimatedSection className="md:col-span-6 md:order-2">
-          <p className="text-[11px] uppercase tracking-widest text-muted-foreground mb-4">inside a Crowd</p>
-          <h2 className="text-4xl md:text-5xl font-semibold text-foreground tracking-[-0.02em] leading-[1.02]">
-            one room, <span className="font-serif-display italic">many rhythms.</span>
-          </h2>
-          <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed max-w-md">
-            Every Crowd is a chronological thread, a small events board and a shared memory. No infinite scroll, no tabs to lose yourself in.
-          </p>
-        </AnimatedSection>
-        <AnimatedSection className="md:col-span-6 md:order-1" delay={0.1}>
-          <div className="rounded-[2rem] border border-border bg-card p-4 max-w-sm mx-auto aspect-[9/17] overflow-hidden">
-            <img src={community} alt="Inside a Crowd" className="w-full h-full object-cover object-top rounded-2xl"/>
-          </div>
-        </AnimatedSection>
-      </div>
-    </section>
-
-    <section className="py-24 md:py-32 border-t border-border/40">
-      <div className="max-w-3xl mx-auto px-6">
-        <AnimatedSection>
-          <h2 className="text-center text-4xl md:text-6xl font-semibold text-foreground tracking-[-0.02em] leading-[1.02]">
-            Crowds, <span className="font-serif-display italic">explained.</span>
-          </h2>
-        </AnimatedSection>
-
-        <div className="mt-14 flex flex-col gap-3">
-          {faqs.map((f, i) => (<AnimatedSection key={i} delay={i * 0.03}>
-              <details className="group rounded-[1.5rem] border border-border bg-card p-6 open:pb-7">
-                <summary className="flex items-center justify-between gap-4 cursor-pointer list-none">
-                  <span className="text-[16px] md:text-[17px] font-medium text-foreground">{f.q}</span>
-                  <span className="w-8 h-8 rounded-full bg-foreground/5 flex items-center justify-center text-foreground/60 group-open:rotate-45 transition-transform">+</span>
-                </summary>
-                <p className="mt-4 text-[14.5px] text-muted-foreground leading-relaxed">{f.a}</p>
-              </details>
-            </AnimatedSection>))}
-        </div>
-      </div>
-    </section>
-
-    <section className="py-24 md:py-32 border-t border-border/40">
-      <div className="max-w-3xl mx-auto px-6 text-center">
-        <AnimatedSection>
-          <h2 className="text-4xl md:text-6xl font-semibold text-foreground tracking-[-0.02em] leading-[1.02]">
-            find your <span className="font-serif-display italic">Crowd.</span>
-          </h2>
-          <p className="mt-6 text-[16px] text-muted-foreground leading-relaxed max-w-xl mx-auto">
-            Free forever for the basics. Yankee Pro unlocks unlimited Crowds and private meetups.
-          </p>
-          <div className="mt-10 flex items-center justify-center gap-3 flex-wrap">
-            <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-foreground text-background text-[14px] font-medium hover:opacity-90 transition-opacity">
-              get the app <ArrowRight size={14}/>
-            </Link>
-            <Link to="/features" className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border/60 bg-card text-foreground text-[14px] font-medium hover:bg-card/80 transition-colors">
-              see all features
-            </Link>
-          </div>
-        </AnimatedSection>
-      </div>
-    </section>
-  </Layout>);
 export default Communities;

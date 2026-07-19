@@ -1,252 +1,490 @@
-import { ArrowRight, Bell, SlidersHorizontal, BellOff } from "lucide-react";
+import { ArrowRight, Bell, BellOff, Moon, Filter, MessageSquare, AtSign } from "lucide-react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import AnimatedSection from "@/components/AnimatedSection";
+import FAQ from "@/components/FAQ";
+import PromoPill from "@/components/home/PromoPill";
+import NotifHeroScene from "@/components/home/NotifHeroScene";
+import heroNotifications from "@/assets/hero-notifications.jpg";
+import messages from "@/assets/yankee/messages.png";
+
+const ease = [0.25, 0.4, 0.25, 1] as const;
+
+const principles = [
+  {
+    icon: MessageSquare,
+    title: "real people first",
+    text: "dms, replies and mentions from people you talk to always ring. no exceptions.",
+  },
+  {
+    icon: Filter,
+    title: "noise stays off",
+    text: "streaks, re-engagement prompts and empty nudges are silent by default.",
+  },
+  {
+    icon: Moon,
+    title: "quiet when you need it",
+    text: "quiet hours and a once-a-day digest. skim it in seconds and close the phone.",
+  },
+  {
+    icon: BellOff,
+    title: "you set the rules",
+    text: "star people, mute a crowd, keep close friends loud. your signal list, your call.",
+  },
+];
+
+const blocks = [
+  {
+    kicker: "signal, not spam",
+    title: (
+      <>
+        only the pings <span className="font-serif-display italic font-medium">you asked for</span>
+      </>
+    ),
+    body: "yankee does not invent urgency. if you did not choose it, it does not ring.",
+    chat: [
+      { from: "them" as const, text: "julia dm'd you about saturday." },
+      { from: "you" as const, text: "good. mute the rest." },
+    ],
+  },
+  {
+    kicker: "one calm inbox",
+    title: (
+      <>
+        batch the rest into <span className="font-serif-display italic font-medium">a digest</span>
+      </>
+    ),
+    body: "non urgent updates wait for evening. one screen, no attention debt every three minutes.",
+    chat: [
+      { from: "them" as const, text: "digest ready · 2 messages, 1 mention." },
+      { from: "you" as const, text: "that's all? perfect." },
+    ],
+  },
+  {
+    kicker: "context aware",
+    title: (
+      <>
+        work, personal, crowds. <span className="font-serif-display italic font-medium">separate rules.</span>
+      </>
+    ),
+    body: "switch profiles in one tap. each gets its own signal list and quiet schedule.",
+    chat: [
+      { from: "you" as const, text: "switch to personal" },
+      { from: "them" as const, text: "done. work alerts muted until monday." },
+    ],
+  },
+];
+
 const steps = [
-    {
-        n: "1",
-        t: "connect your inboxes inside Yankee",
-        d: "Link the accounts and communities you actually care about. Yankee only reads what you choose, and never touches your passwords or private messages.",
-    },
-    {
-        n: "2",
-        t: "set your signal rules",
-        d: "Decide who and what deserves a ping. DMs, mentions, close friends and community roles can ring. Algorithmic nudges, streak reminders and re-engagement alerts stay silent.",
-    },
-    {
-        n: "3",
-        t: "review once a day",
-        d: "Yankee batches the rest into a single digest. Skim it in seconds, mark anything urgent, and carry on without your phone begging for attention every three minutes.",
-    },
-    {
-        n: "4",
-        t: "let the noise stay outside",
-        d: "With quiet mode and scheduled summaries, Yankee holds the line. The apps you use keep working, but your attention belongs to you again.",
-    },
+  {
+    n: "01",
+    t: "pick what can ring",
+    d: "dms, mentions, close friends and crowd roles. everything else starts silent.",
+  },
+  {
+    n: "02",
+    t: "set quiet hours",
+    d: "choose when yankee holds non urgent updates for a single evening digest.",
+  },
+  {
+    n: "03",
+    t: "open when you want",
+    d: "skim the inbox, mark what matters, close the app. no phone begging for attention.",
+  },
 ];
+
+const allowList = [
+  { icon: MessageSquare, label: "direct messages", note: "always on" },
+  { icon: AtSign, label: "mentions", note: "crowds you joined" },
+  { icon: Bell, label: "close friends", note: "people you starred" },
+];
+
 const faqs = [
-    {
-        q: "Does Yankee replace my Instagram or X notifications?",
-        a: "No. Yankee is your own notification layer. You keep using the apps you like, but the pings pass through Yankee first, filtered and ranked by the rules you set.",
-    },
-    {
-        q: "Will I miss messages from real people?",
-        a: "Never. Direct messages, mentions and replies from people you have talked to always land. The ones that disappear are the algorithmic nudges, streak reminders and 'someone you follow just posted' prompts.",
-    },
-    {
-        q: "Can I have different rules for work and personal?",
-        a: "Yes. Profiles let you switch contexts in one tap. Work hours, community events and personal time each get their own signal list and quiet schedule.",
-    },
-    {
-        q: "Where are my notification rules stored?",
-        a: "On your device by default. If you enable sync, the ruleset is encrypted end-to-end. Yankee never reads the contents of your messages, only the metadata you choose to share.",
-    },
+  {
+    q: "Will I miss messages from real people?",
+    a: "No. Direct messages, mentions and replies from people you talk to always land. What stays silent are empty nudges, streak reminders and re-engagement prompts.",
+  },
+  {
+    q: "Can I mute a Crowd without leaving it?",
+    a: "Yes. Mute the Crowd's pings and keep reading the feed when you open it. You stay a member; the phone just stops tapping your shoulder.",
+  },
+  {
+    q: "What is the daily digest?",
+    a: "A single evening summary of non-urgent updates — soft replies, Crowd activity you did not ask to hear about live. Skim it once and you are done.",
+  },
+  {
+    q: "Can I have different rules for work and personal?",
+    a: "Yes. Profiles let you switch contexts in one tap. Work hours, community events and personal time each get their own signal list and quiet schedule.",
+  },
+  {
+    q: "Where are my notification rules stored?",
+    a: "On your device by default. If you enable sync, the ruleset is encrypted end-to-end. Yankee never sells your attention settings.",
+  },
+  {
+    q: "Does Yankee send notifications from other apps?",
+    a: "No. Notifications are for what happens inside Yankee — your people, your Crowds, your chats. Other networks stay outside.",
+  },
 ];
-const Notifications = () => (<Layout>
 
-    <section className="pt-24 md:pt-32 pb-16">
-      <div className="max-w-[1100px] mx-auto px-6 text-center">
-        <AnimatedSection>
-          <p className="text-[13px] md:text-[14px] text-foreground/60">notifications</p>
-          <h1 className="mt-6 text-[46px] md:text-[92px] leading-[0.94] tracking-[-0.03em] text-foreground font-semibold max-w-4xl mx-auto">
-            all your pings, <br className="hidden md:block"/>
-            <span className="font-serif-display italic text-folk">one calm inbox.</span>
-          </h1>
-          <p className="mt-8 text-[16px] md:text-[18px] text-foreground/70 max-w-2xl mx-auto leading-relaxed">
-            Yankee collects your messages, mentions and updates in one place, filters the noise, and only rings for what you actually care about. No imports, no switching apps, no attention debt.
-          </p>
-        </AnimatedSection>
-
-        <AnimatedSection delay={0.08}>
-          <div className="mt-10 flex items-center justify-center gap-3 flex-wrap">
-            <button className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-foreground text-background text-[14px] font-medium hover:opacity-90 transition-opacity">
-              build your signal list
-            </button>
-            <button className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-border/60 bg-card text-foreground text-[14px] font-medium hover:bg-card/80 transition-colors">
-              see how it works
-            </button>
+const Notifications = () => (
+  <Layout>
+    <section className="relative -mt-24 pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden dotted-bg">
+      <div className="absolute inset-0 bg-background/85" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <div className="lg:col-span-6 order-2 lg:order-1">
+            <NotifHeroScene />
           </div>
-        </AnimatedSection>
+
+          <div className="lg:col-span-6 order-1 lg:order-2 text-center lg:text-left">
+            <motion.div
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="flex justify-center lg:justify-start"
+            >
+              <PromoPill tag="notifications" text="only pings you asked for" to="/features" />
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, delay: 0.08, ease }}
+              className="mt-6 text-[2.4rem] sm:text-5xl md:text-[3.4rem] font-semibold text-foreground tracking-tight leading-[0.95] lowercase max-w-[12ch] mx-auto lg:mx-0"
+            >
+              all your pings,{" "}
+              <span className="font-serif-display italic font-medium">one calm inbox.</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.18 }}
+              className="mt-6 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto lg:mx-0"
+            >
+              messages, mentions and updates in one place. yankee filters the noise and only rings for what you actually care about.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.26 }}
+              className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-3"
+            >
+              <Link
+                to="/contact"
+                className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-white lowercase tracking-tight
+                  bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                  shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
+                  hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+              >
+                get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+              </Link>
+              <a
+                href="#how"
+                className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+              >
+                see how it works
+              </a>
+            </motion.div>
+            <p className="mt-5 text-[12px] text-foreground/45 lowercase">free forever · no card needed</p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section className="pb-16">
-      <div className="max-w-[1100px] mx-auto px-6">
-        <AnimatedSection>
-          <div className="relative rounded-[2.5rem] border border-border bg-card p-8 md:p-14 overflow-hidden">
-            <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-folk/10 via-transparent to-transparent"/>
-            <div className="relative grid md:grid-cols-12 gap-10 items-center">
-              <div className="md:col-span-5 flex flex-col gap-6">
-                <span className="inline-flex self-start items-center gap-2 px-3 py-1.5 rounded-full border border-folk/40 text-folk text-[11px] uppercase tracking-widest">
-                  your signal center
-                </span>
-                <h3 className="text-[34px] md:text-[46px] font-semibold text-foreground leading-[1.02] tracking-[-0.02em]">
-                  tune what <br />
-                  <span className="font-serif-display italic">rings for you.</span>
-                </h3>
-                <p className="text-[15px] md:text-[16px] text-muted-foreground leading-relaxed max-w-md">
-                  Choose the people, communities and events that matter. Yankee turns dozens of scattered alerts into a single, ranked stream of what deserves your attention.
-                </p>
-              </div>
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/70" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="max-w-2xl mx-auto text-center">
+          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">the rules</p>
+          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+            how the inbox <span className="font-serif-display italic font-medium">stays calm</span>
+          </h2>
+        </AnimatedSection>
 
-              <div className="md:col-span-7">
-                <div className="rounded-[1.75rem] border border-border bg-background/60 p-8 flex flex-col gap-5">
-                  <div className="flex items-center gap-4">
-                    <span className="w-12 h-12 rounded-2xl bg-folk/15 text-folk flex items-center justify-center">
-                      <Bell size={22}/>
-                    </span>
-                    <div className="flex-1">
-                      <p className="text-[15px] font-medium text-foreground">direct messages</p>
-                      <p className="text-[13px] text-muted-foreground">always ring, from people you talk to</p>
+        <div className="mt-12 md:mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {principles.map((p, i) => {
+            const Icon = p.icon;
+            return (
+              <AnimatedSection key={p.title} delay={i * 0.06}>
+                <motion.div
+                  whileHover={{ y: -3 }}
+                  className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))]"
+                >
+                  <div className="w-10 h-10 rounded-xl border-2 border-foreground bg-primary text-primary-foreground flex items-center justify-center mb-5">
+                    <Icon size={18} />
+                  </div>
+                  <h3 className="text-[15px] font-semibold lowercase tracking-tight">{p.title}</h3>
+                  <p className="mt-3 text-[13px] text-muted-foreground leading-relaxed lowercase">{p.text}</p>
+                </motion.div>
+              </AnimatedSection>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="max-w-2xl mx-auto text-center">
+          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">what it does</p>
+          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+            tune what{" "}
+            <span className="font-serif-display italic font-medium">rings for you</span>
+          </h2>
+        </AnimatedSection>
+
+        <div className="mt-12 md:mt-16 grid md:grid-cols-3 gap-4">
+          {blocks.map((b, i) => (
+            <AnimatedSection key={b.kicker} delay={i * 0.08}>
+              <motion.div
+                whileHover={{ y: -3 }}
+                className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 md:p-7 flex flex-col gap-5 shadow-[4px_4px_0_0_hsl(var(--foreground))]"
+              >
+                <p className="font-serif-display italic text-[1.05rem] text-foreground/45 lowercase leading-none">
+                  {b.kicker}
+                </p>
+                <h3 className="text-[22px] md:text-[24px] font-semibold text-foreground leading-[1.08] tracking-tight lowercase">
+                  {b.title}
+                </h3>
+                <p className="text-[13px] md:text-[14px] text-muted-foreground leading-relaxed lowercase">{b.body}</p>
+                <div className="mt-auto flex flex-col gap-2.5 pt-2">
+                  {b.chat.map((m, j) => (
+                    <div key={j} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>
+                      <span
+                        className={`inline-block max-w-[90%] px-3.5 py-2 text-[12.5px] md:text-[13px] leading-snug lowercase rounded-2xl ${
+                          m.from === "you"
+                            ? "bg-[#5B9CFF] text-white rounded-br-md shadow-[3px_3px_0_0_hsl(var(--foreground))]"
+                            : "bg-[#E8E6E1] text-foreground rounded-bl-md border-2 border-foreground shadow-[3px_3px_0_0_hsl(var(--foreground))]"
+                        }`}
+                      >
+                        {m.text}
+                      </span>
                     </div>
-                    <span className="px-3 py-1 rounded-full bg-folk/20 text-folk text-[11px] font-medium">on</span>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <span className="w-12 h-12 rounded-2xl bg-foreground/5 text-foreground/60 flex items-center justify-center">
-                      <SlidersHorizontal size={22}/>
-                    </span>
-                    <div className="flex-1">
-                      <p className="text-[15px] font-medium text-foreground">algorithmic nudges</p>
-                      <p className="text-[13px] text-muted-foreground">silenced by default</p>
-                    </div>
-                    <span className="px-3 py-1 rounded-full border border-border text-foreground/50 text-[11px] font-medium">off</span>
-                  </div>
-                  <div className="mt-2 rounded-2xl border border-dashed border-border/60 p-4 text-center text-[13px] text-muted-foreground">
-                    47 attention-grabbing pings were kept out of your day.
-                  </div>
+                  ))}
                 </div>
+              </motion.div>
+            </AnimatedSection>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/75" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+          <AnimatedSection className="lg:col-span-5">
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">what lands</p>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+              one screen,{" "}
+              <span className="font-serif-display italic font-medium">only the signal.</span>
+            </h2>
+            <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md">
+              direct messages, mentions in crowds you chose, and the few people you starred. everything else is silent by default.
+            </p>
+            <div className="mt-8 flex flex-col gap-3">
+              {allowList.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={item.label}
+                    className="flex items-center gap-3 rounded-[1.1rem] border-2 border-foreground bg-card px-4 py-3 shadow-[3px_3px_0_0_hsl(var(--foreground))]"
+                  >
+                    <span className="w-9 h-9 rounded-xl border-2 border-foreground bg-primary text-primary-foreground flex items-center justify-center">
+                      <Icon size={15} />
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[14px] font-semibold lowercase">{item.label}</p>
+                      <p className="text-[12px] text-foreground/50 lowercase">{item.note}</p>
+                    </div>
+                    <span className="rounded-full bg-[#3DDC97] px-2.5 py-1 text-[11px] font-medium lowercase">on</span>
+                  </div>
+                );
+              })}
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection className="lg:col-span-7" delay={0.1}>
+            <div className="relative mx-auto max-w-[320px]">
+              <motion.div
+                initial={{ opacity: 0, y: 24, rotate: -2 }}
+                whileInView={{ opacity: 1, y: 0, rotate: -1.5 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease }}
+                className="rounded-[1.75rem] border-2 border-foreground bg-card p-3 shadow-[6px_6px_0_0_hsl(var(--foreground))] overflow-hidden aspect-[9/17]"
+              >
+                <img
+                  src={messages}
+                  alt="Yankee notifications"
+                  className="w-full h-full object-cover object-top rounded-[1.25rem]"
+                  loading="lazy"
+                />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 16 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.25 }}
+                className="absolute -right-2 bottom-[18%] z-10 max-w-[70%]"
+              >
+                <div className="rounded-2xl rounded-br-md bg-[#5B9CFF] px-3.5 py-2.5 text-[12px] leading-snug text-white lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                  47 nudges silenced today
+                </div>
+              </motion.div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/70" />
+      <div className="relative max-w-[1100px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="max-w-2xl mx-auto text-center">
+          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">how it works</p>
+          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+            three steps. <span className="font-serif-display italic font-medium">then it stays quiet.</span>
+          </h2>
+        </AnimatedSection>
+
+        <div className="mt-12 md:mt-14 grid md:grid-cols-3 gap-4">
+          {steps.map((s, i) => (
+            <AnimatedSection key={s.n} delay={i * 0.08}>
+              <motion.div
+                whileHover={{ y: -3 }}
+                className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col"
+              >
+                <span className="font-serif-display italic text-[1.5rem] text-foreground/35 leading-none">{s.n}</span>
+                <h3 className="mt-5 text-[17px] font-semibold lowercase tracking-tight">{s.t}</h3>
+                <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed lowercase">{s.d}</p>
+              </motion.div>
+            </AnimatedSection>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section className="py-20 md:py-28">
+      <div className="max-w-[900px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="text-center">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight lowercase">
+            frequently <span className="font-serif-display italic font-medium">asked</span>
+          </h2>
+          <p className="mt-4 text-[15px] text-muted-foreground lowercase">
+            short answers about digests, mutes and what always gets through.
+          </p>
+        </AnimatedSection>
+        <div className="mt-10 md:mt-12">
+          <FAQ items={faqs} />
+        </div>
+      </div>
+    </section>
+
+    <section className="relative py-20 md:py-28 overflow-hidden dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <AnimatedSection>
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+            <div className="lg:col-span-7 flex flex-col justify-center">
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="font-serif-display italic text-[1.35rem] md:text-[1.6rem] text-foreground/55 lowercase leading-none"
+              >
+                yankee
+              </motion.p>
+              <motion.h2
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.08, ease }}
+                className="mt-4 md:mt-5 text-[2.4rem] sm:text-5xl md:text-6xl font-semibold text-foreground tracking-tight leading-[0.95] max-w-[12ch]"
+              >
+                get pinged{" "}
+                <span className="font-serif-display italic font-medium">on purpose.</span>
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: 0.16 }}
+                className="mt-6 max-w-md text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase"
+              >
+                set the rules once, let yankee hold the line, and stop giving your attention away.
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: 0.24 }}
+                className="mt-8 md:mt-10 flex flex-wrap items-center gap-3"
+              >
+                <Link
+                  to="/contact"
+                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-white lowercase tracking-tight
+                    bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                    shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
+                    hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+                >
+                  get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                </Link>
+                <Link
+                  to="/features"
+                  className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+                >
+                  see all features
+                </Link>
+              </motion.div>
+            </div>
+
+            <div className="lg:col-span-5">
+              <div className="relative mx-auto max-w-md">
+                <motion.div
+                  initial={{ opacity: 0, y: 28, rotate: 2 }}
+                  whileInView={{ opacity: 1, y: 0, rotate: 1.5 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.12, ease }}
+                  className="ml-auto w-[92%] rounded-[1.5rem] border-2 border-foreground bg-card p-4 shadow-[6px_6px_0_0_hsl(var(--foreground))]"
+                >
+                  <div className="rounded-[1.1rem] overflow-hidden aspect-[5/3] bg-muted">
+                    <img
+                      src={heroNotifications}
+                      alt=""
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="mt-3 flex items-center justify-between gap-2">
+                    <span className="text-[12px] lowercase text-foreground/70">quiet hours · 10pm–8am</span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-foreground px-2.5 py-1 text-[11px] text-background lowercase">
+                      <BellOff size={10} /> on
+                    </span>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: -18, y: 12 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.55, delay: 0.3 }}
+                  className="relative z-10 -mt-5 mr-auto max-w-[85%]"
+                >
+                  <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-[#E8E6E1] px-4 py-3 text-[13px] leading-snug lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+                    digest at 8pm. nothing until then.
+                  </div>
+                </motion.div>
               </div>
             </div>
           </div>
         </AnimatedSection>
       </div>
     </section>
+  </Layout>
+);
 
-    <section className="py-24 md:py-32 border-t border-border/40">
-      <div className="max-w-[1100px] mx-auto px-6">
-        <AnimatedSection>
-          <h2 className="text-4xl md:text-6xl font-semibold text-foreground tracking-[-0.02em] leading-[1.02] max-w-3xl">
-            how do I get <br />
-            <span className="font-serif-display italic">a calm inbox?</span>
-          </h2>
-        </AnimatedSection>
-
-        <div className="mt-16 flex flex-col">
-          {steps.map((s, i) => (<AnimatedSection key={s.n} delay={i * 0.04}>
-              <div className="grid grid-cols-[auto_1fr] md:grid-cols-[6rem_1fr] gap-6 md:gap-10 py-8 border-t border-border/40 first:border-t-0 last:border-b last:border-b-border/40">
-                <div className="flex items-start">
-                  <span className="text-[42px] md:text-[64px] font-serif-display italic text-folk leading-none">{s.n}</span>
-                </div>
-                <div className="flex flex-col gap-2 pt-1">
-                  <h3 className="text-[22px] md:text-[28px] font-semibold text-foreground tracking-[-0.01em] leading-[1.15]">
-                    {s.t}
-                  </h3>
-                  <p className="text-[15px] md:text-[16px] text-muted-foreground leading-relaxed max-w-2xl">
-                    {s.d}
-                  </p>
-                </div>
-              </div>
-            </AnimatedSection>))}
-        </div>
-      </div>
-    </section>
-
-    <section className="py-24 md:py-32 border-t border-border/40">
-      <div className="max-w-[1100px] mx-auto px-6">
-        <div className="grid md:grid-cols-12 gap-10 items-center">
-          <div className="md:col-span-6">
-            <AnimatedSection>
-              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border text-[11px] uppercase tracking-widest text-foreground/70">
-                what lands, what doesn't
-              </span>
-              <h2 className="mt-6 text-4xl md:text-5xl font-semibold text-foreground tracking-[-0.02em] leading-[1.05]">
-                one screen, <br />
-                <span className="font-serif-display italic">only the pings you asked for.</span>
-              </h2>
-              <p className="mt-6 text-[15.5px] md:text-[16px] text-muted-foreground leading-relaxed max-w-lg">
-                Direct messages from real people, mentions in the communities you chose, and the few starred accounts you actually want to hear from. Everything else is silent by default.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-2">
-                {["dms", "mentions", "starred people", "community roles"].map((t) => (<span key={t} className="px-3 py-1.5 rounded-full border border-border bg-card text-[12.5px] text-foreground/70">{t}</span>))}
-              </div>
-            </AnimatedSection>
-          </div>
-
-          <div className="md:col-span-6">
-            <AnimatedSection delay={0.08}>
-              <div className="relative mx-auto max-w-[360px] rounded-[2.25rem] border border-border bg-card p-5 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.3)]">
-                <div className="flex items-center justify-between text-[12px] text-foreground/50 px-1">
-                  <span>9:41</span>
-                  <span className="inline-flex items-center gap-1"><BellOff size={12}/> quiet mode</span>
-                </div>
-
-                <div className="mt-5 flex flex-col gap-3">
-                  {[
-        { app: "yankee", who: "julia · dm", msg: "still on for saturday?", when: "now" },
-        { app: "yankee", who: "book club · mention", msg: "@you what did you think of ch. 4?", when: "12m" },
-        { app: "yankee", who: "digest · 8pm", msg: "2 messages, 1 mention, 0 nudges", when: "1h" },
-    ].map((n, i) => (<div key={i} className="rounded-2xl border border-border bg-background/60 p-4 flex flex-col gap-1">
-                      <div className="flex items-center justify-between text-[11.5px] text-foreground/50">
-                        <span className="uppercase tracking-widest">{n.app}</span>
-                        <span>{n.when}</span>
-                      </div>
-                      <p className="text-[14px] text-foreground font-medium">{n.who}</p>
-                      <p className="text-[13.5px] text-muted-foreground leading-snug">{n.msg}</p>
-                    </div>))}
-                  <div className="rounded-2xl border border-dashed border-border/60 p-4 text-center text-[12.5px] text-muted-foreground">
-                    47 algorithmic pings were silenced today.
-                  </div>
-                </div>
-              </div>
-            </AnimatedSection>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    
-    <section className="py-24 md:py-32 border-t border-border/40">
-      <div className="max-w-3xl mx-auto px-6">
-        <AnimatedSection>
-          <h2 className="text-center text-4xl md:text-6xl font-semibold text-foreground tracking-[-0.02em] leading-[1.02]">
-            <span className="font-serif-display italic">questions</span>
-          </h2>
-        </AnimatedSection>
-
-        <div className="mt-14 flex flex-col gap-3">
-          {faqs.map((f, i) => (<AnimatedSection key={i} delay={i * 0.03}>
-              <details className="group rounded-[1.5rem] border border-border bg-card p-6 open:pb-7">
-                <summary className="flex items-center justify-between gap-4 cursor-pointer list-none">
-                  <span className="text-[16px] md:text-[17px] font-medium text-foreground">{f.q}</span>
-                  <span className="w-8 h-8 rounded-full bg-foreground/5 flex items-center justify-center text-foreground/60 group-open:rotate-45 transition-transform">+</span>
-                </summary>
-                <p className="mt-4 text-[14.5px] text-muted-foreground leading-relaxed">{f.a}</p>
-              </details>
-            </AnimatedSection>))}
-        </div>
-      </div>
-    </section>
-
-    
-    <section className="py-24 md:py-32 border-t border-border/40">
-      <div className="max-w-3xl mx-auto px-6 text-center">
-        <AnimatedSection>
-          <h2 className="text-4xl md:text-6xl font-semibold text-foreground tracking-[-0.02em] leading-[1.02]">
-            get pinged <span className="font-serif-display italic">on purpose.</span>
-          </h2>
-          <p className="mt-6 text-[16px] text-muted-foreground leading-relaxed max-w-xl mx-auto">
-            Set the rules once, let Yankee hold the line, and stop giving your attention away to apps that only want more of it.
-          </p>
-          <div className="mt-10 flex items-center justify-center gap-3 flex-wrap">
-            <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-foreground text-background text-[14px] font-medium hover:opacity-90 transition-opacity">
-              start with notifications <ArrowRight size={14}/>
-            </Link>
-            <Link to="/features" className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border/60 bg-card text-foreground text-[14px] font-medium hover:bg-card/80 transition-colors">
-              see all features
-            </Link>
-          </div>
-        </AnimatedSection>
-      </div>
-    </section>
-  </Layout>);
 export default Notifications;
