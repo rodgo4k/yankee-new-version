@@ -65,13 +65,13 @@ const StudentHeroScene = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
           <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
-            <span className="rounded-full border-2 border-white/70 bg-black/25 backdrop-blur-sm px-2.5 py-1 text-[11px] text-white lowercase">
+            <span className="rounded-full border-2 border-white/70 bg-black/25 backdrop-blur-sm px-2.5 py-1 text-[11px] text-folk-bubble-foreground lowercase">
               campus
             </span>
             <motion.span
               initial={false}
               animate={{ opacity: studyOn ? 1 : 0 }}
-              className="inline-flex items-center gap-1 rounded-full bg-[#3DDC97] px-2.5 py-1 text-[11px] font-medium text-foreground lowercase"
+              className="inline-flex items-center gap-1 rounded-full bg-folk-success px-2.5 py-1 text-[11px] font-medium text-foreground lowercase"
             >
               <Moon size={11} />
               study mode
@@ -102,7 +102,7 @@ const StudentHeroScene = () => {
                   animate={{ opacity: on ? 1 : 0.35, x: on ? 0 : 6 }}
                   transition={{ duration: 0.35, ease }}
                   className={`rounded-xl border-2 border-foreground px-2.5 py-2 ${
-                    on ? "bg-[#E8E6E1]" : "bg-background"
+                    on ? "bg-folk-bubble-soft" : "bg-background"
                   }`}
                 >
                   <div className="flex items-center gap-1.5">
@@ -120,7 +120,7 @@ const StudentHeroScene = () => {
               initial={false}
               animate={{ opacity: studyOn ? 1 : 0.4 }}
               className={`rounded-xl border-2 border-foreground px-2.5 py-2 ${
-                studyOn ? "bg-[#5B9CFF] text-white" : "bg-background"
+                studyOn ? "bg-folk-bubble text-white" : "bg-background"
               }`}
             >
               <p className="text-[10px] lowercase opacity-80">focus left</p>
@@ -136,7 +136,7 @@ const StudentHeroScene = () => {
         transition={{ duration: 0.5, delay: 0.3 }}
         className="mt-3 flex justify-end"
       >
-        <div className="rounded-2xl rounded-br-md bg-[#5B9CFF] px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-white lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] max-w-[90%]">
+        <div className="rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] max-w-[90%]">
           only emergency calls break through
         </div>
       </motion.div>

@@ -26,12 +26,12 @@ const posts = [
 ];
 
 const recipients = [
-  { name: "maya", initial: "M", tint: "bg-[#F3EDE3]" },
-  { name: "leo", initial: "L", tint: "bg-[#E8EEF7]" },
-  { name: "jisoo", initial: "J", tint: "bg-[#EAF5EE]" },
-  { name: "andre", initial: "A", tint: "bg-[#EEE8F5]" },
-  { name: "kayla", initial: "K", tint: "bg-[#F7EFE6]" },
-  { name: "sam", initial: "S", tint: "bg-[#E8F4F2]" },
+  { name: "maya", initial: "M", tint: "bg-folk-surface-warm" },
+  { name: "leo", initial: "L", tint: "bg-folk-surface-cool" },
+  { name: "jisoo", initial: "J", tint: "bg-folk-surface-mint" },
+  { name: "andre", initial: "A", tint: "bg-folk-panel" },
+  { name: "kayla", initial: "K", tint: "bg-muted" },
+  { name: "sam", initial: "S", tint: "bg-card" },
 ];
 
 const ReachHeroScene = () => {
@@ -85,7 +85,7 @@ const ReachHeroScene = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
 
           <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
-            <span className="rounded-full border-2 border-white/80 bg-black/25 backdrop-blur-sm px-2.5 py-1 text-[11px] text-white lowercase">
+            <span className="rounded-full border-2 border-white/80 bg-black/25 backdrop-blur-sm px-2.5 py-1 text-[11px] text-folk-bubble-foreground lowercase">
               your post
             </span>
             <AnimatePresence>
@@ -95,7 +95,7 @@ const ReachHeroScene = () => {
                   initial={{ opacity: 0, y: -6 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  className="rounded-full bg-[#3DDC97] px-2.5 py-1 text-[11px] font-medium text-foreground lowercase"
+                  className="rounded-full bg-folk-success px-2.5 py-1 text-[11px] font-medium text-foreground lowercase"
                 >
                   100% delivered
                 </motion.span>
@@ -141,24 +141,24 @@ const ReachHeroScene = () => {
                   }}
                   transition={{ duration: 0.35, ease }}
                   className={`flex items-center gap-2 rounded-xl border-2 border-foreground px-2 py-1.5 md:px-2.5 md:py-2 ${
-                    on ? "bg-[#5B9CFF] text-white" : "bg-background"
+                    on ? "bg-folk-bubble text-folk-bubble-foreground" : "bg-background"
                   }`}
                 >
                   <span
                     className={`w-7 h-7 md:w-8 md:h-8 shrink-0 rounded-full border-2 border-foreground flex items-center justify-center text-[11px] font-semibold lowercase ${
-                      on ? "bg-white text-foreground" : r.tint
+                      on ? "bg-background text-foreground" : r.tint
                     }`}
                   >
                     {r.initial}
                   </span>
                   <div className="min-w-0 flex-1">
                     <p className="text-[12px] md:text-[13px] font-semibold lowercase truncate">{r.name}</p>
-                    <p className={`text-[10px] lowercase ${on ? "text-white/80" : "text-foreground/45"}`}>
+                    <p className={`text-[10px] lowercase ${on ? "text-folk-bubble-foreground/80" : "text-foreground/45"}`}>
                       {on ? "in feed" : "waiting"}
                     </p>
                   </div>
                   {on ? (
-                    <span className="w-5 h-5 shrink-0 rounded-full bg-white/25 flex items-center justify-center">
+                    <span className="w-5 h-5 shrink-0 rounded-full bg-folk-bubble-foreground/25 flex items-center justify-center">
                       <Check size={11} />
                     </span>
                   ) : (
@@ -183,7 +183,7 @@ const ReachHeroScene = () => {
         transition={{ duration: 0.5, delay: 0.35 }}
         className="mt-3 flex justify-end"
       >
-        <div className="rounded-2xl rounded-br-md bg-[#5B9CFF] px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-white lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] max-w-[85%]">
+        <div className="rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] max-w-[85%]">
           no ranking. every friend got it.
         </div>
       </motion.div>

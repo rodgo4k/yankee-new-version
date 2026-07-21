@@ -7,6 +7,7 @@ import FAQ from "@/components/FAQ";
 import { SpeechBubble, PillTag } from "@/components/Bubble";
 import PromoPill from "@/components/home/PromoPill";
 import HeroComposer from "@/components/home/HeroComposer";
+import HeroEdgeStickers, { type HeroSatellite } from "@/components/home/HeroEdgeStickers";
 import TestimonialCarousel from "@/components/home/TestimonialCarousel";
 import ChatSequence from "@/components/home/ChatSequence";
 import OrbitNodes from "@/components/home/OrbitNodes";
@@ -19,6 +20,122 @@ import communityShot from "@/assets/yankee/community.png";
 import homeFeed from "@/assets/yankee/home-feed.png";
 import chat from "@/assets/yankee/chat.png";
 import videoCall from "@/assets/yankee/video-call.png";
+import messages from "@/assets/yankee/messages.png";
+import tripPhotos from "@/assets/trip-photos.png";
+import familyField from "@/assets/family-field.jpg";
+
+const heroSatellites: HeroSatellite[] = [
+  {
+    id: "home-party",
+    filename: "weekend.mov",
+    media: heroParty,
+    kind: "video-look",
+    rotate: -11,
+    startOpen: true,
+    windowSize: "lg",
+    floatY: 11,
+    floatDuration: 5.2,
+    className: "top-[16%] left-[9%] xl:left-[11%]",
+    origin: "top left",
+  },
+  {
+    id: "home-inbox",
+    filename: "inbox.png",
+    media: messages,
+    kind: "image",
+    objectTop: true,
+    rotate: 8,
+    size: "sm",
+    floatY: 6,
+    floatDuration: 3.8,
+    className: "top-[13%] right-[9%] xl:right-[12%]",
+    origin: "top right",
+  },
+  {
+    id: "home-chat",
+    filename: "real-chat.png",
+    media: chat,
+    kind: "image",
+    objectTop: true,
+    rotate: 6,
+    startOpen: true,
+    windowSize: "md",
+    floatY: 9,
+    floatDuration: 4.6,
+    className: "top-[32%] right-[7%] xl:right-[9%]",
+    origin: "top right",
+  },
+  {
+    id: "home-feed",
+    filename: "the-feed.png",
+    media: homeFeed,
+    kind: "image",
+    objectTop: true,
+    rotate: -5,
+    size: "md",
+    lgOnly: true,
+    floatY: 8,
+    floatDuration: 4.1,
+    className: "top-[44%] left-[8%] xl:left-[11%]",
+    origin: "center left",
+  },
+  {
+    id: "home-calls",
+    filename: "clear-calls.mov",
+    media: videoCall,
+    kind: "video-look",
+    rotate: -7,
+    size: "lg",
+    lgOnly: true,
+    floatY: 7,
+    floatDuration: 5.5,
+    className: "top-[56%] right-[9%] xl:right-[12%]",
+    origin: "center right",
+  },
+  {
+    id: "home-trip",
+    filename: "memories.jpg",
+    media: tripPhotos,
+    kind: "image",
+    rotate: 4,
+    startOpen: true,
+    windowSize: "sm",
+    floatY: 10,
+    floatDuration: 4.9,
+    className: "top-[62%] left-[7%] xl:left-[9%]",
+    origin: "bottom left",
+  },
+  {
+    id: "home-field",
+    filename: "away.jpg",
+    media: familyField,
+    kind: "image",
+    rotate: -9,
+    size: "sm",
+    floatY: 5,
+    floatDuration: 3.5,
+    className: "top-[76%] left-[14%] xl:left-[17%]",
+    origin: "bottom left",
+  },
+  {
+    id: "home-campus",
+    filename: "campus.mov",
+    media: studentsHero,
+    kind: "video-look",
+    rotate: 10,
+    size: "md",
+    floatY: 8,
+    floatDuration: 4.4,
+    className: "top-[72%] right-[8%] xl:right-[10%]",
+    origin: "bottom right",
+  },
+];
+
+const heroFloatNotes = [
+  { id: "n1", text: "no algorithm", className: "top-[22%] left-[20%] xl:left-[22%]", rotate: -8, delay: 0.5 },
+  { id: "n2", text: "only yours", className: "top-[38%] right-[19%] xl:right-[21%]", rotate: 7, delay: 0.7 },
+  { id: "n3", text: "always in sync", className: "top-[80%] right-[19%] xl:right-[21%]", rotate: -5, delay: 0.9 },
+];
 
 const faqItems = [
   {
@@ -64,7 +181,7 @@ const featureCards = [
 
 const Index = () => (
   <Layout>
-    <section className="relative -mt-24 overflow-hidden">
+    <section className="relative -mt-24 overflow-x-hidden">
       <div className="absolute inset-0">
         <img
           src={heroFolkMountains}
@@ -76,36 +193,41 @@ const Index = () => (
         <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-transparent to-background" />
       </div>
 
-      <div className="relative w-full max-w-[920px] mx-auto px-5 md:px-6 pt-28 md:pt-36 pb-16 md:pb-24 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: -6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55 }}
-          className="flex justify-center"
-        >
-          <PromoPill tag="new" text="a social feed you actually control" to="/features" />
-        </motion.div>
+      {/* Full-bleed stage so stickers use the whole viewport width */}
+      <div className="relative min-h-0 md:min-h-[720px] lg:min-h-[780px] xl:min-h-[820px]">
+        <HeroEdgeStickers satellites={heroSatellites} notes={heroFloatNotes} />
 
-        <motion.h1
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.85, ease: [0.25, 0.4, 0.25, 1] }}
-          className="mt-7 md:mt-9 text-[2.15rem] sm:text-[2.75rem] md:text-5xl lg:text-[3.65rem] font-semibold text-foreground leading-[1.05] tracking-tight lowercase max-w-[18ch] sm:max-w-[22ch] mx-auto"
-        >
-          the social feed that puts your friends back in front of you
-        </motion.h1>
+        <div className="relative z-10 w-full max-w-[920px] mx-auto px-5 md:px-6 pt-28 md:pt-36 pb-16 md:pb-24 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55 }}
+            className="flex justify-center"
+          >
+            <PromoPill tag="new" text="a social feed you actually control" to="/features" />
+          </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.18 }}
-          className="mt-5 md:mt-6 max-w-xl mx-auto text-[15px] md:text-[17px] text-foreground/65 leading-relaxed lowercase"
-        >
-          post once, reach everyone. no hidden algorithm, no shadow bans. crowds, chat and calls in one calm app.
-        </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.85, ease: [0.25, 0.4, 0.25, 1] }}
+            className="mt-7 md:mt-9 text-[2.15rem] sm:text-[2.75rem] md:text-5xl lg:text-[3.65rem] font-semibold text-foreground leading-[1.05] tracking-tight lowercase max-w-[18ch] sm:max-w-[22ch] mx-auto"
+          >
+            the social feed that puts your friends back in front of you
+          </motion.h1>
 
-        <div className="mt-8 md:mt-10">
-          <HeroComposer />
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.18 }}
+            className="mt-5 md:mt-6 max-w-xl mx-auto text-[15px] md:text-[17px] text-foreground/65 leading-relaxed lowercase"
+          >
+            post once, reach everyone. no hidden algorithm, no shadow bans. crowds, chat and calls in one calm app.
+          </motion.p>
+
+          <div className="mt-8 md:mt-10">
+            <HeroComposer />
+          </div>
         </div>
       </div>
     </section>
@@ -334,7 +456,7 @@ const Index = () => (
           <AnimatedSection delay={0.05} className="col-span-1 md:col-span-2">
             <motion.div
               whileHover={{ y: -3 }}
-              className="h-full min-h-[160px] md:min-h-[200px] rounded-[1.35rem] border-2 border-foreground bg-[#F3EDE3] p-5 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col justify-between"
+              className="h-full min-h-[160px] md:min-h-[200px] rounded-[1.35rem] border-2 border-foreground bg-folk-surface-warm p-5 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col justify-between"
             >
               <div className="w-12 h-12 rounded-full border-2 border-foreground bg-card flex items-center justify-center font-serif-display text-xl italic">
                 H
@@ -349,7 +471,7 @@ const Index = () => (
           <AnimatedSection delay={0.1} className="col-span-1 md:col-span-2">
             <motion.div
               whileHover={{ y: -3 }}
-              className="h-full min-h-[160px] md:min-h-[200px] rounded-[1.35rem] border-2 border-foreground bg-[#E8EEF7] p-5 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col justify-between"
+              className="h-full min-h-[160px] md:min-h-[200px] rounded-[1.35rem] border-2 border-foreground bg-folk-surface-cool p-5 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col justify-between"
             >
               <div className="w-12 h-12 rounded-full border-2 border-foreground bg-card flex items-center justify-center font-semibold text-sm tracking-tight">
                 S
@@ -372,7 +494,7 @@ const Index = () => (
                 <p className="font-serif-display italic text-[1.35rem] md:text-[1.6rem] text-white leading-none">
                   slow coffee club
                 </p>
-                <span className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-[#3DDC97] px-2.5 py-1 text-[11px] font-medium text-foreground lowercase">
+                <span className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-folk-success px-2.5 py-1 text-[11px] font-medium text-folk-success-foreground lowercase">
                   <span className="w-1.5 h-1.5 rounded-full bg-foreground" />
                   1,219 online
                 </span>
@@ -423,7 +545,7 @@ const Index = () => (
             <Link to="/communities" className="block h-full">
               <motion.div
                 whileHover={{ y: -3, x: 1 }}
-                className="h-full min-h-[140px] rounded-[1.35rem] border-2 border-foreground bg-[#5B9CFF] p-5 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col justify-between text-white"
+                className="h-full min-h-[140px] rounded-[1.35rem] border-2 border-foreground bg-folk-bubble p-5 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col justify-between text-folk-bubble-foreground"
               >
                 <div className="w-10 h-10 rounded-full border-2 border-white/40 flex items-center justify-center">
                   <ArrowRight size={16} />
@@ -544,8 +666,8 @@ const Index = () => (
               >
                 <Link
                   to="/contact"
-                  className="group relative inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-white lowercase tracking-tight
-                    bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                  className="group relative inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
+                    folk-cta
                     shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
                     hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                 >
@@ -596,7 +718,7 @@ const Index = () => (
                   transition={{ duration: 0.55, delay: 0.28 }}
                   className="relative z-10 -mt-6 mr-auto max-w-[85%] lg:absolute lg:left-0 lg:top-[44%] lg:mt-0 lg:max-w-[78%]"
                 >
-                  <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-[#E8E6E1] px-4 py-3 text-[13px] leading-snug lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+                  <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-folk-bubble-soft px-4 py-3 text-[13px] leading-snug lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
                     <span className="font-semibold">maya</span> everyone actually saw this?
                   </div>
                 </motion.div>
@@ -608,7 +730,7 @@ const Index = () => (
                   transition={{ duration: 0.55, delay: 0.4 }}
                   className="relative z-10 mt-3 ml-auto max-w-[80%] lg:absolute lg:right-2 lg:bottom-0 lg:mt-0 lg:max-w-[72%]"
                 >
-                  <div className="rounded-2xl rounded-br-md bg-[#5B9CFF] px-4 py-3 text-[13px] leading-snug text-white lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+                  <div className="rounded-2xl rounded-br-md bg-folk-bubble px-4 py-3 text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
                     yeah. no ranking. every friend.
                   </div>
                 </motion.div>

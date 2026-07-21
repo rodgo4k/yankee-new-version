@@ -85,8 +85,8 @@ const Careers = () => {
               className="inline-flex items-center gap-2 rounded-full border-2 border-foreground bg-card px-3.5 py-1.5 text-[12px] lowercase shadow-[2px_2px_0_0_hsl(var(--foreground))]"
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3DDC97] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#3DDC97]" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-folk-success opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-folk-success" />
               </span>
               hiring · 3 open roles
             </motion.div>
@@ -118,8 +118,8 @@ const Careers = () => {
             >
               <a
                 href="#open-roles"
-                className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-white lowercase tracking-tight
-                  bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
+                  folk-cta
                   shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
                   hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
               >
@@ -231,7 +231,7 @@ const Careers = () => {
                 transition={{ duration: 0.5, delay: 0.5 }}
                 className="absolute -left-1 md:-left-4 top-[18%] z-40 max-w-[72%] pointer-events-none"
               >
-                <div className="rounded-2xl rounded-bl-md bg-[#5B9CFF] px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-white lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                <div className="rounded-2xl rounded-bl-md bg-folk-bubble px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
                   remote first · small by choice
                 </div>
               </motion.div>
@@ -277,7 +277,7 @@ const Careers = () => {
                   className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 flex flex-col gap-5 shadow-[4px_4px_0_0_hsl(var(--foreground))]"
                 >
                   <div className="flex justify-start">
-                    <span className="inline-block max-w-[95%] px-3.5 py-2 text-[13px] leading-snug lowercase rounded-2xl rounded-bl-md bg-[#5B9CFF] text-white shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                    <span className="inline-block max-w-[95%] px-3.5 py-2 text-[13px] leading-snug lowercase rounded-2xl rounded-bl-md bg-folk-bubble text-white shadow-[3px_3px_0_0_hsl(var(--foreground))]">
                       {p.bubble}
                     </span>
                   </div>
@@ -317,7 +317,7 @@ const Careers = () => {
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2 mb-2">
-                      <span className="inline-flex rounded-full border-2 border-foreground bg-[#F3F1EC] px-2.5 py-0.5 text-[11px] font-medium lowercase">
+                      <span className="inline-flex rounded-full border-2 border-foreground bg-folk-panel px-2.5 py-0.5 text-[11px] font-medium lowercase">
                         {role.tag}
                       </span>
                       <span className="text-[12px] text-muted-foreground lowercase">{role.loc}</span>
@@ -366,7 +366,7 @@ const Careers = () => {
                 <div className="mt-6">
                   <a
                     href="mailto:jobs@yankee.app?subject=General%20interest"
-                    className="group inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-foreground bg-[#F3F1EC] text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+                    className="group inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-foreground bg-folk-panel text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
                   >
                     send a note <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
                   </a>
@@ -392,8 +392,8 @@ const Careers = () => {
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <a
               href="mailto:jobs@yankee.app"
-              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-white lowercase tracking-tight
-                bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
+                folk-cta
                 shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
                 hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
             >

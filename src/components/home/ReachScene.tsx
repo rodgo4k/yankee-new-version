@@ -62,7 +62,7 @@ export const FeedStatusPill = () => {
 };
 
 const TypingDots = () => (
-  <div className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-2xl rounded-bl-md bg-[#E8E6E1]">
+  <div className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-2xl rounded-bl-md bg-folk-bubble-soft">
     {[0, 1, 2].map((i) => (
       <motion.span
         key={i}
@@ -127,7 +127,7 @@ const ReachScene = () => {
         <div className="relative flex flex-col h-[420px] sm:h-[460px] md:h-[500px] overflow-hidden bg-card p-3 md:p-4">
           <motion.div
             key={`img-${cycle}`}
-            className="relative z-0 mx-auto overflow-hidden rounded-[1.5rem] md:rounded-[1.75rem] bg-[#d9d5ce] shrink-0"
+            className="relative z-0 mx-auto overflow-hidden rounded-[1.5rem] md:rounded-[1.75rem] bg-folk-panel shrink-0"
             initial={false}
             animate={
               shrunk
@@ -184,7 +184,7 @@ const ReachScene = () => {
                   transition={{ duration: 0.45, ease }}
                   className="relative self-start max-w-[88%] overflow-visible"
                 >
-                  <div className="px-3.5 py-2.5 text-[13px] md:text-[14px] leading-snug lowercase rounded-2xl rounded-bl-md bg-[#E8E6E1] text-foreground">
+                  <div className="px-3.5 py-2.5 text-[13px] md:text-[14px] leading-snug lowercase rounded-2xl rounded-bl-md bg-folk-bubble-soft text-foreground">
                     <span className="font-semibold">maya</span> these are unreal. everyone saw this?
                   </div>
                   {showLike && <LikeBurst />}
@@ -215,7 +215,7 @@ const ReachScene = () => {
                   transition={{ duration: 0.45, ease }}
                   className="self-end max-w-[88%]"
                 >
-                  <div className="px-3.5 py-2.5 text-[13px] md:text-[14px] leading-snug lowercase rounded-2xl rounded-br-md bg-[#5B9CFF] text-white">
+                  <div className="px-3.5 py-2.5 text-[13px] md:text-[14px] leading-snug lowercase rounded-2xl rounded-br-md bg-folk-bubble text-folk-bubble-foreground">
                     yeah. every friend, in order. no ranking.
                   </div>
                 </motion.div>
@@ -245,7 +245,7 @@ const ReachScene = () => {
                   transition={{ duration: 0.45, ease }}
                   className="self-start max-w-[88%]"
                 >
-                  <div className="px-3.5 py-2.5 text-[13px] md:text-[14px] leading-snug lowercase rounded-2xl rounded-bl-md bg-[#E8E6E1] text-foreground">
+                  <div className="px-3.5 py-2.5 text-[13px] md:text-[14px] leading-snug lowercase rounded-2xl rounded-bl-md bg-folk-bubble-soft text-foreground">
                     <span className="font-semibold">leo</span> finally. chronological forever.
                   </div>
                 </motion.div>

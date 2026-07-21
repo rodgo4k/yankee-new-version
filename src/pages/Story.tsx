@@ -140,8 +140,8 @@ const Story = () => (
           >
             <Link
               to="/careers"
-              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-white lowercase tracking-tight
-                bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
+                folk-cta
                 shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
                 hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
             >
@@ -174,7 +174,7 @@ const Story = () => (
               />
               <div className="absolute inset-0 bg-gradient-to-t from-foreground/25 via-transparent to-transparent" />
             </div>
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-5 md:px-8 py-4 md:py-5 border-t-2 border-foreground bg-[#F3F1EC]">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-5 md:px-8 py-4 md:py-5 border-t-2 border-foreground bg-folk-panel">
               <p className="text-[13px] md:text-[14px] font-medium text-foreground lowercase tracking-tight">
                 not another feed. a quieter way to stay close.
               </p>
@@ -244,7 +244,7 @@ const Story = () => (
                 transition={{ duration: 0.5, delay: 0.25 }}
                 className="absolute -right-2 bottom-[20%] z-10 max-w-[75%]"
               >
-                <div className="rounded-2xl rounded-br-md bg-[#5B9CFF] px-3.5 py-2.5 text-[12px] leading-snug text-white lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                <div className="rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[12px] leading-snug text-folk-bubble-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
                   chronological · always
                 </div>
               </motion.div>
@@ -278,7 +278,7 @@ const Story = () => (
                   className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 flex flex-col gap-5 shadow-[4px_4px_0_0_hsl(var(--foreground))]"
                 >
                   <div className="flex justify-start">
-                    <span className="inline-block max-w-[95%] px-3.5 py-2 text-[13px] leading-snug lowercase rounded-2xl rounded-bl-md bg-[#5B9CFF] text-white shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                    <span className="inline-block max-w-[95%] px-3.5 py-2 text-[13px] leading-snug lowercase rounded-2xl rounded-bl-md bg-folk-bubble text-white shadow-[3px_3px_0_0_hsl(var(--foreground))]">
                       {p.bubble}
                     </span>
                   </div>
@@ -377,8 +377,8 @@ const Story = () => (
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Link
                     to="/careers"
-                    className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-white lowercase tracking-tight
-                      bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                    className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
+                      folk-cta
                       shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
                       hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                   >
@@ -393,8 +393,8 @@ const Story = () => (
                 </div>
                 <div className="mt-6 flex items-center gap-2 text-[13px] text-muted-foreground lowercase">
                   <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3DDC97] opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#3DDC97]" />
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-folk-success opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-folk-success" />
                   </span>
                   yankee is online
                 </div>

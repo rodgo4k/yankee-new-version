@@ -68,7 +68,7 @@ const NotifHeroScene = () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
-                className="rounded-full border-2 border-foreground bg-[#E8E6E1] px-2.5 py-1 text-[11px] lowercase"
+                className="rounded-full border-2 border-foreground bg-folk-bubble-soft px-2.5 py-1 text-[11px] lowercase"
               >
                 quiet
               </motion.span>
@@ -96,7 +96,7 @@ const NotifHeroScene = () => {
                   muted
                     ? "bg-background"
                     : n.kind === "allow"
-                      ? "bg-[#E8E6E1]"
+                      ? "bg-folk-bubble-soft"
                       : "bg-background"
                 }`}
               >
@@ -119,7 +119,7 @@ const NotifHeroScene = () => {
                   </span>
                 )}
                 {!muted && filtering && n.kind === "allow" && (
-                  <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full border-2 border-foreground bg-[#3DDC97] flex items-center justify-center shadow-[2px_2px_0_0_hsl(var(--foreground))]">
+                  <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full border-2 border-foreground bg-folk-success flex items-center justify-center shadow-[2px_2px_0_0_hsl(var(--foreground))]">
                     <Check size={11} />
                   </span>
                 )}
@@ -149,7 +149,7 @@ const NotifHeroScene = () => {
         transition={{ duration: 0.5, delay: 0.35 }}
         className="absolute -left-2 md:-left-6 top-[22%] z-10 max-w-[55%]"
       >
-        <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-[#E8E6E1] px-3 py-2 text-[12px] leading-snug lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+        <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-folk-bubble-soft px-3 py-2 text-[12px] leading-snug lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
           dms & mentions always land
         </div>
       </motion.div>

@@ -117,7 +117,7 @@ const BasicsChips = () => {
             transition={{ duration: 0.45, ease }}
             whileHover={{ y: -6, scale: 1.05, rotate: -3 }}
             className={`inline-flex items-center gap-2 px-5 py-3 rounded-full border-2 border-foreground text-[14px] lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] cursor-default select-none transition-colors duration-300 ${
-              isActive ? "bg-[#5B9CFF] text-white" : "bg-card text-foreground"
+              isActive ? "bg-folk-bubble text-folk-bubble-foreground" : "bg-card text-foreground"
             }`}
           >
             <motion.span
@@ -200,8 +200,8 @@ const Features = () => (
             >
               <Link
                 to="/contact"
-                className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-white lowercase tracking-tight
-                  bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
+                  folk-cta
                   shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
                   hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
               >
@@ -365,37 +365,37 @@ const Features = () => (
               title: "feed",
               text: "chronological, always. only people you follow.",
               src: homeFeed,
-              tint: "bg-[#F3EDE3]",
+              tint: "bg-folk-surface-warm",
             },
             {
               title: "chat",
               text: "threads that pick up exactly where you left them.",
               src: chatImg,
-              tint: "bg-[#E8EEF7]",
+              tint: "bg-folk-surface-cool",
             },
             {
               title: "calls",
               text: "voice and video, right inside the same calm app.",
               src: videoCall,
-              tint: "bg-[#EAF5EE]",
+              tint: "bg-folk-surface-mint",
             },
             {
               title: "crowds",
               text: "small rooms around what you actually care about.",
               src: crowdsHome,
-              tint: "bg-[#F7EFE6]",
+              tint: "bg-folk-panel",
             },
             {
               title: "yankee ai",
               text: "drafts, reminders and follow-ups that stay private.",
               src: aiChat,
-              tint: "bg-[#EEE8F5]",
+              tint: "bg-muted",
             },
             {
               title: "search",
               text: "find people, posts and rooms without the noise.",
               src: searchImg,
-              tint: "bg-[#EDEAE4]",
+              tint: "bg-card",
             },
           ].map((card, i) => (
             <AnimatedSection key={card.title} delay={i * 0.05}>
@@ -483,7 +483,7 @@ const Features = () => (
                       {item.note}
                     </span>
                   </div>
-                  <div className="mt-6 w-11 h-11 rounded-xl border-2 border-foreground bg-[#5B9CFF] text-white flex items-center justify-center">
+                  <div className="mt-6 w-11 h-11 rounded-xl border-2 border-foreground bg-folk-bubble text-white flex items-center justify-center">
                     <Icon size={18} />
                   </div>
                   <h3 className="mt-5 text-[17px] font-semibold lowercase tracking-tight">{item.title}</h3>
@@ -555,8 +555,8 @@ const Features = () => (
                   <span
                     className={`inline-block max-w-[88%] px-4 py-2.5 text-[13px] md:text-[14px] leading-snug lowercase rounded-2xl ${
                       m.from === "you"
-                        ? "bg-[#5B9CFF] text-white rounded-br-md shadow-[3px_3px_0_0_hsl(var(--foreground))]"
-                        : "bg-[#E8E6E1] text-foreground rounded-bl-md border-2 border-foreground shadow-[3px_3px_0_0_hsl(var(--foreground))]"
+                        ? "bg-folk-bubble text-white rounded-br-md shadow-[3px_3px_0_0_hsl(var(--foreground))]"
+                        : "bg-folk-bubble-soft text-foreground rounded-bl-md border-2 border-foreground shadow-[3px_3px_0_0_hsl(var(--foreground))]"
                     }`}
                   >
                     {m.text}
@@ -724,8 +724,8 @@ const Features = () => (
               >
                 <Link
                   to="/contact"
-                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-white lowercase tracking-tight
-                    bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
+                    folk-cta
                     shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
                     hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                 >
@@ -775,7 +775,7 @@ const Features = () => (
                   transition={{ duration: 0.55, delay: 0.3 }}
                   className="relative z-10 -mt-5 mr-auto max-w-[85%]"
                 >
-                  <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-[#E8E6E1] px-4 py-3 text-[13px] leading-snug lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+                  <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-folk-bubble-soft px-4 py-3 text-[13px] leading-snug lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
                     <span className="font-semibold">you</span> finally. one app for all of it.
                   </div>
                 </motion.div>

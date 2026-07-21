@@ -45,14 +45,14 @@ const FamilyHeroScene = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
         <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
-          <span className="inline-flex items-center gap-1.5 rounded-full border-2 border-white/70 bg-black/25 backdrop-blur-sm px-2.5 py-1 text-[11px] text-white lowercase">
+          <span className="inline-flex items-center gap-1.5 rounded-full border-2 border-white/70 bg-black/25 backdrop-blur-sm px-2.5 py-1 text-[11px] text-folk-bubble-foreground lowercase">
             <Heart size={11} />
             family circle
           </span>
           <motion.span
             initial={false}
             animate={{ opacity: quiet ? 1 : 0 }}
-            className="rounded-full bg-[#3DDC97] px-2.5 py-1 text-[11px] font-medium text-foreground lowercase"
+            className="rounded-full bg-folk-success px-2.5 py-1 text-[11px] font-medium text-foreground lowercase"
           >
             quiet hours on
           </motion.span>
@@ -73,8 +73,8 @@ const FamilyHeroScene = () => {
                 <div
                   className={`max-w-[88%] px-3 py-2 text-[12px] md:text-[13px] leading-snug lowercase rounded-2xl shadow-[3px_3px_0_0_hsl(var(--foreground))] ${
                     isYou
-                      ? "bg-[#5B9CFF] text-white rounded-br-md"
-                      : "bg-[#E8E6E1] text-foreground border-2 border-foreground rounded-bl-md"
+                      ? "bg-folk-bubble text-white rounded-br-md"
+                      : "bg-folk-bubble-soft text-foreground border-2 border-foreground rounded-bl-md"
                   }`}
                 >
                   {!isYou && <span className="font-semibold">{m.from} · </span>}
@@ -93,7 +93,7 @@ const FamilyHeroScene = () => {
         className="absolute -right-2 md:-right-6 top-[18%] z-10"
       >
         <div className="rounded-[1.15rem] border-2 border-foreground bg-card px-3.5 py-3 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex items-center gap-2.5">
-          <span className="w-9 h-9 rounded-full border-2 border-foreground bg-[#5B9CFF] text-white flex items-center justify-center">
+          <span className="w-9 h-9 rounded-full border-2 border-foreground bg-folk-bubble text-white flex items-center justify-center">
             <Phone size={15} />
           </span>
           <div>

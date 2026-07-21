@@ -78,7 +78,7 @@ const MemoryHeroScene = () => {
             <p className="text-[11px] text-foreground/50 lowercase">your library</p>
             <span
               className={`inline-flex items-center gap-1 rounded-full border-2 border-foreground px-2 py-0.5 text-[10px] lowercase ${
-                save.kind === "shared" ? "bg-[#5B9CFF] text-white" : "bg-card text-foreground"
+                save.kind === "shared" ? "bg-folk-bubble text-white" : "bg-card text-foreground"
               }`}
             >
               {save.kind === "shared" ? <Share2 size={10} /> : <Lock size={10} />}
@@ -114,7 +114,7 @@ const MemoryHeroScene = () => {
                 exit={{ opacity: 0 }}
                 className="mt-auto pt-4"
               >
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#3DDC97] px-2.5 py-1 text-[11px] font-medium text-foreground lowercase">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-folk-success px-2.5 py-1 text-[11px] font-medium text-foreground lowercase">
                   <span className="w-1.5 h-1.5 rounded-full bg-foreground" />
                   saved · encrypted
                 </span>
@@ -142,7 +142,7 @@ const MemoryHeroScene = () => {
                   transition={{ duration: 0.4, ease }}
                   className="self-end max-w-[92%]"
                 >
-                  <div className="rounded-2xl rounded-br-md bg-[#5B9CFF] px-3.5 py-2.5 text-[13px] leading-snug text-white lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                  <div className="rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
                     {recall.q}
                   </div>
                 </motion.div>
@@ -159,7 +159,7 @@ const MemoryHeroScene = () => {
                   transition={{ duration: 0.4, ease }}
                   className="self-start max-w-[92%]"
                 >
-                  <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-[#E8E6E1] px-3.5 py-2.5 text-[13px] leading-snug lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                  <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-folk-bubble-soft px-3.5 py-2.5 text-[13px] leading-snug lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
                     {recall.a}
                   </div>
                 </motion.div>
@@ -183,7 +183,7 @@ const MemoryHeroScene = () => {
             {typed}
             <span className="inline-block w-[2px] h-[1em] align-[-0.1em] ml-0.5 bg-foreground/70 animate-pulse" />
           </p>
-          <span className="w-9 h-9 shrink-0 rounded-full bg-[#5B9CFF] text-white flex items-center justify-center shadow-[2px_2px_0_0_hsl(var(--foreground))]">
+          <span className="w-9 h-9 shrink-0 rounded-full bg-folk-bubble text-white flex items-center justify-center shadow-[2px_2px_0_0_hsl(var(--foreground))]">
             <ArrowUp size={15} />
           </span>
         </div>

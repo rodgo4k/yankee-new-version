@@ -100,8 +100,8 @@ const HeroComposer = () => {
                       <div
                         className={`px-4 py-2.5 text-[14px] md:text-[15px] leading-snug lowercase rounded-[1.25rem] max-w-[85%] ${
                           b.side === "right"
-                            ? "bg-[#5B9CFF] text-white rounded-br-md"
-                            : "bg-[#E8E6E1] text-foreground rounded-bl-md"
+                            ? "bg-folk-bubble text-folk-bubble-foreground rounded-br-md"
+                            : "bg-folk-bubble-soft text-foreground rounded-bl-md"
                         }`}
                       >
                         {b.text}
@@ -117,7 +117,7 @@ const HeroComposer = () => {
                     initial={{ scale: 0.78, y: 100, x: 40 }}
                     animate={{ scale: 1, y: 0, x: 0 }}
                     transition={{ duration: 0.85, ease }}
-                    className="px-6 py-4 text-[16px] md:text-[19px] leading-snug lowercase rounded-[1.6rem] text-center max-w-[90%] bg-[#5B9CFF] text-white"
+                    className="px-6 py-4 text-[16px] md:text-[19px] leading-snug lowercase rounded-[1.6rem] text-center max-w-[90%] bg-folk-bubble text-folk-bubble-foreground"
                     style={layerFix}
                   >
                     just posted the trip photos
@@ -160,8 +160,8 @@ const HeroComposer = () => {
                       <div
                         className={`max-w-[88%] px-3.5 py-2 text-[12.5px] md:text-[13px] leading-snug lowercase rounded-2xl ${
                           i % 2 === 0
-                            ? "bg-[#E8E6E1] text-foreground rounded-bl-md"
-                            : "bg-[#5B9CFF] text-white rounded-br-md"
+                            ? "bg-folk-bubble-soft text-foreground rounded-bl-md"
+                            : "bg-folk-bubble text-folk-bubble-foreground rounded-br-md"
                         }`}
                       >
                         <span className="font-semibold">{c.name}</span> {c.text}
@@ -192,8 +192,7 @@ const HeroComposer = () => {
       <div className="mt-5 md:mt-6 flex flex-col items-center gap-3">
         <Link
           to="/contact"
-          className="group relative inline-flex items-center justify-center px-8 py-3.5 md:px-10 md:py-4 rounded-full text-[15px] md:text-[16px] font-semibold text-white lowercase tracking-tight
-            bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+          className="group relative inline-flex items-center justify-center px-8 py-3.5 md:px-10 md:py-4 rounded-full text-[15px] md:text-[16px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta
             shadow-[0_14px_40px_-10px_rgba(37,99,235,0.65),inset_0_1px_0_rgba(255,255,255,0.35)]
             hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
         >

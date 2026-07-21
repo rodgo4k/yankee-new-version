@@ -39,11 +39,11 @@ const CommunityOrgHeroScene = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
         <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
-          <span className="inline-flex items-center gap-1.5 rounded-full border-2 border-white/70 bg-black/25 backdrop-blur-sm px-2.5 py-1 text-[11px] text-white lowercase">
+          <span className="inline-flex items-center gap-1.5 rounded-full border-2 border-white/70 bg-black/25 backdrop-blur-sm px-2.5 py-1 text-[11px] text-folk-bubble-foreground lowercase">
             <Users size={11} />
             film · nyc
           </span>
-          <span className="rounded-full bg-[#3DDC97] px-2.5 py-1 text-[11px] font-medium text-foreground lowercase">
+          <span className="rounded-full bg-folk-success px-2.5 py-1 text-[11px] font-medium text-foreground lowercase">
             meetup live
           </span>
         </div>
@@ -75,7 +75,7 @@ const CommunityOrgHeroScene = () => {
           <p className="text-[11px] text-foreground/50 lowercase mb-2">capacity</p>
           <div className="h-2 rounded-full border-2 border-foreground overflow-hidden bg-background">
             <motion.div
-              className="h-full bg-[#5B9CFF]"
+              className="h-full bg-folk-bubble"
               initial={false}
               animate={{ width: `${Math.min(100, (going / 20) * 100)}%` }}
               transition={{ duration: 0.4, ease }}
@@ -93,7 +93,7 @@ const CommunityOrgHeroScene = () => {
         transition={{ duration: 0.35, ease }}
         className="absolute -left-2 md:-left-6 bottom-[18%] z-10 max-w-[70%]"
       >
-        <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-[#E8E6E1] px-3.5 py-2.5 text-[12px] leading-snug lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+        <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-folk-bubble-soft px-3.5 py-2.5 text-[12px] leading-snug lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
           <span className="inline-flex items-center gap-1.5 font-semibold">
             <Split size={12} />
             film · nyc

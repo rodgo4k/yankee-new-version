@@ -98,7 +98,7 @@ const CreatorHeroScene = () => {
         transition={{ duration: 0.5, delay: 0.55 }}
         className="absolute -right-2 bottom-[20%] z-20 max-w-[70%]"
       >
-        <div className="rounded-2xl rounded-br-md bg-[#5B9CFF] px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-white lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+        <div className="rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
           your people actually saw it
         </div>
       </motion.div>

@@ -87,7 +87,7 @@ const PrivacyHeroScene = () => {
               initial={false}
               animate={{ opacity: locked ? 1 : 0 }}
               transition={{ duration: 0.3 }}
-              className="inline-flex items-center gap-1.5 rounded-full border-2 border-foreground bg-[#E8E6E1] px-2.5 py-1 text-[11px] lowercase"
+              className="inline-flex items-center gap-1.5 rounded-full border-2 border-foreground bg-folk-bubble-soft px-2.5 py-1 text-[11px] lowercase"
             >
               <Lock size={11} />
               encrypted on device
@@ -146,7 +146,7 @@ const PrivacyHeroScene = () => {
               initial={false}
               animate={{ opacity: onCloud ? 1 : 0 }}
               transition={{ duration: 0.3 }}
-              className="inline-flex items-center gap-1.5 rounded-full bg-[#5B9CFF] px-2.5 py-1 text-[11px] font-medium text-white lowercase"
+              className="inline-flex items-center gap-1.5 rounded-full bg-folk-bubble px-2.5 py-1 text-[11px] font-medium text-folk-bubble-foreground lowercase"
             >
               we cannot read this
             </motion.span>
@@ -155,14 +155,14 @@ const PrivacyHeroScene = () => {
       </div>
 
       <div className="mt-3 md:mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2.5 min-h-[52px]">
-        <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-[#E8E6E1] px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] self-start max-w-[100%] sm:max-w-[95%]">
+        <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-folk-bubble-soft px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] self-start max-w-[100%] sm:max-w-[95%]">
           subpoena? we hand over blobs. not your words.
         </div>
         <motion.div
           initial={false}
           animate={{ opacity: showHold ? 1 : 0, x: showHold ? 0 : 8 }}
           transition={{ duration: 0.35, ease }}
-          className="rounded-2xl rounded-br-md bg-[#5B9CFF] px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-white lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] self-end max-w-[100%] sm:max-w-[95%] sm:justify-self-end"
+          className="rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] self-end max-w-[100%] sm:max-w-[95%] sm:justify-self-end"
         >
           keys stay with you. always.
         </motion.div>

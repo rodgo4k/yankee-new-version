@@ -1,9 +1,17 @@
+/**
+ * BACKUP da página Download (versão anterior ao hero estilo heyclicky).
+ * Para restaurar: copie este arquivo sobre `Download.tsx`
+ *   (ou troque o conteúdo) e remova o uso de DownloadDesktopHero.
+ */
 import { ArrowRight, Apple, Smartphone, QrCode, Shield, WifiOff, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
 import AnimatedSection from "@/components/AnimatedSection";
-import DownloadDesktopHero from "@/components/home/DownloadDesktopHero";
+import homeFeed from "@/assets/yankee/home-feed.png";
+import cafeFriends from "@/assets/cafe-friends.jpg";
+
+const ease = [0.25, 0.4, 0.25, 1] as const;
 
 const stores = [
   {
@@ -54,10 +62,124 @@ const steps = [
 
 const Download = () => (
   <Layout>
-    <DownloadDesktopHero
-      iosHref="https://apps.apple.com"
-      androidHref="https://play.google.com"
-    />
+    <section className="relative -mt-24 pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden dotted-bg">
+      <div className="absolute inset-0 bg-background/85" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)] gap-10 lg:gap-8 items-center">
+          <div className="text-center lg:text-left">
+            <motion.div
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="flex justify-center lg:justify-start"
+            >
+              <span className="inline-flex items-center gap-2 rounded-full border-2 border-foreground bg-card px-3.5 py-1.5 text-[12px] lowercase shadow-[2px_2px_0_0_hsl(var(--foreground))]">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-folk-success opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-folk-success" />
+                </span>
+                free on ios & android
+              </span>
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, delay: 0.08, ease }}
+              className="mt-6 text-[2.4rem] sm:text-5xl md:text-[3.5rem] font-semibold text-foreground tracking-tight leading-[0.95] lowercase max-w-[12ch] mx-auto lg:mx-0"
+            >
+              get{" "}
+              <span className="font-serif-display italic font-medium">yankee</span>
+              {" "}on your phone.
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.18 }}
+              className="mt-6 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto lg:mx-0"
+            >
+              the quieter social app. chronological feed, small crowds, private memory — free to download.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.26 }}
+              className="mt-8 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center lg:justify-start gap-3"
+            >
+              {stores.map((store) => {
+                const Icon = store.icon;
+                return (
+                  <a
+                    key={store.id}
+                    href={store.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-3 px-5 py-3.5 rounded-[1.15rem] border-2 border-foreground bg-primary text-primary-foreground lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[3px_3px_0_0_hsl(var(--foreground))] transition-all"
+                  >
+                    <Icon size={22} strokeWidth={1.75} />
+                    <span className="text-left leading-tight">
+                      <span className="block text-[10px] opacity-70">{store.subtitle}</span>
+                      <span className="block text-[14px] font-semibold tracking-tight">{store.cta}</span>
+                    </span>
+                  </a>
+                );
+              })}
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="mt-5 text-[13px] text-muted-foreground lowercase"
+            >
+              or{" "}
+              <a href="#stores" className="underline underline-offset-4 decoration-2 text-foreground font-medium">
+                compare platforms below
+              </a>
+            </motion.p>
+          </div>
+
+          <div className="relative mx-auto w-full max-w-[320px] lg:max-w-[340px]">
+            <motion.div
+              initial={{ opacity: 0, y: 32, rotate: 2 }}
+              animate={{ opacity: 1, y: 0, rotate: 1.5 }}
+              transition={{ duration: 0.8, delay: 0.15, ease }}
+              className="relative z-10 mx-auto w-[78%] rounded-[1.75rem] border-2 border-foreground bg-card p-2.5 shadow-[7px_7px_0_0_hsl(var(--foreground))] overflow-hidden aspect-[9/17]"
+            >
+              <img
+                src={homeFeed}
+                alt="Yankee app feed"
+                className="w-full h-full object-cover object-top rounded-[1.25rem]"
+              />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: -20, rotate: -6 }}
+              animate={{ opacity: 1, x: 0, rotate: -4 }}
+              transition={{ duration: 0.65, delay: 0.4, ease }}
+              className="absolute -left-2 md:-left-6 bottom-[12%] z-20 w-[38%] rounded-[1.1rem] border-2 border-foreground bg-card p-1.5 shadow-[4px_4px_0_0_hsl(var(--foreground))]"
+            >
+              <div className="rounded-[0.75rem] overflow-hidden aspect-square bg-muted">
+                <img src={cafeFriends} alt="" className="w-full h-full object-cover" />
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 16 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.55 }}
+              className="absolute -right-1 md:-right-4 top-[18%] z-20 max-w-[58%]"
+            >
+              <div className="rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                chronological · always
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section id="stores" className="relative py-20 md:py-28 dotted-bg scroll-mt-24">
       <div className="absolute inset-0 bg-background/80" />

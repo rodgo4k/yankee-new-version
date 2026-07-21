@@ -62,16 +62,16 @@ const blocks = [
 ];
 
 const topics = [
-  { name: "photography", members: "48k", tint: "bg-[#F3EDE3]" },
-  { name: "running", members: "22k", tint: "bg-[#EAF5EE]" },
-  { name: "reading", members: "17k", tint: "bg-[#E8EEF7]" },
-  { name: "cooking", members: "35k", tint: "bg-[#F7EFE6]" },
-  { name: "gaming", members: "61k", tint: "bg-[#EEE8F5]" },
-  { name: "design", members: "29k", tint: "bg-[#EDEAE4]" },
-  { name: "music", members: "44k", tint: "bg-[#E8F4F2]" },
-  { name: "hiking", members: "12k", tint: "bg-[#F3EDE3]" },
-  { name: "film", members: "26k", tint: "bg-[#E8EEF7]" },
-  { name: "cycling", members: "14k", tint: "bg-[#EAF5EE]" },
+  { name: "photography", members: "48k", tint: "bg-folk-surface-warm" },
+  { name: "running", members: "22k", tint: "bg-folk-surface-mint" },
+  { name: "reading", members: "17k", tint: "bg-folk-surface-cool" },
+  { name: "cooking", members: "35k", tint: "bg-folk-panel" },
+  { name: "gaming", members: "61k", tint: "bg-muted" },
+  { name: "design", members: "29k", tint: "bg-card" },
+  { name: "music", members: "44k", tint: "bg-folk-surface-mint" },
+  { name: "hiking", members: "12k", tint: "bg-folk-surface-warm" },
+  { name: "film", members: "26k", tint: "bg-folk-surface-cool" },
+  { name: "cycling", members: "14k", tint: "bg-folk-panel" },
 ];
 
 const steps = [
@@ -184,8 +184,8 @@ const Communities = () => (
           >
             <Link
               to="/contact"
-              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-white lowercase tracking-tight
-                bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
+                folk-cta
                 shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
                 hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
             >
@@ -278,8 +278,8 @@ const Communities = () => (
                       <span
                         className={`inline-block max-w-[90%] px-3.5 py-2 text-[12.5px] md:text-[13px] leading-snug lowercase rounded-2xl ${
                           m.from === "you"
-                            ? "bg-[#5B9CFF] text-white rounded-br-md shadow-[3px_3px_0_0_hsl(var(--foreground))]"
-                            : "bg-[#E8E6E1] text-foreground rounded-bl-md border-2 border-foreground shadow-[3px_3px_0_0_hsl(var(--foreground))]"
+                            ? "bg-folk-bubble text-folk-bubble-foreground rounded-br-md shadow-[3px_3px_0_0_hsl(var(--foreground))]"
+                            : "bg-folk-bubble-soft text-foreground rounded-bl-md border-2 border-foreground shadow-[3px_3px_0_0_hsl(var(--foreground))]"
                         }`}
                       >
                         {m.text}
@@ -306,10 +306,10 @@ const Communities = () => (
               <img src={cafeFriends} alt="A Crowd meetup" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
               <div className="absolute bottom-5 left-5 right-5 flex flex-col gap-2.5">
-                <div className="self-start max-w-[85%] rounded-2xl rounded-bl-md border-2 border-foreground bg-[#E8E6E1] px-3.5 py-2 text-[13px] leading-snug lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                <div className="self-start max-w-[85%] rounded-2xl rounded-bl-md border-2 border-foreground bg-folk-bubble-soft px-3.5 py-2 text-[13px] leading-snug lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
                   who&apos;s in for saturday?
                 </div>
-                <div className="self-end max-w-[85%] rounded-2xl rounded-br-md bg-[#5B9CFF] px-3.5 py-2 text-[13px] leading-snug text-white lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                <div className="self-end max-w-[85%] rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2 text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
                   count me in, bringing the film camera
                 </div>
                 <div className="self-start max-w-[85%] rounded-2xl rounded-bl-md border-2 border-foreground bg-card px-3.5 py-2 text-[13px] leading-snug lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
@@ -502,8 +502,8 @@ const Communities = () => (
               >
                 <Link
                   to="/contact"
-                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-white lowercase tracking-tight
-                    bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
+                    folk-cta
                     shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
                     hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                 >
@@ -537,7 +537,7 @@ const Communities = () => (
                   </div>
                   <div className="mt-3 flex items-center justify-between gap-2">
                     <span className="text-[12px] lowercase text-foreground/70">slow coffee club</span>
-                    <span className="inline-flex items-center rounded-full bg-[#3DDC97] px-2.5 py-1 text-[11px] text-foreground lowercase">
+                    <span className="inline-flex items-center rounded-full bg-folk-success px-2.5 py-1 text-[11px] text-foreground lowercase">
                       1,219 online
                     </span>
                   </div>
@@ -550,7 +550,7 @@ const Communities = () => (
                   transition={{ duration: 0.55, delay: 0.3 }}
                   className="relative z-10 -mt-5 ml-auto max-w-[85%]"
                 >
-                  <div className="rounded-2xl rounded-br-md bg-[#5B9CFF] px-4 py-3 text-[13px] leading-snug text-white lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+                  <div className="rounded-2xl rounded-br-md bg-folk-bubble px-4 py-3 text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
                     your people are already here.
                   </div>
                 </motion.div>

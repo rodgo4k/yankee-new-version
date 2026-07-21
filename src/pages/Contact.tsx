@@ -73,7 +73,7 @@ const Contact = () => (
               transition={{ duration: 0.5 }}
               className="flex justify-center lg:justify-start"
             >
-              <span className="inline-flex rounded-2xl rounded-bl-md bg-[#5B9CFF] px-3.5 py-2 text-[13px] leading-snug text-white lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+              <span className="inline-flex rounded-2xl rounded-bl-md bg-folk-bubble px-3.5 py-2 text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
                 we read everything
               </span>
             </motion.div>
@@ -105,8 +105,8 @@ const Contact = () => (
             >
               <a
                 href="mailto:hello@yankee.app"
-                className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-white lowercase tracking-tight
-                  bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
+                  folk-cta
                   shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
                   hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
               >
@@ -192,7 +192,7 @@ const Contact = () => (
                   href={c.href}
                   target={c.href.startsWith("http") ? "_blank" : undefined}
                   rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className={`group flex items-center justify-between gap-4 p-5 md:p-6 hover:bg-[#F3F1EC] transition-colors ${
+                  className={`group flex items-center justify-between gap-4 p-5 md:p-6 hover:bg-folk-panel transition-colors ${
                     i < channels.length - 1 ? "border-b-2 border-foreground" : ""
                   }`}
                 >
@@ -241,7 +241,7 @@ const Contact = () => (
                   whileHover={{ y: -3 }}
                   className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 flex flex-col gap-5 shadow-[4px_4px_0_0_hsl(var(--foreground))]"
                 >
-                  <span className="inline-block self-start px-3.5 py-2 text-[13px] leading-snug lowercase rounded-2xl rounded-bl-md bg-[#5B9CFF] text-white shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                  <span className="inline-block self-start px-3.5 py-2 text-[13px] leading-snug lowercase rounded-2xl rounded-bl-md bg-folk-bubble text-white shadow-[3px_3px_0_0_hsl(var(--foreground))]">
                     {h.bubble}
                   </span>
                   <div className="mt-auto">
@@ -315,8 +315,8 @@ const Contact = () => (
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <a
               href="mailto:hello@yankee.app"
-              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-white lowercase tracking-tight
-                bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
+                folk-cta
                 shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
                 hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
             >

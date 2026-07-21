@@ -164,8 +164,8 @@ const Reach = () => (
             >
               <Link
                 to="/contact"
-                className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-white lowercase tracking-tight
-                  bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
+                  folk-cta
                   shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
                   hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
               >
@@ -257,8 +257,8 @@ const Reach = () => (
                       <span
                         className={`inline-block max-w-[90%] px-3.5 py-2 text-[12.5px] md:text-[13px] leading-snug lowercase rounded-2xl ${
                           m.from === "you"
-                            ? "bg-[#5B9CFF] text-white rounded-br-md shadow-[3px_3px_0_0_hsl(var(--foreground))]"
-                            : "bg-[#E8E6E1] text-foreground rounded-bl-md border-2 border-foreground shadow-[3px_3px_0_0_hsl(var(--foreground))]"
+                            ? "bg-folk-bubble text-white rounded-br-md shadow-[3px_3px_0_0_hsl(var(--foreground))]"
+                            : "bg-folk-bubble-soft text-foreground rounded-bl-md border-2 border-foreground shadow-[3px_3px_0_0_hsl(var(--foreground))]"
                         }`}
                       >
                         {m.text}
@@ -321,8 +321,8 @@ const Reach = () => (
                 <div className="mt-8">
                   <Link
                     to="/contact"
-                    className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-white lowercase tracking-tight
-                      bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                    className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
+                      folk-cta
                       shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
                       hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                   >
@@ -331,7 +331,7 @@ const Reach = () => (
                 </div>
               </div>
 
-              <div className="lg:col-span-5 relative min-h-[280px] lg:min-h-full border-t-2 lg:border-t-0 lg:border-l-2 border-foreground bg-[#E8E6E1]">
+              <div className="lg:col-span-5 relative min-h-[280px] lg:min-h-full border-t-2 lg:border-t-0 lg:border-l-2 border-foreground bg-folk-bubble-soft">
                 <img
                   src={homeFeed}
                   alt=""
@@ -414,8 +414,8 @@ const Reach = () => (
               >
                 <Link
                   to="/contact"
-                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-white lowercase tracking-tight
-                    bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
+                    folk-cta
                     shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
                     hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                 >
@@ -462,7 +462,7 @@ const Reach = () => (
                   transition={{ duration: 0.55, delay: 0.3 }}
                   className="relative z-10 -mt-5 mr-auto max-w-[85%]"
                 >
-                  <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-[#E8E6E1] px-4 py-3 text-[13px] leading-snug lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+                  <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-folk-bubble-soft px-4 py-3 text-[13px] leading-snug lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
                     no ranking. every friend got it.
                   </div>
                 </motion.div>

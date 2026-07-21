@@ -45,6 +45,25 @@ export default {
                 folk: {
                     DEFAULT: "hsl(var(--folk-amber))",
                     foreground: "hsl(var(--folk-amber-foreground))",
+                    bubble: {
+                        DEFAULT: "hsl(var(--folk-bubble))",
+                        foreground: "hsl(var(--folk-bubble-foreground))",
+                        soft: "hsl(var(--folk-bubble-soft))",
+                        "soft-foreground": "hsl(var(--folk-bubble-soft-foreground))",
+                    },
+                    surface: {
+                        warm: "hsl(var(--folk-surface-warm))",
+                        cool: "hsl(var(--folk-surface-cool))",
+                        mint: "hsl(var(--folk-surface-mint))",
+                    },
+                    success: {
+                        DEFAULT: "hsl(var(--folk-success))",
+                        foreground: "hsl(var(--folk-success-foreground))",
+                    },
+                    panel: {
+                        DEFAULT: "hsl(var(--folk-panel))",
+                        foreground: "hsl(var(--folk-panel-foreground))",
+                    },
                 },
                 popover: {
                     DEFAULT: "hsl(var(--popover))",

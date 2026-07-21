@@ -154,7 +154,7 @@ const CrowdHeroScene = () => {
               </motion.p>
             </AnimatePresence>
             <div className="mt-2 flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#3DDC97] px-2.5 py-1 text-[11px] font-medium text-foreground lowercase">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-folk-success px-2.5 py-1 text-[11px] font-medium text-foreground lowercase">
                 <span className="w-1.5 h-1.5 rounded-full bg-foreground" />
                 {featured.badge}
               </span>
@@ -214,7 +214,7 @@ const CrowdHeroScene = () => {
                 </AnimatePresence>
               </div>
               <div className="mt-2 inline-flex items-center gap-1.5 text-[11px] text-white/70 lowercase">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#3DDC97]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-folk-success" />
                 <Users size={11} /> active now
               </div>
             </div>
@@ -233,7 +233,7 @@ const CrowdHeroScene = () => {
               transition={{ duration: 0.45, ease }}
               className="self-start max-w-[90%] md:max-w-[70%]"
             >
-              <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-[#E8E6E1] px-4 py-3 text-[13px] md:text-[14px] leading-snug lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+              <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-folk-bubble-soft px-4 py-3 text-[13px] md:text-[14px] leading-snug lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
                 who&apos;s in for saturday? photo walk, golden hour.
               </div>
             </motion.div>
@@ -250,7 +250,7 @@ const CrowdHeroScene = () => {
               transition={{ duration: 0.45, ease }}
               className="self-end max-w-[90%] md:max-w-[70%]"
             >
-              <div className="rounded-2xl rounded-br-md bg-[#5B9CFF] px-4 py-3 text-[13px] md:text-[14px] leading-snug text-white lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+              <div className="rounded-2xl rounded-br-md bg-folk-bubble px-4 py-3 text-[13px] md:text-[14px] leading-snug text-folk-bubble-foreground lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
                 count me in. 12 going · rsvp closes friday.
               </div>
             </motion.div>

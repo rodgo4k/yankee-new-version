@@ -174,8 +174,8 @@ const Notifications = () => (
             >
               <Link
                 to="/contact"
-                className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-white lowercase tracking-tight
-                  bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
+                  folk-cta
                   shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
                   hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
               >
@@ -257,8 +257,8 @@ const Notifications = () => (
                       <span
                         className={`inline-block max-w-[90%] px-3.5 py-2 text-[12.5px] md:text-[13px] leading-snug lowercase rounded-2xl ${
                           m.from === "you"
-                            ? "bg-[#5B9CFF] text-white rounded-br-md shadow-[3px_3px_0_0_hsl(var(--foreground))]"
-                            : "bg-[#E8E6E1] text-foreground rounded-bl-md border-2 border-foreground shadow-[3px_3px_0_0_hsl(var(--foreground))]"
+                            ? "bg-folk-bubble text-white rounded-br-md shadow-[3px_3px_0_0_hsl(var(--foreground))]"
+                            : "bg-folk-bubble-soft text-foreground rounded-bl-md border-2 border-foreground shadow-[3px_3px_0_0_hsl(var(--foreground))]"
                         }`}
                       >
                         {m.text}
@@ -301,7 +301,7 @@ const Notifications = () => (
                       <p className="text-[14px] font-semibold lowercase">{item.label}</p>
                       <p className="text-[12px] text-foreground/50 lowercase">{item.note}</p>
                     </div>
-                    <span className="rounded-full bg-[#3DDC97] px-2.5 py-1 text-[11px] font-medium lowercase">on</span>
+                    <span className="rounded-full bg-folk-success px-2.5 py-1 text-[11px] font-medium lowercase">on</span>
                   </div>
                 );
               })}
@@ -331,7 +331,7 @@ const Notifications = () => (
                 transition={{ duration: 0.5, delay: 0.25 }}
                 className="absolute -right-2 bottom-[18%] z-10 max-w-[70%]"
               >
-                <div className="rounded-2xl rounded-br-md bg-[#5B9CFF] px-3.5 py-2.5 text-[12px] leading-snug text-white lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                <div className="rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[12px] leading-snug text-folk-bubble-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
                   47 nudges silenced today
                 </div>
               </motion.div>
@@ -426,8 +426,8 @@ const Notifications = () => (
               >
                 <Link
                   to="/contact"
-                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-white lowercase tracking-tight
-                    bg-[radial-gradient(120%_120%_at_50%_20%,#7EB6FF_0%,#3B82F6_45%,#2563EB_100%)]
+                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
+                    folk-cta
                     shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
                     hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                 >
@@ -474,7 +474,7 @@ const Notifications = () => (
                   transition={{ duration: 0.55, delay: 0.3 }}
                   className="relative z-10 -mt-5 mr-auto max-w-[85%]"
                 >
-                  <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-[#E8E6E1] px-4 py-3 text-[13px] leading-snug lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+                  <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-folk-bubble-soft px-4 py-3 text-[13px] leading-snug lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
                     digest at 8pm. nothing until then.
                   </div>
                 </motion.div>
