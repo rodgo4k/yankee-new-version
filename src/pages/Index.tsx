@@ -1,13 +1,14 @@
 import { ArrowRight, Clock, Users, BellOff, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { BorderBeam } from "border-beam";
 import Layout from "@/components/Layout";
 import AnimatedSection from "@/components/AnimatedSection";
 import FAQ from "@/components/FAQ";
 import { SpeechBubble, PillTag } from "@/components/Bubble";
 import PromoPill from "@/components/home/PromoPill";
-import HeroComposer from "@/components/home/HeroComposer";
-import HeroEdgeStickers, { type HeroSatellite } from "@/components/home/HeroEdgeStickers";
+import HeroStage from "@/components/home/HeroStage";
+import DotRevealSection from "@/components/home/DotRevealSection";
 import TestimonialCarousel from "@/components/home/TestimonialCarousel";
 import ChatSequence from "@/components/home/ChatSequence";
 import OrbitNodes from "@/components/home/OrbitNodes";
@@ -20,122 +21,7 @@ import communityShot from "@/assets/yankee/community.png";
 import homeFeed from "@/assets/yankee/home-feed.png";
 import chat from "@/assets/yankee/chat.png";
 import videoCall from "@/assets/yankee/video-call.png";
-import messages from "@/assets/yankee/messages.png";
-import tripPhotos from "@/assets/trip-photos.png";
-import familyField from "@/assets/family-field.jpg";
-
-const heroSatellites: HeroSatellite[] = [
-  {
-    id: "home-party",
-    filename: "weekend.mov",
-    media: heroParty,
-    kind: "video-look",
-    rotate: -11,
-    startOpen: true,
-    windowSize: "lg",
-    floatY: 11,
-    floatDuration: 5.2,
-    className: "top-[16%] left-[9%] xl:left-[11%]",
-    origin: "top left",
-  },
-  {
-    id: "home-inbox",
-    filename: "inbox.png",
-    media: messages,
-    kind: "image",
-    objectTop: true,
-    rotate: 8,
-    size: "sm",
-    floatY: 6,
-    floatDuration: 3.8,
-    className: "top-[13%] right-[9%] xl:right-[12%]",
-    origin: "top right",
-  },
-  {
-    id: "home-chat",
-    filename: "real-chat.png",
-    media: chat,
-    kind: "image",
-    objectTop: true,
-    rotate: 6,
-    startOpen: true,
-    windowSize: "md",
-    floatY: 9,
-    floatDuration: 4.6,
-    className: "top-[32%] right-[7%] xl:right-[9%]",
-    origin: "top right",
-  },
-  {
-    id: "home-feed",
-    filename: "the-feed.png",
-    media: homeFeed,
-    kind: "image",
-    objectTop: true,
-    rotate: -5,
-    size: "md",
-    lgOnly: true,
-    floatY: 8,
-    floatDuration: 4.1,
-    className: "top-[44%] left-[8%] xl:left-[11%]",
-    origin: "center left",
-  },
-  {
-    id: "home-calls",
-    filename: "clear-calls.mov",
-    media: videoCall,
-    kind: "video-look",
-    rotate: -7,
-    size: "lg",
-    lgOnly: true,
-    floatY: 7,
-    floatDuration: 5.5,
-    className: "top-[56%] right-[9%] xl:right-[12%]",
-    origin: "center right",
-  },
-  {
-    id: "home-trip",
-    filename: "memories.jpg",
-    media: tripPhotos,
-    kind: "image",
-    rotate: 4,
-    startOpen: true,
-    windowSize: "sm",
-    floatY: 10,
-    floatDuration: 4.9,
-    className: "top-[62%] left-[7%] xl:left-[9%]",
-    origin: "bottom left",
-  },
-  {
-    id: "home-field",
-    filename: "away.jpg",
-    media: familyField,
-    kind: "image",
-    rotate: -9,
-    size: "sm",
-    floatY: 5,
-    floatDuration: 3.5,
-    className: "top-[76%] left-[14%] xl:left-[17%]",
-    origin: "bottom left",
-  },
-  {
-    id: "home-campus",
-    filename: "campus.mov",
-    media: studentsHero,
-    kind: "video-look",
-    rotate: 10,
-    size: "md",
-    floatY: 8,
-    floatDuration: 4.4,
-    className: "top-[72%] right-[8%] xl:right-[10%]",
-    origin: "bottom right",
-  },
-];
-
-const heroFloatNotes = [
-  { id: "n1", text: "no algorithm", className: "top-[22%] left-[20%] xl:left-[22%]", rotate: -8, delay: 0.5 },
-  { id: "n2", text: "only yours", className: "top-[38%] right-[19%] xl:right-[21%]", rotate: 7, delay: 0.7 },
-  { id: "n3", text: "always in sync", className: "top-[80%] right-[19%] xl:right-[21%]", rotate: -5, delay: 0.9 },
-];
+import searchImg from "@/assets/yankee/search.png";
 
 const faqItems = [
   {
@@ -193,48 +79,43 @@ const Index = () => (
         <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-transparent to-background" />
       </div>
 
-      {/* Full-bleed stage so stickers use the whole viewport width */}
-      <div className="relative min-h-0 md:min-h-[720px] lg:min-h-[780px] xl:min-h-[820px]">
-        <HeroEdgeStickers satellites={heroSatellites} notes={heroFloatNotes} />
+      <div className="relative w-full max-w-[920px] mx-auto px-5 md:px-6 pt-28 md:pt-36 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55 }}
+          className="flex justify-center"
+        >
+          <PromoPill tag="new" text="a social feed you actually control" to="/features" />
+        </motion.div>
 
-        <div className="relative z-10 w-full max-w-[920px] mx-auto px-5 md:px-6 pt-28 md:pt-36 pb-16 md:pb-24 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55 }}
-            className="flex justify-center"
-          >
-            <PromoPill tag="new" text="a social feed you actually control" to="/features" />
-          </motion.div>
+        <motion.h1
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.85, ease: [0.25, 0.4, 0.25, 1] }}
+          className="mt-7 md:mt-9 text-[2.15rem] sm:text-[2.75rem] md:text-5xl lg:text-[3.65rem] font-semibold text-foreground leading-[1.05] tracking-tight lowercase max-w-[18ch] sm:max-w-[22ch] mx-auto"
+        >
+          the social feed that puts your friends back in front of you
+        </motion.h1>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, ease: [0.25, 0.4, 0.25, 1] }}
-            className="mt-7 md:mt-9 text-[2.15rem] sm:text-[2.75rem] md:text-5xl lg:text-[3.65rem] font-semibold text-foreground leading-[1.05] tracking-tight lowercase max-w-[18ch] sm:max-w-[22ch] mx-auto"
-          >
-            the social feed that puts your friends back in front of you
-          </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.18 }}
+          className="mt-5 md:mt-6 max-w-xl mx-auto text-[15px] md:text-[17px] text-foreground/65 leading-relaxed lowercase"
+        >
+          post once, reach everyone. no hidden algorithm, no shadow bans. crowds, chat and calls in one calm app.
+        </motion.p>
+      </div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.18 }}
-            className="mt-5 md:mt-6 max-w-xl mx-auto text-[15px] md:text-[17px] text-foreground/65 leading-relaxed lowercase"
-          >
-            post once, reach everyone. no hidden algorithm, no shadow bans. crowds, chat and calls in one calm app.
-          </motion.p>
-
-          <div className="mt-8 md:mt-10">
-            <HeroComposer />
-          </div>
-        </div>
+      <div className="relative w-full mt-8 md:mt-10 pb-16 md:pb-24 px-2 md:px-4">
+        <HeroStage />
       </div>
     </section>
 
-    <section className="relative py-20 md:py-28 dotted-bg">
+    <section className="relative py-20 md:py-28 dotted-bg overflow-visible">
       <div className="absolute inset-0 bg-background/70" />
-      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6 overflow-visible">
         <AnimatedSection>
           <div className="text-center max-w-2xl mx-auto">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
@@ -247,18 +128,33 @@ const Index = () => (
           </div>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="mt-12 md:mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6 overflow-visible">
           {featureCards.map((c, i) => (
-            <AnimatedSection key={c.title} delay={i * 0.06}>
-              <div className="h-full rounded-[1.5rem] border-2 border-foreground/90 bg-card p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[3px_3px_0_0_hsl(var(--foreground))] transition-all">
-                <div className="w-10 h-10 rounded-xl bg-primary text-primary-foreground flex items-center justify-center mb-5">
-                  <c.icon size={18} />
+            <AnimatedSection key={c.title} delay={i * 0.06} className="overflow-visible">
+              <BorderBeam
+                size="md"
+                colorVariant="ocean"
+                theme="light"
+                strength={1}
+                brightness={2.4}
+                saturation={1.7}
+                duration={2.2}
+                borderRadius={24}
+                className="h-full"
+              >
+                <div
+                  className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[3px_3px_0_0_hsl(var(--foreground))] transition-all text-center sm:text-left flex flex-col items-center sm:items-start"
+                  style={{ borderRadius: 24 }}
+                >
+                  <div className="w-10 h-10 rounded-xl bg-primary text-primary-foreground flex items-center justify-center mb-5">
+                    <c.icon size={18} />
+                  </div>
+                  <h3 className="text-[15px] md:text-[16px] font-semibold text-foreground tracking-tight lowercase">
+                    {c.title}
+                  </h3>
+                  <p className="mt-3 text-[13px] text-muted-foreground leading-relaxed lowercase">{c.text}</p>
                 </div>
-                <h3 className="text-[15px] md:text-[16px] font-semibold text-foreground tracking-tight lowercase">
-                  {c.title}
-                </h3>
-                <p className="mt-3 text-[13px] text-muted-foreground leading-relaxed lowercase">{c.text}</p>
-              </div>
+              </BorderBeam>
             </AnimatedSection>
           ))}
         </div>
@@ -279,6 +175,8 @@ const Index = () => (
       </div>
     </section>
 
+    <DotRevealSection image={searchImg} />
+
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/75" />
       <div className="relative max-w-[1100px] mx-auto px-5 md:px-6">
@@ -286,7 +184,7 @@ const Index = () => (
           <AnimatedSection>
             <OrbitNodes />
           </AnimatedSection>
-          <AnimatedSection delay={0.1}>
+          <AnimatedSection delay={0.1} className="text-center md:text-left flex flex-col items-center md:items-start">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
               always on, all yours
             </h2>
@@ -309,7 +207,7 @@ const Index = () => (
       <div className="absolute inset-0 bg-background/75" />
       <div className="relative max-w-[1100px] mx-auto px-5 md:px-6">
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
-          <AnimatedSection>
+          <AnimatedSection className="text-center md:text-left flex flex-col items-center md:items-start">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
               it keeps you locked in
             </h2>
@@ -350,7 +248,7 @@ const Index = () => (
 
     <section className="relative py-20 md:py-28">
       <div className="max-w-[1200px] mx-auto px-5 md:px-6 grid md:grid-cols-2 gap-12 md:gap-16 items-center">
-        <AnimatedSection>
+        <AnimatedSection className="text-center md:text-left flex flex-col items-center md:items-start">
           <FeedStatusPill />
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02]">
             Post once, <span className="font-serif-display italic">it reaches everyone.</span>
@@ -593,7 +491,7 @@ const Index = () => (
             { t: "gone in seconds", d: "delete your account anytime and your data is destroyed for good." },
           ].map((c, i) => (
             <AnimatedSection key={c.t} delay={i * 0.06}>
-              <div className="h-full rounded-[1.5rem] border-2 border-foreground/90 bg-card p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+              <div className="h-full rounded-[1.5rem] border-2 border-foreground/90 bg-card p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))] text-center sm:text-left">
                 <h3 className="text-[16px] font-semibold lowercase">{c.t}</h3>
                 <p className="mt-3 text-[13px] text-muted-foreground leading-relaxed lowercase">{c.d}</p>
               </div>
@@ -624,7 +522,7 @@ const Index = () => (
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
         <AnimatedSection>
           <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-stretch">
-            <div className="lg:col-span-7 flex flex-col justify-center">
+            <div className="lg:col-span-7 flex flex-col justify-center text-center lg:text-left items-center lg:items-start">
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -662,7 +560,7 @@ const Index = () => (
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.55, delay: 0.24 }}
-                className="mt-8 md:mt-10 flex flex-wrap items-center gap-3"
+                className="mt-8 md:mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-3"
               >
                 <Link
                   to="/contact"

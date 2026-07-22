@@ -17,80 +17,13 @@
   --folk-dot           dotted background pattern color
   --folk-panel         window chrome / sheet strip
 
-  Default site theme is dark Folk (:root).
-  Optional light: data-theme="folk-light" on Layout.
+  Default site theme is light Folk (:root).
+  Optional dark: data-theme="folk-dark" on Layout.
 */
 
 @layer base {
   :root {
-    /* Dark Folk — site default */
-    --background: 28 12% 9%;
-    --foreground: 40 28% 94%;
-
-    --card: 28 10% 13%;
-    --card-foreground: 40 28% 94%;
-
-    --popover: 28 10% 13%;
-    --popover-foreground: 40 28% 94%;
-
-    --primary: 40 28% 94%;
-    --primary-foreground: 28 12% 9%;
-
-    --secondary: 28 8% 18%;
-    --secondary-foreground: 40 28% 94%;
-
-    --muted: 28 8% 16%;
-    --muted-foreground: 35 12% 62%;
-
-    --accent: 210 75% 62%;
-    --accent-foreground: 28 12% 9%;
-
-    --folk-amber: 38 50% 58%;
-    --folk-amber-foreground: 28 12% 9%;
-
-    --folk-bubble: 214 95% 64%;
-    --folk-bubble-foreground: 0 0% 100%;
-    --folk-bubble-soft: 30 8% 20%;
-    --folk-bubble-soft-foreground: 40 28% 94%;
-
-    --folk-surface-warm: 28 14% 16%;
-    --folk-surface-cool: 220 18% 16%;
-    --folk-surface-mint: 168 14% 15%;
-
-    --folk-success: 152 60% 48%;
-    --folk-success-foreground: 28 12% 9%;
-
-    --folk-panel: 28 10% 15%;
-    --folk-panel-foreground: 40 28% 94%;
-
-    --folk-cta-from: 214 100% 72%;
-    --folk-cta-mid: 217 90% 58%;
-    --folk-cta-to: 221 80% 48%;
-
-    --folk-dot: 40 20% 70%;
-    --folk-dot-opacity: 0.16;
-
-    --destructive: 0 55% 48%;
-    --destructive-foreground: 40 28% 96%;
-
-    --border: 30 8% 24%;
-    --input: 30 8% 24%;
-    --ring: 40 20% 70%;
-
-    --radius: 1rem;
-
-    --sidebar-background: 28 12% 9%;
-    --sidebar-foreground: 40 28% 94%;
-    --sidebar-primary: 40 28% 94%;
-    --sidebar-primary-foreground: 28 12% 9%;
-    --sidebar-accent: 28 8% 16%;
-    --sidebar-accent-foreground: 40 28% 94%;
-    --sidebar-border: 30 8% 24%;
-    --sidebar-ring: 40 20% 70%;
-  }
-
-  /* Optional light Folk */
-  [data-theme="folk-light"] {
+    /* Light Folk — site default */
     --background: 40 30% 94%;
     --foreground: 30 12% 8%;
 
@@ -144,6 +77,8 @@
     --input: 30 12% 82%;
     --ring: 30 12% 30%;
 
+    --radius: 1rem;
+
     --sidebar-background: 40 30% 94%;
     --sidebar-foreground: 30 12% 8%;
     --sidebar-primary: 30 10% 8%;
@@ -152,6 +87,71 @@
     --sidebar-accent-foreground: 30 12% 8%;
     --sidebar-border: 30 12% 82%;
     --sidebar-ring: 30 12% 30%;
+  }
+
+  /* Optional dark Folk */
+  [data-theme="folk-dark"] {
+    --background: 28 12% 9%;
+    --foreground: 40 28% 94%;
+
+    --card: 28 10% 13%;
+    --card-foreground: 40 28% 94%;
+
+    --popover: 28 10% 13%;
+    --popover-foreground: 40 28% 94%;
+
+    --primary: 40 28% 94%;
+    --primary-foreground: 28 12% 9%;
+
+    --secondary: 28 8% 18%;
+    --secondary-foreground: 40 28% 94%;
+
+    --muted: 28 8% 16%;
+    --muted-foreground: 35 12% 62%;
+
+    --accent: 210 75% 62%;
+    --accent-foreground: 28 12% 9%;
+
+    --folk-amber: 38 50% 58%;
+    --folk-amber-foreground: 28 12% 9%;
+
+    --folk-bubble: 214 95% 64%;
+    --folk-bubble-foreground: 0 0% 100%;
+    --folk-bubble-soft: 30 8% 20%;
+    --folk-bubble-soft-foreground: 40 28% 94%;
+
+    --folk-surface-warm: 28 14% 16%;
+    --folk-surface-cool: 220 18% 16%;
+    --folk-surface-mint: 168 14% 15%;
+
+    --folk-success: 152 60% 48%;
+    --folk-success-foreground: 28 12% 9%;
+
+    --folk-panel: 28 10% 15%;
+    --folk-panel-foreground: 40 28% 94%;
+
+    --folk-cta-from: 214 100% 72%;
+    --folk-cta-mid: 217 90% 58%;
+    --folk-cta-to: 221 80% 48%;
+
+    --folk-dot: 40 20% 70%;
+    --folk-dot-opacity: 0.16;
+
+    --destructive: 0 55% 48%;
+    --destructive-foreground: 40 28% 96%;
+
+    --border: 30 8% 24%;
+    --input: 30 8% 24%;
+    --ring: 40 20% 70%;
+
+    --sidebar-background: 28 12% 9%;
+    --sidebar-foreground: 40 28% 94%;
+    --sidebar-primary: 40 28% 94%;
+    --sidebar-primary-foreground: 28 12% 9%;
+    --sidebar-accent: 28 8% 16%;
+    --sidebar-accent-foreground: 40 28% 94%;
+    --sidebar-border: 30 8% 24%;
+    --sidebar-ring: 40 20% 70%;
   }
 }
 
@@ -198,13 +198,13 @@
     position: absolute; inset: 0;
     pointer-events: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
-    opacity: 0.12;
-    mix-blend-mode: soft-light;
-  }
-
-  [data-theme="folk-light"] .grain::after {
     opacity: 0.08;
     mix-blend-mode: multiply;
+  }
+
+  [data-theme="folk-dark"] .grain::after {
+    opacity: 0.12;
+    mix-blend-mode: soft-light;
   }
 }
 

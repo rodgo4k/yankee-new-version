@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Heart, Mic, Plus } from "lucide-react";
@@ -30,10 +30,20 @@ const layerFix = {
   WebkitBackfaceVisibility: "hidden" as const,
 };
 
-const HeroComposer = () => {
+type HeroComposerProps = {
+  /** When false, plays the sequence once then calls onSequenceComplete. Default true. */
+  loop?: boolean;
+  onSequenceComplete?: () => void;
+  /** Hide the CTA block when a parent (e.g. HeroStage) renders it in a fixed slot. */
+  hideCta?: boolean;
+};
+
+const HeroComposer = ({ loop = true, onSequenceComplete, hideCta = false }: HeroComposerProps) => {
   const [phase, setPhase] = useState<Phase>("messages");
   const [visibleCount, setVisibleCount] = useState(0);
   const [cycle, setCycle] = useState(0);
+  const onCompleteRef = useRef(onSequenceComplete);
+  onCompleteRef.current = onSequenceComplete;
 
   useEffect(() => {
     setPhase("messages");
@@ -46,21 +56,21 @@ const HeroComposer = () => {
       window.setTimeout(() => setPhase("expand"), 5200),
       window.setTimeout(() => setPhase("photo"), 8200),
       window.setTimeout(() => setPhase("scroll"), 11000),
-      window.setTimeout(() => setCycle((c) => c + 1), 17500),
     ];
 
+    if (loop) {
+      timers.push(window.setTimeout(() => setCycle((c) => c + 1), 17500));
+    } else {
+      timers.push(window.setTimeout(() => onCompleteRef.current?.(), 14500));
+    }
+
     return () => timers.forEach(clearTimeout);
-  }, [cycle]);
+  }, [cycle, loop]);
 
   const showFeed = phase === "photo" || phase === "scroll";
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 28 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.35, ease }}
-      className="w-full max-w-[560px] mx-auto"
-    >
+    <div className="w-full max-w-[560px] mx-auto">
       <div className="rounded-[2rem] md:rounded-[2.5rem] bg-card border-2 border-foreground shadow-[6px_6px_0_0_hsl(var(--foreground))] overflow-hidden">
         <div className="relative h-[300px] sm:h-[320px] md:h-[340px] overflow-hidden bg-card">
           <motion.div
@@ -189,18 +199,20 @@ const HeroComposer = () => {
         </div>
       </div>
 
-      <div className="mt-5 md:mt-6 flex flex-col items-center gap-3">
-        <Link
-          to="/contact"
-          className="group relative inline-flex items-center justify-center px-8 py-3.5 md:px-10 md:py-4 rounded-full text-[15px] md:text-[16px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta
-            shadow-[0_14px_40px_-10px_rgba(37,99,235,0.65),inset_0_1px_0_rgba(255,255,255,0.35)]
-            hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
-        >
-          get yankee, free forever
-        </Link>
-        <p className="text-[12px] md:text-[13px] text-foreground/55 lowercase">free forever. no card needed.</p>
-      </div>
-    </motion.div>
+      {!hideCta && (
+        <div className="mt-5 md:mt-6 flex flex-col items-center gap-3">
+          <Link
+            to="/contact"
+            className="group relative inline-flex items-center justify-center px-8 py-3.5 md:px-10 md:py-4 rounded-full text-[15px] md:text-[16px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta
+              shadow-[0_14px_40px_-10px_rgba(37,99,235,0.65),inset_0_1px_0_rgba(255,255,255,0.35)]
+              hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+          >
+            get yankee, free forever
+          </Link>
+          <p className="text-[12px] md:text-[13px] text-foreground/55 lowercase">free forever. no card needed.</p>
+        </div>
+      )}
+    </div>
   );
 };
 

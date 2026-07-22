@@ -1,6 +1,6 @@
 import SimplePage from "@/components/SimplePage";
-import codePreview from "@/assets/code-preview.jpg";
-const Changelog = () => (<SimplePage tag="company" eyebrow="what shipped this month" hero={codePreview} title={<>Every release, <span className="font-serif-display italic">in plain words.</span></>} subtitle="No marketing gloss. Just what changed, what broke, and what we fixed." blocks={[
+import homeFeed from "@/assets/yankee/home-feed.png";
+const Changelog = () => (<SimplePage tag="company" eyebrow="what shipped this month" hero={homeFeed} title={<>Every release, <span className="font-serif-display italic">in plain words.</span></>} subtitle="No marketing gloss. Just what changed, what broke, and what we fixed." blocks={[
         {
             kicker: "2026 · Q3",
             title: <>Recent <span className="font-serif-display italic">releases.</span></>,

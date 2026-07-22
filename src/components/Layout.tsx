@@ -6,14 +6,14 @@ export type SiteTheme = "folk-dark" | "folk-light";
 
 type LayoutProps = {
   children: ReactNode;
-  /** Defaults to dark Folk site-wide. Pass folk-light for the cream theme. */
+  /** Defaults to light Folk site-wide. Pass folk-dark for the dark theme. */
   theme?: SiteTheme;
 };
 
-const Layout = ({ children, theme = "folk-dark" }: LayoutProps) => (
+const Layout = ({ children, theme = "folk-light" }: LayoutProps) => (
   <div
     className="min-h-screen flex flex-col bg-background text-foreground transition-colors duration-300"
-    data-theme={theme === "folk-dark" ? undefined : theme}
+    data-theme={theme === "folk-light" ? undefined : theme}
   >
     <Navbar />
     <main className="flex-1 pt-24">{children}</main>
