@@ -146,7 +146,7 @@ const faqs = [
   },
   {
     q: "Do you sell my data or train AI on it?",
-    a: "Never. Yankee is subscription funded. Your posts, messages and notes are not sold to advertisers and are not used to train a model.",
+    a: "Never. We do not sell your data and we do not run ads against it. Your posts, messages and notes are not sold to advertisers and are not used to train a model.",
   },
   {
     q: "What happens when I delete my account?",

@@ -79,7 +79,7 @@ const StudentHeroScene = () => {
           </div>
           <div className="absolute bottom-4 left-4 right-4">
             <p className="font-serif-display italic text-[1.25rem] md:text-[1.4rem] text-white leading-tight lowercase">
-              free with .edu
+              campus verified
             </p>
             <p className="mt-1.5 text-[11px] text-white/70 lowercase">classes · clubs · your crew</p>
           </div>

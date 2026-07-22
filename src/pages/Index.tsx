@@ -8,6 +8,7 @@ import FAQ from "@/components/FAQ";
 import { SpeechBubble, PillTag } from "@/components/Bubble";
 import PromoPill from "@/components/home/PromoPill";
 import HeroStage from "@/components/home/HeroStage";
+import IntroVideoSection from "@/components/home/IntroVideoSection";
 import DotRevealSection from "@/components/home/DotRevealSection";
 import TestimonialCarousel from "@/components/home/TestimonialCarousel";
 import ChatSequence from "@/components/home/ChatSequence";
@@ -27,10 +28,6 @@ const faqItems = [
   {
     q: "What is Yankee?",
     a: "A social network with no hidden algorithm: a chronological feed, no shadow bans, native communities (Crowds), chat, calls and integrated AI, all in a single app.",
-  },
-  {
-    q: "Is it free?",
-    a: "Yes. Yankee is free for everyone: post, chat, join Crowds and use Yankee AI without ever paying. No tiers, no locked features.",
   },
   {
     q: "How does it work without an algorithm?",
@@ -95,7 +92,7 @@ const Index = () => (
           transition={{ duration: 0.85, ease: [0.25, 0.4, 0.25, 1] }}
           className="mt-7 md:mt-9 text-[2.15rem] sm:text-[2.75rem] md:text-5xl lg:text-[3.65rem] font-semibold text-foreground leading-[1.05] tracking-tight lowercase max-w-[18ch] sm:max-w-[22ch] mx-auto"
         >
-          the social feed that puts your friends back in front of you
+          the social layer the real world was missing
         </motion.h1>
 
         <motion.p
@@ -112,6 +109,8 @@ const Index = () => (
         <HeroStage />
       </div>
     </section>
+
+    <IntroVideoSection />
 
     <section className="relative py-20 md:py-28 dotted-bg overflow-visible">
       <div className="absolute inset-0 bg-background/70" />
@@ -552,7 +551,7 @@ const Index = () => (
                 transition={{ duration: 0.55, delay: 0.16 }}
                 className="mt-6 md:mt-7 max-w-md text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase"
               >
-                see the people who actually matter to you again. chronological, private, and free forever.
+                see the people who actually matter to you again. chronological, private, no algorithm.
               </motion.p>
 
               <motion.div
@@ -580,7 +579,7 @@ const Index = () => (
               </motion.div>
 
               <p className="mt-5 text-[12px] md:text-[13px] text-foreground/45 lowercase">
-                free forever · no card needed · no algorithm
+                chronological · private · no algorithm
               </p>
             </div>
 

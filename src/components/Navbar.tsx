@@ -33,7 +33,7 @@ const navItems: NavItem[] = [
             { label: "For friends and family", path: "/for-friends-family", desc: "A feed of only your people" },
             { label: "For small teams", path: "/for-small-teams", desc: "Quieter than Slack, sharper than email" },
             { label: "For communities", path: "/for-communities", desc: "Human-scale rooms, by design" },
-            { label: "For students", path: "/for-students", desc: "Free with a valid .edu" },
+            { label: "For students", path: "/for-students", desc: "Study mode & campus rooms" },
         ],
     },
     {

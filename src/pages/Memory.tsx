@@ -138,19 +138,19 @@ const faqs = [
   },
   {
     q: "Is my memory used to train AI?",
-    a: "Never. Your writing, saves and notes are not used to train a model — not ours, not anyone else's.",
+    a: "Never. Your writing, saves and notes are not used to train a model. Not ours, not anyone else's.",
   },
   {
     q: "What can I share with someone else?",
-    a: "A single memory at a time — a playlist, a place, a plan, a recipe. They only see what you passed. You can revoke access any time.",
+    a: "A single memory at a time. A playlist, a place, a plan, a recipe. They only see what you passed. You can revoke access any time.",
   },
   {
     q: "What happens when I delete a memory?",
     a: "It is wiped from your device and our encrypted backups within 30 days. No hidden copies.",
   },
   {
-    q: "Is Memory included in the free plan?",
-    a: "Basic save and recall are free. Yankee Pro ($8/month) unlocks unlimited memory, shared handoffs and cross-device sync. Cancel any time.",
+    q: "Is Memory available to everyone?",
+    a: "Yes. Save, recall, shared handoffs and cross-device sync are available to everyone. No tiers, no locked features.",
   },
 ];
 
@@ -210,7 +210,7 @@ const Memory = () => (
               see how it works
             </a>
           </motion.div>
-          <p className="mt-5 text-[12px] text-foreground/45 lowercase">free forever · no card needed</p>
+          <p className="mt-5 text-[12px] text-foreground/45 lowercase">encrypted · recallable · yours to share</p>
         </div>
 
         <motion.div

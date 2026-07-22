@@ -114,10 +114,6 @@ const faqs = [
     a: "Yes. Write updates now, publish later, across time zones. Perfect for async teams and company-wide announcements.",
   },
   {
-    q: "Is there a free plan?",
-    a: "Free for teams up to 12 people. Yankee Pro is $8 per user per month for unlimited rooms, admin controls and analytics. Cancel any time.",
-  },
-  {
     q: "What happens when our team grows?",
     a: "Rooms split when they hit a healthy size. You can add workspaces, keep channels separate, and still search everything in one place.",
   },
@@ -180,7 +176,7 @@ const ForSmallTeams = () => (
                 see how it works
               </a>
             </motion.div>
-            <p className="mt-5 text-[12px] text-foreground/45 lowercase">free for up to 12 people · no ads</p>
+            <p className="mt-5 text-[12px] text-foreground/45 lowercase">quieter than slack · sharper than email</p>
           </div>
 
           <div className="lg:col-span-7">
@@ -364,7 +360,7 @@ const ForSmallTeams = () => (
             frequently <span className="font-serif-display italic font-medium">asked</span>
           </h2>
           <p className="mt-4 text-[15px] text-muted-foreground lowercase">
-            short answers about slack, privacy, files and pricing.
+            short answers about slack, privacy and files.
           </p>
         </AnimatedSection>
         <div className="mt-10 md:mt-12">
@@ -404,7 +400,7 @@ const ForSmallTeams = () => (
                 transition={{ duration: 0.55, delay: 0.16 }}
                 className="mt-6 max-w-md text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase"
               >
-                free for teams up to 12 people. yankee pro at $8 per user per month. cancel any time.
+                quieter rooms, clearer threads, less noise than slack. built for teams that want focus.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 14 }}

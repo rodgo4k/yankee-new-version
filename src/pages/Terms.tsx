@@ -7,7 +7,7 @@ const sections = [
     { t: "3. Content you post", p: "You keep all rights to what you post. You grant Yankee the limited rights necessary to distribute your content to the people you&apos;ve chosen to share it with." },
     { t: "4. Acceptable use", p: "Don&apos;t post illegal content. Don&apos;t harass other members. Don&apos;t scrape, spam or automate the service without written permission." },
     { t: "5. Suspension and termination", p: "We may suspend or terminate accounts that violate these terms. You can also delete your account at any time from settings." },
-    { t: "6. Paid plans", p: "Paid subscriptions renew automatically until cancelled. You can cancel from your account settings. Cancellation takes effect at the end of the billing cycle." },
+    { t: "6. No charges", p: "There are no paid plans, subscriptions or in-app charges for the core product. Yankee does not sell access to features behind a paywall." },
     { t: "7. Changes", p: "We may update these terms as the product evolves. We&apos;ll notify you in app before material changes take effect." },
     { t: "8. Contact", p: "Questions about these terms? Email legal@yankee.app." },
 ];

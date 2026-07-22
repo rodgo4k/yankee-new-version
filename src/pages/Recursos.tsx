@@ -289,7 +289,7 @@ const Features = () => (
             </div>
           </div>
           <p className="mt-4 text-center text-[12px] text-foreground/45 lowercase">
-            free forever · no card needed · the whole product surface
+            chronological · private · the whole product surface
           </p>
         </AnimatedSection>
       </div>
@@ -739,7 +739,7 @@ const Features = () => (
                 </Link>
               </motion.div>
               <p className="mt-5 text-[12px] md:text-[13px] text-foreground/45 lowercase">
-                free forever · no card needed · no algorithm
+                chronological · private · no algorithm
               </p>
             </div>
 

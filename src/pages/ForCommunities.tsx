@@ -116,7 +116,7 @@ const faqs = [
   },
   {
     q: "Do meetups cost anything?",
-    a: "No. Meetups are free to host and attend. Paid events are always clearly labeled.",
+    a: "No. Yankee never charges to host or attend a meetup. Paid events organised by a Crowd are always clearly labeled.",
   },
   {
     q: "Will my friends see the Crowds I join?",
@@ -185,7 +185,7 @@ const ForCommunities = () => (
                 explore crowds
               </Link>
             </motion.div>
-            <p className="mt-5 text-[12px] text-foreground/45 lowercase">free for up to 250 members · no ads</p>
+            <p className="mt-5 text-[12px] text-foreground/45 lowercase">human-scale rooms · no ads</p>
           </div>
         </div>
       </div>
@@ -411,7 +411,7 @@ const ForCommunities = () => (
                 transition={{ duration: 0.55, delay: 0.16 }}
                 className="mt-6 max-w-md text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase"
               >
-                free for up to 250 members. yankee pro at $8/month for larger rooms, admin controls and analytics.
+                human-scale rooms, volunteer mods, meetups that stay on the calendar. built for real crowds.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 14 }}

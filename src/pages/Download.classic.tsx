@@ -18,7 +18,7 @@ const stores = [
     id: "ios",
     title: "iphone & ipad",
     subtitle: "app store",
-    desc: "requires ios 16 or later. free forever for personal use.",
+    desc: "requires ios 16 or later.",
     href: "https://apps.apple.com",
     cta: "download for ios",
     icon: Apple,
@@ -55,7 +55,7 @@ const reasons = [
 ];
 
 const steps = [
-  { n: "01", t: "pick your store", d: "ios or android — same app, same people." },
+  { n: "01", t: "pick your store", d: "ios or android. same app, same people." },
   { n: "02", t: "create your account", d: "phone or email. no algorithm profile to fill." },
   { n: "03", t: "invite your people", d: "start a small crowd or follow friends you actually know." },
 ];
@@ -78,7 +78,7 @@ const Download = () => (
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-folk-success opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-folk-success" />
                 </span>
-                free on ios & android
+                available on ios & android
               </span>
             </motion.div>
 
@@ -99,7 +99,7 @@ const Download = () => (
               transition={{ duration: 0.55, delay: 0.18 }}
               className="mt-6 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto lg:mx-0"
             >
-              the quieter social app. chronological feed, small crowds, private memory — free to download.
+              the quieter social app. chronological feed, small crowds, private memory.
             </motion.p>
 
             <motion.div

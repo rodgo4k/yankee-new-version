@@ -112,10 +112,6 @@ const faqs = [
     a: "Yes. Group chats and calls are end-to-end encrypted. We cannot read the content of your conversations.",
   },
   {
-    q: "Does it cost money?",
-    a: "Free for groups up to 12 people. Yankee Family Pro is $8/month for unlimited members, shared albums and admin controls. Cancel any time.",
-  },
-  {
     q: "Can I have separate circles for family and friends?",
     a: "Yes. Create as many circles as you want, each with its own members, albums and notification rules.",
   },
@@ -182,7 +178,7 @@ const ForFriendsFamily = () => (
                 see how it works
               </a>
             </motion.div>
-            <p className="mt-5 text-[12px] text-foreground/45 lowercase">free for up to 12 people · no ads</p>
+            <p className="mt-5 text-[12px] text-foreground/45 lowercase">private circles · shared albums · no ads</p>
           </div>
         </div>
       </div>
@@ -362,7 +358,7 @@ const ForFriendsFamily = () => (
             frequently <span className="font-serif-display italic font-medium">asked</span>
           </h2>
           <p className="mt-4 text-[15px] text-muted-foreground lowercase">
-            short answers about privacy, kids, albums and pricing.
+            short answers about privacy, kids and albums.
           </p>
         </AnimatedSection>
         <div className="mt-10 md:mt-12">
@@ -402,7 +398,7 @@ const ForFriendsFamily = () => (
                 transition={{ duration: 0.55, delay: 0.16 }}
                 className="mt-6 max-w-md text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase"
               >
-                free for groups up to 12 people. family pro at $8/month. cancel any time.
+                a private circle for the people who matter. shared albums, quiet chats, no algorithm.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 14 }}

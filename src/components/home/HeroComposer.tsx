@@ -207,9 +207,9 @@ const HeroComposer = ({ loop = true, onSequenceComplete, hideCta = false }: Hero
               shadow-[0_14px_40px_-10px_rgba(37,99,235,0.65),inset_0_1px_0_rgba(255,255,255,0.35)]
               hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
           >
-            get yankee, free forever
+            get yankee
           </Link>
-          <p className="text-[12px] md:text-[13px] text-foreground/55 lowercase">free forever. no card needed.</p>
+          <p className="text-[12px] md:text-[13px] text-foreground/55 lowercase">chronological · private · no algorithm</p>
         </div>
       )}
     </div>

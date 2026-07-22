@@ -188,7 +188,7 @@ const Notifications = () => (
                 see how it works
               </a>
             </motion.div>
-            <p className="mt-5 text-[12px] text-foreground/45 lowercase">free forever · no card needed</p>
+            <p className="mt-5 text-[12px] text-foreground/45 lowercase">quiet by default · urgent when it matters</p>
           </div>
         </div>
       </div>

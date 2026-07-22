@@ -245,7 +245,7 @@ const DownloadDesktopHero = ({ iosHref, androidHref }: DownloadDesktopHeroProps)
               </motion.div>
 
               <p className="mt-4 text-[12px] text-muted-foreground lowercase">
-                free · ios 16+ · android 10+
+                ios 16+ · android 10+
               </p>
             </div>
 

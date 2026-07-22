@@ -10,7 +10,7 @@ const stores = [
     id: "ios",
     title: "iphone & ipad",
     subtitle: "app store",
-    desc: "requires ios 16 or later. free forever for personal use.",
+    desc: "requires ios 16 or later.",
     href: "https://apps.apple.com",
     cta: "download for ios",
     icon: Apple,
@@ -47,7 +47,7 @@ const reasons = [
 ];
 
 const steps = [
-  { n: "01", t: "pick your store", d: "ios or android — same app, same people." },
+  { n: "01", t: "pick your store", d: "ios or android. same app, same people." },
   { n: "02", t: "create your account", d: "phone or email. no algorithm profile to fill." },
   { n: "03", t: "invite your people", d: "start a small crowd or follow friends you actually know." },
 ];

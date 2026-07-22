@@ -178,7 +178,7 @@ const Reach = () => (
                 see how it works
               </a>
             </motion.div>
-            <p className="mt-5 text-[12px] text-foreground/45 lowercase">free forever · no card needed</p>
+            <p className="mt-5 text-[12px] text-foreground/45 lowercase">chronological · private · no algorithm</p>
           </div>
 
           <div className="lg:col-span-7">

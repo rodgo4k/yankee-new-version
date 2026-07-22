@@ -1,3 +1,6 @@
+# Large local media (keep file in public/videos for local/dev; do not commit)
+public/videos/*.mp4
+
 logs
 *.log
 npm-debug.log*

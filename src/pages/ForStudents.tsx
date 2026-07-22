@@ -24,8 +24,8 @@ const principles = [
   },
   {
     icon: GraduationCap,
-    title: "free with .edu",
-    text: "verify your student email. every feature is free while you are enrolled. no credit card.",
+    title: "campus verified",
+    text: "verify your student email. unlock study mode, campus rooms and student-only crowds.",
   },
   {
     icon: Download,
@@ -83,7 +83,7 @@ const steps = [
   {
     n: "01",
     t: "verify with .edu",
-    d: "confirm your student email. yankee is free while you are enrolled. no credit card needed.",
+    d: "confirm your student email. unlock study mode, campus rooms and student-only crowds.",
   },
   {
     n: "02",
@@ -99,8 +99,8 @@ const steps = [
 
 const faqs = [
   {
-    q: "Is Yankee really free for students?",
-    a: "Yes. Verify with a .edu email and every feature is free while you are enrolled. Renewed each semester automatically.",
+    q: "What do I get with a .edu email?",
+    a: "Verify with a .edu email to unlock study mode, campus rooms and student-only crowds. Renewed each semester automatically.",
   },
   {
     q: "Can I use it for group projects?",
@@ -108,7 +108,7 @@ const faqs = [
   },
   {
     q: "What happens when I graduate?",
-    a: "You keep a full export of your messages, files and rooms. You can also switch to a personal plan at a graduate discount.",
+    a: "You keep a full export of your messages, files and rooms. Your account stays yours; campus-only rooms simply close out.",
   },
   {
     q: "Does it work with my class schedule?",
@@ -137,7 +137,7 @@ const ForStudents = () => (
               transition={{ duration: 0.5 }}
               className="flex justify-center lg:justify-start"
             >
-              <PromoPill tag="for students" text="free with a valid .edu" to="/features" />
+              <PromoPill tag="for students" text="study mode & campus rooms" to="/features" />
             </motion.div>
 
             <motion.h1
@@ -156,7 +156,7 @@ const ForStudents = () => (
               transition={{ duration: 0.55, delay: 0.18 }}
               className="mt-6 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto lg:mx-0"
             >
-              one calm place for classes, clubs and your crew. study mode, group rooms, and free while you have an .edu.
+              one calm place for classes, clubs and your crew. study mode, group rooms, and campus crowds with a .edu.
             </motion.p>
 
             <motion.div
@@ -181,7 +181,7 @@ const ForStudents = () => (
                 see how it works
               </a>
             </motion.div>
-            <p className="mt-5 text-[12px] text-foreground/45 lowercase">free while you are enrolled · no ads</p>
+            <p className="mt-5 text-[12px] text-foreground/45 lowercase">study mode · campus rooms · no ads</p>
           </div>
 
           <div className="lg:col-span-7">
@@ -405,7 +405,7 @@ const ForStudents = () => (
                 transition={{ duration: 0.55, delay: 0.16 }}
                 className="mt-6 max-w-md text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase"
               >
-                free with a .edu email. no ads, no data resale, no distractions.
+                study mode, campus rooms and student crowds. no ads, no data resale, no distractions.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 14 }}
@@ -452,7 +452,7 @@ const ForStudents = () => (
                   <div className="mt-3 flex items-center justify-between gap-2">
                     <span className="text-[12px] lowercase text-foreground/70">verified · .edu</span>
                     <span className="inline-flex items-center rounded-full bg-foreground px-2.5 py-1 text-[11px] text-background lowercase">
-                      free forever*
+                      study mode on
                     </span>
                   </div>
                 </motion.div>
@@ -465,7 +465,7 @@ const ForStudents = () => (
                   className="relative z-10 -mt-5 mr-auto max-w-[85%]"
                 >
                   <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-folk-bubble-soft px-4 py-3 text-[13px] leading-snug lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
-                    *while you are enrolled
+                    campus rooms · your crew
                   </div>
                 </motion.div>
               </div>

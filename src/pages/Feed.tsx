@@ -112,15 +112,11 @@ const faqs = [
   },
   {
     q: "Are there ads inside the feed?",
-    a: "No. Yankee is free and subscription funded for Pro. Your feed is not for sale and never will be.",
+    a: "No. We never sell your feed to advertisers. No ads, no data resale. Your feed is not for sale and never will be.",
   },
   {
     q: "Can I switch to a ranked feed?",
     a: "No. A ranked feed is the problem we set out to remove. Yankee is chronological, always.",
-  },
-  {
-    q: "How much does Yankee cost?",
-    a: "Free forever for the basic feed. Yankee Pro is $8/month, with memory, close friends, and unlimited crowds. Cancel any time.",
   },
 ];
 
@@ -181,7 +177,7 @@ const Feed = () => (
                 see all features
               </Link>
             </motion.div>
-            <p className="mt-5 text-[12px] text-foreground/45 lowercase">free forever · no card needed</p>
+            <p className="mt-5 text-[12px] text-foreground/45 lowercase">chronological · private · no algorithm</p>
           </div>
 
           <div className="lg:col-span-6 order-1 lg:order-2 relative">
@@ -380,7 +376,7 @@ const Feed = () => (
                 transition={{ duration: 0.55, delay: 0.16 }}
                 className="mt-6 max-w-md text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase"
               >
-                free forever for the basics. pro at $8/month. cancel any time.
+                chronological feed, private by default, no algorithm deciding what you see.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 14 }}

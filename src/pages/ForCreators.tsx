@@ -112,10 +112,6 @@ const faqs = [
     a: "Reached, opened, replies, saves and shares. Simple, honest numbers without engagement scores or dopamine graphs.",
   },
   {
-    q: "Is there a free plan?",
-    a: "Yes. Free forever for posting, chat, Crowds and basic analytics. Yankee Pro is $8/month for scheduling, memory and full audience exports. Cancel any time.",
-  },
-  {
     q: "Who owns my content?",
     a: "You do. Yankee stores your library so you can export or leave any time. We do not train models on your posts or sell your audience data.",
   },
@@ -178,7 +174,7 @@ const ForCreators = () => (
                 see how it works
               </a>
             </motion.div>
-            <p className="mt-5 text-[12px] text-foreground/45 lowercase">free forever · no card needed</p>
+            <p className="mt-5 text-[12px] text-foreground/45 lowercase">reach every follower · no algorithm</p>
           </div>
 
           <div className="lg:col-span-6">
@@ -360,7 +356,7 @@ const ForCreators = () => (
             frequently <span className="font-serif-display italic font-medium">asked</span>
           </h2>
           <p className="mt-4 text-[15px] text-muted-foreground lowercase">
-            short answers about reach, analytics, ownership and pricing.
+            short answers about reach, analytics and ownership.
           </p>
         </AnimatedSection>
         <div className="mt-10 md:mt-12">
@@ -400,7 +396,7 @@ const ForCreators = () => (
                 transition={{ duration: 0.55, delay: 0.16 }}
                 className="mt-6 max-w-md text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase"
               >
-                free forever for the basics. pro at $8/month. cancel any time.
+                post, chat, schedule and grow an audience that actually sees you. chronological by design.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 14 }}
