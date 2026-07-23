@@ -22,7 +22,7 @@ import communityShot from "@/assets/yankee/community.png";
 import homeFeed from "@/assets/yankee/home-feed.png";
 import chat from "@/assets/yankee/chat.png";
 import videoCall from "@/assets/yankee/video-call.png";
-import searchImg from "@/assets/yankee/search.png";
+import dotRevealImg from "@/assets/yankee/dot-reveal.png";
 
 const faqItems = [
   {
@@ -174,7 +174,7 @@ const Index = () => (
       </div>
     </section>
 
-    <DotRevealSection image={searchImg} />
+    <DotRevealSection image={dotRevealImg} />
 
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/75" />

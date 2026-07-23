@@ -58,7 +58,7 @@ const DotRevealSection = ({ image }: DotRevealSectionProps) => {
             <div className="relative w-[220px] sm:w-[240px] md:w-[260px] aspect-[9/19.5]">
               <DotImageReveal
                 image={image}
-                alt="yankee search: posts, profiles, notions and crowds"
+                alt="yankee feed: post from wintur in los angeles"
                 background="transparent"
                 fit="contain"
                 dots={isMobile ? 11 : 16}
