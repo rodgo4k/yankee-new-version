@@ -1,5 +1,6 @@
-# Large local media (keep file in public/videos for local/dev; do not commit)
-public/videos/*.mp4
+# Keep oversized masters out of git; the compressed web file IS committed.
+public/videos/*.master.mp4
+public/videos/*.raw.mp4
 
 logs
 *.log

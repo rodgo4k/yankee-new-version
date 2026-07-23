@@ -18,6 +18,7 @@ const IntroVideoSection = () => {
   const [muted, setMuted] = useState(true);
   const [progress, setProgress] = useState(0);
   const [showControls, setShowControls] = useState(false);
+  const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -33,27 +34,61 @@ const IntroVideoSection = () => {
       setProgress(0);
       video.currentTime = 0;
     };
+    const onError = () => setLoadError(true);
+    const onLoaded = () => setLoadError(false);
 
     video.addEventListener("timeupdate", onTime);
     video.addEventListener("ended", onEnded);
+    video.addEventListener("error", onError);
+    video.addEventListener("loadeddata", onLoaded);
     return () => {
       video.removeEventListener("timeupdate", onTime);
       video.removeEventListener("ended", onEnded);
+      video.removeEventListener("error", onError);
+      video.removeEventListener("loadeddata", onLoaded);
     };
   }, []);
 
   const play = async () => {
     const video = videoRef.current;
     if (!video) return;
+
+    if (video.error || loadError) {
+      setLoadError(true);
+      return;
+    }
+
     try {
+      if (video.readyState < 2) {
+        video.load();
+        await new Promise<void>((resolve, reject) => {
+          const onReady = () => {
+            cleanup();
+            resolve();
+          };
+          const onFail = () => {
+            cleanup();
+            reject(new Error("video load failed"));
+          };
+          const cleanup = () => {
+            video.removeEventListener("loadeddata", onReady);
+            video.removeEventListener("canplay", onReady);
+            video.removeEventListener("error", onFail);
+          };
+          video.addEventListener("loadeddata", onReady);
+          video.addEventListener("canplay", onReady);
+          video.addEventListener("error", onFail);
+        });
+      }
+
       if (!hasPlayed) video.currentTime = 0;
       video.muted = false;
       setMuted(false);
       await video.play();
       setPlaying(true);
       setHasPlayed(true);
+      setLoadError(false);
     } catch {
-      // If unmuted autoplay is blocked, fall back to muted then unmute after play
       try {
         video.muted = true;
         setMuted(true);
@@ -62,8 +97,9 @@ const IntroVideoSection = () => {
         setHasPlayed(true);
         video.muted = false;
         setMuted(false);
+        setLoadError(false);
       } catch {
-        // user gesture already present; ignore
+        setLoadError(true);
       }
     }
   };
@@ -135,7 +171,7 @@ const IntroVideoSection = () => {
                 poster={POSTER_SRC}
                 muted={muted}
                 playsInline
-                preload="metadata"
+                preload="auto"
                 onClick={togglePlay}
                 aria-label="Yankee app introduction video"
               />
@@ -149,8 +185,16 @@ const IntroVideoSection = () => {
                 />
               )}
 
+              {loadError && (
+                <div className="absolute z-30 inset-0 flex items-center justify-center bg-foreground/50 px-6">
+                  <p className="text-center text-[14px] text-white lowercase max-w-xs">
+                    couldn&apos;t load the video. try refreshing the page.
+                  </p>
+                </div>
+              )}
+
               {/* Initial play CTA */}
-              {!playing && !hasPlayed && (
+              {!playing && !hasPlayed && !loadError && (
                 <div className="absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                   <BeamPillButton tone="glass" aria-label="play video" onClick={() => void play()}>
                     <Play size={18} className="fill-white text-white" />

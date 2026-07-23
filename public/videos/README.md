@@ -1,4 +1,6 @@
-# Place the intro video here as yankee-intro.mp4
-# Source (local): Desktop/yankee videos/Yankee App Introduction 16x9 1080p 81s 20260720.mp4
-# The .mp4 is gitignored (~156MB). Copy it into this folder for local/dev and deploy hosts.
-# Poster (yankee-intro-poster.jpg) is the frame at 3s and can be committed.
+# Intro video (web-optimized, ~8MB)
+# yankee-intro.mp4 — committed for Vercel/static hosting
+# yankee-intro-poster.jpg — cover frame at ~3s
+#
+# Local master (optional): keep the full-res file outside the repo
+# e.g. Desktop/yankee videos/… and do not commit it.
