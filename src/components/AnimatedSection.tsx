@@ -15,9 +15,9 @@ const AnimatedSection = ({
   direction = "up",
 }: AnimatedSectionProps) => {
   const directionMap = {
-    up: { y: 50, x: 0 },
-    left: { y: 0, x: -50 },
-    right: { y: 0, x: 50 },
+    up: { y: 24, x: 0 },
+    left: { y: 0, x: -24 },
+    right: { y: 0, x: 24 },
     none: { y: 0, x: 0 },
   };
   const { x, y } = directionMap[direction];
@@ -26,9 +26,9 @@ const AnimatedSection = ({
     <motion.div
       initial={{ opacity: 0, y, x }}
       whileInView={{ opacity: 1, y: 0, x: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
+      viewport={{ once: true, margin: "-40px" }}
       transition={{
-        duration: 0.8,
+        duration: 0.35,
         delay,
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
