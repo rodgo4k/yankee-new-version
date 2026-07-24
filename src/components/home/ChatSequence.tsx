@@ -13,11 +13,11 @@ const phrases = [
 ];
 
 const TypingDots = () => (
-  <div className="inline-flex items-center gap-1 px-3.5 py-2.5 rounded-2xl rounded-bl-md bg-card border border-border shadow-[0_8px_24px_-10px_rgba(0,0,0,0.12)]">
+  <div className="yankee-chat__bubble yankee-chat__bubble--them inline-flex items-center gap-1 px-3.5 py-2.5">
     {[0, 1, 2].map((i) => (
       <motion.span
         key={i}
-        className="w-1.5 h-1.5 rounded-full bg-foreground/35"
+        className="w-1.5 h-1.5 rounded-full bg-white/55"
         animate={{ y: [0, -3, 0], opacity: [0.35, 1, 0.35] }}
         transition={{ duration: 0.7, repeat: Infinity, delay: i * 0.15, ease: "easeInOut" }}
       />
@@ -51,7 +51,7 @@ const ChatSequence = () => {
   }, [cycle]);
 
   return (
-    <div className="w-full max-w-md mx-auto flex flex-col gap-3 min-h-[220px]">
+    <div className="w-full max-w-md mx-auto yankee-chat min-h-[220px]">
       <AnimatePresence mode="popLayout">
         {step >= 1 && (
           <motion.div
@@ -62,7 +62,7 @@ const ChatSequence = () => {
             transition={{ duration: 0.5, ease }}
             className="flex justify-end"
           >
-            <div className="max-w-[88%] px-4 py-3 text-[14px] leading-snug lowercase rounded-2xl rounded-br-md bg-accent text-accent-foreground shadow-[0_8px_24px_-8px_hsl(var(--accent)/0.55)]">
+            <div className="yankee-chat__bubble yankee-chat__bubble--you max-w-[88%] text-[14px] px-4 py-3">
               show me every post from friends. no suggested junk.
             </div>
           </motion.div>
@@ -90,7 +90,7 @@ const ChatSequence = () => {
             transition={{ duration: 0.5, ease }}
             className="flex justify-start"
           >
-            <div className="max-w-[88%] px-4 py-3 text-[14px] leading-snug lowercase rounded-2xl rounded-bl-md bg-card text-foreground border border-border shadow-[0_8px_24px_-10px_rgba(0,0,0,0.12)]">
+            <div className="yankee-chat__bubble yankee-chat__bubble--them max-w-[88%] text-[14px] px-4 py-3">
               on it. chronological feed, always.
             </div>
           </motion.div>

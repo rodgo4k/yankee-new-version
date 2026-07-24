@@ -140,7 +140,7 @@ const MemoryHeroScene = () => {
                   transition={{ duration: 0.4, ease }}
                   className="self-end max-w-[92%]"
                 >
-                  <div className="yankee-surface rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[13px] leading-snug text-folk-bubble-foreground lowercase">
+                  <div className="yankee-chat__bubble yankee-chat__bubble--you text-[13px]">
                     {recall.q}
                   </div>
                 </motion.div>
@@ -157,7 +157,7 @@ const MemoryHeroScene = () => {
                   transition={{ duration: 0.4, ease }}
                   className="self-start max-w-[92%]"
                 >
-                  <div className="yankee-surface rounded-2xl rounded-bl-md bg-folk-bubble-soft px-3.5 py-2.5 text-[13px] leading-snug lowercase">
+                  <div className="yankee-chat__bubble yankee-chat__bubble--them text-[13px]">
                     {recall.a}
                   </div>
                 </motion.div>

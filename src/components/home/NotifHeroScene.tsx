@@ -141,7 +141,7 @@ const NotifHeroScene = () => {
         transition={{ duration: 0.5, delay: 0.35 }}
         className="absolute -left-2 md:-left-6 top-[22%] z-10 max-w-[55%]"
       >
-        <div className="yankee-surface rounded-2xl rounded-bl-md bg-folk-bubble-soft px-3 py-2 text-[12px] leading-snug lowercase">
+        <div className="yankee-chat__bubble yankee-chat__bubble--them text-[12px]">
           dms & mentions always land
         </div>
       </motion.div>

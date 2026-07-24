@@ -79,7 +79,7 @@ const HeroComposer = ({ loop = true, onSequenceComplete, hideCta = false }: Hero
             transition={{ duration: 0.75, ease: swipeEase }}
             style={layerFix}
           >
-            <div className="relative w-1/2 h-full shrink-0 overflow-hidden bg-card" style={layerFix}>
+            <div className="relative w-1/2 h-full shrink-0 overflow-hidden bg-[#f2f2f2]" style={layerFix}>
               <div className="absolute inset-0 px-4 md:px-6 pt-6 pb-4 flex flex-col justify-end gap-2.5">
                 {messages.map((b, i) => {
                   const shown = i < visibleCount;
@@ -106,7 +106,7 @@ const HeroComposer = ({ loop = true, onSequenceComplete, hideCta = false }: Hero
                       className={`flex ${b.side === "right" ? "justify-end" : "justify-start"}`}
                     >
                       <div
-                        className={`px-4 py-2.5 text-[14px] md:text-[15px] leading-snug lowercase rounded-[1.25rem] max-w-[85%] ${ b.side === "right" ? "bg-folk-bubble text-folk-bubble-foreground rounded-br-md" : "bg-folk-bubble-soft text-foreground rounded-bl-md" }`}
+                        className={`yankee-chat__bubble max-w-[85%] ${ b.side === "right" ? "yankee-chat__bubble--you" : "yankee-chat__bubble--them" }`}
                       >
                         {b.text}
                       </div>
@@ -155,14 +155,14 @@ const HeroComposer = ({ loop = true, onSequenceComplete, hideCta = false }: Hero
                   </div>
                 </div>
 
-                <div className="bg-card px-4 md:px-5 pt-3 pb-6 flex flex-col gap-2 min-h-[240px]">
+                <div className="bg-[#f2f2f2] px-4 md:px-5 pt-3 pb-6 flex flex-col gap-2 min-h-[240px]">
                   {comments.map((c, i) => (
                     <div
                       key={c.text}
                       className={`flex ${i % 2 === 0 ? "justify-start" : "justify-end"}`}
                     >
                       <div
-                        className={`max-w-[88%] px-3.5 py-2 text-[12.5px] md:text-[13px] leading-snug lowercase rounded-2xl ${ i % 2 === 0 ? "bg-folk-bubble-soft text-foreground rounded-bl-md" : "bg-folk-bubble text-folk-bubble-foreground rounded-br-md" }`}
+                        className={`yankee-chat__bubble max-w-[88%] ${ i % 2 === 0 ? "yankee-chat__bubble--them" : "yankee-chat__bubble--you" }`}
                       >
                         <span className="font-semibold">{c.name}</span> {c.text}
                       </div>
@@ -195,7 +195,7 @@ const HeroComposer = ({ loop = true, onSequenceComplete, hideCta = false }: Hero
             to="/contact"
             className="group relative inline-flex items-center justify-center px-8 py-3.5 md:px-10 md:py-4 rounded-full text-[15px] md:text-[16px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.65),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
           >
-            get early access
+            get yankee
           </Link>
           <p className="text-[12px] md:text-[13px] text-foreground/55 lowercase">chronological � free � no switching</p>
         </div>

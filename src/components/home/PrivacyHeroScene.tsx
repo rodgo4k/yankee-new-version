@@ -155,14 +155,14 @@ const PrivacyHeroScene = () => {
       </div>
 
       <div className="mt-3 md:mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2.5 min-h-[52px]">
-        <div className="yankee-surface rounded-2xl rounded-bl-md bg-folk-bubble-soft px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug lowercase self-start max-w-[100%] sm:max-w-[95%]">
+        <div className="yankee-chat__bubble yankee-chat__bubble--them text-[12px] md:text-[13px] self-start max-w-[100%] sm:max-w-[95%]">
           subpoena? we hand over blobs. not your words.
         </div>
         <motion.div
           initial={false}
           animate={{ opacity: showHold ? 1 : 0, x: showHold ? 0 : 8 }}
           transition={{ duration: 0.35, ease }}
-          className="yankee-surface rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-folk-bubble-foreground lowercase self-end max-w-[100%] sm:max-w-[95%] sm:justify-self-end"
+          className="yankee-chat__bubble yankee-chat__bubble--you text-[12px] md:text-[13px] self-end max-w-[100%] sm:max-w-[95%] sm:justify-self-end"
         >
           keys stay with you. always.
         </motion.div>

@@ -9,6 +9,7 @@ import messages from "@/assets/yankee/messages.png";
 import aiChat from "@/assets/yankee/ai-chat.png";
 import profileView from "@/assets/yankee/profile-view.png";
 import searchImg from "@/assets/yankee/search.png";
+import { isMotionPaused, observeInView, subscribeMotionPause } from "@/lib/motionPause";
 
 gsap.registerPlugin(Draggable);
 
@@ -29,6 +30,15 @@ const norm = (deg: number) => {
   return d;
 };
 
+type CardSetters = {
+  x: (v: number) => void;
+  y: (v: number) => void;
+  scale: (v: number) => void;
+  rotate: (v: number) => void;
+  opacity: (v: number) => void;
+  zIndex: (v: number) => void;
+};
+
 const RadialCardsSlider = () => {
   const rootRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -45,8 +55,24 @@ const RadialCardsSlider = () => {
     const PACK = 0.38;
     let angle = 0;
     let dragging = false;
+    let inView = true;
+    let paused = isMotionPaused();
 
-    gsap.set(cardEls, { transformOrigin: "50% 100%", xPercent: -50, yPercent: 0 });
+    gsap.set(cardEls, {
+      transformOrigin: "50% 100%",
+      xPercent: -50,
+      yPercent: 0,
+      force3D: true,
+    });
+
+    const setters: CardSetters[] = cardEls.map((card) => ({
+      x: gsap.quickSetter(card, "x", "px") as (v: number) => void,
+      y: gsap.quickSetter(card, "y", "px") as (v: number) => void,
+      scale: gsap.quickSetter(card, "scale") as (v: number) => void,
+      rotate: gsap.quickSetter(card, "rotate", "deg") as (v: number) => void,
+      opacity: gsap.quickSetter(card, "opacity") as (v: number) => void,
+      zIndex: gsap.quickSetter(card, "zIndex") as (v: number) => void,
+    }));
 
     const layout = () => {
       const w = root.clientWidth;
@@ -71,26 +97,26 @@ const RadialCardsSlider = () => {
         const edge = Math.min(1, abs / HALF_ARC);
         const fade = onArc ? Math.pow(1 - edge, 1.05) : 0;
         const scale = 0.9 + fade * 0.18;
+        const set = setters[i];
 
-        gsap.set(card, {
-          x,
-          y,
-          scale,
-          zIndex: Math.round(fade * 100),
-          opacity: Math.max(0, fade),
-          rotate: rot,
-          pointerEvents: fade > 0.12 ? "auto" : "none",
-        });
+        set.x(x);
+        set.y(y);
+        set.scale(scale);
+        set.rotate(rot);
+        set.opacity(Math.max(0, fade));
+        set.zIndex(Math.round(fade * 100));
+        card.style.pointerEvents = fade > 0.12 ? "auto" : "none";
       });
     };
 
     layout();
 
+    const shouldRun = () => inView && !paused;
+
     const tick = () => {
-      if (!dragging) {
-        angle += 0.1;
-        layout();
-      }
+      if (!shouldRun() || dragging) return;
+      angle += 0.1;
+      layout();
     };
     gsap.ticker.add(tick);
 
@@ -99,9 +125,11 @@ const RadialCardsSlider = () => {
       type: "x",
       inertia: false,
       onPress() {
+        if (!shouldRun()) return;
         dragging = true;
       },
       onDrag() {
+        if (!inView || paused) return;
         angle += this.deltaX * 0.34;
         layout();
       },
@@ -113,10 +141,22 @@ const RadialCardsSlider = () => {
     const onResize = () => layout();
     window.addEventListener("resize", onResize);
 
+    const unsubView = observeInView(root, (next) => {
+      inView = next;
+      if (next) layout();
+    });
+
+    const unsubPause = subscribeMotionPause((next) => {
+      paused = next;
+      if (!next && inView) layout();
+    });
+
     return () => {
       gsap.ticker.remove(tick);
       draggable?.kill();
       window.removeEventListener("resize", onResize);
+      unsubView();
+      unsubPause();
     };
   }, []);
 
@@ -137,13 +177,14 @@ const RadialCardsSlider = () => {
               className="absolute left-0 top-0 w-[110px] sm:w-[138px] md:w-[152px] will-change-transform"
             >
               <div className="yankee-surface yankee-surface--media rounded-[1.15rem] bg-card overflow-hidden">
-                {}
                 <div className="aspect-[9/16] bg-muted overflow-hidden">
                   <img
                     src={card.src}
                     alt=""
                     className="w-full h-full object-cover object-top pointer-events-none"
                     draggable={false}
+                    decoding="async"
+                    loading="eager"
                   />
                 </div>
                 <p className="px-2 py-1.5 text-center text-[11px] font-medium lowercase tracking-tight border-t border-foreground/8">

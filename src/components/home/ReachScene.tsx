@@ -63,11 +63,11 @@ export const FeedStatusPill = () => {
 };
 
 const TypingDots = () => (
-  <div className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-2xl rounded-bl-md bg-folk-bubble-soft">
+  <div className="yankee-chat__bubble yankee-chat__bubble--them inline-flex items-center gap-1.5 px-3.5 py-2.5">
     {[0, 1, 2].map((i) => (
       <motion.span
         key={i}
-        className="w-1.5 h-1.5 rounded-full bg-foreground/40"
+        className="w-1.5 h-1.5 rounded-full bg-white/55"
         animate={{ y: [0, -3, 0], opacity: [0.35, 1, 0.35] }}
         transition={{ duration: 0.7, repeat: Infinity, delay: i * 0.15, ease: "easeInOut" }}
       />
@@ -185,7 +185,7 @@ const ReachScene = () => {
                   transition={{ duration: 0.45, ease }}
                   className="relative self-start max-w-[88%] overflow-visible"
                 >
-                  <div className="px-3.5 py-2.5 text-[13px] md:text-[14px] leading-snug lowercase rounded-2xl rounded-bl-md bg-folk-bubble-soft text-foreground">
+                  <div className="yankee-chat__bubble yankee-chat__bubble--them text-[13px] md:text-[14px]">
                     <span className="font-semibold">maya</span> these are unreal. everyone saw this?
                   </div>
                   {showLike && <LikeBurst />}
@@ -216,7 +216,7 @@ const ReachScene = () => {
                   transition={{ duration: 0.45, ease }}
                   className="self-end max-w-[88%]"
                 >
-                  <div className="px-3.5 py-2.5 text-[13px] md:text-[14px] leading-snug lowercase rounded-2xl rounded-br-md bg-folk-bubble text-folk-bubble-foreground">
+                  <div className="yankee-chat__bubble yankee-chat__bubble--you text-[13px] md:text-[14px]">
                     yeah. every friend, in order. no ranking.
                   </div>
                 </motion.div>
@@ -246,7 +246,7 @@ const ReachScene = () => {
                   transition={{ duration: 0.45, ease }}
                   className="self-start max-w-[88%]"
                 >
-                  <div className="px-3.5 py-2.5 text-[13px] md:text-[14px] leading-snug lowercase rounded-2xl rounded-bl-md bg-folk-bubble-soft text-foreground">
+                  <div className="yankee-chat__bubble yankee-chat__bubble--them text-[13px] md:text-[14px]">
                     <span className="font-semibold">leo</span> finally. chronological forever.
                   </div>
                 </motion.div>

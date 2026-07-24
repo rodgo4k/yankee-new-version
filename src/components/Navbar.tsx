@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
+import { setNavMotionPaused } from "@/lib/motionPause";
 
 type SubLink = {
   label: string;
@@ -68,6 +69,11 @@ const Navbar = () => {
     setOpenMenu(null);
     setOpenMobileGroup(null);
   }, [location.pathname]);
+
+  useEffect(() => {
+    setNavMotionPaused(isOpen);
+    return () => setNavMotionPaused(false);
+  }, [isOpen]);
 
   useEffect(() => {
     const tick = () => {
@@ -192,7 +198,7 @@ const Navbar = () => {
             to="/download"
             className="inline-flex items-center text-[13px] font-medium lowercase text-primary hover:opacity-80 transition-opacity"
           >
-            early access
+            download
           </Link>
         </div>
 
@@ -256,8 +262,8 @@ const Navbar = () => {
               to="/download"
               className="mt-1 mx-1 inline-flex items-center justify-center py-3 rounded-full text-[14px] font-medium lowercase text-primary-foreground bg-primary"
             >
-              early access
-            </Link>
+                download
+              </Link>
           </div>
         </div>
       )}

@@ -230,7 +230,7 @@ const Careers = () => {
                 transition={{ duration: 0.5, delay: 0.5 }}
                 className="absolute -left-1 md:-left-4 top-[18%] z-40 max-w-[72%] pointer-events-none"
               >
-                <div className="yankee-surface rounded-2xl rounded-bl-md bg-folk-bubble px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-folk-bubble-foreground lowercase">
+                <div className="yankee-chat__bubble yankee-chat__bubble--you text-[12px] md:text-[13px]">
                   remote first · small by choice
                 </div>
               </motion.div>
@@ -273,7 +273,7 @@ const Careers = () => {
               <AnimatedSection key={p.title} delay={i * 0.06}>
                 <div className={blockCard(i, "p-6 flex flex-col gap-5")}>
                   <div className="flex justify-start">
-                    <span className="yankee-surface inline-block max-w-[95%] px-3.5 py-2 text-[13px] leading-snug lowercase rounded-2xl rounded-bl-md bg-folk-bubble text-white">
+                    <span className="yankee-chat__bubble yankee-chat__bubble--you text-[13px] max-w-[95%]">
                       {p.bubble}
                     </span>
                   </div>

@@ -58,7 +58,7 @@ const FamilyHeroScene = () => {
           </motion.span>
         </div>
 
-        <div className="absolute bottom-4 left-4 right-4 flex flex-col gap-2 min-h-[9.5rem] justify-end">
+        <div className="absolute bottom-4 left-4 right-4 yankee-chat min-h-[9.5rem] justify-end">
           {messages.map((m, i) => {
             if (i >= visible) return null;
             const isYou = m.from === "you";
@@ -71,7 +71,7 @@ const FamilyHeroScene = () => {
                 className={`flex ${isYou ? "justify-end" : "justify-start"}`}
               >
                 <div
-                  className={`yankee-surface max-w-[88%] px-3 py-2 text-[12px] md:text-[13px] leading-snug lowercase rounded-2xl ${ isYou ? "bg-folk-bubble text-white rounded-br-md" : "bg-folk-bubble-soft text-foreground rounded-bl-md" }`}
+                  className={`yankee-chat__bubble max-w-[88%] ${ isYou ? "yankee-chat__bubble--you" : "yankee-chat__bubble--them" }`}
                 >
                   {!isYou && <span className="font-semibold">{m.from} · </span>}
                   {m.text}

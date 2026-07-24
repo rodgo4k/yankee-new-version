@@ -285,11 +285,11 @@ const PrivacyFirst = () => (
                   {b.title}
                 </h3>
                 <p className="text-[13px] md:text-[14px] yankee-block__muted leading-relaxed lowercase">{b.body}</p>
-                <div className="mt-auto flex flex-col gap-2.5 pt-2">
+                <div className="yankee-chat mt-auto">
                   {b.chat.map((m, j) => (
                     <div key={j} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>
                       <span
-                        className={`yankee-surface inline-block max-w-[90%] px-3.5 py-2 text-[12.5px] md:text-[13px] leading-snug lowercase rounded-2xl ${ m.from === "you" ? "bg-folk-bubble text-white rounded-br-md " : "bg-folk-bubble-soft text-foreground rounded-bl-md " }`}
+                        className={`yankee-chat__bubble ${ m.from === "you" ? "yankee-chat__bubble--you" : "yankee-chat__bubble--them" }`}
                       >
                         {m.text}
                       </span>
@@ -521,7 +521,7 @@ const PrivacyFirst = () => (
                   transition={{ duration: 0.55, delay: 0.3 }}
                   className="relative z-10 -mt-5 mr-auto max-w-[85%]"
                 >
-                  <div className="yankee-surface rounded-2xl rounded-bl-md bg-folk-bubble-soft px-4 py-3 text-[13px] leading-snug lowercase">
+                  <div className="yankee-chat__bubble yankee-chat__bubble--them text-[13px] md:text-[14px]">
                     keys on your phone. blobs on ours.
                   </div>
                 </motion.div>

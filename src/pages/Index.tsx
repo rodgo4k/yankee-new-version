@@ -522,7 +522,7 @@ const Index = () => (
                   to="/contact"
                   className="group relative inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                 >
-                  get early access <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                  get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
                 </Link>
                 <Link
                   to="/features"
@@ -569,8 +569,8 @@ const Index = () => (
                   transition={{ duration: 0.55, delay: 0.28 }}
                   className="relative z-10 -mt-6 mr-auto max-w-[85%] lg:absolute lg:left-0 lg:top-[44%] lg:mt-0 lg:max-w-[78%]"
                 >
-                  <div className={surface("sm", "rounded-2xl rounded-bl-md bg-folk-bubble-soft px-4 py-3 text-[13px] leading-snug lowercase")}>
-                    <span className="font-semibold">maya</span> everyone actually saw this?
+                  <div className="yankee-chat__bubble yankee-chat__bubble--them text-[13px]">
+                    <span className="font-semibold">maya · </span>everyone actually saw this?
                   </div>
                 </motion.div>
 
@@ -581,7 +581,7 @@ const Index = () => (
                   transition={{ duration: 0.55, delay: 0.4 }}
                   className="relative z-10 mt-3 ml-auto max-w-[80%] lg:absolute lg:right-2 lg:bottom-0 lg:mt-0 lg:max-w-[72%]"
                 >
-                  <div className="rounded-2xl rounded-br-md bg-folk-bubble px-4 py-3 text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[0_10px_28px_-12px_rgba(37,99,235,0.55)]">
+                  <div className="yankee-chat__bubble yankee-chat__bubble--you text-[13px]">
                     yeah. no ranking. every friend.
                   </div>
                 </motion.div>

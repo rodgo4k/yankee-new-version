@@ -93,7 +93,7 @@ const CommunityOrgHeroScene = () => {
         transition={{ duration: 0.35, ease }}
         className="absolute -left-2 md:-left-6 bottom-[18%] z-10 max-w-[70%]"
       >
-        <div className="yankee-surface rounded-2xl rounded-bl-md bg-folk-bubble-soft px-3.5 py-2.5 text-[12px] leading-snug lowercase">
+        <div className="yankee-chat__bubble yankee-chat__bubble--them text-[12px]">
           <span className="inline-flex items-center gap-1.5 font-semibold">
             <Split size={12} />
             film · nyc

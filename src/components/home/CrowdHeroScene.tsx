@@ -233,7 +233,7 @@ const CrowdHeroScene = () => {
               transition={{ duration: 0.45, ease }}
               className="self-start max-w-[90%] md:max-w-[70%]"
             >
-              <div className="yankee-surface rounded-2xl rounded-bl-md bg-folk-bubble-soft px-4 py-3 text-[13px] md:text-[14px] leading-snug lowercase">
+              <div className="yankee-chat__bubble yankee-chat__bubble--them text-[13px] md:text-[14px]">
                 who&apos;s in for saturday? photo walk, golden hour.
               </div>
             </motion.div>
@@ -250,7 +250,7 @@ const CrowdHeroScene = () => {
               transition={{ duration: 0.45, ease }}
               className="self-end max-w-[90%] md:max-w-[70%]"
             >
-              <div className="yankee-surface rounded-2xl rounded-br-md bg-folk-bubble px-4 py-3 text-[13px] md:text-[14px] leading-snug text-folk-bubble-foreground lowercase">
+              <div className="yankee-chat__bubble yankee-chat__bubble--you text-[13px] md:text-[14px]">
                 count me in. 12 going · rsvp closes friday.
               </div>
             </motion.div>

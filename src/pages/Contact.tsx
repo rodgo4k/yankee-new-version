@@ -75,7 +75,7 @@ const Contact = () => (
               transition={{ duration: 0.5 }}
               className="flex justify-center lg:justify-start"
             >
-              <span className="yankee-surface inline-flex rounded-2xl rounded-bl-md bg-folk-bubble px-3.5 py-2 text-[13px] leading-snug text-folk-bubble-foreground lowercase">
+              <span className="yankee-chat__bubble yankee-chat__bubble--you text-[13px]">
                 we read everything
               </span>
             </motion.div>
@@ -235,7 +235,7 @@ const Contact = () => (
             return (
               <AnimatedSection key={h.t} delay={i * 0.06}>
                 <div className={blockCard(i, "p-6 flex flex-col gap-5")}>
-                  <span className="yankee-surface inline-block self-start px-3.5 py-2 text-[13px] leading-snug lowercase rounded-2xl rounded-bl-md bg-folk-bubble text-white">
+                  <span className="yankee-chat__bubble yankee-chat__bubble--you text-[13px]">
                     {h.bubble}
                   </span>
                   <div className="mt-auto">

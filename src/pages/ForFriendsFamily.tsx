@@ -167,7 +167,7 @@ const ForFriendsFamily = () => (
                 to="/contact"
                 className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
               >
-                get early access <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
               </Link>
               <a
                 href="#how"
@@ -234,11 +234,11 @@ const ForFriendsFamily = () => (
                   {b.title}
                 </h3>
                 <p className="text-[13px] md:text-[14px] yankee-block__muted leading-relaxed lowercase">{b.body}</p>
-                <div className="mt-auto flex flex-col gap-2.5 pt-2">
+                <div className="yankee-chat mt-auto">
                   {b.chat.map((m, j) => (
                     <div key={j} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>
                       <span
-                        className={`yankee-surface inline-block max-w-[90%] px-3.5 py-2 text-[12.5px] md:text-[13px] leading-snug lowercase rounded-2xl ${ m.from === "you" ? "bg-folk-bubble text-white rounded-br-md " : "bg-folk-bubble-soft text-foreground rounded-bl-md " }`}
+                        className={`yankee-chat__bubble ${ m.from === "you" ? "yankee-chat__bubble--you" : "yankee-chat__bubble--them" }`}
                       >
                         {m.text}
                       </span>
@@ -302,7 +302,7 @@ const ForFriendsFamily = () => (
                 transition={{ duration: 0.5, delay: 0.25 }}
                 className="absolute -left-3 bottom-[18%] z-10 max-w-[70%]"
               >
-                <div className="yankee-surface rounded-2xl rounded-bl-md bg-folk-bubble-soft px-3.5 py-2.5 text-[12px] leading-snug lowercase">
+                <div className="yankee-chat__bubble yankee-chat__bubble--them text-[12px]">
                   6 in the call · no strangers
                 </div>
               </motion.div>
@@ -396,7 +396,7 @@ const ForFriendsFamily = () => (
                   to="/contact"
                   className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                 >
-                  get early access <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                  get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
                 </Link>
                 <Link
                   to="/features"
@@ -439,7 +439,7 @@ const ForFriendsFamily = () => (
                   transition={{ duration: 0.55, delay: 0.3 }}
                   className="relative z-10 -mt-5 mr-auto max-w-[85%]"
                 >
-                  <div className="yankee-surface rounded-2xl rounded-bl-md bg-folk-bubble-soft px-4 py-3 text-[13px] leading-snug lowercase">
+                  <div className="yankee-chat__bubble yankee-chat__bubble--them text-[13px] md:text-[14px]">
                     no strangers. just your people.
                   </div>
                 </motion.div>

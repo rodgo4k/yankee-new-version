@@ -16,9 +16,9 @@ const stores = [
     subtitle: "app store",
     desc: "requires ios 16 or later.",
     href: "https://apps.apple.com/us/app/yankee/id6752715457",
-    cta: "notify me for ios",
+    cta: "download for ios",
     icon: Apple,
-    bubble: "coming soon",
+    bubble: "available now",
   },
   {
     id: "android",
@@ -26,9 +26,9 @@ const stores = [
     subtitle: "google play",
     desc: "requires android 10 or later. same yankee, same quiet feed.",
     href: "https://play.google.com",
-    cta: "notify me for android",
+    cta: "download for android",
     icon: Smartphone,
-    bubble: "coming soon",
+    bubble: "available now",
   },
 ];
 
@@ -51,7 +51,7 @@ const reasons = [
 ];
 
 const steps = [
-  { n: "01", t: "get notified", d: "ios or android. same app, same people when we launch." },
+  { n: "01", t: "pick your store", d: "ios or android. same app, same people." },
   { n: "02", t: "create your account", d: "phone or email. no algorithm profile to fill." },
   { n: "03", t: "invite your people", d: "start a small crowd or follow friends you actually know." },
 ];
@@ -74,7 +74,7 @@ const Download = () => (
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-folk-success opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-folk-success" />
                 </span>
-                coming soon to ios & android
+                available on ios & android
               </span>
             </motion.div>
 
@@ -168,7 +168,7 @@ const Download = () => (
               transition={{ duration: 0.5, delay: 0.55 }}
               className="absolute -right-1 md:-right-4 top-[18%] z-20 max-w-[58%]"
             >
-              <div className="yankee-surface rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-folk-bubble-foreground lowercase">
+              <div className="yankee-chat__bubble yankee-chat__bubble--you text-[12px] md:text-[13px]">
                 chronological · always
               </div>
             </motion.div>
@@ -200,7 +200,7 @@ const Download = () => (
                   whileHover={{ y: -3 }}
                   className={blockCard(i, "group flex flex-col p-6 md:p-7")}
                 >
-                  <span className="yankee-surface inline-block self-start px-3.5 py-2 text-[13px] leading-snug lowercase rounded-2xl rounded-bl-md bg-folk-bubble text-white">
+                  <span className="yankee-chat__bubble yankee-chat__bubble--you text-[13px]">
                     {store.bubble}
                   </span>
                   <div className="mt-6 flex items-center gap-3">
@@ -328,8 +328,8 @@ const Download = () => (
       <div className="relative max-w-[900px] mx-auto px-5 md:px-6 text-center">
         <AnimatedSection>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
-            ready when we{" "}
-            <span className="font-serif-display italic font-medium">launch.</span>
+            ready when you{" "}
+            <span className="font-serif-display italic font-medium">are.</span>
           </h2>
           <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto">
             when yankee launches, invite a few people you like and leave the noise behind.

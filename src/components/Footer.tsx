@@ -29,7 +29,7 @@ const footerLinks = [
             { label: "Story", to: "/story" },
             { label: "Careers", to: "/careers" },
             { label: "Contact", to: "/contact" },
-            { label: "Early access", to: "/download" },
+            { label: "Download", to: "/download" },
         ],
     },
     {

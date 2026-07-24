@@ -232,7 +232,7 @@ const Story = () => (
                 transition={{ duration: 0.5, delay: 0.25 }}
                 className="absolute -right-2 bottom-[20%] z-10 max-w-[75%]"
               >
-                <div className="yankee-surface rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[12px] leading-snug text-folk-bubble-foreground lowercase">
+                <div className="yankee-chat__bubble yankee-chat__bubble--you text-[12px]">
                   chronological · always
                 </div>
               </motion.div>
