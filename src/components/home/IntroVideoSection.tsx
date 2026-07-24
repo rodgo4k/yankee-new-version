@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type MouseEvent, type PointerEvent as ReactPointerEvent } from "react";
 import { motion } from "framer-motion";
 import { Pause, Play, Volume2, VolumeX } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
@@ -127,12 +127,42 @@ const IntroVideoSection = () => {
 
   const seek = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
+    e.preventDefault();
     const video = videoRef.current;
-    if (!video?.duration) return;
+    if (!video || !Number.isFinite(video.duration) || video.duration <= 0) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const ratio = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
     video.currentTime = ratio * video.duration;
     setProgress(ratio * 100);
+  };
+
+  const seekFromClientX = (clientX: number, track: HTMLElement) => {
+    const video = videoRef.current;
+    if (!video || !Number.isFinite(video.duration) || video.duration <= 0) return;
+    const rect = track.getBoundingClientRect();
+    const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+    video.currentTime = ratio * video.duration;
+    setProgress(ratio * 100);
+  };
+
+  const onSeekPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    const track = e.currentTarget;
+    track.setPointerCapture(e.pointerId);
+    seekFromClientX(e.clientX, track);
+
+    const onMove = (ev: PointerEvent) => seekFromClientX(ev.clientX, track);
+    const onUp = (ev: PointerEvent) => {
+      track.releasePointerCapture(ev.pointerId);
+      track.removeEventListener("pointermove", onMove);
+      track.removeEventListener("pointerup", onUp);
+      track.removeEventListener("pointercancel", onUp);
+    };
+
+    track.addEventListener("pointermove", onMove);
+    track.addEventListener("pointerup", onUp);
+    track.addEventListener("pointercancel", onUp);
   };
 
   const controlsVisible = hasPlayed && (playing ? showControls : true);
@@ -230,31 +260,40 @@ const IntroVideoSection = () => {
                   type="button"
                   aria-label={playing ? "pause video" : "play video"}
                   onClick={togglePlay}
-                  className="absolute inset-0 z-[15] cursor-pointer bg-transparent"
+                  className="absolute inset-0 bottom-14 z-[15] cursor-pointer bg-transparent"
                 />
               )}
 
-              <div
-                className={`absolute inset-x-0 bottom-0 z-[16] h-12 pointer-events-none transition-opacity duration-200 ${
-                  controlsVisible ? "opacity-100" : "opacity-0"
-                }`}
-              >
+              {hasPlayed && (
                 <div
-                  role="slider"
-                  aria-label="video progress"
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                  aria-valuenow={Math.round(progress)}
-                  tabIndex={0}
-                  onClick={seek}
-                  className="pointer-events-auto absolute bottom-3 left-3 right-3 h-1.5 hover:h-2.5 transition-[height] cursor-pointer rounded-full bg-white/25 backdrop-blur-[2px]"
+                  className={`absolute inset-x-0 bottom-0 z-[25] h-14 touch-none transition-opacity duration-200 ${
+                    controlsVisible ? "opacity-100" : "opacity-90"
+                  }`}
                 >
                   <div
-                    className="absolute inset-y-0 left-0 rounded-full bg-white"
-                    style={{ width: `${progress}%` }}
-                  />
+                    role="slider"
+                    aria-label="video progress"
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    aria-valuenow={Math.round(progress)}
+                    tabIndex={0}
+                    onPointerDown={onSeekPointerDown}
+                    onClick={seek}
+                    className="absolute inset-x-3 bottom-0 top-0 flex cursor-pointer items-center"
+                  >
+                    <div className="relative h-1.5 w-full rounded-full bg-white/25 backdrop-blur-[2px] group-hover:h-2.5 hover:h-2.5 transition-[height]">
+                      <div
+                        className="absolute inset-y-0 left-0 rounded-full bg-white"
+                        style={{ width: `${progress}%` }}
+                      />
+                      <div
+                        className="absolute top-1/2 -translate-y-1/2 h-3.5 w-3.5 rounded-full bg-white shadow-sm"
+                        style={{ left: `calc(${progress}% - 7px)` }}
+                      />
+                    </div>
+                  </div>
                 </div>
-              </div>
+              )}
 
               {hasPlayed && (
                 <button
