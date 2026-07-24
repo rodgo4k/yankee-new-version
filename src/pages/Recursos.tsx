@@ -14,6 +14,7 @@ import videoCall from "@/assets/yankee/video-call.png";
 import community from "@/assets/yankee/community.png";
 import profileView from "@/assets/yankee/profile-view.png";
 import searchImg from "@/assets/yankee/search.png";
+import { blockCard } from "@/lib/yankeeBlock";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 
@@ -308,18 +309,15 @@ const Features = () => (
             const Icon = g.icon;
             return (
               <AnimatedSection key={g.title} delay={i * 0.06}>
-                <motion.div
-                  whileHover={{ y: -3 }}
-                  className="yankee-surface h-full rounded-[1.5rem] bg-card p-6"
-                >
-                  <div className="w-10 h-10 rounded-xl border border-foreground/15 bg-primary text-primary-foreground flex items-center justify-center mb-5">
+                <div className={blockCard(i, "p-6")}>
+                  <div className="yankee-block__icon w-10 h-10 rounded-full flex items-center justify-center mb-5">
                     <Icon size={18} />
                   </div>
-                  <h3 className="text-[15px] md:text-[16px] font-semibold text-foreground tracking-tight lowercase">
+                  <h3 className="text-[15px] md:text-[16px] font-semibold tracking-tight lowercase">
                     {g.title}
                   </h3>
-                  <p className="mt-3 text-[13px] text-muted-foreground leading-relaxed lowercase">{g.text}</p>
-                </motion.div>
+                  <p className="mt-3 text-[13px] yankee-block__muted leading-relaxed lowercase">{g.text}</p>
+                </div>
               </AnimatedSection>
             );
           })}
@@ -360,52 +358,43 @@ const Features = () => (
               title: "feed",
               text: "chronological, always. only people you follow.",
               src: homeFeed,
-              tint: "bg-folk-surface-warm",
             },
             {
               title: "chat",
               text: "threads that pick up exactly where you left them.",
               src: chatImg,
-              tint: "bg-folk-surface-cool",
             },
             {
               title: "calls",
               text: "voice and video, right inside the same calm app.",
               src: videoCall,
-              tint: "bg-folk-surface-mint",
             },
             {
               title: "crowds",
               text: "small rooms around what you actually care about.",
               src: crowdsHome,
-              tint: "bg-folk-panel",
             },
             {
               title: "yankee ai",
               text: "drafts, reminders and follow-ups that stay private.",
               src: aiChat,
-              tint: "bg-muted",
             },
             {
               title: "search",
               text: "find people, posts and rooms without the noise.",
               src: searchImg,
-              tint: "bg-card",
             },
           ].map((card, i) => (
             <AnimatedSection key={card.title} delay={i * 0.05}>
-              <motion.div
-                whileHover={{ y: -3 }}
-                className={`yankee-surface h-full rounded-[1.5rem] ${card.tint} p-4 flex flex-col gap-4`}
-              >
+              <div className={blockCard(i, "p-4 flex flex-col gap-4")}>
                 <div className="yankee-surface yankee-surface--media rounded-[1.1rem] overflow-hidden aspect-[4/3] bg-card">
                   <img src={card.src} alt="" className="w-full h-full object-cover object-top" loading="lazy" />
                 </div>
                 <div>
                   <h3 className="text-[16px] font-semibold lowercase tracking-tight">{card.title}</h3>
-                  <p className="mt-1.5 text-[13px] text-foreground/65 leading-relaxed lowercase">{card.text}</p>
+                  <p className="mt-1.5 text-[13px] yankee-block__muted leading-relaxed lowercase">{card.text}</p>
                 </div>
-              </motion.div>
+              </div>
             </AnimatedSection>
           ))}
         </div>
@@ -466,26 +455,23 @@ const Features = () => (
             const Icon = item.icon;
             return (
               <AnimatedSection key={item.step} delay={i * 0.08}>
-                <motion.div
-                  whileHover={{ y: -3 }}
-                  className="yankee-surface relative h-full rounded-[1.5rem] bg-card p-6 flex flex-col"
-                >
+                <div className={blockCard(i, "relative p-6 flex flex-col")}>
                   <div className="flex items-center justify-between gap-3">
-                    <span className="font-serif-display italic text-[1.5rem] text-foreground/35 leading-none">
+                    <span className="font-serif-display italic text-[1.5rem] yankee-block__kicker leading-none">
                       {item.step}
                     </span>
-                    <span className="yankee-surface yankee-surface--control inline-flex items-center rounded-full px-2.5 py-1 text-[11px] lowercase">
+                    <span className="inline-flex items-center rounded-full bg-white/15 px-2.5 py-1 text-[11px] lowercase">
                       {item.note}
                     </span>
                   </div>
-                  <div className="yankee-surface mt-6 w-11 h-11 rounded-xl bg-folk-bubble text-white flex items-center justify-center">
+                  <div className="yankee-block__icon mt-6 w-11 h-11 rounded-full flex items-center justify-center">
                     <Icon size={18} />
                   </div>
                   <h3 className="mt-5 text-[17px] font-semibold lowercase tracking-tight">{item.title}</h3>
-                  <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed lowercase flex-1">
+                  <p className="mt-2 text-[13px] yankee-block__muted leading-relaxed lowercase flex-1">
                     {item.text}
                   </p>
-                </motion.div>
+                </div>
               </AnimatedSection>
             );
           })}
@@ -644,16 +630,13 @@ const Features = () => (
             const Icon = p.icon;
             return (
               <AnimatedSection key={p.title} delay={i * 0.06}>
-                <motion.div
-                  whileHover={{ y: -3 }}
-                  className="yankee-surface h-full rounded-[1.5rem] bg-card p-6"
-                >
-                  <div className="w-10 h-10 rounded-xl border border-foreground/15 bg-primary text-primary-foreground flex items-center justify-center mb-5">
+                <div className={blockCard(i, "p-6")}>
+                  <div className="yankee-block__icon w-10 h-10 rounded-full flex items-center justify-center mb-5">
                     <Icon size={18} />
                   </div>
                   <h3 className="text-[16px] font-semibold lowercase">{p.title}</h3>
-                  <p className="mt-3 text-[13px] text-muted-foreground leading-relaxed lowercase">{p.text}</p>
-                </motion.div>
+                  <p className="mt-3 text-[13px] yankee-block__muted leading-relaxed lowercase">{p.text}</p>
+                </div>
               </AnimatedSection>
             );
           })}

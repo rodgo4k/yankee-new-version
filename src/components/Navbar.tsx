@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { Apple, ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
 
 type SubLink = {
@@ -94,7 +94,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-200 ${isScrolled || isOpen ? "bg-background/85 backdrop-blur-md border-b border-border/40" : "bg-transparent border-b border-transparent"}`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-200 ${isScrolled || isOpen ? "bg-card/90 backdrop-blur-md border-b border-border/40" : "bg-transparent border-b border-transparent"}`}
     >
       <div className="h-12 md:h-14 w-full px-4 md:px-6 flex items-center justify-between gap-3">
         <div className="flex items-center gap-4 md:gap-6 min-w-0">
@@ -140,14 +140,14 @@ const Navbar = () => {
                         transition={{ duration: 0.15 }}
                         className="absolute top-full left-0 pt-2"
                       >
-                        <div className="w-[300px] rounded-2xl bg-background/95 backdrop-blur-xl border border-border/60 shadow-lg p-1.5">
+                        <div className="yankee-surface yankee-surface--sm w-[300px] rounded-2xl bg-card p-1.5">
                           {item.children.map((c) => {
                             const isActive = location.pathname === c.path;
                             return (
                               <Link
                                 key={c.path}
                                 to={c.path}
-                                className={`block px-3.5 py-2.5 rounded-xl transition-colors ${ isActive ? "bg-muted/70" : "hover:bg-muted/50" }`}
+                                className={`block px-3.5 py-2.5 rounded-xl transition-colors ${isActive ? "bg-muted/80" : "hover:bg-muted/60"}`}
                               >
                                 <div className="text-[13px] font-medium text-foreground leading-tight lowercase">
                                   {c.label}
@@ -182,10 +182,9 @@ const Navbar = () => {
           </Link>
           <Link
             to="/download"
-            className="inline-flex items-center gap-1.5 text-[13px] font-medium lowercase text-primary hover:opacity-80 transition-opacity"
+            className="inline-flex items-center text-[13px] font-medium lowercase text-primary hover:opacity-80 transition-opacity"
           >
-            <Apple size={14} strokeWidth={2.4} />
-            get yankee
+            download
           </Link>
         </div>
 
@@ -206,7 +205,7 @@ const Navbar = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden border-t border-border/40 bg-background/95 backdrop-blur-xl overflow-hidden"
+            className="md:hidden border-t border-border/40 bg-card overflow-hidden"
           >
             <div className="flex flex-col px-3 py-2 pb-4">
               {navItems.map((item) => (
@@ -254,10 +253,9 @@ const Navbar = () => {
               </Link>
               <Link
                 to="/download"
-                className="mt-1 mx-1 inline-flex items-center justify-center gap-2 py-3 rounded-full text-[14px] font-medium lowercase text-primary-foreground bg-primary"
+                className="mt-1 mx-1 inline-flex items-center justify-center py-3 rounded-full text-[14px] font-medium lowercase text-primary-foreground bg-primary"
               >
-                <Apple size={15} strokeWidth={2.4} />
-                get yankee
+                download
               </Link>
             </div>
           </motion.div>

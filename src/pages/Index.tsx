@@ -1,7 +1,6 @@
 import { ArrowRight, Clock, Users, BellOff, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { BorderBeam } from "border-beam";
 import Layout from "@/components/Layout";
 import AnimatedSection from "@/components/AnimatedSection";
 import FAQ from "@/components/FAQ";
@@ -16,6 +15,7 @@ import ReachScene, { FeedStatusPill } from "@/components/home/ReachScene";
 import { Logo } from "@/components/Logo";
 import PrismGrid from "@/components/home/PrismGrid";
 import { surface } from "@/lib/yankeeSurface";
+import { blockCard } from "@/lib/yankeeBlock";
 import heroParty from "@/assets/hero-party.jpg";
 import cafeFriends from "@/assets/cafe-friends.jpg";
 import studentsHero from "@/assets/students-hero.jpg";
@@ -79,7 +79,6 @@ const Index = () => (
       <div className="absolute inset-0 z-[1] bg-gradient-to-b from-card/30 via-transparent to-background/80 pointer-events-none" />
 
       <div className="relative z-10 flex-1 flex flex-col justify-center w-full max-w-[920px] mx-auto px-5 md:px-6 py-10 md:py-12 text-center">
-        {}
         <div className="mt-6 md:mt-0 md:translate-y-12 lg:translate-y-14">
           <motion.h1
             initial={{ opacity: 0, y: 18 }}
@@ -87,14 +86,7 @@ const Index = () => (
             transition={{ duration: 0.85, ease: [0.25, 0.4, 0.25, 1] }}
             className="flex justify-center"
           >
-            <span
-              className={surface(
-                "sm",
-                "inline-flex items-center justify-center px-7 py-4 sm:px-8 sm:py-5 md:px-10 md:py-6 rounded-[1.35rem]",
-              )}
-            >
-              <Logo className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto text-foreground" />
-            </span>
+            <Logo className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto text-foreground" />
           </motion.h1>
 
           <motion.p
@@ -133,36 +125,23 @@ const Index = () => (
           </div>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6 overflow-visible">
+        <div className="mt-12 md:mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 overflow-visible">
           {featureCards.map((c, i) => (
             <AnimatedSection key={c.title} delay={i * 0.06} className="overflow-visible">
-              <BorderBeam
-                size="md"
-                colorVariant="ocean"
-                theme="light"
-                strength={1}
-                brightness={2.4}
-                saturation={1.7}
-                duration={2.2}
-                borderRadius={24}
-                className="h-full"
+              <div
+                className={blockCard(
+                  i,
+                  "group p-6 md:p-7 text-center sm:text-left flex flex-col items-center sm:items-start",
+                )}
               >
-                <div
-                  className={surface(
-                    "interactive",
-                    "h-full p-6 text-center sm:text-left flex flex-col items-center sm:items-start",
-                  )}
-                  style={{ borderRadius: 24 }}
-                >
-                  <div className={surface("icon", "w-10 h-10 mb-5 bg-primary text-primary-foreground")}>
-                    <c.icon size={18} />
-                  </div>
-                  <h3 className="text-[15px] md:text-[16px] font-semibold text-foreground tracking-tight lowercase">
-                    {c.title}
-                  </h3>
-                  <p className="mt-3 text-[13px] text-muted-foreground leading-relaxed lowercase">{c.text}</p>
+                <div className="yankee-block__icon mb-6 inline-flex h-11 w-11 items-center justify-center rounded-full backdrop-blur-[2px]">
+                  <c.icon size={20} strokeWidth={2.2} />
                 </div>
-              </BorderBeam>
+                <h3 className="text-[17px] md:text-[18px] font-semibold tracking-tight lowercase">
+                  {c.title}
+                </h3>
+                <p className="mt-3 text-[13px] leading-relaxed lowercase yankee-block__muted">{c.text}</p>
+              </div>
             </AnimatedSection>
           ))}
         </div>
@@ -360,39 +339,27 @@ const Index = () => (
 
         <div className="mt-12 md:mt-14 grid grid-cols-2 md:grid-cols-6 gap-3 md:gap-4">
           <AnimatedSection delay={0.05} className="col-span-1 md:col-span-2">
-            <motion.div
-              whileHover={{ y: -3 }}
-              className={surface(
-                "interactive",
-                "h-full min-h-[160px] md:min-h-[200px] bg-folk-surface-warm p-5 flex flex-col justify-between",
-              )}
-            >
-              <div className={surface("icon", "w-12 h-12 rounded-full font-serif-display text-xl italic")}>
+            <div className={blockCard(0, "min-h-[160px] md:min-h-[200px] p-5 flex flex-col justify-between")}>
+              <div className="yankee-block__icon inline-flex w-12 h-12 items-center justify-center rounded-full font-serif-display text-xl italic">
                 H
               </div>
               <div>
                 <p className="text-[15px] font-semibold lowercase">harvard</p>
-                <p className="mt-1 text-[12px] text-foreground/55 lowercase">campus crowd</p>
+                <p className="mt-1 text-[12px] yankee-block__muted lowercase">campus crowd</p>
               </div>
-            </motion.div>
+            </div>
           </AnimatedSection>
 
           <AnimatedSection delay={0.1} className="col-span-1 md:col-span-2">
-            <motion.div
-              whileHover={{ y: -3 }}
-              className={surface(
-                "interactive",
-                "h-full min-h-[160px] md:min-h-[200px] bg-folk-surface-cool p-5 flex flex-col justify-between",
-              )}
-            >
-              <div className={surface("icon", "w-12 h-12 rounded-full font-semibold text-sm tracking-tight")}>
+            <div className={blockCard(1, "min-h-[160px] md:min-h-[200px] p-5 flex flex-col justify-between")}>
+              <div className="yankee-block__icon inline-flex w-12 h-12 items-center justify-center rounded-full font-semibold text-sm tracking-tight">
                 S
               </div>
               <div>
                 <p className="text-[15px] font-semibold lowercase">stanford</p>
-                <p className="mt-1 text-[12px] text-foreground/55 lowercase">alumni room</p>
+                <p className="mt-1 text-[12px] yankee-block__muted lowercase">alumni room</p>
               </div>
-            </motion.div>
+            </div>
           </AnimatedSection>
 
           <AnimatedSection delay={0.15} className="col-span-2 md:col-span-2 md:row-span-2">
@@ -507,16 +474,16 @@ const Index = () => (
             yankee remembers things for you, not about you. private, encrypted, and wipeable whenever you want.
           </p>
         </AnimatedSection>
-        <div className="mt-12 grid sm:grid-cols-3 gap-4">
+        <div className="mt-12 grid sm:grid-cols-3 gap-4 md:gap-5">
           {[
             { t: "yours alone", d: "never sold, never used to train ai. ever." },
             { t: "private + encrypted", d: "your stuff stays isolated and encrypted where we store it." },
             { t: "gone in seconds", d: "delete your account anytime and your data is destroyed for good." },
           ].map((c, i) => (
             <AnimatedSection key={c.t} delay={i * 0.06}>
-              <div className={surface("interactive", "h-full p-6 text-center sm:text-left")}>
-                <h3 className="text-[16px] font-semibold lowercase">{c.t}</h3>
-                <p className="mt-3 text-[13px] text-muted-foreground leading-relaxed lowercase">{c.d}</p>
+              <div className={blockCard(i, "p-6 md:p-7 text-center sm:text-left")}>
+                <h3 className="text-[17px] font-semibold lowercase">{c.t}</h3>
+                <p className="mt-3 text-[13px] leading-relaxed lowercase yankee-block__muted">{c.d}</p>
               </div>
             </AnimatedSection>
           ))}

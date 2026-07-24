@@ -9,6 +9,7 @@ import CrowdHeroScene from "@/components/home/CrowdHeroScene";
 import cafeFriends from "@/assets/cafe-friends.jpg";
 import studentsHero from "@/assets/students-hero.jpg";
 import community from "@/assets/yankee/community.png";
+import { blockCard, blockTone } from "@/lib/yankeeBlock";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 
@@ -62,16 +63,16 @@ const blocks = [
 ];
 
 const topics = [
-  { name: "photography", members: "48k", tint: "bg-folk-surface-warm" },
-  { name: "running", members: "22k", tint: "bg-folk-surface-mint" },
-  { name: "reading", members: "17k", tint: "bg-folk-surface-cool" },
-  { name: "cooking", members: "35k", tint: "bg-folk-panel" },
-  { name: "gaming", members: "61k", tint: "bg-muted" },
-  { name: "design", members: "29k", tint: "bg-card" },
-  { name: "music", members: "44k", tint: "bg-folk-surface-mint" },
-  { name: "hiking", members: "12k", tint: "bg-folk-surface-warm" },
-  { name: "film", members: "26k", tint: "bg-folk-surface-cool" },
-  { name: "cycling", members: "14k", tint: "bg-folk-panel" },
+  { name: "photography", members: "48k" },
+  { name: "running", members: "22k" },
+  { name: "reading", members: "17k" },
+  { name: "cooking", members: "35k" },
+  { name: "gaming", members: "61k" },
+  { name: "design", members: "29k" },
+  { name: "music", members: "44k" },
+  { name: "hiking", members: "12k" },
+  { name: "film", members: "26k" },
+  { name: "cycling", members: "14k" },
 ];
 
 const steps = [
@@ -226,16 +227,13 @@ const Communities = () => (
             const Icon = p.icon;
             return (
               <AnimatedSection key={p.title} delay={i * 0.06}>
-                <motion.div
-                  whileHover={{ y: -3 }}
-                  className="yankee-surface h-full rounded-[1.5rem] bg-card p-6"
-                >
-                  <div className="w-10 h-10 rounded-xl border border-foreground/15 bg-primary text-primary-foreground flex items-center justify-center mb-5">
+                <div className={blockCard(i, "p-6")}>
+                  <div className="yankee-block__icon w-10 h-10 rounded-full flex items-center justify-center mb-5">
                     <Icon size={18} />
                   </div>
                   <h3 className="text-[15px] font-semibold lowercase tracking-tight">{p.title}</h3>
-                  <p className="mt-3 text-[13px] text-muted-foreground leading-relaxed lowercase">{p.text}</p>
-                </motion.div>
+                  <p className="mt-3 text-[13px] yankee-block__muted leading-relaxed lowercase">{p.text}</p>
+                </div>
               </AnimatedSection>
             );
           })}
@@ -257,17 +255,14 @@ const Communities = () => (
         <div className="mt-12 md:mt-16 grid md:grid-cols-3 gap-4">
           {blocks.map((b, i) => (
             <AnimatedSection key={b.kicker} delay={i * 0.08}>
-              <motion.div
-                whileHover={{ y: -3 }}
-                className="yankee-surface h-full rounded-[1.5rem] bg-card p-6 md:p-7 flex flex-col gap-5"
-              >
-                <p className="font-serif-display italic text-[1.05rem] text-foreground/45 lowercase leading-none">
+              <div className={blockCard(i, "p-6 md:p-7 flex flex-col gap-5")}>
+                <p className="font-serif-display italic text-[1.05rem] yankee-block__kicker lowercase leading-none">
                   {b.kicker}
                 </p>
-                <h3 className="text-[22px] md:text-[24px] font-semibold text-foreground leading-[1.08] tracking-tight lowercase">
+                <h3 className="text-[22px] md:text-[24px] font-semibold leading-[1.08] tracking-tight lowercase">
                   {b.title}
                 </h3>
-                <p className="text-[13px] md:text-[14px] text-muted-foreground leading-relaxed lowercase">{b.body}</p>
+                <p className="text-[13px] md:text-[14px] yankee-block__muted leading-relaxed lowercase">{b.body}</p>
 
                 <div className="mt-auto flex flex-col gap-2.5 pt-2">
                   {b.chat.map((m, j) => (
@@ -280,7 +275,7 @@ const Communities = () => (
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             </AnimatedSection>
           ))}
         </div>
@@ -355,12 +350,12 @@ const Communities = () => (
             <AnimatedSection key={t.name} delay={i * 0.03}>
               <motion.span
                 whileHover={{ y: -3, rotate: -2 }}
-                className={`yankee-surface yankee-surface--control inline-flex items-center gap-2 px-4 py-2.5 rounded-full ${t.tint} text-[13px] text-foreground lowercase`}
+                className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-[13px] lowercase ${blockTone(i)}`}
               >
-                <span className="inline-flex items-center gap-1 text-foreground/55 text-[11px]">
+                <span className="inline-flex items-center gap-1 opacity-70 text-[11px]">
                   <Users size={11} /> {t.members}
                 </span>
-                <span className="text-foreground/40">·</span>
+                <span className="opacity-50">·</span>
                 <span className="font-medium">#{t.name}</span>
               </motion.span>
             </AnimatedSection>
@@ -382,14 +377,11 @@ const Communities = () => (
         <div className="mt-12 md:mt-14 grid md:grid-cols-3 gap-4">
           {steps.map((s, i) => (
             <AnimatedSection key={s.n} delay={i * 0.08}>
-              <motion.div
-                whileHover={{ y: -3 }}
-                className="yankee-surface h-full rounded-[1.5rem] bg-card p-6 flex flex-col"
-              >
-                <span className="font-serif-display italic text-[1.5rem] text-foreground/35 leading-none">{s.n}</span>
+              <div className={blockCard(i, "p-6 flex flex-col")}>
+                <span className="font-serif-display italic text-[1.5rem] yankee-block__kicker leading-none">{s.n}</span>
                 <h3 className="mt-5 text-[17px] font-semibold lowercase tracking-tight">{s.t}</h3>
-                <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed lowercase">{s.d}</p>
-              </motion.div>
+                <p className="mt-2 text-[13px] yankee-block__muted leading-relaxed lowercase">{s.d}</p>
+              </div>
             </AnimatedSection>
           ))}
         </div>

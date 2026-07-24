@@ -165,7 +165,7 @@ const ReachHeroScene = () => {
             })}
           </div>
 
-          <div className="mt-3 pt-3 border-t-2 border-foreground/10 px-1">
+          <div className="mt-3 pt-3 border-t border-border/10 px-1">
             <p className="text-[11px] lowercase text-foreground/55">
               {allDone ? "every follower got it" : `${delivered} of ${recipients.length} reached`}
             </p>

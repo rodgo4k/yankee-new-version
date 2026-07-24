@@ -161,7 +161,7 @@ const Story = () => (
         >
           <div className="yankee-surface rounded-[1.75rem] md:rounded-[2.25rem] bg-card overflow-hidden">
             <StoryHeroVideo />
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-5 md:px-8 py-4 md:py-5 border-t-2 border-foreground bg-folk-panel">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-5 md:px-8 py-4 md:py-5 border-t border-border bg-folk-panel">
               <p className="text-[13px] md:text-[14px] font-medium text-foreground lowercase tracking-tight">
                 not another feed. a quieter way to stay close.
               </p>
@@ -384,7 +384,7 @@ const Story = () => (
                 </div>
               </div>
 
-              <div className="lg:col-span-5 relative min-h-[240px] lg:min-h-full border-t-2 lg:border-t-0 lg:border-l-2 border-foreground">
+              <div className="lg:col-span-5 relative min-h-[240px] lg:min-h-full border-t lg:border-t-0 lg:border-l border-border">
                 <img
                   src={rememberOffice}
                   alt=""

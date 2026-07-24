@@ -8,6 +8,7 @@ import cafeFriends from "@/assets/cafe-friends.jpg";
 import smallTeamCollab from "@/assets/small-team-collab.jpg";
 import rememberOffice from "@/assets/remember-office.jpg";
 import { YANKEE_EMAIL, YANKEE_MAILTO } from "@/lib/email";
+import { blockCard } from "@/lib/yankeeBlock";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 
@@ -190,7 +191,7 @@ const Contact = () => (
                   href={c.href}
                   target={c.href.startsWith("http") ? "_blank" : undefined}
                   rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className={`group flex items-center justify-between gap-4 p-5 md:p-6 hover:bg-folk-panel transition-colors ${ i < channels.length - 1 ? "border-b-2 border-foreground" : "" }`}
+                  className={`group flex items-center justify-between gap-4 p-5 md:p-6 hover:bg-folk-panel transition-colors ${ i < channels.length - 1 ? "border-b border-border" : "" }`}
                 >
                   <div className="flex items-center gap-4 min-w-0">
                     <div className="yankee-surface w-10 h-10 shrink-0 rounded-xl bg-background flex items-center justify-center">
@@ -233,21 +234,18 @@ const Contact = () => (
             const Icon = h.icon;
             return (
               <AnimatedSection key={h.t} delay={i * 0.06}>
-                <motion.div
-                  whileHover={{ y: -3 }}
-                  className="yankee-surface h-full rounded-[1.5rem] bg-card p-6 flex flex-col gap-5"
-                >
+                <div className={blockCard(i, "p-6 flex flex-col gap-5")}>
                   <span className="yankee-surface inline-block self-start px-3.5 py-2 text-[13px] leading-snug lowercase rounded-2xl rounded-bl-md bg-folk-bubble text-white">
                     {h.bubble}
                   </span>
                   <div className="mt-auto">
-                    <div className="w-9 h-9 rounded-xl border border-foreground/15 bg-primary text-primary-foreground flex items-center justify-center mb-4">
+                    <div className="yankee-block__icon w-9 h-9 rounded-full flex items-center justify-center mb-4">
                       <Icon size={16} />
                     </div>
                     <h3 className="text-[16px] font-semibold lowercase tracking-tight">{h.t}</h3>
-                    <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed lowercase">{h.d}</p>
+                    <p className="mt-2 text-[13px] yankee-block__muted leading-relaxed lowercase">{h.d}</p>
                   </div>
-                </motion.div>
+                </div>
               </AnimatedSection>
             );
           })}
@@ -260,35 +258,35 @@ const Contact = () => (
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
         <div className="grid md:grid-cols-2 gap-4">
           <AnimatedSection>
-            <div className="yankee-surface h-full rounded-[1.5rem] bg-card p-7 md:p-8">
-              <div className="w-9 h-9 rounded-xl border border-foreground/15 bg-primary text-primary-foreground flex items-center justify-center mb-5">
+            <div className={blockCard(0, "p-7 md:p-8")}>
+              <div className="yankee-block__icon w-9 h-9 rounded-full flex items-center justify-center mb-5">
                 <Globe2 size={16} />
               </div>
-              <p className="font-serif-display italic text-[1.1rem] text-foreground/50 lowercase">office</p>
-              <h3 className="mt-2 text-2xl md:text-3xl font-semibold text-foreground lowercase tracking-tight">
+              <p className="font-serif-display italic text-[1.1rem] yankee-block__kicker lowercase">office</p>
+              <h3 className="mt-2 text-2xl md:text-3xl font-semibold lowercase tracking-tight">
                 global · remote-first
               </h3>
-              <p className="mt-3 text-[14px] text-muted-foreground leading-relaxed lowercase">
+              <p className="mt-3 text-[14px] yankee-block__muted leading-relaxed lowercase">
                 the yankee team is distributed across three continents. we publish our current locations in the careers listings.
               </p>
               <Link
                 to="/careers"
-                className="mt-6 inline-flex items-center gap-1.5 text-[13px] font-medium lowercase text-foreground underline underline-offset-4 decoration-2"
+                className="mt-6 inline-flex items-center gap-1.5 text-[13px] font-medium lowercase underline underline-offset-4 decoration-2"
               >
                 see careers <ArrowRight size={13} />
               </Link>
             </div>
           </AnimatedSection>
           <AnimatedSection delay={0.08}>
-            <div className="yankee-surface h-full rounded-[1.5rem] bg-card p-7 md:p-8">
-              <div className="w-9 h-9 rounded-xl border border-foreground/15 bg-primary text-primary-foreground flex items-center justify-center mb-5">
+            <div className={blockCard(1, "p-7 md:p-8")}>
+              <div className="yankee-block__icon w-9 h-9 rounded-full flex items-center justify-center mb-5">
                 <Clock size={16} />
               </div>
-              <p className="font-serif-display italic text-[1.1rem] text-foreground/50 lowercase">response time</p>
-              <h3 className="mt-2 text-2xl md:text-3xl font-semibold text-foreground lowercase tracking-tight">
+              <p className="font-serif-display italic text-[1.1rem] yankee-block__kicker lowercase">response time</p>
+              <h3 className="mt-2 text-2xl md:text-3xl font-semibold lowercase tracking-tight">
                 under 48 hours
               </h3>
-              <p className="mt-3 text-[14px] text-muted-foreground leading-relaxed lowercase">
+              <p className="mt-3 text-[14px] yankee-block__muted leading-relaxed lowercase">
                 every email is triaged the same day it arrives. if it&apos;s urgent — a moderation issue or a security report — we escalate immediately.
               </p>
             </div>

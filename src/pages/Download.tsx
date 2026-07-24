@@ -5,6 +5,7 @@ import AnimatedSection from "@/components/AnimatedSection";
 import DownloadDesktopHero from "@/components/home/DownloadDesktopHero";
 import { APP_STORE_URL } from "@/lib/appStore";
 import { YANKEE_EMAIL, YANKEE_MAILTO } from "@/lib/email";
+import { blockCard } from "@/lib/yankeeBlock";
 
 const reasons = [
   {
@@ -61,7 +62,7 @@ const Download = () => (
         <AnimatedSection>
           <div className="yankee-surface rounded-[1.75rem] bg-card overflow-hidden">
             <div className="grid sm:grid-cols-12">
-              <div className="sm:col-span-4 border-b-2 sm:border-b-0 sm:border-r-2 border-foreground bg-folk-panel p-7 md:p-8 flex flex-col items-center justify-center text-center">
+              <div className="sm:col-span-4 border-b sm:border-b-0 sm:border-r border-border bg-folk-panel p-7 md:p-8 flex flex-col items-center justify-center text-center">
                 <div className="yankee-surface w-28 h-28 rounded-[1.25rem] bg-card flex items-center justify-center">
                   <QrCode size={56} strokeWidth={1.5} className="text-foreground" />
                 </div>
@@ -108,12 +109,12 @@ const Download = () => (
             const Icon = r.icon;
             return (
               <AnimatedSection key={r.title} delay={i * 0.06}>
-                <div className="yankee-surface h-full rounded-[1.5rem] bg-card p-6">
-                  <div className="w-9 h-9 rounded-xl border border-foreground/15 bg-primary text-primary-foreground flex items-center justify-center mb-4">
+                <div className={blockCard(i, "p-6")}>
+                  <div className="yankee-block__icon w-9 h-9 rounded-full flex items-center justify-center mb-4">
                     <Icon size={16} />
                   </div>
                   <h3 className="text-[16px] font-semibold lowercase tracking-tight">{r.title}</h3>
-                  <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed lowercase">{r.desc}</p>
+                  <p className="mt-2 text-[13px] yankee-block__muted leading-relaxed lowercase">{r.desc}</p>
                 </div>
               </AnimatedSection>
             );

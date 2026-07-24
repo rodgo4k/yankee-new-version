@@ -5,6 +5,7 @@ import Layout from "@/components/Layout";
 import AnimatedSection from "@/components/AnimatedSection";
 import homeFeed from "@/assets/yankee/home-feed.png";
 import cafeFriends from "@/assets/cafe-friends.jpg";
+import { blockCard } from "@/lib/yankeeBlock";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 
@@ -197,24 +198,24 @@ const Download = () => (
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ y: -3 }}
-                  className="yankee-surface group h-full flex flex-col rounded-[1.5rem] bg-card p-6 md:p-7 hover:-translate-y-1 transition-all"
+                  className={blockCard(i, "group flex flex-col p-6 md:p-7")}
                 >
                   <span className="yankee-surface inline-block self-start px-3.5 py-2 text-[13px] leading-snug lowercase rounded-2xl rounded-bl-md bg-folk-bubble text-white">
                     {store.bubble}
                   </span>
                   <div className="mt-6 flex items-center gap-3">
-                    <span className="w-11 h-11 rounded-xl border border-foreground/15 bg-primary text-primary-foreground flex items-center justify-center">
+                    <span className="yankee-block__icon w-11 h-11 rounded-full flex items-center justify-center">
                       <Icon size={20} strokeWidth={1.75} />
                     </span>
                     <div>
                       <h3 className="text-[18px] font-semibold lowercase tracking-tight">{store.title}</h3>
-                      <p className="text-[12px] text-muted-foreground lowercase">{store.subtitle}</p>
+                      <p className="text-[12px] yankee-block__muted lowercase">{store.subtitle}</p>
                     </div>
                   </div>
-                  <p className="mt-4 text-[14px] text-muted-foreground leading-relaxed lowercase flex-1">
+                  <p className="mt-4 text-[14px] yankee-block__muted leading-relaxed lowercase flex-1">
                     {store.desc}
                   </p>
-                  <span className="mt-6 inline-flex items-center gap-2 text-[14px] font-semibold lowercase text-foreground">
+                  <span className="mt-6 inline-flex items-center gap-2 text-[14px] font-semibold lowercase">
                     {store.cta}
                     <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
                   </span>
@@ -232,7 +233,7 @@ const Download = () => (
         <AnimatedSection>
           <div className="yankee-surface rounded-[1.75rem] bg-card overflow-hidden">
             <div className="grid sm:grid-cols-12">
-              <div className="sm:col-span-4 border-b-2 sm:border-b-0 sm:border-r-2 border-foreground bg-folk-panel p-7 md:p-8 flex flex-col items-center justify-center text-center">
+              <div className="sm:col-span-4 border-b sm:border-b-0 sm:border-r border-border bg-folk-panel p-7 md:p-8 flex flex-col items-center justify-center text-center">
                 <div className="yankee-surface w-28 h-28 rounded-[1.25rem] bg-card flex items-center justify-center">
                   <QrCode size={56} strokeWidth={1.5} className="text-foreground" />
                 </div>
@@ -279,12 +280,12 @@ const Download = () => (
             const Icon = r.icon;
             return (
               <AnimatedSection key={r.title} delay={i * 0.06}>
-                <div className="yankee-surface h-full rounded-[1.5rem] bg-card p-6">
-                  <div className="w-9 h-9 rounded-xl border border-foreground/15 bg-primary text-primary-foreground flex items-center justify-center mb-4">
+                <div className={blockCard(i, "p-6")}>
+                  <div className="yankee-block__icon w-9 h-9 rounded-full flex items-center justify-center mb-4">
                     <Icon size={16} />
                   </div>
                   <h3 className="text-[16px] font-semibold lowercase tracking-tight">{r.title}</h3>
-                  <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed lowercase">{r.desc}</p>
+                  <p className="mt-2 text-[13px] yankee-block__muted leading-relaxed lowercase">{r.desc}</p>
                 </div>
               </AnimatedSection>
             );

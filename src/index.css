@@ -204,6 +204,20 @@
     box-shadow: 6px 6px 0 0 hsl(var(--foreground));
   }
 
+  .yankee-block .yankee-block__muted {
+    opacity: 0.8;
+  }
+
+  .yankee-block .yankee-block__icon {
+    background-color: hsl(0 0% 100% / 0.15);
+    color: inherit;
+    border-color: transparent;
+  }
+
+  .yankee-block .yankee-block__kicker {
+    color: hsl(0 0% 100% / 0.5);
+  }
+
   .yankee-surface {
     border: 1.5px solid hsl(var(--foreground) / 0.14);
     border-radius: 1.35rem;

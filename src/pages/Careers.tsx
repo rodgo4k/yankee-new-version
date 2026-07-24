@@ -8,6 +8,7 @@ import cafeFriends from "@/assets/cafe-friends.jpg";
 import smallTeamCollab from "@/assets/small-team-collab.jpg";
 import rememberOffice from "@/assets/remember-office.jpg";
 import { YANKEE_EMAIL, YANKEE_MAILTO } from "@/lib/email";
+import { blockCard } from "@/lib/yankeeBlock";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 
@@ -270,23 +271,20 @@ const Careers = () => {
             const Icon = p.icon;
             return (
               <AnimatedSection key={p.title} delay={i * 0.06}>
-                <motion.div
-                  whileHover={{ y: -3 }}
-                  className="yankee-surface h-full rounded-[1.5rem] bg-card p-6 flex flex-col gap-5"
-                >
+                <div className={blockCard(i, "p-6 flex flex-col gap-5")}>
                   <div className="flex justify-start">
                     <span className="yankee-surface inline-block max-w-[95%] px-3.5 py-2 text-[13px] leading-snug lowercase rounded-2xl rounded-bl-md bg-folk-bubble text-white">
                       {p.bubble}
                     </span>
                   </div>
                   <div className="mt-auto">
-                    <div className="w-9 h-9 rounded-xl border border-foreground/15 bg-primary text-primary-foreground flex items-center justify-center mb-4">
+                    <div className="yankee-block__icon w-9 h-9 rounded-full flex items-center justify-center mb-4">
                       <Icon size={16} />
                     </div>
                     <h3 className="text-[16px] font-semibold lowercase tracking-tight">{p.title}</h3>
-                    <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed lowercase">{p.desc}</p>
+                    <p className="mt-2 text-[13px] yankee-block__muted leading-relaxed lowercase">{p.desc}</p>
                   </div>
-                </motion.div>
+                </div>
               </AnimatedSection>
             );
           })}
@@ -310,24 +308,24 @@ const Careers = () => {
             <AnimatedSection key={role.title} delay={i * 0.07}>
               <a
                 href={role.href}
-                className="yankee-surface group block rounded-[1.5rem] bg-card p-5 md:p-6 hover:-translate-y-1 transition-all"
+                className={blockCard(i, "group block p-5 md:p-6")}
               >
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2 mb-2">
-                      <span className="yankee-surface yankee-surface--control inline-flex rounded-full bg-folk-panel px-2.5 py-0.5 text-[11px] font-medium lowercase">
+                      <span className="inline-flex rounded-full bg-white/15 px-2.5 py-0.5 text-[11px] font-medium lowercase">
                         {role.tag}
                       </span>
-                      <span className="text-[12px] text-muted-foreground lowercase">{role.loc}</span>
+                      <span className="text-[12px] yankee-block__muted lowercase">{role.loc}</span>
                     </div>
                     <h3 className="text-[18px] md:text-[20px] font-semibold lowercase tracking-tight group-hover:underline underline-offset-4 decoration-2">
                       {role.title}
                     </h3>
-                    <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed lowercase max-w-xl">
+                    <p className="mt-2 text-[14px] yankee-block__muted leading-relaxed lowercase max-w-xl">
                       {role.desc}
                     </p>
                   </div>
-                  <span className="yankee-surface yankee-surface--control inline-flex items-center gap-1.5 self-start shrink-0 rounded-full bg-primary text-primary-foreground px-4 py-2 text-[13px] font-medium lowercase">
+                  <span className="inline-flex items-center gap-1.5 self-start shrink-0 rounded-full bg-white/15 px-4 py-2 text-[13px] font-medium lowercase">
                     apply <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </span>
                 </div>
@@ -344,7 +342,7 @@ const Careers = () => {
         <AnimatedSection>
           <div className="yankee-surface rounded-[1.75rem] bg-card overflow-hidden">
             <div className="grid md:grid-cols-12">
-              <div className="md:col-span-5 relative min-h-[200px] border-b-2 md:border-b-0 md:border-r-2 border-foreground">
+              <div className="md:col-span-5 relative min-h-[200px] border-b md:border-b-0 md:border-r border-border">
                 <img
                   src={rememberOffice}
                   alt=""

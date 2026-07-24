@@ -8,6 +8,7 @@ import PromoPill from "@/components/home/PromoPill";
 import StudentHeroScene from "@/components/home/StudentHeroScene";
 import studentChat from "@/assets/yankee/chat.png";
 import harvardHall from "@/assets/harvard-hall.png";
+import { blockCard } from "@/lib/yankeeBlock";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 
@@ -204,16 +205,13 @@ const ForStudents = () => (
             const Icon = p.icon;
             return (
               <AnimatedSection key={p.title} delay={i * 0.06}>
-                <motion.div
-                  whileHover={{ y: -3 }}
-                  className="yankee-surface h-full rounded-[1.5rem] bg-card p-6"
-                >
-                  <div className="w-10 h-10 rounded-xl border border-foreground/15 bg-primary text-primary-foreground flex items-center justify-center mb-5">
+                <div className={blockCard(i, "p-6")}>
+                  <div className="yankee-block__icon w-10 h-10 rounded-full flex items-center justify-center mb-5">
                     <Icon size={18} />
                   </div>
                   <h3 className="text-[15px] font-semibold lowercase tracking-tight">{p.title}</h3>
-                  <p className="mt-3 text-[13px] text-muted-foreground leading-relaxed lowercase">{p.text}</p>
-                </motion.div>
+                  <p className="mt-3 text-[13px] yankee-block__muted leading-relaxed lowercase">{p.text}</p>
+                </div>
               </AnimatedSection>
             );
           })}
@@ -235,17 +233,14 @@ const ForStudents = () => (
         <div className="mt-12 md:mt-16 grid md:grid-cols-3 gap-4">
           {blocks.map((b, i) => (
             <AnimatedSection key={b.kicker} delay={i * 0.08}>
-              <motion.div
-                whileHover={{ y: -3 }}
-                className="yankee-surface h-full rounded-[1.5rem] bg-card p-6 md:p-7 flex flex-col gap-5"
-              >
-                <p className="font-serif-display italic text-[1.05rem] text-foreground/45 lowercase leading-none">
+              <div className={blockCard(i, "p-6 md:p-7 flex flex-col gap-5")}>
+                <p className="font-serif-display italic text-[1.05rem] yankee-block__kicker lowercase leading-none">
                   {b.kicker}
                 </p>
-                <h3 className="text-[22px] md:text-[24px] font-semibold text-foreground leading-[1.08] tracking-tight lowercase">
+                <h3 className="text-[22px] md:text-[24px] font-semibold leading-[1.08] tracking-tight lowercase">
                   {b.title}
                 </h3>
-                <p className="text-[13px] md:text-[14px] text-muted-foreground leading-relaxed lowercase">{b.body}</p>
+                <p className="text-[13px] md:text-[14px] yankee-block__muted leading-relaxed lowercase">{b.body}</p>
                 <div className="mt-auto flex flex-col gap-2.5 pt-2">
                   {b.chat.map((m, j) => (
                     <div key={j} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>
@@ -257,7 +252,7 @@ const ForStudents = () => (
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             </AnimatedSection>
           ))}
         </div>
@@ -337,14 +332,11 @@ const ForStudents = () => (
         <div className="mt-12 md:mt-14 grid md:grid-cols-3 gap-4">
           {steps.map((s, i) => (
             <AnimatedSection key={s.n} delay={i * 0.08}>
-              <motion.div
-                whileHover={{ y: -3 }}
-                className="yankee-surface h-full rounded-[1.5rem] bg-card p-6 flex flex-col"
-              >
-                <span className="font-serif-display italic text-[1.5rem] text-foreground/35 leading-none">{s.n}</span>
+              <div className={blockCard(i, "p-6 flex flex-col")}>
+                <span className="font-serif-display italic text-[1.5rem] yankee-block__kicker leading-none">{s.n}</span>
                 <h3 className="mt-5 text-[17px] font-semibold lowercase tracking-tight">{s.t}</h3>
-                <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed lowercase">{s.d}</p>
-              </motion.div>
+                <p className="mt-2 text-[13px] yankee-block__muted leading-relaxed lowercase">{s.d}</p>
+              </div>
             </AnimatedSection>
           ))}
         </div>

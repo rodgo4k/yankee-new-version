@@ -113,7 +113,7 @@ const StudentHeroScene = () => {
             })}
           </div>
 
-          <div className="mt-3 pt-3 border-t-2 border-foreground/10">
+          <div className="mt-3 pt-3 border-t border-border/10">
             <motion.div
               initial={false}
               animate={{ opacity: studyOn ? 1 : 0.4 }}
