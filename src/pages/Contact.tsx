@@ -7,14 +7,15 @@ import friendsVideoCall from "@/assets/friends-video-call.jpg";
 import cafeFriends from "@/assets/cafe-friends.jpg";
 import smallTeamCollab from "@/assets/small-team-collab.jpg";
 import rememberOffice from "@/assets/remember-office.jpg";
+import { YANKEE_EMAIL, YANKEE_MAILTO } from "@/lib/email";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 
 const channels = [
-  { name: "general", handle: "hello@yankee.app", href: "mailto:hello@yankee.app", icon: Mail, kind: "email" as const },
-  { name: "press", handle: "press@yankee.app", href: "mailto:press@yankee.app", icon: Mail, kind: "email" as const },
-  { name: "partnerships", handle: "partners@yankee.app", href: "mailto:partners@yankee.app", icon: Mail, kind: "email" as const },
-  { name: "jobs", handle: "jobs@yankee.app", href: "mailto:jobs@yankee.app", icon: Mail, kind: "email" as const },
+  { name: "general", handle: YANKEE_EMAIL, href: YANKEE_MAILTO, icon: Mail, kind: "email" as const },
+  { name: "press", handle: YANKEE_EMAIL, href: YANKEE_MAILTO, icon: Mail, kind: "email" as const },
+  { name: "partnerships", handle: YANKEE_EMAIL, href: YANKEE_MAILTO, icon: Mail, kind: "email" as const },
+  { name: "jobs", handle: YANKEE_EMAIL, href: YANKEE_MAILTO, icon: Mail, kind: "email" as const },
   { name: "instagram", handle: "@yankeeapp", href: "https://instagram.com/yankeeapp", icon: Instagram, kind: "social" as const },
   { name: "x / twitter", handle: "@yankeeapp", href: "https://x.com/yankeeapp", icon: Twitter, kind: "social" as const },
   { name: "tiktok", handle: "@yankeeapp", href: "https://tiktok.com/@yankeeapp", icon: Music2, kind: "social" as const },
@@ -48,9 +49,9 @@ const helps = [
 ];
 
 const inboxPreview = [
-  { from: "hello@", subject: "say anything", rotate: -2.5, z: 10 },
-  { from: "press@", subject: "for journalists", rotate: 1.5, z: 20 },
-  { from: "jobs@", subject: "open roles", rotate: -1, z: 30 },
+  { id: "general", from: YANKEE_EMAIL, subject: "say anything", rotate: -2.5, z: 10 },
+  { id: "press", from: YANKEE_EMAIL, subject: "for journalists", rotate: 1.5, z: 20 },
+  { id: "jobs", from: YANKEE_EMAIL, subject: "open roles", rotate: -1, z: 30 },
 ];
 
 const heroPhotos = [
@@ -62,7 +63,7 @@ const heroPhotos = [
 
 const Contact = () => (
   <Layout>
-    <section className="relative -mt-24 pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden dotted-bg">
+    <section className="relative -mt-12 md:-mt-14 pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden dotted-bg">
       <div className="absolute inset-0 bg-background/85" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
         <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] gap-8 lg:gap-6 xl:gap-8 items-center">
@@ -73,7 +74,7 @@ const Contact = () => (
               transition={{ duration: 0.5 }}
               className="flex justify-center lg:justify-start"
             >
-              <span className="inline-flex rounded-2xl rounded-bl-md bg-folk-bubble px-3.5 py-2 text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+              <span className="yankee-surface inline-flex rounded-2xl rounded-bl-md bg-folk-bubble px-3.5 py-2 text-[13px] leading-snug text-folk-bubble-foreground lowercase">
                 we read everything
               </span>
             </motion.div>
@@ -104,17 +105,14 @@ const Contact = () => (
               className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-3"
             >
               <a
-                href="mailto:hello@yankee.app"
-                className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
-                  folk-cta
-                  shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
-                  hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+                href={YANKEE_MAILTO}
+                className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
               >
-                email hello@ <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                email yankee@ <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
               </a>
               <a
                 href="#channels"
-                className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+                className="yankee-surface yankee-surface--control inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full bg-card text-[14px] font-medium text-foreground lowercase hover:-translate-y-1 transition-all"
               >
                 all channels
               </a>
@@ -126,21 +124,21 @@ const Contact = () => (
               <div className="relative h-[200px] md:h-[230px]">
                 {inboxPreview.map((card, i) => (
                   <motion.div
-                    key={card.from}
+                    key={card.id}
                     initial={{ opacity: 0, y: 28, rotate: card.rotate + 4 }}
                     animate={{ opacity: 1, y: i * 18, rotate: card.rotate }}
                     transition={{ duration: 0.7, delay: 0.15 + i * 0.1, ease }}
                     whileHover={{ y: i * 18 - 10, scale: 1.02, zIndex: 40 }}
-                    className="absolute left-0 right-0 rounded-[1.35rem] border-2 border-foreground bg-card p-5 shadow-[5px_5px_0_0_hsl(var(--foreground))] cursor-default"
+                    className="yankee-surface absolute left-0 right-0 rounded-[1.35rem] bg-card p-5 cursor-default"
                     style={{ zIndex: card.z, top: 8 }}
                   >
                     <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3 min-w-0">
-                        <span className="w-9 h-9 shrink-0 rounded-xl border-2 border-foreground bg-primary text-primary-foreground flex items-center justify-center">
+                        <span className="w-9 h-9 shrink-0 rounded-xl border border-foreground/15 bg-primary text-primary-foreground flex items-center justify-center">
                           <Mail size={15} />
                         </span>
                         <div className="min-w-0">
-                          <p className="text-[13px] font-semibold lowercase truncate">{card.from}yankee.app</p>
+                          <p className="text-[13px] font-semibold lowercase truncate">{card.from}</p>
                           <p className="text-[12px] text-muted-foreground lowercase truncate">{card.subject}</p>
                         </div>
                       </div>
@@ -158,7 +156,7 @@ const Contact = () => (
                     animate={{ opacity: 1, y: 0, rotate: photo.rotate }}
                     transition={{ duration: 0.55, delay: 0.45 + i * 0.08, ease }}
                     whileHover={{ y: -8, rotate: 0, scale: 1.05, zIndex: 50 }}
-                    className="flex-1 rounded-[1rem] border-2 border-foreground bg-card p-1.5 shadow-[4px_4px_0_0_hsl(var(--foreground))] cursor-pointer"
+                    className="yankee-surface flex-1 rounded-[1rem] bg-card p-1.5 cursor-pointer"
                   >
                     <div className="rounded-[0.7rem] overflow-hidden aspect-square bg-muted">
                       <img src={photo.src} alt="" className="w-full h-full object-cover" />
@@ -172,7 +170,7 @@ const Contact = () => (
       </div>
     </section>
 
-    <section id="channels" className="relative py-20 md:py-28 dotted-bg scroll-mt-24">
+    <section id="channels" className="relative py-20 md:py-28 dotted-bg scroll-mt-16">
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[900px] mx-auto px-5 md:px-6">
         <AnimatedSection className="text-center mb-12 md:mb-14">
@@ -183,7 +181,7 @@ const Contact = () => (
           </h2>
         </AnimatedSection>
 
-        <div className="rounded-[1.75rem] border-2 border-foreground bg-card overflow-hidden shadow-[6px_6px_0_0_hsl(var(--foreground))]">
+        <div className="yankee-surface rounded-[1.75rem] bg-card overflow-hidden">
           {channels.map((c, i) => {
             const Icon = c.icon;
             return (
@@ -192,12 +190,10 @@ const Contact = () => (
                   href={c.href}
                   target={c.href.startsWith("http") ? "_blank" : undefined}
                   rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className={`group flex items-center justify-between gap-4 p-5 md:p-6 hover:bg-folk-panel transition-colors ${
-                    i < channels.length - 1 ? "border-b-2 border-foreground" : ""
-                  }`}
+                  className={`group flex items-center justify-between gap-4 p-5 md:p-6 hover:bg-folk-panel transition-colors ${ i < channels.length - 1 ? "border-b-2 border-foreground" : "" }`}
                 >
                   <div className="flex items-center gap-4 min-w-0">
-                    <div className="w-10 h-10 shrink-0 rounded-xl border-2 border-foreground bg-background flex items-center justify-center shadow-[2px_2px_0_0_hsl(var(--foreground))]">
+                    <div className="yankee-surface w-10 h-10 shrink-0 rounded-xl bg-background flex items-center justify-center">
                       <Icon size={16} className="text-foreground" />
                     </div>
                     <div className="min-w-0">
@@ -210,7 +206,7 @@ const Contact = () => (
                       <p className="text-[13px] text-muted-foreground lowercase truncate">{c.handle}</p>
                     </div>
                   </div>
-                  <span className="inline-flex items-center justify-center w-9 h-9 shrink-0 rounded-full border-2 border-foreground bg-primary text-primary-foreground shadow-[2px_2px_0_0_hsl(var(--foreground))] group-hover:translate-x-[1px] group-hover:-translate-y-[1px] transition-transform">
+                  <span className="yankee-surface yankee-surface--control inline-flex items-center justify-center w-9 h-9 shrink-0 rounded-full bg-primary text-primary-foreground group-hover:translate-x-[1px] group-hover:-translate-y-[1px] transition-transform">
                     <ArrowUpRight size={15} />
                   </span>
                 </a>
@@ -239,13 +235,13 @@ const Contact = () => (
               <AnimatedSection key={h.t} delay={i * 0.06}>
                 <motion.div
                   whileHover={{ y: -3 }}
-                  className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 flex flex-col gap-5 shadow-[4px_4px_0_0_hsl(var(--foreground))]"
+                  className="yankee-surface h-full rounded-[1.5rem] bg-card p-6 flex flex-col gap-5"
                 >
-                  <span className="inline-block self-start px-3.5 py-2 text-[13px] leading-snug lowercase rounded-2xl rounded-bl-md bg-folk-bubble text-white shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                  <span className="yankee-surface inline-block self-start px-3.5 py-2 text-[13px] leading-snug lowercase rounded-2xl rounded-bl-md bg-folk-bubble text-white">
                     {h.bubble}
                   </span>
                   <div className="mt-auto">
-                    <div className="w-9 h-9 rounded-xl border-2 border-foreground bg-primary text-primary-foreground flex items-center justify-center mb-4">
+                    <div className="w-9 h-9 rounded-xl border border-foreground/15 bg-primary text-primary-foreground flex items-center justify-center mb-4">
                       <Icon size={16} />
                     </div>
                     <h3 className="text-[16px] font-semibold lowercase tracking-tight">{h.t}</h3>
@@ -264,8 +260,8 @@ const Contact = () => (
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
         <div className="grid md:grid-cols-2 gap-4">
           <AnimatedSection>
-            <div className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-7 md:p-8 shadow-[4px_4px_0_0_hsl(var(--foreground))]">
-              <div className="w-9 h-9 rounded-xl border-2 border-foreground bg-primary text-primary-foreground flex items-center justify-center mb-5">
+            <div className="yankee-surface h-full rounded-[1.5rem] bg-card p-7 md:p-8">
+              <div className="w-9 h-9 rounded-xl border border-foreground/15 bg-primary text-primary-foreground flex items-center justify-center mb-5">
                 <Globe2 size={16} />
               </div>
               <p className="font-serif-display italic text-[1.1rem] text-foreground/50 lowercase">office</p>
@@ -284,8 +280,8 @@ const Contact = () => (
             </div>
           </AnimatedSection>
           <AnimatedSection delay={0.08}>
-            <div className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-7 md:p-8 shadow-[4px_4px_0_0_hsl(var(--foreground))]">
-              <div className="w-9 h-9 rounded-xl border-2 border-foreground bg-primary text-primary-foreground flex items-center justify-center mb-5">
+            <div className="yankee-surface h-full rounded-[1.5rem] bg-card p-7 md:p-8">
+              <div className="w-9 h-9 rounded-xl border border-foreground/15 bg-primary text-primary-foreground flex items-center justify-center mb-5">
                 <Clock size={16} />
               </div>
               <p className="font-serif-display italic text-[1.1rem] text-foreground/50 lowercase">response time</p>
@@ -310,21 +306,18 @@ const Contact = () => (
             <span className="font-serif-display italic font-medium">where to write?</span>
           </h2>
           <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto">
-            start with hello@. we&apos;ll route it to the right person.
+            start with yankee@. we&apos;ll route it to the right person.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <a
-              href="mailto:hello@yankee.app"
-              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
-                folk-cta
-                shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
-                hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+              href={YANKEE_MAILTO}
+              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
             >
-              hello@yankee.app <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+              yankee@foretheist.com <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
             </a>
             <Link
               to="/story"
-              className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+              className="yankee-surface yankee-surface--control inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full bg-card text-[14px] font-medium text-foreground lowercase hover:-translate-y-1 transition-all"
             >
               read our story
             </Link>

@@ -72,14 +72,12 @@ const MemoryHeroScene = () => {
           initial={{ opacity: 0, y: 24, rotate: -2 }}
           animate={{ opacity: 1, y: 0, rotate: -1.5 }}
           transition={{ duration: 0.6, ease }}
-          className="md:col-span-5 relative rounded-[1.5rem] border-2 border-foreground bg-card overflow-hidden shadow-[5px_5px_0_0_hsl(var(--foreground))] min-h-[220px] p-5 flex flex-col"
+          className="yankee-surface md:col-span-5 relative rounded-[1.5rem] bg-card overflow-hidden min-h-[220px] p-5 flex flex-col"
         >
           <div className="flex items-center justify-between gap-2">
             <p className="text-[11px] text-foreground/50 lowercase">your library</p>
             <span
-              className={`inline-flex items-center gap-1 rounded-full border-2 border-foreground px-2 py-0.5 text-[10px] lowercase ${
-                save.kind === "shared" ? "bg-folk-bubble text-white" : "bg-card text-foreground"
-              }`}
+              className={`yankee-surface yankee-surface--control inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] lowercase ${ save.kind === "shared" ? "bg-folk-bubble text-white" : "bg-card text-foreground" }`}
             >
               {save.kind === "shared" ? <Share2 size={10} /> : <Lock size={10} />}
               {save.kind}
@@ -127,7 +125,7 @@ const MemoryHeroScene = () => {
           initial={{ opacity: 0, y: 24, rotate: 2 }}
           animate={{ opacity: 1, y: 0, rotate: 1.5 }}
           transition={{ duration: 0.6, delay: 0.1, ease }}
-          className="md:col-span-7 rounded-[1.5rem] border-2 border-foreground bg-card shadow-[5px_5px_0_0_hsl(var(--foreground))] min-h-[220px] p-5 md:p-6 flex flex-col"
+          className="yankee-surface md:col-span-7 rounded-[1.5rem] bg-card min-h-[220px] p-5 md:p-6 flex flex-col"
         >
           <p className="text-[11px] text-foreground/50 lowercase mb-4">ask yankee</p>
 
@@ -142,7 +140,7 @@ const MemoryHeroScene = () => {
                   transition={{ duration: 0.4, ease }}
                   className="self-end max-w-[92%]"
                 >
-                  <div className="rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                  <div className="yankee-surface rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[13px] leading-snug text-folk-bubble-foreground lowercase">
                     {recall.q}
                   </div>
                 </motion.div>
@@ -159,7 +157,7 @@ const MemoryHeroScene = () => {
                   transition={{ duration: 0.4, ease }}
                   className="self-start max-w-[92%]"
                 >
-                  <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-folk-bubble-soft px-3.5 py-2.5 text-[13px] leading-snug lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                  <div className="yankee-surface rounded-2xl rounded-bl-md bg-folk-bubble-soft px-3.5 py-2.5 text-[13px] leading-snug lowercase">
                     {recall.a}
                   </div>
                 </motion.div>
@@ -175,15 +173,15 @@ const MemoryHeroScene = () => {
         transition={{ duration: 0.55, delay: 0.2, ease }}
         className="mt-3 md:mt-4"
       >
-        <div className="flex items-center gap-2 rounded-full border-2 border-foreground bg-card px-2 py-2 shadow-[4px_4px_0_0_hsl(var(--foreground))]">
-          <span className="w-9 h-9 shrink-0 rounded-full border-2 border-foreground/30 bg-background flex items-center justify-center text-foreground/40 text-[18px]">
+        <div className="yankee-surface yankee-surface--control flex items-center gap-2 rounded-full bg-card px-2 py-2">
+          <span className="yankee-surface yankee-surface--control w-9 h-9 shrink-0 rounded-full bg-background flex items-center justify-center text-foreground/40 text-[18px]">
             +
           </span>
           <p className="flex-1 min-w-0 px-2 text-[13px] md:text-[14px] text-foreground lowercase truncate">
             {typed}
             <span className="inline-block w-[2px] h-[1em] align-[-0.1em] ml-0.5 bg-foreground/70 animate-pulse" />
           </p>
-          <span className="w-9 h-9 shrink-0 rounded-full bg-folk-bubble text-white flex items-center justify-center shadow-[2px_2px_0_0_hsl(var(--foreground))]">
+          <span className="yankee-surface yankee-surface--control w-9 h-9 shrink-0 rounded-full bg-folk-bubble text-white flex items-center justify-center">
             <ArrowUp size={15} />
           </span>
         </div>

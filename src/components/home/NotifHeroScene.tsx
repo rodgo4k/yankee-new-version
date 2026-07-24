@@ -47,11 +47,11 @@ const NotifHeroScene = () => {
         initial={{ opacity: 0, y: 28, rotate: 2 }}
         animate={{ opacity: 1, y: 0, rotate: 1.5 }}
         transition={{ duration: 0.7, ease }}
-        className="rounded-[1.75rem] border-2 border-foreground bg-card p-4 md:p-5 shadow-[6px_6px_0_0_hsl(var(--foreground))]"
+        className="yankee-surface rounded-[1.75rem] bg-card p-4 md:p-5"
       >
         <div className="flex items-center justify-between gap-3 px-1 mb-4">
           <div className="flex items-center gap-2">
-            <span className="w-9 h-9 rounded-xl border-2 border-foreground bg-primary text-primary-foreground flex items-center justify-center">
+            <span className="w-9 h-9 rounded-xl border border-foreground/15 bg-primary text-primary-foreground flex items-center justify-center">
               {quietOn ? <BellOff size={16} /> : <Bell size={16} />}
             </span>
             <div>
@@ -68,7 +68,7 @@ const NotifHeroScene = () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
-                className="rounded-full border-2 border-foreground bg-folk-bubble-soft px-2.5 py-1 text-[11px] lowercase"
+                className="yankee-surface yankee-surface--control rounded-full bg-folk-bubble-soft px-2.5 py-1 text-[11px] lowercase"
               >
                 quiet
               </motion.span>
@@ -92,13 +92,7 @@ const NotifHeroScene = () => {
                   scale: muted ? 0.98 : 1,
                 }}
                 transition={{ duration: 0.35, ease }}
-                className={`relative rounded-[1.1rem] border-2 border-foreground p-3.5 ${
-                  muted
-                    ? "bg-background"
-                    : n.kind === "allow"
-                      ? "bg-folk-bubble-soft"
-                      : "bg-background"
-                }`}
+                className={`yankee-surface relative rounded-[1.1rem] p-3.5 ${ muted ? "bg-background" : n.kind === "allow" ? "bg-folk-bubble-soft" : "bg-background" }`}
               >
                 <div className="flex items-center justify-between gap-2 text-[11px] lowercase">
                   <span className={muted ? "text-foreground/40 line-through" : "text-foreground/55"}>
@@ -107,19 +101,17 @@ const NotifHeroScene = () => {
                   <span className={muted ? "text-foreground/35" : "text-foreground/45"}>{n.when}</span>
                 </div>
                 <p
-                  className={`mt-1.5 text-[13px] leading-snug lowercase ${
-                    muted ? "text-foreground/40 line-through" : "text-foreground"
-                  }`}
+                  className={`mt-1.5 text-[13px] leading-snug lowercase ${ muted ? "text-foreground/40 line-through" : "text-foreground" }`}
                 >
                   {n.text}
                 </p>
                 {muted && (
-                  <span className="absolute -top-2 -right-2 rounded-full border-2 border-foreground bg-card px-2 py-0.5 text-[10px] lowercase shadow-[2px_2px_0_0_hsl(var(--foreground))]">
+                  <span className="yankee-surface yankee-surface--control absolute -top-2 -right-2 rounded-full bg-card px-2 py-0.5 text-[10px] lowercase">
                     silenced
                   </span>
                 )}
                 {!muted && filtering && n.kind === "allow" && (
-                  <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full border-2 border-foreground bg-folk-success flex items-center justify-center shadow-[2px_2px_0_0_hsl(var(--foreground))]">
+                  <span className="yankee-surface yankee-surface--control absolute -top-2 -right-2 w-6 h-6 rounded-full bg-folk-success flex items-center justify-center">
                     <Check size={11} />
                   </span>
                 )}
@@ -149,7 +141,7 @@ const NotifHeroScene = () => {
         transition={{ duration: 0.5, delay: 0.35 }}
         className="absolute -left-2 md:-left-6 top-[22%] z-10 max-w-[55%]"
       >
-        <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-folk-bubble-soft px-3 py-2 text-[12px] leading-snug lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+        <div className="yankee-surface rounded-2xl rounded-bl-md bg-folk-bubble-soft px-3 py-2 text-[12px] leading-snug lowercase">
           dms & mentions always land
         </div>
       </motion.div>

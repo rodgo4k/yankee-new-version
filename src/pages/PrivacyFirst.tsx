@@ -168,7 +168,7 @@ const faqs = [
 
 const PrivacyFirst = () => (
   <Layout>
-    <section className="relative -mt-24 pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden dotted-bg">
+    <section className="relative -mt-12 md:-mt-14 pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden dotted-bg">
       <div className="absolute inset-0 bg-background/85" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
         <div className="max-w-[720px] mx-auto text-center">
@@ -208,16 +208,13 @@ const PrivacyFirst = () => (
           >
             <Link
               to="/contact"
-              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
-                folk-cta
-                shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
-                hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
             >
               ask us anything <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
             </Link>
             <Link
               to="/privacy"
-              className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+              className="yankee-surface yankee-surface--control inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full bg-card text-[14px] font-medium text-foreground lowercase hover:-translate-y-1 transition-all"
             >
               read the policy
             </Link>
@@ -253,9 +250,9 @@ const PrivacyFirst = () => (
               <AnimatedSection key={p.title} delay={i * 0.06}>
                 <motion.div
                   whileHover={{ y: -3 }}
-                  className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))]"
+                  className="yankee-surface h-full rounded-[1.5rem] bg-card p-6"
                 >
-                  <div className="w-10 h-10 rounded-xl border-2 border-foreground bg-primary text-primary-foreground flex items-center justify-center mb-5">
+                  <div className="w-10 h-10 rounded-xl border border-foreground/15 bg-primary text-primary-foreground flex items-center justify-center mb-5">
                     <Icon size={18} />
                   </div>
                   <h3 className="text-[15px] font-semibold lowercase tracking-tight">{p.title}</h3>
@@ -284,7 +281,7 @@ const PrivacyFirst = () => (
             <AnimatedSection key={b.kicker} delay={i * 0.08}>
               <motion.div
                 whileHover={{ y: -3 }}
-                className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 md:p-7 flex flex-col gap-5 shadow-[4px_4px_0_0_hsl(var(--foreground))]"
+                className="yankee-surface h-full rounded-[1.5rem] bg-card p-6 md:p-7 flex flex-col gap-5"
               >
                 <p className="font-serif-display italic text-[1.05rem] text-foreground/45 lowercase leading-none">
                   {b.kicker}
@@ -297,11 +294,7 @@ const PrivacyFirst = () => (
                   {b.chat.map((m, j) => (
                     <div key={j} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>
                       <span
-                        className={`inline-block max-w-[90%] px-3.5 py-2 text-[12.5px] md:text-[13px] leading-snug lowercase rounded-2xl ${
-                          m.from === "you"
-                            ? "bg-folk-bubble text-white rounded-br-md shadow-[3px_3px_0_0_hsl(var(--foreground))]"
-                            : "bg-folk-bubble-soft text-foreground rounded-bl-md border-2 border-foreground shadow-[3px_3px_0_0_hsl(var(--foreground))]"
-                        }`}
+                        className={`yankee-surface inline-block max-w-[90%] px-3.5 py-2 text-[12.5px] md:text-[13px] leading-snug lowercase rounded-2xl ${ m.from === "you" ? "bg-folk-bubble text-white rounded-br-md " : "bg-folk-bubble-soft text-foreground rounded-bl-md " }`}
                       >
                         {m.text}
                       </span>
@@ -338,7 +331,7 @@ const PrivacyFirst = () => (
                 <AnimatedSection key={item.term} delay={i * 0.05}>
                   <motion.div
                     whileHover={{ y: -3 }}
-                    className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-5 md:p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col"
+                    className="yankee-surface h-full rounded-[1.5rem] bg-card p-5 md:p-6 flex flex-col"
                   >
                     <h3 className="text-[15px] font-semibold lowercase tracking-tight leading-snug">{item.term}</h3>
                     <p className="mt-3 text-[13px] text-muted-foreground leading-relaxed lowercase flex-1">{item.def}</p>
@@ -366,7 +359,7 @@ const PrivacyFirst = () => (
             <AnimatedSection key={s.n} delay={i * 0.08}>
               <motion.div
                 whileHover={{ y: -3 }}
-                className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col"
+                className="yankee-surface h-full rounded-[1.5rem] bg-card p-6 flex flex-col"
               >
                 <span className="font-serif-display italic text-[1.5rem] text-foreground/35 leading-none">{s.n}</span>
                 <h3 className="mt-5 text-[17px] font-semibold lowercase tracking-tight">{s.t}</h3>
@@ -382,10 +375,10 @@ const PrivacyFirst = () => (
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
         <AnimatedSection>
-          <div className="rounded-[1.75rem] border-2 border-foreground bg-card overflow-hidden shadow-[6px_6px_0_0_hsl(var(--foreground))]">
+          <div className="yankee-surface rounded-[1.75rem] bg-card overflow-hidden">
             <div className="grid lg:grid-cols-12 gap-0 items-stretch">
               <div className="lg:col-span-7 p-7 md:p-10 flex flex-col justify-center">
-                <span className="inline-flex self-start items-center gap-2 rounded-full border-2 border-foreground px-3 py-1.5 text-[11px] lowercase">
+                <span className="yankee-surface yankee-surface--control inline-flex self-start items-center gap-2 rounded-full px-3 py-1.5 text-[11px] lowercase">
                   <Shield size={12} />
                   transparency
                 </span>
@@ -406,7 +399,7 @@ const PrivacyFirst = () => (
                     return (
                       <span
                         key={chip.label}
-                        className="inline-flex items-center gap-1.5 rounded-full border-2 border-foreground bg-background px-3 py-1.5 text-[12px] lowercase"
+                        className="yankee-surface yankee-surface--control inline-flex items-center gap-1.5 rounded-full bg-background px-3 py-1.5 text-[12px] lowercase"
                       >
                         <Icon size={12} />
                         {chip.label}
@@ -425,7 +418,7 @@ const PrivacyFirst = () => (
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4">
-                  <span className="inline-flex rounded-full border-2 border-foreground bg-card px-3 py-1.5 text-[12px] lowercase shadow-[2px_2px_0_0_hsl(var(--foreground))]">
+                  <span className="yankee-surface yankee-surface--control inline-flex rounded-full bg-card px-3 py-1.5 text-[12px] lowercase">
                     encrypted backup · eu or us
                   </span>
                 </div>
@@ -494,16 +487,13 @@ const PrivacyFirst = () => (
               >
                 <Link
                   to="/contact"
-                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
-                    folk-cta
-                    shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
-                    hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                 >
                   ask us anything <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
                 </Link>
                 <Link
                   to="/privacy"
-                  className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+                  className="yankee-surface yankee-surface--control inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full bg-card text-[14px] font-medium text-foreground lowercase hover:-translate-y-1 transition-all"
                 >
                   privacy policy
                 </Link>
@@ -517,7 +507,7 @@ const PrivacyFirst = () => (
                   whileInView={{ opacity: 1, y: 0, rotate: -1.5 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.7, delay: 0.12, ease }}
-                  className="ml-auto w-[92%] rounded-[1.5rem] border-2 border-foreground bg-card p-4 shadow-[6px_6px_0_0_hsl(var(--foreground))]"
+                  className="yankee-surface ml-auto w-[92%] rounded-[1.5rem] bg-card p-4"
                 >
                   <div className="rounded-[1.1rem] overflow-hidden aspect-[5/3] bg-muted">
                     <img
@@ -542,7 +532,7 @@ const PrivacyFirst = () => (
                   transition={{ duration: 0.55, delay: 0.3 }}
                   className="relative z-10 -mt-5 mr-auto max-w-[85%]"
                 >
-                  <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-folk-bubble-soft px-4 py-3 text-[13px] leading-snug lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+                  <div className="yankee-surface rounded-2xl rounded-bl-md bg-folk-bubble-soft px-4 py-3 text-[13px] leading-snug lowercase">
                     keys on your phone. blobs on ours.
                   </div>
                 </motion.div>

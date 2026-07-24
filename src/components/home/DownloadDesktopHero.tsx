@@ -2,7 +2,6 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Apple,
-  Smartphone,
   Clock,
   Users,
   MessageCircle,
@@ -155,20 +154,19 @@ const satellites: HeroSatellite[] = [
 
 type DownloadDesktopHeroProps = {
   iosHref: string;
-  androidHref: string;
 };
 
-const DownloadDesktopHero = ({ iosHref, androidHref }: DownloadDesktopHeroProps) => {
+const DownloadDesktopHero = ({ iosHref }: DownloadDesktopHeroProps) => {
   const [activeId, setActiveId] = useState<string | null>("feed");
   const active = peeks.find((p) => p.id === activeId) ?? null;
 
   return (
-    <section className="relative -mt-24 pt-28 md:pt-32 pb-14 md:pb-20 overflow-x-hidden dotted-bg">
+    <section className="relative -mt-12 md:-mt-14 min-h-[100svh] pt-14 md:pt-16 pb-6 md:pb-8 overflow-x-hidden dotted-bg flex flex-col">
       <div className="absolute inset-0 bg-background/80" />
 
-      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+      <div className="relative flex-1 flex flex-col justify-center max-w-[1200px] w-full mx-auto px-5 md:px-6">
         {/* Stage with edge satellites (desktop / tablet) */}
-        <div className="relative min-h-0 md:min-h-[720px] lg:min-h-[760px]">
+        <div className="relative flex-1 flex flex-col justify-center min-h-0 py-2">
           <HeroEdgeStickers satellites={satellites} />
 
           {/* Decorative float labels (non-blocking) */}
@@ -176,7 +174,7 @@ const DownloadDesktopHero = ({ iosHref, androidHref }: DownloadDesktopHeroProps)
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
-            className="hidden lg:block absolute top-[22%] left-[14%] z-[5] font-serif-display italic text-[13px] text-foreground/25 lowercase -rotate-6 pointer-events-none"
+            className="hidden lg:block absolute top-[18%] left-[14%] z-[5] font-serif-display italic text-[13px] text-foreground/25 lowercase -rotate-6 pointer-events-none"
           >
             no algorithm
           </motion.span>
@@ -184,19 +182,19 @@ const DownloadDesktopHero = ({ iosHref, androidHref }: DownloadDesktopHeroProps)
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
-            className="hidden lg:block absolute top-[24%] right-[12%] z-[5] font-serif-display italic text-[13px] text-foreground/25 lowercase rotate-6 pointer-events-none"
+            className="hidden lg:block absolute top-[20%] right-[12%] z-[5] font-serif-display italic text-[13px] text-foreground/25 lowercase rotate-6 pointer-events-none"
           >
             finite scroll
           </motion.span>
 
           {/* Center column — pointer-events only on interactive bits so edge stickers work */}
-          <div className="relative z-20 pointer-events-none">
-            <div className="text-center max-w-xl mx-auto pointer-events-auto">
+          <div className="relative z-20 pointer-events-none flex flex-col items-center">
+            <div className="text-center max-w-xl mx-auto pointer-events-auto shrink-0">
               <motion.p
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="font-serif-display italic text-[1.15rem] md:text-[1.35rem] text-foreground/45 lowercase"
+                className="font-serif-display italic text-[1rem] md:text-[1.15rem] text-foreground/45 lowercase"
               >
                 download
               </motion.p>
@@ -204,7 +202,7 @@ const DownloadDesktopHero = ({ iosHref, androidHref }: DownloadDesktopHeroProps)
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.75, delay: 0.06, ease }}
-                className="mt-2 text-[3rem] sm:text-6xl md:text-[5rem] font-semibold text-foreground tracking-tight leading-[0.9] lowercase"
+                className="mt-1 text-[2.4rem] sm:text-5xl md:text-[3.5rem] font-semibold text-foreground tracking-tight leading-[0.9] lowercase"
               >
                 <span className="font-serif-display italic font-medium">yankee</span>
               </motion.h1>
@@ -212,7 +210,7 @@ const DownloadDesktopHero = ({ iosHref, androidHref }: DownloadDesktopHeroProps)
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.55, delay: 0.16 }}
-                className="mt-4 text-[15px] md:text-[17px] text-muted-foreground lowercase"
+                className="mt-2.5 text-[13px] md:text-[15px] text-muted-foreground lowercase max-w-md mx-auto"
               >
                 the quieter social app. hover icons — and the stickers around the edges.
               </motion.p>
@@ -221,71 +219,42 @@ const DownloadDesktopHero = ({ iosHref, androidHref }: DownloadDesktopHeroProps)
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.55, delay: 0.26 }}
-                className="mt-7 flex flex-wrap items-center justify-center gap-3"
+                className="mt-4 flex flex-wrap items-center justify-center gap-3"
               >
                 <a
                   href={iosHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2.5 px-5 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
-                    folk-cta
-                    shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
-                    hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+                  className="group inline-flex items-center gap-2.5 px-5 py-3 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                 >
                   <Apple size={16} /> download for ios
                 </a>
-                <a
-                  href={androidHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 px-5 py-3.5 rounded-full border-2 border-foreground bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
-                >
-                  <Smartphone size={15} /> android
-                </a>
               </motion.div>
-
-              <p className="mt-4 text-[12px] text-muted-foreground lowercase">
-                ios 16+ · android 10+
-              </p>
             </div>
 
-            {/* Main preview stage */}
-            <div className="mt-10 md:mt-12 relative mx-auto max-w-[400px] min-h-[260px] md:min-h-[300px] pointer-events-auto">
+            {/* Main preview stage — phone frame (viewport-capped) */}
+            <div className="mt-4 md:mt-5 relative mx-auto w-[min(150px,28vw)] sm:w-[min(168px,22vw)] md:w-[min(180px,18vw)] pointer-events-auto shrink-0">
               <AnimatePresence mode="wait">
                 {active ? (
                   <motion.div
                     key={active.id}
-                    initial={{ opacity: 0, y: 18, scale: 0.94 }}
+                    initial={{ opacity: 0, y: 12, scale: 0.96 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -10, scale: 0.96 }}
+                    exit={{ opacity: 0, y: -8, scale: 0.97 }}
                     transition={{ type: "spring", stiffness: 380, damping: 28 }}
                     className="w-full"
                   >
-                    <div className="rounded-[1.35rem] border-2 border-foreground bg-card overflow-hidden shadow-[6px_6px_0_0_hsl(var(--foreground))]">
-                      <div className="flex items-center justify-between gap-2 px-3.5 py-2.5 border-b-2 border-foreground bg-folk-panel">
-                        <div className="flex items-center gap-1.5">
-                          <button
-                            type="button"
-                            aria-label="Close preview"
-                            onClick={() => setActiveId(null)}
-                            className="w-2.5 h-2.5 rounded-full bg-[#FF6B6B] border border-foreground/40 hover:scale-110 transition-transform"
-                          />
-                          <span className="w-2.5 h-2.5 rounded-full bg-[#FFD166] border border-foreground/40" />
-                          <span className="w-2.5 h-2.5 rounded-full bg-folk-success border border-foreground/40" />
-                        </div>
-                        <p className="text-[11px] lowercase text-foreground/60 truncate font-medium">
-                          {active.filename}
-                        </p>
-                        <button
-                          type="button"
-                          aria-label="Close"
-                          onClick={() => setActiveId(null)}
-                          className="text-foreground/50 hover:text-foreground transition-colors"
-                        >
-                          <X size={13} />
-                        </button>
-                      </div>
-                      <div className="relative aspect-[4/3] bg-muted overflow-hidden">
+                    <div className="yankee-surface relative rounded-[1.55rem] bg-card p-1.5">
+                      <button
+                        type="button"
+                        aria-label="Close preview"
+                        onClick={() => setActiveId(null)}
+                        className="yankee-surface yankee-surface--control absolute -top-2 -right-2 z-20 w-6 h-6 rounded-full bg-card text-foreground/55 hover:text-foreground flex items-center justify-center"
+                      >
+                        <X size={12} />
+                      </button>
+                      <div className="relative aspect-[9/17] max-h-[min(38svh,300px)] rounded-[1.2rem] bg-muted overflow-hidden mx-auto">
+                        <span className="absolute left-1/2 -translate-x-1/2 top-1.5 z-10 w-12 h-3 rounded-full bg-foreground/90 pointer-events-none" />
                         <img
                           src={active.media}
                           alt={active.label}
@@ -293,15 +262,15 @@ const DownloadDesktopHero = ({ iosHref, androidHref }: DownloadDesktopHeroProps)
                         />
                         {active.kind === "video-look" && (
                           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                            <span className="w-11 h-11 rounded-full border-2 border-foreground bg-card/90 flex items-center justify-center shadow-[2px_2px_0_0_hsl(var(--foreground))]">
-                              <span className="ml-0.5 w-0 h-0 border-y-[7px] border-y-transparent border-l-[11px] border-l-foreground" />
+                            <span className="yankee-surface yankee-surface--control w-9 h-9 rounded-full bg-card/90 flex items-center justify-center">
+                              <span className="ml-0.5 w-0 h-0 border-y-[6px] border-y-transparent border-l-[9px] border-l-foreground" />
                             </span>
                           </div>
                         )}
                       </div>
                     </div>
-                    <p className="mt-2 text-center text-[12px] text-foreground/45 lowercase">
-                      {active.filename}
+                    <p className="mt-1.5 text-center text-[11px] text-foreground/45 lowercase">
+                      {active.label}
                     </p>
                   </motion.div>
                 ) : (
@@ -310,10 +279,10 @@ const DownloadDesktopHero = ({ iosHref, androidHref }: DownloadDesktopHeroProps)
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="h-full min-h-[260px] md:min-h-[300px] rounded-[1.35rem] border-2 border-dashed border-foreground/25 bg-card/40 flex items-center justify-center px-6"
+                    className="aspect-[9/17] max-h-[min(38svh,300px)] rounded-[1.55rem] border-2 border-dashed border-foreground/25 bg-card/40 flex items-center justify-center px-4"
                   >
-                    <p className="text-[14px] text-muted-foreground lowercase text-center">
-                      hover an icon below to open a preview
+                    <p className="text-[12px] text-muted-foreground lowercase text-center">
+                      hover an icon below
                     </p>
                   </motion.div>
                 )}
@@ -321,7 +290,7 @@ const DownloadDesktopHero = ({ iosHref, androidHref }: DownloadDesktopHeroProps)
             </div>
 
             {/* Icon rail */}
-            <div className="mt-8 md:mt-10 flex flex-wrap items-start justify-center gap-3 md:gap-4 pointer-events-auto">
+            <div className="mt-4 md:mt-5 flex flex-wrap items-start justify-center gap-2.5 md:gap-3.5 pointer-events-auto shrink-0">
               {peeks.map((peek, i) => {
                 const Icon = peek.icon;
                 const isActive = activeId === peek.id;
@@ -338,21 +307,15 @@ const DownloadDesktopHero = ({ iosHref, androidHref }: DownloadDesktopHeroProps)
                     onMouseEnter={() => setActiveId(peek.id)}
                     onFocus={() => setActiveId(peek.id)}
                     onClick={() => setActiveId(peek.id)}
-                    className="flex flex-col items-center gap-1.5 group"
+                    className="flex flex-col items-center gap-1 group"
                   >
                     <span
-                      className={`w-12 h-12 md:w-14 md:h-14 rounded-[1rem] border-2 border-foreground flex items-center justify-center transition-all ${
-                        isActive
-                          ? "bg-folk-bubble text-folk-bubble-foreground shadow-[4px_4px_0_0_hsl(var(--foreground))]"
-                          : "bg-card text-foreground shadow-[3px_3px_0_0_hsl(var(--foreground))] group-hover:shadow-[4px_4px_0_0_hsl(var(--foreground))]"
-                      }`}
+                      className={`yankee-surface w-10 h-10 md:w-11 md:h-11 rounded-[0.9rem] flex items-center justify-center transition-all ${ isActive ? "bg-folk-bubble text-folk-bubble-foreground " : "bg-card text-foreground " }`}
                     >
-                      <Icon size={20} strokeWidth={2} />
+                      <Icon size={17} strokeWidth={2} />
                     </span>
                     <span
-                      className={`rounded-full border-2 border-foreground px-2.5 py-0.5 text-[10px] md:text-[11px] font-medium lowercase shadow-[2px_2px_0_0_hsl(var(--foreground))] ${
-                        isActive ? "bg-folk-bubble text-folk-bubble-foreground" : "bg-folk-panel text-foreground"
-                      }`}
+                      className={`yankee-surface yankee-surface--control rounded-full px-2 py-0.5 text-[9px] md:text-[10px] font-medium lowercase ${ isActive ? "bg-folk-bubble text-folk-bubble-foreground" : "bg-folk-panel text-foreground" }`}
                     >
                       {peek.label}
                     </span>
@@ -362,10 +325,6 @@ const DownloadDesktopHero = ({ iosHref, androidHref }: DownloadDesktopHeroProps)
             </div>
           </div>
         </div>
-
-        <p className="mt-6 text-center text-[12px] text-muted-foreground/70 lowercase hidden md:block">
-          tip: hover the little photos at the edges too
-        </p>
       </div>
     </section>
   );

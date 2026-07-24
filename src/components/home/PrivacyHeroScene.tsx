@@ -42,10 +42,10 @@ const PrivacyHeroScene = () => {
           initial={{ opacity: 0, y: 24, rotate: -2 }}
           animate={{ opacity: 1, y: 0, rotate: -1.5 }}
           transition={{ duration: 0.65, ease }}
-          className="rounded-[1.5rem] border-2 border-foreground bg-card p-5 md:p-6 shadow-[5px_5px_0_0_hsl(var(--foreground))] min-h-[240px] flex flex-col"
+          className="yankee-surface rounded-[1.5rem] bg-card p-5 md:p-6 min-h-[240px] flex flex-col"
         >
           <div className="flex items-center gap-2">
-            <span className="w-9 h-9 rounded-xl border-2 border-foreground bg-primary text-primary-foreground flex items-center justify-center">
+            <span className="w-9 h-9 rounded-xl border border-foreground/15 bg-primary text-primary-foreground flex items-center justify-center">
               <KeyRound size={15} />
             </span>
             <div>
@@ -87,7 +87,7 @@ const PrivacyHeroScene = () => {
               initial={false}
               animate={{ opacity: locked ? 1 : 0 }}
               transition={{ duration: 0.3 }}
-              className="inline-flex items-center gap-1.5 rounded-full border-2 border-foreground bg-folk-bubble-soft px-2.5 py-1 text-[11px] lowercase"
+              className="yankee-surface yankee-surface--control inline-flex items-center gap-1.5 rounded-full bg-folk-bubble-soft px-2.5 py-1 text-[11px] lowercase"
             >
               <Lock size={11} />
               encrypted on device
@@ -99,10 +99,10 @@ const PrivacyHeroScene = () => {
           initial={{ opacity: 0, y: 24, rotate: 2 }}
           animate={{ opacity: 1, y: 0, rotate: 1.5 }}
           transition={{ duration: 0.65, delay: 0.1, ease }}
-          className="rounded-[1.5rem] border-2 border-foreground bg-card p-5 md:p-6 shadow-[5px_5px_0_0_hsl(var(--foreground))] min-h-[240px] flex flex-col"
+          className="yankee-surface rounded-[1.5rem] bg-card p-5 md:p-6 min-h-[240px] flex flex-col"
         >
           <div className="flex items-center gap-2">
-            <span className="w-9 h-9 rounded-xl border-2 border-foreground bg-background flex items-center justify-center">
+            <span className="w-9 h-9 rounded-xl border border-foreground/15 bg-background flex items-center justify-center">
               <Server size={15} />
             </span>
             <div>
@@ -155,14 +155,14 @@ const PrivacyHeroScene = () => {
       </div>
 
       <div className="mt-3 md:mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2.5 min-h-[52px]">
-        <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-folk-bubble-soft px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] self-start max-w-[100%] sm:max-w-[95%]">
+        <div className="yankee-surface rounded-2xl rounded-bl-md bg-folk-bubble-soft px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug lowercase self-start max-w-[100%] sm:max-w-[95%]">
           subpoena? we hand over blobs. not your words.
         </div>
         <motion.div
           initial={false}
           animate={{ opacity: showHold ? 1 : 0, x: showHold ? 0 : 8 }}
           transition={{ duration: 0.35, ease }}
-          className="rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] self-end max-w-[100%] sm:max-w-[95%] sm:justify-self-end"
+          className="yankee-surface rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-folk-bubble-foreground lowercase self-end max-w-[100%] sm:max-w-[95%] sm:justify-self-end"
         >
           keys stay with you. always.
         </motion.div>

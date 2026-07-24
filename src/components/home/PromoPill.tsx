@@ -12,7 +12,7 @@ interface PromoPillProps {
 const PromoPill = ({ tag, text, to = "/features", className = "" }: PromoPillProps) => (
   <Link
     to={to}
-    className={`inline-flex items-center gap-2.5 pl-1.5 pr-4 py-1.5 rounded-full bg-card border-2 border-foreground/90 shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all ${className}`}
+    className={`yankee-surface yankee-surface--control inline-flex items-center gap-2.5 pl-1.5 pr-4 py-1.5 rounded-full bg-card transition-all ${className}`}
   >
     <PillTag>{tag}</PillTag>
     <span className="text-[13px] md:text-[14px] font-medium text-foreground tracking-tight lowercase">

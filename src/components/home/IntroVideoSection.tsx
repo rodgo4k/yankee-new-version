@@ -169,7 +169,7 @@ const IntroVideoSection = () => {
   const showCenterControl = !playing || showControls;
 
   return (
-    <section className="relative pt-16 md:pt-24 pb-8 md:pb-12 dotted-bg overflow-hidden">
+    <section className="relative pt-4 md:pt-5 pb-8 md:pb-12 dotted-bg overflow-hidden">
       <div className="absolute inset-0 bg-background/75" />
       <div className="relative max-w-[920px] mx-auto px-5 md:px-6">
         <AnimatedSection className="text-center max-w-xl mx-auto mb-8 md:mb-10">
@@ -187,7 +187,7 @@ const IntroVideoSection = () => {
             <motion.div
               whileHover={{ scale: hasPlayed && !playing ? 1 : 1.005 }}
               transition={{ duration: 0.18 }}
-              className="relative aspect-video rounded-[1.15rem] md:rounded-[1.35rem] overflow-hidden border-2 border-foreground bg-[#e9e8ea] shadow-[6px_6px_0_0_hsl(var(--foreground))]"
+              className="relative aspect-video rounded-[1.15rem] md:rounded-[1.35rem] overflow-hidden bg-[#e9e8ea] yankee-surface yankee-surface--lg"
             >
               <div
                 className="pointer-events-none absolute inset-0 z-10 rounded-[inherit] shadow-[inset_0_1px_1px_rgba(255,255,255,0.75)]"
@@ -245,9 +245,7 @@ const IntroVideoSection = () => {
               {/* Pause control while playing (shows on hover) */}
               {playing && (
                 <div
-                  className={`absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-200 ${
-                    showCenterControl ? "opacity-100" : "opacity-0 pointer-events-none"
-                  }`}
+                  className={`absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-200 ${ showCenterControl ? "opacity-100" : "opacity-0 pointer-events-none" }`}
                 >
                   <BeamPillButton tone="glass" shape="round" aria-label="pause" onClick={pause}>
                     <Pause size={22} className="fill-white text-white" />
@@ -266,9 +264,7 @@ const IntroVideoSection = () => {
 
               {hasPlayed && (
                 <div
-                  className={`absolute inset-x-0 bottom-0 z-[25] h-14 touch-none transition-opacity duration-200 ${
-                    controlsVisible ? "opacity-100" : "opacity-90"
-                  }`}
+                  className={`absolute inset-x-0 bottom-0 z-[25] h-14 touch-none transition-opacity duration-200 ${ controlsVisible ? "opacity-100" : "opacity-90" }`}
                 >
                   <div
                     role="slider"

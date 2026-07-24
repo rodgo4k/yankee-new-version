@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Heart, Mic, Plus } from "lucide-react";
@@ -13,7 +13,7 @@ const messages = [
 ];
 
 const comments = [
-  { name: "maya", text: "these are unreal ✨" },
+  { name: "maya", text: "these are unreal ?" },
   { name: "leo", text: "when are we going back?" },
   { name: "jisoo", text: "best trip of the year" },
   { name: "andre", text: "the vibes are insane" },
@@ -71,7 +71,7 @@ const HeroComposer = ({ loop = true, onSequenceComplete, hideCta = false }: Hero
 
   return (
     <div className="w-full max-w-[560px] mx-auto">
-      <div className="rounded-[2rem] md:rounded-[2.5rem] bg-card border-2 border-foreground shadow-[6px_6px_0_0_hsl(var(--foreground))] overflow-hidden">
+      <div className="yankee-surface yankee-surface--lg rounded-[2rem] md:rounded-[2.5rem] bg-card overflow-hidden">
         <div className="relative h-[300px] sm:h-[320px] md:h-[340px] overflow-hidden bg-card">
           <motion.div
             key={cycle}
@@ -108,11 +108,7 @@ const HeroComposer = ({ loop = true, onSequenceComplete, hideCta = false }: Hero
                       className={`flex ${b.side === "right" ? "justify-end" : "justify-start"}`}
                     >
                       <div
-                        className={`px-4 py-2.5 text-[14px] md:text-[15px] leading-snug lowercase rounded-[1.25rem] max-w-[85%] ${
-                          b.side === "right"
-                            ? "bg-folk-bubble text-folk-bubble-foreground rounded-br-md"
-                            : "bg-folk-bubble-soft text-foreground rounded-bl-md"
-                        }`}
+                        className={`px-4 py-2.5 text-[14px] md:text-[15px] leading-snug lowercase rounded-[1.25rem] max-w-[85%] ${ b.side === "right" ? "bg-folk-bubble text-folk-bubble-foreground rounded-br-md" : "bg-folk-bubble-soft text-foreground rounded-bl-md" }`}
                       >
                         {b.text}
                       </div>
@@ -168,11 +164,7 @@ const HeroComposer = ({ loop = true, onSequenceComplete, hideCta = false }: Hero
                       className={`flex ${i % 2 === 0 ? "justify-start" : "justify-end"}`}
                     >
                       <div
-                        className={`max-w-[88%] px-3.5 py-2 text-[12.5px] md:text-[13px] leading-snug lowercase rounded-2xl ${
-                          i % 2 === 0
-                            ? "bg-folk-bubble-soft text-foreground rounded-bl-md"
-                            : "bg-folk-bubble text-folk-bubble-foreground rounded-br-md"
-                        }`}
+                        className={`max-w-[88%] px-3.5 py-2 text-[12.5px] md:text-[13px] leading-snug lowercase rounded-2xl ${ i % 2 === 0 ? "bg-folk-bubble-soft text-foreground rounded-bl-md" : "bg-folk-bubble text-folk-bubble-foreground rounded-br-md" }`}
                       >
                         <span className="font-semibold">{c.name}</span> {c.text}
                       </div>
@@ -203,13 +195,11 @@ const HeroComposer = ({ loop = true, onSequenceComplete, hideCta = false }: Hero
         <div className="mt-5 md:mt-6 flex flex-col items-center gap-3">
           <Link
             to="/contact"
-            className="group relative inline-flex items-center justify-center px-8 py-3.5 md:px-10 md:py-4 rounded-full text-[15px] md:text-[16px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta
-              shadow-[0_14px_40px_-10px_rgba(37,99,235,0.65),inset_0_1px_0_rgba(255,255,255,0.35)]
-              hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+            className="group relative inline-flex items-center justify-center px-8 py-3.5 md:px-10 md:py-4 rounded-full text-[15px] md:text-[16px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.65),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
           >
             get yankee
           </Link>
-          <p className="text-[12px] md:text-[13px] text-foreground/55 lowercase">chronological · private · no algorithm</p>
+          <p className="text-[12px] md:text-[13px] text-foreground/55 lowercase">chronological � free � no switching</p>
         </div>
       )}
     </div>

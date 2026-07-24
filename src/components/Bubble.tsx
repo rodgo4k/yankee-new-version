@@ -30,9 +30,7 @@ export const PillTag = ({ children, className = "", variant = "dark", }: {
     children: ReactNode;
     className?: string;
     variant?: "dark" | "light";
-}) => (<span className={`inline-flex items-center px-3 py-1 rounded-full text-[11px] font-medium tracking-tight ${variant === "dark"
-        ? "bg-primary text-primary-foreground"
-        : "bg-card text-foreground border border-border"} ${className}`}>
+}) => (<span className={`inline-flex items-center px-3 py-1 rounded-full text-[11px] font-medium tracking-tight ${variant === "dark" ? "bg-primary text-primary-foreground" : "bg-card text-foreground border border-border"} ${className}`}>
     {children}
   </span>);
 export default SpeechBubble;

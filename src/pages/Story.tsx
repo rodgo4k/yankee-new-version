@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
 import AnimatedSection from "@/components/AnimatedSection";
+import StoryHeroVideo from "@/components/story/StoryHeroVideo";
 import rememberOffice from "@/assets/remember-office.jpg";
-import heroMountain from "@/assets/hero-mountain.jpg";
 import cafeFriends from "@/assets/cafe-friends.jpg";
 import familyField from "@/assets/family-field.jpg";
 import smallTeamCollab from "@/assets/small-team-collab.jpg";
@@ -83,9 +83,9 @@ const FolkPolaroid = ({
     whileHover={{ y: -4, rotate: 0 }}
     transition={{ duration: 0.35, ease }}
     style={{ rotate }}
-    className="rounded-[1.35rem] border-2 border-foreground bg-card p-3 pb-5 shadow-[5px_5px_0_0_hsl(var(--foreground))]"
+    className="yankee-surface rounded-[1.35rem] bg-card p-3 pb-5"
   >
-    <div className="rounded-[1rem] overflow-hidden aspect-[4/3] bg-muted border-2 border-foreground/10">
+    <div className="yankee-surface yankee-surface--media rounded-[1rem] overflow-hidden aspect-[4/3] bg-muted">
       <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
     </div>
     <p className="mt-4 text-center text-[13px] text-foreground/70 lowercase font-medium">{caption}</p>
@@ -94,7 +94,7 @@ const FolkPolaroid = ({
 
 const Story = () => (
   <Layout>
-    <section className="relative -mt-24 pt-28 md:pt-32 pb-16 md:pb-24 overflow-hidden">
+    <section className="relative -mt-12 md:-mt-14 pt-28 md:pt-32 pb-16 md:pb-24 overflow-hidden">
       <div className="absolute inset-0 dotted-bg" />
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/90 to-background" />
 
@@ -140,16 +140,13 @@ const Story = () => (
           >
             <Link
               to="/careers"
-              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
-                folk-cta
-                shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
-                hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
             >
               see open roles <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
             </Link>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+              className="yankee-surface yankee-surface--control inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full bg-card text-[14px] font-medium text-foreground lowercase hover:-translate-y-1 transition-all"
             >
               just say hi
             </Link>
@@ -162,18 +159,8 @@ const Story = () => (
           transition={{ duration: 0.85, delay: 0.22, ease }}
           className="mt-12 md:mt-16"
         >
-          <div className="rounded-[1.75rem] md:rounded-[2.25rem] border-2 border-foreground bg-card overflow-hidden shadow-[7px_7px_0_0_hsl(var(--foreground))]">
-            <div className="relative aspect-[16/11] md:aspect-[21/9] overflow-hidden">
-              <motion.img
-                src={heroMountain}
-                alt="Landscape — the pace we build at"
-                className="absolute inset-0 w-full h-full object-cover object-[50%_48%]"
-                initial={{ scale: 1.08 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 1.4, ease }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/25 via-transparent to-transparent" />
-            </div>
+          <div className="yankee-surface rounded-[1.75rem] md:rounded-[2.25rem] bg-card overflow-hidden">
+            <StoryHeroVideo />
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-5 md:px-8 py-4 md:py-5 border-t-2 border-foreground bg-folk-panel">
               <p className="text-[13px] md:text-[14px] font-medium text-foreground lowercase tracking-tight">
                 not another feed. a quieter way to stay close.
@@ -185,7 +172,7 @@ const Story = () => (
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: 0.55 + i * 0.08 }}
-                    className="inline-flex items-center gap-1.5 rounded-full border-2 border-foreground bg-card px-3 py-1 text-[11px] md:text-[12px] lowercase shadow-[2px_2px_0_0_hsl(var(--foreground))]"
+                    className="yankee-surface yankee-surface--control inline-flex items-center gap-1.5 rounded-full bg-card px-3 py-1 text-[11px] md:text-[12px] lowercase"
                   >
                     <span className="font-serif-display italic text-foreground/50">{m.year}</span>
                     <span className="font-medium text-foreground">{m.label}</span>
@@ -228,7 +215,7 @@ const Story = () => (
                 whileInView={{ opacity: 1, y: 0, rotate: -1.5 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, ease }}
-                className="rounded-[1.75rem] border-2 border-foreground bg-card p-3 shadow-[6px_6px_0_0_hsl(var(--foreground))] overflow-hidden aspect-[9/17]"
+                className="yankee-surface yankee-surface--media rounded-[1.75rem] bg-card p-3 overflow-hidden aspect-[9/17]"
               >
                 <img
                   src={homeFeed}
@@ -244,7 +231,7 @@ const Story = () => (
                 transition={{ duration: 0.5, delay: 0.25 }}
                 className="absolute -right-2 bottom-[20%] z-10 max-w-[75%]"
               >
-                <div className="rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[12px] leading-snug text-folk-bubble-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                <div className="yankee-surface rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[12px] leading-snug text-folk-bubble-foreground lowercase">
                   chronological · always
                 </div>
               </motion.div>
@@ -275,15 +262,15 @@ const Story = () => (
               >
                 <motion.div
                   whileHover={{ y: -3 }}
-                  className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 flex flex-col gap-5 shadow-[4px_4px_0_0_hsl(var(--foreground))]"
+                  className="yankee-surface h-full rounded-[1.5rem] bg-card p-6 flex flex-col gap-5"
                 >
                   <div className="flex justify-start">
-                    <span className="inline-block max-w-[95%] px-3.5 py-2 text-[13px] leading-snug lowercase rounded-2xl rounded-bl-md bg-folk-bubble text-white shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                    <span className="yankee-surface inline-block max-w-[95%] px-3.5 py-2 text-[13px] leading-snug lowercase rounded-2xl rounded-bl-md bg-folk-bubble text-white">
                       {p.bubble}
                     </span>
                   </div>
                   <div className="mt-auto">
-                    <div className="w-9 h-9 rounded-xl border-2 border-foreground bg-primary text-primary-foreground flex items-center justify-center mb-4">
+                    <div className="w-9 h-9 rounded-xl border border-foreground/15 bg-primary text-primary-foreground flex items-center justify-center mb-4">
                       <Icon size={16} />
                     </div>
                     <h3 className="text-[16px] font-semibold lowercase tracking-tight">{p.title}</h3>
@@ -349,7 +336,7 @@ const Story = () => (
             {teamRoles.map((role) => (
               <span
                 key={role}
-                className="inline-flex items-center px-4 py-1.5 rounded-full border-2 border-foreground bg-card text-[13px] font-medium text-foreground lowercase shadow-[2px_2px_0_0_hsl(var(--foreground))]"
+                className="yankee-surface yankee-surface--control inline-flex items-center px-4 py-1.5 rounded-full bg-card text-[13px] font-medium text-foreground lowercase"
               >
                 {role}
               </span>
@@ -363,7 +350,7 @@ const Story = () => (
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
         <AnimatedSection>
-          <div className="rounded-[1.75rem] border-2 border-foreground bg-card overflow-hidden shadow-[6px_6px_0_0_hsl(var(--foreground))]">
+          <div className="yankee-surface rounded-[1.75rem] bg-card overflow-hidden">
             <div className="grid lg:grid-cols-12 gap-0 items-stretch">
               <div className="lg:col-span-7 p-7 md:p-10 flex flex-col justify-center">
                 <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">yankee</p>
@@ -377,16 +364,13 @@ const Story = () => (
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Link
                     to="/careers"
-                    className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
-                      folk-cta
-                      shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
-                      hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+                    className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                   >
                     see open roles <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
                   </Link>
                   <Link
                     to="/contact"
-                    className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-background text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+                    className="yankee-surface yankee-surface--control inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full bg-background text-[14px] font-medium text-foreground lowercase hover:-translate-y-1 transition-all"
                   >
                     just say hi
                   </Link>
@@ -409,7 +393,7 @@ const Story = () => (
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4">
-                  <span className="inline-flex rounded-full border-2 border-foreground bg-card px-3 py-1.5 text-[12px] lowercase shadow-[2px_2px_0_0_hsl(var(--foreground))]">
+                  <span className="yankee-surface yankee-surface--control inline-flex rounded-full bg-card px-3 py-1.5 text-[12px] lowercase">
                     remote first · small by choice
                   </span>
                 </div>

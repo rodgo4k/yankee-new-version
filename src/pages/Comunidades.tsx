@@ -144,7 +144,7 @@ const faqs = [
 
 const Communities = () => (
   <Layout>
-    <section className="relative -mt-24 pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden dotted-bg">
+    <section className="relative -mt-12 md:-mt-14 pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden dotted-bg">
       <div className="absolute inset-0 bg-background/85" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
         <div className="max-w-[720px] mx-auto text-center">
@@ -184,16 +184,13 @@ const Communities = () => (
           >
             <Link
               to="/contact"
-              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
-                folk-cta
-                shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
-                hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
             >
               get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
             </Link>
             <Link
               to="/features"
-              className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+              className="yankee-surface yankee-surface--control inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full bg-card text-[14px] font-medium text-foreground lowercase hover:-translate-y-1 transition-all"
             >
               see how it works
             </Link>
@@ -231,9 +228,9 @@ const Communities = () => (
               <AnimatedSection key={p.title} delay={i * 0.06}>
                 <motion.div
                   whileHover={{ y: -3 }}
-                  className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))]"
+                  className="yankee-surface h-full rounded-[1.5rem] bg-card p-6"
                 >
-                  <div className="w-10 h-10 rounded-xl border-2 border-foreground bg-primary text-primary-foreground flex items-center justify-center mb-5">
+                  <div className="w-10 h-10 rounded-xl border border-foreground/15 bg-primary text-primary-foreground flex items-center justify-center mb-5">
                     <Icon size={18} />
                   </div>
                   <h3 className="text-[15px] font-semibold lowercase tracking-tight">{p.title}</h3>
@@ -262,7 +259,7 @@ const Communities = () => (
             <AnimatedSection key={b.kicker} delay={i * 0.08}>
               <motion.div
                 whileHover={{ y: -3 }}
-                className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 md:p-7 flex flex-col gap-5 shadow-[4px_4px_0_0_hsl(var(--foreground))]"
+                className="yankee-surface h-full rounded-[1.5rem] bg-card p-6 md:p-7 flex flex-col gap-5"
               >
                 <p className="font-serif-display italic text-[1.05rem] text-foreground/45 lowercase leading-none">
                   {b.kicker}
@@ -276,11 +273,7 @@ const Communities = () => (
                   {b.chat.map((m, j) => (
                     <div key={j} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>
                       <span
-                        className={`inline-block max-w-[90%] px-3.5 py-2 text-[12.5px] md:text-[13px] leading-snug lowercase rounded-2xl ${
-                          m.from === "you"
-                            ? "bg-folk-bubble text-folk-bubble-foreground rounded-br-md shadow-[3px_3px_0_0_hsl(var(--foreground))]"
-                            : "bg-folk-bubble-soft text-foreground rounded-bl-md border-2 border-foreground shadow-[3px_3px_0_0_hsl(var(--foreground))]"
-                        }`}
+                        className={`yankee-surface inline-block max-w-[90%] px-3.5 py-2 text-[12.5px] md:text-[13px] leading-snug lowercase rounded-2xl ${ m.from === "you" ? "bg-folk-bubble text-folk-bubble-foreground rounded-br-md " : "bg-folk-bubble-soft text-foreground rounded-bl-md " }`}
                       >
                         {m.text}
                       </span>
@@ -301,18 +294,18 @@ const Communities = () => (
           <AnimatedSection className="lg:col-span-7">
             <motion.div
               whileHover={{ y: -2 }}
-              className="relative rounded-[1.75rem] border-2 border-foreground overflow-hidden min-h-[360px] md:min-h-[440px] shadow-[6px_6px_0_0_hsl(var(--foreground))]"
+              className="yankee-surface relative rounded-[1.75rem] overflow-hidden min-h-[360px] md:min-h-[440px]"
             >
               <img src={cafeFriends} alt="A Crowd meetup" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
               <div className="absolute bottom-5 left-5 right-5 flex flex-col gap-2.5">
-                <div className="self-start max-w-[85%] rounded-2xl rounded-bl-md border-2 border-foreground bg-folk-bubble-soft px-3.5 py-2 text-[13px] leading-snug lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                <div className="yankee-surface self-start max-w-[85%] rounded-2xl rounded-bl-md bg-folk-bubble-soft px-3.5 py-2 text-[13px] leading-snug lowercase">
                   who&apos;s in for saturday?
                 </div>
-                <div className="self-end max-w-[85%] rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2 text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                <div className="yankee-surface self-end max-w-[85%] rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2 text-[13px] leading-snug text-folk-bubble-foreground lowercase">
                   count me in, bringing the film camera
                 </div>
-                <div className="self-start max-w-[85%] rounded-2xl rounded-bl-md border-2 border-foreground bg-card px-3.5 py-2 text-[13px] leading-snug lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                <div className="yankee-surface self-start max-w-[85%] rounded-2xl rounded-bl-md bg-card px-3.5 py-2 text-[13px] leading-snug lowercase">
                   12 going · rsvp closes friday 8pm
                 </div>
               </div>
@@ -362,7 +355,7 @@ const Communities = () => (
             <AnimatedSection key={t.name} delay={i * 0.03}>
               <motion.span
                 whileHover={{ y: -3, rotate: -2 }}
-                className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full border-2 border-foreground ${t.tint} text-[13px] text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]`}
+                className={`yankee-surface yankee-surface--control inline-flex items-center gap-2 px-4 py-2.5 rounded-full ${t.tint} text-[13px] text-foreground lowercase`}
               >
                 <span className="inline-flex items-center gap-1 text-foreground/55 text-[11px]">
                   <Users size={11} /> {t.members}
@@ -391,7 +384,7 @@ const Communities = () => (
             <AnimatedSection key={s.n} delay={i * 0.08}>
               <motion.div
                 whileHover={{ y: -3 }}
-                className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col"
+                className="yankee-surface h-full rounded-[1.5rem] bg-card p-6 flex flex-col"
               >
                 <span className="font-serif-display italic text-[1.5rem] text-foreground/35 leading-none">{s.n}</span>
                 <h3 className="mt-5 text-[17px] font-semibold lowercase tracking-tight">{s.t}</h3>
@@ -414,7 +407,7 @@ const Communities = () => (
                 whileInView={{ opacity: 1, y: 0, rotate: 1.5 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, ease }}
-                className="rounded-[1.75rem] border-2 border-foreground bg-card p-3 shadow-[6px_6px_0_0_hsl(var(--foreground))] overflow-hidden aspect-[9/17]"
+                className="yankee-surface yankee-surface--media rounded-[1.75rem] bg-card p-3 overflow-hidden aspect-[9/17]"
               >
                 <img
                   src={community}
@@ -436,7 +429,7 @@ const Communities = () => (
             </p>
             <Link
               to="/features"
-              className="mt-8 inline-flex items-center gap-2 px-6 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+              className="yankee-surface yankee-surface--control mt-8 inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-card text-[14px] font-medium text-foreground lowercase hover:-translate-y-1 transition-all"
             >
               explore the product <ArrowRight size={14} />
             </Link>
@@ -502,16 +495,13 @@ const Communities = () => (
               >
                 <Link
                   to="/contact"
-                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
-                    folk-cta
-                    shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
-                    hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                 >
                   get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
                 </Link>
                 <Link
                   to="/features"
-                  className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+                  className="yankee-surface yankee-surface--control inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full bg-card text-[14px] font-medium text-foreground lowercase hover:-translate-y-1 transition-all"
                 >
                   see all features
                 </Link>
@@ -525,7 +515,7 @@ const Communities = () => (
                   whileInView={{ opacity: 1, y: 0, rotate: 1.5 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.7, delay: 0.12, ease }}
-                  className="mr-auto w-[92%] rounded-[1.5rem] border-2 border-foreground bg-card p-4 shadow-[6px_6px_0_0_hsl(var(--foreground))]"
+                  className="yankee-surface mr-auto w-[92%] rounded-[1.5rem] bg-card p-4"
                 >
                   <div className="rounded-[1.1rem] overflow-hidden aspect-[5/3] bg-muted">
                     <img
@@ -550,7 +540,7 @@ const Communities = () => (
                   transition={{ duration: 0.55, delay: 0.3 }}
                   className="relative z-10 -mt-5 ml-auto max-w-[85%]"
                 >
-                  <div className="rounded-2xl rounded-br-md bg-folk-bubble px-4 py-3 text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+                  <div className="yankee-surface rounded-2xl rounded-br-md bg-folk-bubble px-4 py-3 text-[13px] leading-snug text-folk-bubble-foreground lowercase">
                     your people are already here.
                   </div>
                 </motion.div>

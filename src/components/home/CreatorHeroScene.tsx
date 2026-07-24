@@ -54,7 +54,7 @@ const CreatorHeroScene = () => {
         initial={{ opacity: 0, y: 32, rotate: 3 }}
         animate={{ opacity: 1, y: 0, rotate: 2 }}
         transition={{ duration: 0.75, ease }}
-        className="relative z-10 rounded-[1.75rem] border-2 border-foreground bg-card p-3 shadow-[6px_6px_0_0_hsl(var(--foreground))] overflow-hidden aspect-[9/17]"
+        className="yankee-surface yankee-surface--media relative z-10 rounded-[1.75rem] bg-card p-3 overflow-hidden aspect-[9/17]"
       >
         <img
           src={profileView}
@@ -69,7 +69,7 @@ const CreatorHeroScene = () => {
         transition={{ duration: 0.5, delay: 0.4 }}
         className="absolute -left-3 md:-left-8 top-[16%] z-20 w-[58%]"
       >
-        <div className="rounded-[1.15rem] border-2 border-foreground bg-card p-3 shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+        <div className="yankee-surface rounded-[1.15rem] bg-card p-3">
           <p className="text-[11px] text-foreground/50 lowercase mb-2">last drop</p>
           <div className="flex flex-col gap-2">
             {stats.map((s, i) => (
@@ -98,7 +98,7 @@ const CreatorHeroScene = () => {
         transition={{ duration: 0.5, delay: 0.55 }}
         className="absolute -right-2 bottom-[20%] z-20 max-w-[70%]"
       >
-        <div className="rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+        <div className="yankee-surface rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-folk-bubble-foreground lowercase">
           your people actually saw it
         </div>
       </motion.div>

@@ -6,7 +6,6 @@ import Layout from "@/components/Layout";
 import AnimatedSection from "@/components/AnimatedSection";
 import FAQ from "@/components/FAQ";
 import { SpeechBubble, PillTag } from "@/components/Bubble";
-import PromoPill from "@/components/home/PromoPill";
 import HeroStage from "@/components/home/HeroStage";
 import IntroVideoSection from "@/components/home/IntroVideoSection";
 import DotRevealSection from "@/components/home/DotRevealSection";
@@ -14,7 +13,9 @@ import TestimonialCarousel from "@/components/home/TestimonialCarousel";
 import ChatSequence from "@/components/home/ChatSequence";
 import OrbitNodes from "@/components/home/OrbitNodes";
 import ReachScene, { FeedStatusPill } from "@/components/home/ReachScene";
-import heroFolkMountains from "@/assets/hero-folk-mountains.jpg";
+import { Logo } from "@/components/Logo";
+import PrismGrid from "@/components/home/PrismGrid";
+import { surface } from "@/lib/yankeeSurface";
 import heroParty from "@/assets/hero-party.jpg";
 import cafeFriends from "@/assets/cafe-friends.jpg";
 import studentsHero from "@/assets/students-hero.jpg";
@@ -23,6 +24,7 @@ import homeFeed from "@/assets/yankee/home-feed.png";
 import chat from "@/assets/yankee/chat.png";
 import videoCall from "@/assets/yankee/video-call.png";
 import dotRevealImg from "@/assets/yankee/dot-reveal.png";
+import heroFolkMountains from "@/assets/hero-folk-mountains.jpg";
 
 const faqItems = [
   {
@@ -64,49 +66,53 @@ const featureCards = [
 
 const Index = () => (
   <Layout>
-    <section className="relative -mt-24 overflow-x-hidden">
-      <div className="absolute inset-0">
-        <img
-          src={heroFolkMountains}
-          alt=""
-          className="w-full h-full object-cover object-[50%_40%]"
-          width={1920}
-          height={1200}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-transparent to-background" />
-      </div>
+    <section className="relative -mt-12 md:-mt-14 min-h-[100svh] overflow-x-hidden bg-card flex flex-col">
+      <PrismGrid
+        className="pointer-events-auto z-0"
+        backgroundColor="hsl(40 30% 97%)"
+        boxSize={48}
+        borderWidth={1}
+        borderColor="rgba(30, 20, 10, 0.07)"
+        rotate={{ x: 0, y: 0 }}
+        idle
+      />
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-card/30 via-transparent to-background/80 pointer-events-none" />
 
-      <div className="relative w-full max-w-[920px] mx-auto px-5 md:px-6 pt-28 md:pt-36 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: -6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55 }}
-          className="flex justify-center"
-        >
-          <PromoPill tag="new" text="a social feed you actually control" to="/features" />
-        </motion.div>
+      <div className="relative z-10 flex-1 flex flex-col justify-center w-full max-w-[920px] mx-auto px-5 md:px-6 py-10 md:py-12 text-center">
+        {/* Only logo + title shift down; arc/CTA stay put */}
+        <div className="mt-6 md:mt-0 md:translate-y-12 lg:translate-y-14">
+          <motion.h1
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.85, ease: [0.25, 0.4, 0.25, 1] }}
+            className="flex justify-center"
+          >
+            <span
+              className={surface(
+                "sm",
+                "inline-flex items-center justify-center px-7 py-4 sm:px-8 sm:py-5 md:px-10 md:py-6 rounded-[1.35rem]",
+              )}
+            >
+              <Logo className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto text-foreground" />
+            </span>
+          </motion.h1>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.85, ease: [0.25, 0.4, 0.25, 1] }}
-          className="mt-7 md:mt-9 text-[2.15rem] sm:text-[2.75rem] md:text-5xl lg:text-[3.65rem] font-semibold text-foreground leading-[1.05] tracking-tight lowercase max-w-[18ch] sm:max-w-[22ch] mx-auto"
-        >
-          the social layer the real world was missing
-        </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.14, ease: [0.25, 0.4, 0.25, 1] }}
+            className="mt-6 md:mt-7 mx-auto max-w-[20ch] sm:max-w-[24ch] font-display lowercase text-foreground text-[1.45rem] sm:text-[1.7rem] md:text-[1.95rem] font-medium leading-[1.2] tracking-[-0.03em]"
+          >
+            <span className="block">the social layer</span>
+            <span className="block text-foreground/70 font-normal tracking-[-0.02em]">
+              the real world was missing
+            </span>
+          </motion.p>
+        </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.18 }}
-          className="mt-5 md:mt-6 max-w-xl mx-auto text-[15px] md:text-[17px] text-foreground/65 leading-relaxed lowercase"
-        >
-          post once, reach everyone. no hidden algorithm, no shadow bans. crowds, chat and calls in one calm app.
-        </motion.p>
-      </div>
-
-      <div className="relative w-full mt-8 md:mt-10 pb-16 md:pb-24 px-2 md:px-4">
-        <HeroStage />
+        <div className="w-full mt-8 sm:mt-9 md:mt-10 relative z-10">
+          <HeroStage />
+        </div>
       </div>
     </section>
 
@@ -142,10 +148,13 @@ const Index = () => (
                 className="h-full"
               >
                 <div
-                  className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[3px_3px_0_0_hsl(var(--foreground))] transition-all text-center sm:text-left flex flex-col items-center sm:items-start"
+                  className={surface(
+                    "interactive",
+                    "h-full p-6 text-center sm:text-left flex flex-col items-center sm:items-start",
+                  )}
                   style={{ borderRadius: 24 }}
                 >
-                  <div className="w-10 h-10 rounded-xl bg-primary text-primary-foreground flex items-center justify-center mb-5">
+                  <div className={surface("icon", "w-10 h-10 mb-5 bg-primary text-primary-foreground")}>
                     <c.icon size={18} />
                   </div>
                   <h3 className="text-[15px] md:text-[16px] font-semibold text-foreground tracking-tight lowercase">
@@ -271,7 +280,7 @@ const Index = () => (
     <section className="relative py-16 md:py-24">
       <div className="max-w-[1400px] mx-auto px-5 md:px-6">
         <AnimatedSection>
-          <div className="relative rounded-[2rem] md:rounded-[2.5rem] overflow-hidden aspect-[16/11] md:aspect-[21/9] border-2 border-foreground shadow-[6px_6px_0_0_hsl(var(--foreground))]">
+          <div className={surface("lg", "relative overflow-hidden aspect-[16/11] md:aspect-[21/9]")}>
             <img
               src={heroParty}
               alt=""
@@ -353,9 +362,12 @@ const Index = () => (
           <AnimatedSection delay={0.05} className="col-span-1 md:col-span-2">
             <motion.div
               whileHover={{ y: -3 }}
-              className="h-full min-h-[160px] md:min-h-[200px] rounded-[1.35rem] border-2 border-foreground bg-folk-surface-warm p-5 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col justify-between"
+              className={surface(
+                "interactive",
+                "h-full min-h-[160px] md:min-h-[200px] bg-folk-surface-warm p-5 flex flex-col justify-between",
+              )}
             >
-              <div className="w-12 h-12 rounded-full border-2 border-foreground bg-card flex items-center justify-center font-serif-display text-xl italic">
+              <div className={surface("icon", "w-12 h-12 rounded-full font-serif-display text-xl italic")}>
                 H
               </div>
               <div>
@@ -368,9 +380,12 @@ const Index = () => (
           <AnimatedSection delay={0.1} className="col-span-1 md:col-span-2">
             <motion.div
               whileHover={{ y: -3 }}
-              className="h-full min-h-[160px] md:min-h-[200px] rounded-[1.35rem] border-2 border-foreground bg-folk-surface-cool p-5 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col justify-between"
+              className={surface(
+                "interactive",
+                "h-full min-h-[160px] md:min-h-[200px] bg-folk-surface-cool p-5 flex flex-col justify-between",
+              )}
             >
-              <div className="w-12 h-12 rounded-full border-2 border-foreground bg-card flex items-center justify-center font-semibold text-sm tracking-tight">
+              <div className={surface("icon", "w-12 h-12 rounded-full font-semibold text-sm tracking-tight")}>
                 S
               </div>
               <div>
@@ -383,7 +398,10 @@ const Index = () => (
           <AnimatedSection delay={0.15} className="col-span-2 md:col-span-2 md:row-span-2">
             <motion.div
               whileHover={{ y: -3 }}
-              className="relative h-full min-h-[220px] md:min-h-full rounded-[1.35rem] border-2 border-foreground overflow-hidden shadow-[4px_4px_0_0_hsl(var(--foreground))] bg-card"
+              className={surface(
+                "interactive",
+                "relative h-full min-h-[220px] md:min-h-full overflow-hidden",
+              )}
             >
               <img src={cafeFriends} alt="" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
@@ -402,7 +420,10 @@ const Index = () => (
           <AnimatedSection delay={0.18} className="col-span-2 md:col-span-4">
             <motion.div
               whileHover={{ y: -3 }}
-              className="relative h-full min-h-[180px] md:min-h-[210px] rounded-[1.35rem] border-2 border-foreground overflow-hidden shadow-[4px_4px_0_0_hsl(var(--foreground))] bg-card"
+              className={surface(
+                "interactive",
+                "relative h-full min-h-[180px] md:min-h-[210px] overflow-hidden",
+              )}
             >
               <img
                 src={studentsHero}
@@ -424,9 +445,9 @@ const Index = () => (
           <AnimatedSection delay={0.22} className="col-span-1 md:col-span-3">
             <motion.div
               whileHover={{ y: -3 }}
-              className="h-full min-h-[140px] rounded-[1.35rem] border-2 border-foreground bg-card p-4 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex gap-4 items-center"
+              className={surface("interactive", "h-full min-h-[140px] p-4 flex gap-4 items-center")}
             >
-              <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden border-2 border-foreground/15 shrink-0">
+              <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden border border-foreground/10 shrink-0 shadow-[0_6px_16px_-8px_rgba(0,0,0,0.2)]">
                 <img src={communityShot} alt="" className="w-full h-full object-cover object-top" loading="lazy" />
               </div>
               <div>
@@ -441,10 +462,13 @@ const Index = () => (
           <AnimatedSection delay={0.26} className="col-span-1 md:col-span-3">
             <Link to="/communities" className="block h-full">
               <motion.div
-                whileHover={{ y: -3, x: 1 }}
-                className="h-full min-h-[140px] rounded-[1.35rem] border-2 border-foreground bg-folk-bubble p-5 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col justify-between text-folk-bubble-foreground"
+                whileHover={{ y: -3 }}
+                className={surface(
+                  "interactive",
+                  "h-full min-h-[140px] bg-folk-bubble p-5 flex flex-col justify-between text-folk-bubble-foreground border-transparent",
+                )}
               >
-                <div className="w-10 h-10 rounded-full border-2 border-white/40 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full border border-white/35 flex items-center justify-center bg-white/10">
                   <ArrowRight size={16} />
                 </div>
                 <div>
@@ -462,7 +486,7 @@ const Index = () => (
           <div className="mt-10 md:mt-12 flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
               to="/communities"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+              className={surface("control", "gap-2 px-7 py-3.5 text-[14px] font-medium text-foreground lowercase")}
             >
               browse crowds <ArrowRight size={14} />
             </Link>
@@ -490,7 +514,7 @@ const Index = () => (
             { t: "gone in seconds", d: "delete your account anytime and your data is destroyed for good." },
           ].map((c, i) => (
             <AnimatedSection key={c.t} delay={i * 0.06}>
-              <div className="h-full rounded-[1.5rem] border-2 border-foreground/90 bg-card p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))] text-center sm:text-left">
+              <div className={surface("interactive", "h-full p-6 text-center sm:text-left")}>
                 <h3 className="text-[16px] font-semibold lowercase">{c.t}</h3>
                 <p className="mt-3 text-[13px] text-muted-foreground leading-relaxed lowercase">{c.d}</p>
               </div>
@@ -563,23 +587,20 @@ const Index = () => (
               >
                 <Link
                   to="/contact"
-                  className="group relative inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
-                    folk-cta
-                    shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
-                    hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+                  className="group relative inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                 >
                   get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
                 </Link>
                 <Link
                   to="/features"
-                  className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+                  className={surface("control", "gap-1.5 px-5 py-3.5 text-[14px] font-medium text-foreground lowercase")}
                 >
                   see the product
                 </Link>
               </motion.div>
 
               <p className="mt-5 text-[12px] md:text-[13px] text-foreground/45 lowercase">
-                chronological · private · no algorithm
+                chronological · free · no switching
               </p>
             </div>
 
@@ -590,7 +611,7 @@ const Index = () => (
                   whileInView={{ opacity: 1, y: 0, rotate: -1.5 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.7, delay: 0.12, ease: [0.25, 0.4, 0.25, 1] }}
-                  className="relative z-0 ml-auto w-[92%] rounded-[1.5rem] border-2 border-foreground bg-card p-4 shadow-[6px_6px_0_0_hsl(var(--foreground))]"
+                  className={surface("lg", "relative z-0 ml-auto w-[92%] p-4")}
                 >
                   <div className="rounded-[1.1rem] overflow-hidden aspect-[5/3] bg-muted">
                     <img
@@ -615,7 +636,7 @@ const Index = () => (
                   transition={{ duration: 0.55, delay: 0.28 }}
                   className="relative z-10 -mt-6 mr-auto max-w-[85%] lg:absolute lg:left-0 lg:top-[44%] lg:mt-0 lg:max-w-[78%]"
                 >
-                  <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-folk-bubble-soft px-4 py-3 text-[13px] leading-snug lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+                  <div className={surface("sm", "rounded-2xl rounded-bl-md bg-folk-bubble-soft px-4 py-3 text-[13px] leading-snug lowercase")}>
                     <span className="font-semibold">maya</span> everyone actually saw this?
                   </div>
                 </motion.div>
@@ -627,7 +648,7 @@ const Index = () => (
                   transition={{ duration: 0.55, delay: 0.4 }}
                   className="relative z-10 mt-3 ml-auto max-w-[80%] lg:absolute lg:right-2 lg:bottom-0 lg:mt-0 lg:max-w-[72%]"
                 >
-                  <div className="rounded-2xl rounded-br-md bg-folk-bubble px-4 py-3 text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+                  <div className="rounded-2xl rounded-br-md bg-folk-bubble px-4 py-3 text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[0_10px_28px_-12px_rgba(37,99,235,0.55)]">
                     yeah. no ranking. every friend.
                   </div>
                 </motion.div>

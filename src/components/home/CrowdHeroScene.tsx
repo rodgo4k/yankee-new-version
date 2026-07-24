@@ -90,7 +90,7 @@ const CrowdHeroScene = () => {
           initial={{ opacity: 0, y: 28, rotate: -4 }}
           animate={{ opacity: 1, y: 0, rotate: -2 }}
           transition={{ duration: 0.55, ease }}
-          className="col-span-5 md:col-span-3 relative rounded-[1.35rem] border-2 border-foreground overflow-hidden shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col justify-between min-h-[160px] md:min-h-[220px] p-4 md:p-5"
+          className="yankee-surface col-span-5 md:col-span-3 relative rounded-[1.35rem] overflow-hidden flex flex-col justify-between min-h-[160px] md:min-h-[220px] p-4 md:p-5"
         >
           {leftCrowds.map((crowd, i) => (
             <motion.img
@@ -125,7 +125,7 @@ const CrowdHeroScene = () => {
 
         <motion.div
           layout
-          className="col-span-7 md:col-span-6 relative rounded-[1.35rem] border-2 border-foreground overflow-hidden shadow-[5px_5px_0_0_hsl(var(--foreground))] bg-card min-h-[160px] md:min-h-[280px]"
+          className="yankee-surface col-span-7 md:col-span-6 relative rounded-[1.35rem] overflow-hidden bg-card min-h-[160px] md:min-h-[280px]"
         >
           <AnimatePresence mode="wait">
             <motion.img
@@ -168,7 +168,7 @@ const CrowdHeroScene = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.15, ease }}
-            className="relative flex-1 rounded-[1.35rem] border-2 border-foreground overflow-hidden shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col justify-between min-h-[120px] p-4 text-white"
+            className="yankee-surface relative flex-1 rounded-[1.35rem] overflow-hidden flex flex-col justify-between min-h-[120px] p-4 text-white"
           >
             <img
               src={crowdsHome}
@@ -189,7 +189,7 @@ const CrowdHeroScene = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.25, ease }}
-            className="relative flex-1 rounded-[1.35rem] border-2 border-foreground overflow-hidden shadow-[4px_4px_0_0_hsl(var(--foreground))] min-h-[120px] p-4"
+            className="yankee-surface relative flex-1 rounded-[1.35rem] overflow-hidden min-h-[120px] p-4"
           >
             <img
               src={liveThread}
@@ -233,7 +233,7 @@ const CrowdHeroScene = () => {
               transition={{ duration: 0.45, ease }}
               className="self-start max-w-[90%] md:max-w-[70%]"
             >
-              <div className="rounded-2xl rounded-bl-md border-2 border-foreground bg-folk-bubble-soft px-4 py-3 text-[13px] md:text-[14px] leading-snug lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+              <div className="yankee-surface rounded-2xl rounded-bl-md bg-folk-bubble-soft px-4 py-3 text-[13px] md:text-[14px] leading-snug lowercase">
                 who&apos;s in for saturday? photo walk, golden hour.
               </div>
             </motion.div>
@@ -250,7 +250,7 @@ const CrowdHeroScene = () => {
               transition={{ duration: 0.45, ease }}
               className="self-end max-w-[90%] md:max-w-[70%]"
             >
-              <div className="rounded-2xl rounded-br-md bg-folk-bubble px-4 py-3 text-[13px] md:text-[14px] leading-snug text-folk-bubble-foreground lowercase shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+              <div className="yankee-surface rounded-2xl rounded-br-md bg-folk-bubble px-4 py-3 text-[13px] md:text-[14px] leading-snug text-folk-bubble-foreground lowercase">
                 count me in. 12 going · rsvp closes friday.
               </div>
             </motion.div>

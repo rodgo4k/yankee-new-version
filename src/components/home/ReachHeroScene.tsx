@@ -68,7 +68,7 @@ const ReachHeroScene = () => {
           initial={{ opacity: 0, y: 28, rotate: -2.5 }}
           animate={{ opacity: 1, y: 0, rotate: -1.5 }}
           transition={{ duration: 0.7, ease }}
-          className="col-span-7 relative rounded-[1.5rem] border-2 border-foreground overflow-hidden shadow-[6px_6px_0_0_hsl(var(--foreground))] min-h-[300px] md:min-h-[380px]"
+          className="yankee-surface col-span-7 relative rounded-[1.5rem] overflow-hidden min-h-[300px] md:min-h-[380px]"
         >
           <AnimatePresence mode="wait" initial={false}>
             <motion.img
@@ -125,7 +125,7 @@ const ReachHeroScene = () => {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.15, ease }}
-          className="col-span-5 rounded-[1.5rem] border-2 border-foreground bg-card p-3 md:p-4 shadow-[5px_5px_0_0_hsl(var(--foreground))] flex flex-col"
+          className="yankee-surface col-span-5 rounded-[1.5rem] bg-card p-3 md:p-4 flex flex-col"
         >
           <p className="text-[11px] text-foreground/50 lowercase px-1 mb-3">delivery</p>
           <div className="flex-1 flex flex-col gap-2 overflow-hidden">
@@ -140,14 +140,10 @@ const ReachHeroScene = () => {
                     x: on ? 0 : 6,
                   }}
                   transition={{ duration: 0.35, ease }}
-                  className={`flex items-center gap-2 rounded-xl border-2 border-foreground px-2 py-1.5 md:px-2.5 md:py-2 ${
-                    on ? "bg-folk-bubble text-folk-bubble-foreground" : "bg-background"
-                  }`}
+                  className={`yankee-surface flex items-center gap-2 rounded-xl px-2 py-1.5 md:px-2.5 md:py-2 ${ on ? "bg-folk-bubble text-folk-bubble-foreground" : "bg-background" }`}
                 >
                   <span
-                    className={`w-7 h-7 md:w-8 md:h-8 shrink-0 rounded-full border-2 border-foreground flex items-center justify-center text-[11px] font-semibold lowercase ${
-                      on ? "bg-background text-foreground" : r.tint
-                    }`}
+                    className={`yankee-surface yankee-surface--control w-7 h-7 md:w-8 md:h-8 shrink-0 rounded-full flex items-center justify-center text-[11px] font-semibold lowercase ${ on ? "bg-background text-foreground" : r.tint }`}
                   >
                     {r.initial}
                   </span>
@@ -162,7 +158,7 @@ const ReachHeroScene = () => {
                       <Check size={11} />
                     </span>
                   ) : (
-                    <span className="w-5 h-5 shrink-0 rounded-full border-2 border-foreground/20" />
+                    <span className="yankee-surface yankee-surface--control w-5 h-5 shrink-0 rounded-full" />
                   )}
                 </motion.div>
               );
@@ -183,7 +179,7 @@ const ReachHeroScene = () => {
         transition={{ duration: 0.5, delay: 0.35 }}
         className="mt-3 flex justify-end"
       >
-        <div className="rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] max-w-[85%]">
+        <div className="yankee-surface rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-folk-bubble-foreground lowercase max-w-[85%]">
           no ranking. every friend got it.
         </div>
       </motion.div>

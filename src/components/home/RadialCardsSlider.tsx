@@ -132,16 +132,16 @@ const RadialCardsSlider = () => {
         className="relative h-full cursor-grab active:cursor-grabbing touch-none overflow-visible"
         aria-label="Drag to spin feature cards along the arc"
       >
-        <div className="absolute left-1/2 top-[74%] md:top-[82%] -translate-x-1/2 w-0 h-0">
+        <div className="absolute left-1/2 top-[78%] md:top-[82%] -translate-x-1/2 w-0 h-0">
           {cards.map((card, i) => (
             <div
               key={card.label}
               ref={(el) => {
                 cardRefs.current[i] = el;
               }}
-              className="absolute left-0 top-0 w-[120px] sm:w-[138px] md:w-[152px] will-change-transform"
+              className="absolute left-0 top-0 w-[110px] sm:w-[138px] md:w-[152px] will-change-transform"
             >
-              <div className="rounded-[1.15rem] border-2 border-foreground bg-card overflow-hidden shadow-[4px_4px_0_0_hsl(var(--foreground))]">
+              <div className="yankee-surface yankee-surface--media rounded-[1.15rem] bg-card overflow-hidden">
                 {/* Phone portrait — not 3/4 (looks vertically squashed) */}
                 <div className="aspect-[9/16] bg-muted overflow-hidden">
                   <img
@@ -151,7 +151,7 @@ const RadialCardsSlider = () => {
                     draggable={false}
                   />
                 </div>
-                <p className="px-2 py-1.5 text-center text-[11px] font-medium lowercase tracking-tight border-t-2 border-foreground/10">
+                <p className="px-2 py-1.5 text-center text-[11px] font-medium lowercase tracking-tight border-t border-foreground/8">
                   {card.label}
                 </p>
               </div>

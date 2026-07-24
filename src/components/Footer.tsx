@@ -66,7 +66,7 @@ const Footer = () => (<footer className="border-t border-border/40 bg-background
       </div>
 
       <div className="mt-16 pt-6 border-t border-border/40 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <p className="text-[11px] text-muted-foreground">© 2026 Yankee, a Foretheist product.</p>
+        <p className="text-[11px] text-muted-foreground">© 2026 Yankee LLC, a Foretheist product.</p>
         <div className="flex items-center gap-5">
           <Link to="/terms" className="text-[11px] text-muted-foreground hover:text-foreground">Terms</Link>
           <Link to="/privacy" className="text-[11px] text-muted-foreground hover:text-foreground">Privacy</Link>

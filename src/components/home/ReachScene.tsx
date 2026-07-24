@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { SpeechBubble, PillTag } from "@/components/Bubble";
 import { Heart } from "lucide-react";
 import mockupScene from "@/assets/yankee-scene.jpg";
+import { surface } from "@/lib/yankeeSurface";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 
@@ -38,7 +39,7 @@ export const FeedStatusPill = () => {
     <SpeechBubble
       tail="none"
       size="sm"
-      className="mb-6 overflow-hidden !border-2 !border-foreground !shadow-[4px_4px_0_0_hsl(var(--foreground))]"
+      className={surface("sm", "mb-6 overflow-hidden !shadow-[0_8px_24px_-10px_rgba(0,0,0,0.12)]")}
     >
       <div className="flex items-center gap-2">
         <PillTag>the feed</PillTag>
@@ -123,7 +124,7 @@ const ReachScene = () => {
 
   return (
     <div className="w-full max-w-[480px] mx-auto md:ml-auto">
-      <div className="rounded-[2rem] md:rounded-[2.5rem] bg-card border-2 border-foreground shadow-[6px_6px_0_0_hsl(var(--foreground))] overflow-hidden">
+      <div className={surface("lg", "overflow-hidden")}>
         <div className="relative flex flex-col h-[420px] sm:h-[460px] md:h-[500px] overflow-hidden bg-card p-3 md:p-4">
           <motion.div
             key={`img-${cycle}`}

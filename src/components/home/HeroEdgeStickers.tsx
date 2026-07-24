@@ -12,9 +12,9 @@ export type HeroSatellite = {
   lgOnly?: boolean;
   /** collapsed sticker size — default md */
   size?: "sm" | "md" | "lg";
-  /** expanded / always-open window width */
+  /** expanded / always-open phone width */
   windowSize?: "sm" | "md" | "lg" | "xl";
-  /** start as an open mac-style window (heyclicky collage) */
+  /** start as an open phone preview */
   startOpen?: boolean;
   /** unique idle drift — seconds */
   floatDuration?: number;
@@ -42,10 +42,10 @@ const stickerSizes = {
 } as const;
 
 const windowWidths = {
-  sm: "w-[140px] sm:w-[155px]",
-  md: "w-[170px] sm:w-[190px] md:w-[205px]",
-  lg: "w-[190px] sm:w-[215px] md:w-[235px]",
-  xl: "w-[210px] sm:w-[240px] md:w-[270px]",
+  sm: "w-[108px] sm:w-[118px]",
+  md: "w-[120px] sm:w-[132px] md:w-[140px]",
+  lg: "w-[132px] sm:w-[148px] md:w-[158px]",
+  xl: "w-[148px] sm:w-[165px] md:w-[180px]",
 } as const;
 
 const PreviewWindow = ({
@@ -59,39 +59,22 @@ const PreviewWindow = ({
   showClose?: boolean;
   hovered?: boolean;
 }) => (
-  <div className="rounded-[1.1rem] border-2 border-foreground bg-card overflow-hidden shadow-[5px_5px_0_0_hsl(var(--foreground))]">
-    <div className="flex items-center justify-between gap-1.5 px-2.5 py-1.5 border-b-2 border-foreground bg-folk-panel">
-      <div className="flex items-center gap-1">
-        <button
-          type="button"
-          aria-label="Close"
-          onClick={(e) => {
-            e.stopPropagation();
-            onClose?.();
-          }}
-          className="w-2 h-2 rounded-full bg-[#FF6B6B] border border-foreground/40"
-        />
-        <span className="w-2 h-2 rounded-full bg-[#FFD166] border border-foreground/40" />
-        <span className="w-2 h-2 rounded-full bg-folk-success border border-foreground/40" />
-      </div>
-      <p className="text-[9px] lowercase text-foreground/55 truncate font-medium">{sat.filename}</p>
-      {showClose ? (
-        <button
-          type="button"
-          aria-label="Close"
-          onClick={(e) => {
-            e.stopPropagation();
-            onClose?.();
-          }}
-          className="text-foreground/40 hover:text-foreground"
-        >
-          <X size={11} />
-        </button>
-      ) : (
-        <span className="w-[11px]" />
-      )}
-    </div>
-    <div className="relative aspect-[4/3] bg-muted overflow-hidden">
+  <div className="yankee-surface relative rounded-[1.35rem] bg-card p-1.5">
+    {showClose && (
+      <button
+        type="button"
+        aria-label="Close"
+        onClick={(e) => {
+          e.stopPropagation();
+          onClose?.();
+        }}
+        className="yankee-surface yankee-surface--control absolute -top-2 -right-2 z-10 w-6 h-6 rounded-full bg-card text-foreground/60 hover:text-foreground flex items-center justify-center"
+      >
+        <X size={11} />
+      </button>
+    )}
+    <div className="relative aspect-[9/16] rounded-[1.05rem] bg-muted overflow-hidden">
+      <span className="absolute left-1/2 -translate-x-1/2 top-1.5 z-10 w-9 h-2 rounded-full bg-foreground/90 pointer-events-none" />
       <motion.img
         src={sat.media}
         alt=""
@@ -108,7 +91,7 @@ const PreviewWindow = ({
                 : { scale: 1, opacity: 0.92 }
             }
             transition={{ type: "spring", stiffness: 400, damping: 22 }}
-            className="w-8 h-8 rounded-full border-2 border-foreground bg-card/90 flex items-center justify-center shadow-[2px_2px_0_0_hsl(var(--foreground))]"
+            className="yankee-surface yankee-surface--control w-8 h-8 rounded-full bg-card/90 flex items-center justify-center"
           >
             <span className="ml-0.5 w-0 h-0 border-y-[5px] border-y-transparent border-l-[8px] border-l-foreground" />
           </motion.span>
@@ -202,7 +185,7 @@ export const SatelliteSticker = ({
             className={`flex flex-col items-center gap-1 ${open ? "pointer-events-none" : ""}`}
           >
             <span
-              className={`${sz.box} border-2 border-foreground bg-card p-1 shadow-[3px_3px_0_0_hsl(var(--foreground))] overflow-hidden`}
+              className={`yankee-surface ${sz.box} bg-card p-1 overflow-hidden`}
             >
               <img
                 src={sat.media}
@@ -226,9 +209,7 @@ export const SatelliteSticker = ({
                 exit={{ opacity: 0, scale: 0.45 }}
                 transition={{ type: "spring", stiffness: 420, damping: 28 }}
                 style={{ transformOrigin: sat.origin }}
-                className={`absolute ${winW} ${
-                  sat.origin.includes("right") ? "top-0 right-0" : "top-0 left-0"
-                } ${sat.origin.includes("bottom") ? "!top-auto bottom-0" : ""}`}
+                className={`absolute ${winW} ${ sat.origin.includes("right") ? "top-0 right-0" : "top-0 left-0" } ${sat.origin.includes("bottom") ? "!top-auto bottom-0" : ""}`}
               >
                 <PreviewWindow sat={sat} onClose={onClose} showClose hovered={hovered} />
                 <p className="mt-1 text-center text-[10px] text-foreground/40 lowercase">{sat.filename}</p>

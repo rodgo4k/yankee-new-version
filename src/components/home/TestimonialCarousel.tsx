@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { surface } from "@/lib/yankeeSurface";
 
 const testimonials = [
   {
@@ -54,7 +55,7 @@ const TestimonialCarousel = () => {
           type="button"
           onClick={prev}
           aria-label="previous testimonials"
-          className="w-10 h-10 rounded-full bg-card border-2 border-foreground/90 shadow-[2px_2px_0_0_hsl(var(--foreground))] flex items-center justify-center hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0_0_hsl(var(--foreground))] transition-all"
+          className={surface("control", "w-10 h-10")}
         >
           <ChevronLeft size={18} />
         </button>
@@ -62,7 +63,7 @@ const TestimonialCarousel = () => {
           type="button"
           onClick={next}
           aria-label="next testimonials"
-          className="w-10 h-10 rounded-full bg-card border-2 border-foreground/90 shadow-[2px_2px_0_0_hsl(var(--foreground))] flex items-center justify-center hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0_0_hsl(var(--foreground))] transition-all"
+          className={surface("control", "w-10 h-10")}
         >
           <ChevronRight size={18} />
         </button>
@@ -76,13 +77,13 @@ const TestimonialCarousel = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.35 }}
-            className="rounded-[1.75rem] bg-card border-2 border-foreground/90 shadow-[4px_4px_0_0_hsl(var(--foreground))] p-6 md:p-8"
+            className={surface("lg", "p-6 md:p-8")}
           >
             <p className="text-[16px] md:text-[18px] text-foreground leading-relaxed lowercase">
               “ {t.quote} ”
             </p>
             <div className="mt-6 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full border-2 border-foreground bg-secondary flex items-center justify-center text-[12px] font-semibold">
+              <div className={surface("icon", "w-10 h-10 rounded-full bg-secondary text-[12px] font-semibold")}>
                 {t.initials}
               </div>
               <div>
@@ -101,9 +102,7 @@ const TestimonialCarousel = () => {
             type="button"
             aria-label={`go to testimonial ${i + 1}`}
             onClick={() => setIndex(i)}
-            className={`w-2 h-2 rounded-full border border-foreground/70 transition-colors ${
-              i === index ? "bg-foreground" : "bg-transparent"
-            }`}
+            className={`w-2 h-2 rounded-full border border-foreground/70 transition-colors ${ i === index ? "bg-foreground" : "bg-transparent" }`}
           />
         ))}
       </div>

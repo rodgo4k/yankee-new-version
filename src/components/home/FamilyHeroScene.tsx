@@ -39,7 +39,7 @@ const FamilyHeroScene = () => {
         initial={{ opacity: 0, y: 28, rotate: -2.5 }}
         animate={{ opacity: 1, y: 0, rotate: -1.5 }}
         transition={{ duration: 0.7, ease }}
-        className="relative rounded-[1.5rem] border-2 border-foreground overflow-hidden shadow-[6px_6px_0_0_hsl(var(--foreground))] aspect-[4/5]"
+        className="yankee-surface yankee-surface--media relative rounded-[1.5rem] overflow-hidden aspect-[4/5]"
       >
         <img src={familyField} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
@@ -71,11 +71,7 @@ const FamilyHeroScene = () => {
                 className={`flex ${isYou ? "justify-end" : "justify-start"}`}
               >
                 <div
-                  className={`max-w-[88%] px-3 py-2 text-[12px] md:text-[13px] leading-snug lowercase rounded-2xl shadow-[3px_3px_0_0_hsl(var(--foreground))] ${
-                    isYou
-                      ? "bg-folk-bubble text-white rounded-br-md"
-                      : "bg-folk-bubble-soft text-foreground border-2 border-foreground rounded-bl-md"
-                  }`}
+                  className={`yankee-surface max-w-[88%] px-3 py-2 text-[12px] md:text-[13px] leading-snug lowercase rounded-2xl ${ isYou ? "bg-folk-bubble text-white rounded-br-md" : "bg-folk-bubble-soft text-foreground rounded-bl-md" }`}
                 >
                   {!isYou && <span className="font-semibold">{m.from} · </span>}
                   {m.text}
@@ -92,8 +88,8 @@ const FamilyHeroScene = () => {
         transition={{ duration: 0.5, delay: 0.35 }}
         className="absolute -right-2 md:-right-6 top-[18%] z-10"
       >
-        <div className="rounded-[1.15rem] border-2 border-foreground bg-card px-3.5 py-3 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex items-center gap-2.5">
-          <span className="w-9 h-9 rounded-full border-2 border-foreground bg-folk-bubble text-white flex items-center justify-center">
+        <div className="yankee-surface rounded-[1.15rem] bg-card px-3.5 py-3 flex items-center gap-2.5">
+          <span className="yankee-surface w-9 h-9 rounded-full bg-folk-bubble text-white flex items-center justify-center">
             <Phone size={15} />
           </span>
           <div>

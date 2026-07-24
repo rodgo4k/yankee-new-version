@@ -7,6 +7,7 @@ import AnimatedSection from "@/components/AnimatedSection";
 import cafeFriends from "@/assets/cafe-friends.jpg";
 import smallTeamCollab from "@/assets/small-team-collab.jpg";
 import rememberOffice from "@/assets/remember-office.jpg";
+import { YANKEE_EMAIL, YANKEE_MAILTO } from "@/lib/email";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 
@@ -43,21 +44,21 @@ const roles = [
     tag: "engineering",
     loc: "remote · americas / europe",
     desc: "swift, swiftui, deep experience with real-time and offline sync.",
-    href: "mailto:jobs@yankee.app?subject=Senior%20iOS%20Engineer",
+    href: `${YANKEE_MAILTO}?subject=Senior%20iOS%20Engineer`,
   },
   {
     title: "product designer",
     tag: "design",
     loc: "remote · worldwide",
     desc: "systems, motion, taste. you draw on paper before you draw in figma.",
-    href: "mailto:jobs@yankee.app?subject=Product%20Designer",
+    href: `${YANKEE_MAILTO}?subject=Product%20Designer`,
   },
   {
     title: "backend engineer, feed",
     tag: "engineering",
     loc: "remote · americas / europe",
     desc: "go / rust. you've built ranking-free timelines at scale before.",
-    href: "mailto:jobs@yankee.app?subject=Backend%20Engineer%20Feed",
+    href: `${YANKEE_MAILTO}?subject=Backend%20Engineer%20Feed`,
   },
 ];
 
@@ -73,7 +74,7 @@ const Careers = () => {
 
   return (
   <Layout>
-    <section className="relative -mt-24 pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden dotted-bg">
+    <section className="relative -mt-12 md:-mt-14 pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden dotted-bg">
       <div className="absolute inset-0 bg-background/85" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
@@ -82,7 +83,7 @@ const Careers = () => {
               initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 rounded-full border-2 border-foreground bg-card px-3.5 py-1.5 text-[12px] lowercase shadow-[2px_2px_0_0_hsl(var(--foreground))]"
+              className="yankee-surface yankee-surface--control inline-flex items-center gap-2 rounded-full bg-card px-3.5 py-1.5 text-[12px] lowercase"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-folk-success opacity-75" />
@@ -118,18 +119,15 @@ const Careers = () => {
             >
               <a
                 href="#open-roles"
-                className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
-                  folk-cta
-                  shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
-                  hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+                className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
               >
                 see open roles <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
               </a>
               <a
-                href="mailto:jobs@yankee.app"
-                className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+                href={YANKEE_MAILTO}
+                className="yankee-surface yankee-surface--control inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full bg-card text-[14px] font-medium text-foreground lowercase hover:-translate-y-1 transition-all"
               >
-                jobs@yankee.app
+                {YANKEE_EMAIL}
               </a>
             </motion.div>
           </div>
@@ -172,7 +170,7 @@ const Careers = () => {
                 transition={{ type: "spring", stiffness: 320, damping: 24, mass: 0.85 }}
                 onHoverStart={() => setFront("main")}
                 onHoverEnd={() => setFront(null)}
-                className="relative rounded-[1.5rem] border-2 border-foreground bg-card p-3 pb-5 cursor-pointer"
+                className="yankee-surface relative rounded-[1.5rem] bg-card p-3 pb-5 cursor-pointer"
                 style={{ zIndex: front === "main" ? 30 : 10 }}
               >
                 <div className="rounded-[1.1rem] overflow-hidden aspect-[5/4] bg-muted">
@@ -217,7 +215,7 @@ const Careers = () => {
                 transition={{ type: "spring", stiffness: 320, damping: 24, mass: 0.85 }}
                 onHoverStart={() => setFront("side")}
                 onHoverEnd={() => setFront(null)}
-                className="absolute -right-2 md:-right-8 -bottom-2 md:-bottom-4 w-[42%] rounded-[1.15rem] border-2 border-foreground bg-card p-2 pb-3 cursor-pointer"
+                className="yankee-surface absolute -right-2 md:-right-8 -bottom-2 md:-bottom-4 w-[42%] rounded-[1.15rem] bg-card p-2 pb-3 cursor-pointer"
                 style={{ zIndex: front === "side" ? 30 : front === "main" ? 10 : 20 }}
               >
                 <div className="rounded-[0.85rem] overflow-hidden aspect-square bg-muted">
@@ -231,7 +229,7 @@ const Careers = () => {
                 transition={{ duration: 0.5, delay: 0.5 }}
                 className="absolute -left-1 md:-left-4 top-[18%] z-40 max-w-[72%] pointer-events-none"
               >
-                <div className="rounded-2xl rounded-bl-md bg-folk-bubble px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                <div className="yankee-surface rounded-2xl rounded-bl-md bg-folk-bubble px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-folk-bubble-foreground lowercase">
                   remote first · small by choice
                 </div>
               </motion.div>
@@ -247,7 +245,7 @@ const Careers = () => {
         <div className="flex flex-wrap justify-center gap-2.5 md:gap-3">
           {perks.map((p, i) => (
             <AnimatedSection key={p.t} delay={i * 0.05}>
-              <span className="inline-flex items-center gap-2 rounded-full border-2 border-foreground bg-card px-4 py-2 text-[13px] lowercase shadow-[2px_2px_0_0_hsl(var(--foreground))]">
+              <span className="yankee-surface yankee-surface--control inline-flex items-center gap-2 rounded-full bg-card px-4 py-2 text-[13px] lowercase">
                 <span className="font-serif-display italic text-foreground/45">{p.n}</span>
                 <span className="font-medium text-foreground">{p.t}</span>
               </span>
@@ -274,15 +272,15 @@ const Careers = () => {
               <AnimatedSection key={p.title} delay={i * 0.06}>
                 <motion.div
                   whileHover={{ y: -3 }}
-                  className="h-full rounded-[1.5rem] border-2 border-foreground bg-card p-6 flex flex-col gap-5 shadow-[4px_4px_0_0_hsl(var(--foreground))]"
+                  className="yankee-surface h-full rounded-[1.5rem] bg-card p-6 flex flex-col gap-5"
                 >
                   <div className="flex justify-start">
-                    <span className="inline-block max-w-[95%] px-3.5 py-2 text-[13px] leading-snug lowercase rounded-2xl rounded-bl-md bg-folk-bubble text-white shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                    <span className="yankee-surface inline-block max-w-[95%] px-3.5 py-2 text-[13px] leading-snug lowercase rounded-2xl rounded-bl-md bg-folk-bubble text-white">
                       {p.bubble}
                     </span>
                   </div>
                   <div className="mt-auto">
-                    <div className="w-9 h-9 rounded-xl border-2 border-foreground bg-primary text-primary-foreground flex items-center justify-center mb-4">
+                    <div className="w-9 h-9 rounded-xl border border-foreground/15 bg-primary text-primary-foreground flex items-center justify-center mb-4">
                       <Icon size={16} />
                     </div>
                     <h3 className="text-[16px] font-semibold lowercase tracking-tight">{p.title}</h3>
@@ -296,7 +294,7 @@ const Careers = () => {
       </div>
     </section>
 
-    <section id="open-roles" className="relative py-20 md:py-28 dotted-bg scroll-mt-24">
+    <section id="open-roles" className="relative py-20 md:py-28 dotted-bg scroll-mt-16">
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[900px] mx-auto px-5 md:px-6">
         <AnimatedSection className="text-center mb-12 md:mb-14">
@@ -312,12 +310,12 @@ const Careers = () => {
             <AnimatedSection key={role.title} delay={i * 0.07}>
               <a
                 href={role.href}
-                className="group block rounded-[1.5rem] border-2 border-foreground bg-card p-5 md:p-6 shadow-[4px_4px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[3px_3px_0_0_hsl(var(--foreground))] transition-all"
+                className="yankee-surface group block rounded-[1.5rem] bg-card p-5 md:p-6 hover:-translate-y-1 transition-all"
               >
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2 mb-2">
-                      <span className="inline-flex rounded-full border-2 border-foreground bg-folk-panel px-2.5 py-0.5 text-[11px] font-medium lowercase">
+                      <span className="yankee-surface yankee-surface--control inline-flex rounded-full bg-folk-panel px-2.5 py-0.5 text-[11px] font-medium lowercase">
                         {role.tag}
                       </span>
                       <span className="text-[12px] text-muted-foreground lowercase">{role.loc}</span>
@@ -329,7 +327,7 @@ const Careers = () => {
                       {role.desc}
                     </p>
                   </div>
-                  <span className="inline-flex items-center gap-1.5 self-start shrink-0 rounded-full border-2 border-foreground bg-primary text-primary-foreground px-4 py-2 text-[13px] font-medium lowercase shadow-[2px_2px_0_0_hsl(var(--foreground))]">
+                  <span className="yankee-surface yankee-surface--control inline-flex items-center gap-1.5 self-start shrink-0 rounded-full bg-primary text-primary-foreground px-4 py-2 text-[13px] font-medium lowercase">
                     apply <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </span>
                 </div>
@@ -344,7 +342,7 @@ const Careers = () => {
       <div className="absolute inset-0 bg-background/75" />
       <div className="relative max-w-[900px] mx-auto px-5 md:px-6">
         <AnimatedSection>
-          <div className="rounded-[1.75rem] border-2 border-foreground bg-card overflow-hidden shadow-[6px_6px_0_0_hsl(var(--foreground))]">
+          <div className="yankee-surface rounded-[1.75rem] bg-card overflow-hidden">
             <div className="grid md:grid-cols-12">
               <div className="md:col-span-5 relative min-h-[200px] border-b-2 md:border-b-0 md:border-r-2 border-foreground">
                 <img
@@ -365,8 +363,8 @@ const Careers = () => {
                 </p>
                 <div className="mt-6">
                   <a
-                    href="mailto:jobs@yankee.app?subject=General%20interest"
-                    className="group inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-foreground bg-folk-panel text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+                    href={`${YANKEE_MAILTO}?subject=General%20interest`}
+                    className="yankee-surface yankee-surface--control group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-folk-panel text-[14px] font-medium text-foreground lowercase hover:-translate-y-1 transition-all"
                   >
                     send a note <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
                   </a>
@@ -391,17 +389,14 @@ const Careers = () => {
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <a
-              href="mailto:jobs@yankee.app"
-              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight
-                folk-cta
-                shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)]
-                hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+              href={YANKEE_MAILTO}
+              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
             >
               get in touch <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
             </a>
             <Link
               to="/story"
-              className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full border-2 border-foreground/90 bg-card text-[14px] font-medium text-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+              className="yankee-surface yankee-surface--control inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full bg-card text-[14px] font-medium text-foreground lowercase hover:-translate-y-1 transition-all"
             >
               read our story
             </Link>

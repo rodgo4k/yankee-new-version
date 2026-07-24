@@ -40,7 +40,7 @@ const TeamHeroScene = () => {
           initial={{ opacity: 0, y: 28, rotate: -2 }}
           animate={{ opacity: 1, y: 0, rotate: -1.5 }}
           transition={{ duration: 0.7, ease }}
-          className="col-span-7 relative rounded-[1.5rem] border-2 border-foreground overflow-hidden shadow-[6px_6px_0_0_hsl(var(--foreground))] min-h-[280px] md:min-h-[340px]"
+          className="yankee-surface col-span-7 relative rounded-[1.5rem] overflow-hidden min-h-[280px] md:min-h-[340px]"
         >
           <img
             src={smallTeamCollab}
@@ -72,7 +72,7 @@ const TeamHeroScene = () => {
           initial={{ opacity: 0, x: 18 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.12, ease }}
-          className="col-span-5 rounded-[1.5rem] border-2 border-foreground bg-card p-3 md:p-4 shadow-[5px_5px_0_0_hsl(var(--foreground))] flex flex-col"
+          className="yankee-surface col-span-5 rounded-[1.5rem] bg-card p-3 md:p-4 flex flex-col"
         >
           <p className="text-[11px] text-foreground/50 lowercase px-1 mb-3">rooms</p>
           <div className="flex-1 flex flex-col gap-2">
@@ -87,13 +87,7 @@ const TeamHeroScene = () => {
                     x: on ? 0 : 6,
                   }}
                   transition={{ duration: 0.35, ease }}
-                  className={`rounded-xl border-2 border-foreground px-2.5 py-2 ${
-                    on && r.status === "split"
-                      ? "bg-folk-bubble text-white"
-                      : on
-                        ? "bg-folk-bubble-soft"
-                        : "bg-background"
-                  }`}
+                  className={`yankee-surface rounded-xl px-2.5 py-2 ${ on && r.status === "split" ? "bg-folk-bubble text-white" : on ? "bg-folk-bubble-soft" : "bg-background" }`}
                 >
                   <div className="flex items-center justify-between gap-1">
                     <p className="text-[11px] md:text-[12px] font-semibold lowercase truncate">{r.name}</p>
@@ -102,13 +96,11 @@ const TeamHeroScene = () => {
                     ) : on ? (
                       <Check size={11} />
                     ) : (
-                      <span className="w-3 h-3 rounded-full border-2 border-foreground/20" />
+                      <span className="yankee-surface yankee-surface--control w-3 h-3 rounded-full" />
                     )}
                   </div>
                   <p
-                    className={`mt-0.5 text-[10px] lowercase ${
-                      on && r.status === "split" ? "text-white/80" : "text-foreground/50"
-                    }`}
+                    className={`mt-0.5 text-[10px] lowercase ${ on && r.status === "split" ? "text-white/80" : "text-foreground/50" }`}
                   >
                     {r.meta}
                   </p>
@@ -125,7 +117,7 @@ const TeamHeroScene = () => {
         transition={{ duration: 0.5, delay: 0.3 }}
         className="mt-3 flex justify-end"
       >
-        <div className="rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-folk-bubble-foreground lowercase shadow-[3px_3px_0_0_hsl(var(--foreground))] max-w-[90%]">
+        <div className="yankee-surface rounded-2xl rounded-br-md bg-folk-bubble px-3.5 py-2.5 text-[12px] md:text-[13px] leading-snug text-folk-bubble-foreground lowercase max-w-[90%]">
           only urgent mentions break through
         </div>
       </motion.div>

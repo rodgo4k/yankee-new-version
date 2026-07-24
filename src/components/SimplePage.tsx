@@ -181,11 +181,9 @@ const SimplePage = ({ tag, eyebrow, title, subtitle, blocks, ctaTitle, ctaBody =
                     </div>
                   </AnimatedSection>
                   <AnimatedSection delay={0.1}>
-                    <div className={`rounded-[2rem] border-2 border-border p-6 md:p-8 flex flex-col gap-3 ${isTinted ? "bg-background/70 backdrop-blur-sm" : "bg-card"}`}>
+                    <div className={`yankee-surface yankee-surface--lg rounded-[2rem] p-6 md:p-8 flex flex-col gap-3 ${isTinted ? "bg-background/70 backdrop-blur-sm" : "bg-card"}`}>
                       {b.chat!.map((m, i) => (<div key={i} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>
-                          <span className={`inline-block max-w-[85%] px-4 py-2.5 text-[14px] leading-snug rounded-[1.4rem] ${m.from === "you"
-                            ? "bg-folk text-folk-foreground rounded-br-md"
-                            : "bg-muted text-foreground rounded-bl-md"}`}>
+                          <span className={`inline-block max-w-[85%] px-4 py-2.5 text-[14px] leading-snug rounded-[1.4rem] ${m.from === "you" ? "bg-folk text-folk-foreground rounded-br-md" : "bg-muted text-foreground rounded-bl-md"}`}>
                             {m.text}
                           </span>
                         </div>))}
@@ -204,7 +202,7 @@ const SimplePage = ({ tag, eyebrow, title, subtitle, blocks, ctaTitle, ctaBody =
                     </div>
                   </AnimatedSection>
                   <AnimatedSection delay={0.1}>
-                    <div className="rounded-[2rem] overflow-hidden border border-border shadow-[0_20px_60px_-20px_rgba(0,0,0,0.25)]">
+                    <div className="yankee-surface yankee-surface--media rounded-[2rem] overflow-hidden">
                       <img src={b.image} alt="" className="w-full h-full object-cover"/>
                     </div>
                   </AnimatedSection>
