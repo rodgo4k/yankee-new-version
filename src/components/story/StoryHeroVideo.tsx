@@ -5,10 +5,6 @@ import BeamPillButton from "@/components/home/BeamPillButton";
 const VIDEO_SRC = "/videos/yankee-intro.mp4";
 const POSTER_SRC = "/videos/yankee-intro-poster.jpg";
 
-/**
- * Same play/pause/mute/seek chrome as IntroVideoSection,
- * sized to fill a parent card media slot.
- */
 const StoryHeroVideo = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);

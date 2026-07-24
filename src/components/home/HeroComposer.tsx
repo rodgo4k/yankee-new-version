@@ -31,10 +31,8 @@ const layerFix = {
 };
 
 type HeroComposerProps = {
-  /** When false, plays the sequence once then calls onSequenceComplete. Default true. */
   loop?: boolean;
   onSequenceComplete?: () => void;
-  /** Hide the CTA block when a parent (e.g. HeroStage) renders it in a fixed slot. */
   hideCta?: boolean;
 };
 

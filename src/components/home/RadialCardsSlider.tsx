@@ -23,16 +23,12 @@ const cards = [
   { src: searchImg, label: "search" },
 ];
 
-/** Normalize degrees to [-180, 180] */
 const norm = (deg: number) => {
   let d = ((deg % 360) + 360) % 360;
   if (d > 180) d -= 360;
   return d;
 };
 
-/**
- * Cards sit on a circular arc — base on the path, rotation = tangent.
- */
 const RadialCardsSlider = () => {
   const rootRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -54,7 +50,6 @@ const RadialCardsSlider = () => {
 
     const layout = () => {
       const w = root.clientWidth;
-      // Arc position as before — not lifted toward the headline
       const radiusX = Math.min(560, Math.max(300, w * 0.46));
       const radiusY = Math.min(300, Math.max(180, w * 0.26));
 
@@ -142,7 +137,7 @@ const RadialCardsSlider = () => {
               className="absolute left-0 top-0 w-[110px] sm:w-[138px] md:w-[152px] will-change-transform"
             >
               <div className="yankee-surface yankee-surface--media rounded-[1.15rem] bg-card overflow-hidden">
-                {/* Phone portrait — not 3/4 (looks vertically squashed) */}
+                {}
                 <div className="aspect-[9/16] bg-muted overflow-hidden">
                   <img
                     src={card.src}

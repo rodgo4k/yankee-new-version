@@ -6,7 +6,6 @@ export type SiteTheme = "folk-dark" | "folk-light";
 
 type LayoutProps = {
   children: ReactNode;
-  /** Defaults to light Folk site-wide. Pass folk-dark for the dark theme. */
   theme?: SiteTheme;
 };
 

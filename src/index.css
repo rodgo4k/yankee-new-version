@@ -4,26 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
-  Folk design tokens
-  ------------------
-  Semantic roles for reusable component types:
-  --folk-bubble        accent chat / CTA bubble (blue)
-  --folk-bubble-soft   secondary chat bubble / cream chip
-  --folk-surface-warm  warm tinted card surface
-  --folk-surface-cool  cool tinted card surface
-  --folk-success       online / positive pill
-  --folk-cta-*         primary download CTA gradient stops
-  --folk-dot           dotted background pattern color
-  --folk-panel         window chrome / sheet strip
-
-  Default site theme is light Folk (:root).
-  Optional dark: data-theme="folk-dark" on Layout.
-*/
-
 @layer base {
   :root {
-    /* Light Folk — site default */
     --background: 40 30% 94%;
     --foreground: 30 12% 8%;
 
@@ -89,7 +71,6 @@
     --sidebar-ring: 30 12% 30%;
   }
 
-  /* Optional dark Folk */
   [data-theme="folk-dark"] {
     --background: 28 12% 9%;
     --foreground: 40 28% 94%;
@@ -172,7 +153,6 @@
     background-size: 16px 16px;
   }
 
-  /* HeyClicky-like paper grid for hero surfaces */
   .dot-grid-hero {
     background-color: hsl(var(--card));
     background-image: radial-gradient(
@@ -182,7 +162,6 @@
     background-size: 34px 34px;
   }
 
-  /* Soft canvas / fiber texture for hero */
   .canvas-texture {
     background-color: hsl(40 28% 96%);
     background-image:
@@ -225,9 +204,6 @@
     box-shadow: 6px 6px 0 0 hsl(var(--foreground));
   }
 
-  /* ── Yankee surface (high-impact soft lift) ───────────────────
-     Heavy depth + blue ambient glow. Not Folk hard offset.
-     Helpers: @/lib/yankeeSurface + <YankeeSurface />              */
   .yankee-surface {
     border: 1.5px solid hsl(var(--foreground) / 0.14);
     border-radius: 1.35rem;
@@ -340,7 +316,6 @@
 
 html { scroll-behavior: smooth; }
 
-/* Folk scrollbar — desktop only; native on touch / narrow viewports */
 @media (min-width: 768px) {
   html {
     scrollbar-width: thin;

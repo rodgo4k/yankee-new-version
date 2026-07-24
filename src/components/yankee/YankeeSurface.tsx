@@ -11,10 +11,6 @@ type YankeeSurfaceProps = HTMLAttributes<HTMLElement> & {
   children?: ReactNode;
 };
 
-/**
- * Soft paper surface for Yankee UI.
- * Prefer this over Folk `border-2` + hard offset shadows.
- */
 const YankeeSurface = ({
   as: Comp = "div",
   size = "base",

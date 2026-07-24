@@ -1,0 +1,11 @@
+---
+description: Never add code comments when developing
+alwaysApply: true
+---
+
+# No comments in code
+
+- Do not write comments in source code (`//`, `/* */`, `{/* */}`, JSDoc, or HTML comments).
+- Do not add new comments when creating or editing files.
+- Prefer clear names and structure over explanatory comments.
+- Triple-slash directives like `/// <reference ... />` may remain when required by the toolchain.

@@ -9,10 +9,6 @@ type DotRevealSectionProps = {
   image: string;
 };
 
-/**
- * Folk-styled section wrapping Dot Image Reveal (Origin Kit inspired).
- * Desktop: hover. Mobile: drag across the grid.
- */
 const DotRevealSection = ({ image }: DotRevealSectionProps) => {
   const [isMobile, setIsMobile] = useState(false);
 

@@ -79,7 +79,7 @@ const Index = () => (
       <div className="absolute inset-0 z-[1] bg-gradient-to-b from-card/30 via-transparent to-background/80 pointer-events-none" />
 
       <div className="relative z-10 flex-1 flex flex-col justify-center w-full max-w-[920px] mx-auto px-5 md:px-6 py-10 md:py-12 text-center">
-        {/* Only logo + title shift down; arc/CTA stay put */}
+        {}
         <div className="mt-6 md:mt-0 md:translate-y-12 lg:translate-y-14">
           <motion.h1
             initial={{ opacity: 0, y: 18 }}

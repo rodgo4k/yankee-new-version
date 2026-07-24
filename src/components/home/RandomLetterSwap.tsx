@@ -2,23 +2,15 @@ import { useCallback, useMemo, useRef, useState } from "react";
 import { motion, useReducedMotion, type Transition } from "framer-motion";
 
 type RandomLetterSwapProps = {
-  /** Heading text split into letters and swapped on hover */
   label: string;
-  /** forward plays once on hover; pingpong reverses on hover-out */
   mode?: "forward" | "pingpong";
-  /** When true, letters slide upward; otherwise downward */
   reverse?: boolean;
-  /** Delay between each letter swap (seconds) */
   staggerDuration?: number;
   className?: string;
 };
 
 const spring: Transition = { type: "spring", stiffness: 420, damping: 28, mass: 0.55 };
 
-/**
- * Origin Kit–inspired Random Letter Swap:
- * on hover, letters swap vertically in a randomized staggered order.
- */
 const RandomLetterSwap = ({
   label,
   mode = "pingpong",

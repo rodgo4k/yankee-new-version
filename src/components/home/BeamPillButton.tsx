@@ -3,16 +3,11 @@ import { BorderBeam } from "border-beam";
 
 type BeamPillButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: ReactNode;
-  /** Pill with label, or round icon control */
   shape?: "pill" | "round";
-  /** solid = hero CTA fill; glass = translucent overlay controls */
   tone?: "solid" | "glass";
   className?: string;
 };
 
-/**
- * Shared glossy folk-cta + border-beam control (same family as BeamIosCta).
- */
 const BeamPillButton = ({
   children,
   shape = "pill",

@@ -165,11 +165,11 @@ const DownloadDesktopHero = ({ iosHref }: DownloadDesktopHeroProps) => {
       <div className="absolute inset-0 bg-background/80" />
 
       <div className="relative flex-1 flex flex-col justify-center max-w-[1200px] w-full mx-auto px-5 md:px-6">
-        {/* Stage with edge satellites (desktop / tablet) */}
+        {}
         <div className="relative flex-1 flex flex-col justify-center min-h-0 py-2">
           <HeroEdgeStickers satellites={satellites} />
 
-          {/* Decorative float labels (non-blocking) */}
+          {}
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -187,7 +187,7 @@ const DownloadDesktopHero = ({ iosHref }: DownloadDesktopHeroProps) => {
             finite scroll
           </motion.span>
 
-          {/* Center column — pointer-events only on interactive bits so edge stickers work */}
+          {}
           <div className="relative z-20 pointer-events-none flex flex-col items-center">
             <div className="text-center max-w-xl mx-auto pointer-events-auto shrink-0">
               <motion.p
@@ -232,7 +232,7 @@ const DownloadDesktopHero = ({ iosHref }: DownloadDesktopHeroProps) => {
               </motion.div>
             </div>
 
-            {/* Main preview stage — phone frame (viewport-capped) */}
+            {}
             <div className="mt-4 md:mt-5 relative mx-auto w-[min(150px,28vw)] sm:w-[min(168px,22vw)] md:w-[min(180px,18vw)] pointer-events-auto shrink-0">
               <AnimatePresence mode="wait">
                 {active ? (
@@ -289,7 +289,6 @@ const DownloadDesktopHero = ({ iosHref }: DownloadDesktopHeroProps) => {
               </AnimatePresence>
             </div>
 
-            {/* Icon rail */}
             <div className="mt-4 md:mt-5 flex flex-wrap items-start justify-center gap-2.5 md:gap-3.5 pointer-events-auto shrink-0">
               {peeks.map((peek, i) => {
                 const Icon = peek.icon;

@@ -8,10 +8,6 @@ type BeamIosCtaProps = {
   label?: string;
 };
 
-/**
- * Hero download CTA: glossy blue pill with border-beam ring.
- * @see https://beam.jakubantalik.com
- */
 const BeamIosCta = ({
   href = APP_STORE_URL,
   className = "",

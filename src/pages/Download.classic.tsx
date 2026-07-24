@@ -1,8 +1,3 @@
-/**
- * BACKUP da página Download (versão anterior ao hero estilo heyclicky).
- * Para restaurar: copie este arquivo sobre `Download.tsx`
- *   (ou troque o conteúdo) e remova o uso de DownloadDesktopHero.
- */
 import { ArrowRight, Apple, Smartphone, QrCode, Shield, WifiOff, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";

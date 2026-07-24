@@ -10,13 +10,9 @@ export type HeroSatellite = {
   objectTop?: boolean;
   rotate: number;
   lgOnly?: boolean;
-  /** collapsed sticker size — default md */
   size?: "sm" | "md" | "lg";
-  /** expanded / always-open phone width */
   windowSize?: "sm" | "md" | "lg" | "xl";
-  /** start as an open phone preview */
   startOpen?: boolean;
-  /** unique idle drift — seconds */
   floatDuration?: number;
   floatY?: number;
   className: string;
@@ -235,7 +231,6 @@ type HeroEdgeStickersProps = {
   notes?: FloatNote[];
 };
 
-/** Floating collage around a hero — heyclicky-inspired. Hidden below md. */
 const HeroEdgeStickers = ({ satellites, notes = [] }: HeroEdgeStickersProps) => {
   const [openSat, setOpenSat] = useState<string | null>(null);
 

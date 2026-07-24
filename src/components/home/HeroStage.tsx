@@ -4,13 +4,6 @@ import BeamIosCta from "@/components/home/BeamIosCta";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 
-/**
- * Hero stage: radial cards arc + fixed CTA.
- *
- * HeroComposer (comments/posts card) lives at
- * `src/components/home/HeroComposer.tsx` for a future sequence
- * (composer → slide out → arc). Not mounted here on purpose.
- */
 const HeroStage = () => (
   <motion.div
     className="relative w-full max-w-[1200px] mx-auto"
@@ -18,7 +11,7 @@ const HeroStage = () => (
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.85, ease, delay: 0.2 }}
   >
-    {/* Phone arc — enough height so cards don't collide with title/CTA */}
+    {}
     <div className="relative h-[320px] sm:h-[380px] md:h-[440px] overflow-visible">
       <div className="absolute inset-0 z-10">
         <RadialCardsSlider />

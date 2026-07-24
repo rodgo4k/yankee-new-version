@@ -7,10 +7,6 @@ import BeamPillButton from "@/components/home/BeamPillButton";
 const VIDEO_SRC = "/videos/yankee-intro.mp4";
 const POSTER_SRC = "/videos/yankee-intro-poster.jpg";
 
-/**
- * Intro video embed with BeamPillButton play/pause controls
- * (same style as the hero download CTA).
- */
 const IntroVideoSection = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
@@ -223,7 +219,7 @@ const IntroVideoSection = () => {
                 </div>
               )}
 
-              {/* Initial play CTA */}
+              {}
               {!playing && !hasPlayed && !loadError && (
                 <div className="absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                   <BeamPillButton tone="glass" aria-label="play video" onClick={() => void play()}>
@@ -233,7 +229,7 @@ const IntroVideoSection = () => {
                 </div>
               )}
 
-              {/* Play again when paused */}
+              {}
               {!playing && hasPlayed && (
                 <div className="absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                   <BeamPillButton tone="glass" shape="round" aria-label="play" onClick={() => void play()}>
@@ -242,7 +238,7 @@ const IntroVideoSection = () => {
                 </div>
               )}
 
-              {/* Pause control while playing (shows on hover) */}
+              {}
               {playing && (
                 <div
                   className={`absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-200 ${ showCenterControl ? "opacity-100" : "opacity-0 pointer-events-none" }`}

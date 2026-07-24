@@ -1,29 +1,17 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 type DotImageRevealProps = {
-  /** Image sampled into every resting/open dot */
   image: string;
-  /** Fill behind the grid (gaps between dots) */
   background?: string;
-  /** Number of columns; rows auto-fill height */
   dots?: number;
-  /** Space between resting dots in px */
   gap?: number;
-  /** Cursor trigger radius in px */
   radius?: number;
-  /** How evenly the trigger area opens (1–20) */
   intensity?: number;
-  /** cover crops to fill; contain shows the full image */
   fit?: "cover" | "contain";
   className?: string;
   alt?: string;
 };
 
-/**
- * Origin Kit–style Dot Image Reveal:
- * each resting circle already shows its slice of the image;
- * near the pointer, dots open into a continuous picture.
- */
 const DotImageReveal = ({
   image,
   background = "transparent",
@@ -121,12 +109,10 @@ const DotImageReveal = ({
         const open = Math.pow(t, falloff);
 
         const base = Math.min(cellW, cellH);
-        // Resting: larger image circles. Open: expand past the cell so neighbors touch
         const restSize = Math.max(4, Math.min(base - gap * 0.25, base * 0.72));
         const openSize = Math.max(cellW, cellH) * 1.08;
         const size = restSize + (openSize - restSize) * open;
         const radiusDot = size / 2;
-        // Fully open → square tiles that kiss; resting stays circular
         const round = Math.max(0.5, radiusDot * (1 - open));
 
         const x = cx - radiusDot;
@@ -145,7 +131,6 @@ const DotImageReveal = ({
         ctx.closePath();
         ctx.clip();
 
-        // Full-frame draw under the clip so open neighbors blend into one picture
         ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
         ctx.restore();
       }
@@ -213,7 +198,6 @@ const DotImageReveal = ({
         try {
           (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
         } catch {
-          /* ignore */
         }
         if (e.pointerType === "touch") {
           pointerRef.current.active = false;

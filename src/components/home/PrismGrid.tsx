@@ -5,11 +5,9 @@ type PrismGridProps = {
   boxSize?: number;
   borderWidth?: number;
   borderColor?: string;
-  /** Degrees: x = yaw (left/right), y = pitch (front/back) */
   rotate?: { x?: number; y?: number };
   colors?: string[];
   className?: string;
-  /** Soft idle sparkle so the hero stays alive without hover */
   idle?: boolean;
 };
 
@@ -24,11 +22,6 @@ const DEFAULT_COLORS = [
   "rgba(253, 186, 116, 0.4)",
 ];
 
-/**
- * Origin Kit–inspired Prism Grid: 3D-tilted cells that light on hover
- * and fade out (~1s). Tuned for a light Folk hero background.
- * @see https://www.originkit.dev/components/prism-grid
- */
 const PrismGrid = ({
   backgroundColor = "hsl(40 30% 97%)",
   boxSize = 44,
@@ -93,7 +86,6 @@ const PrismGrid = ({
     };
   }, []);
 
-  // Idle sparkle
   useEffect(() => {
     if (!idle || total === 0) return;
     const id = window.setInterval(() => {
@@ -113,7 +105,6 @@ const PrismGrid = ({
     const y = e.clientY - rect.top;
     if (x < 0 || y < 0 || x > rect.width || y > rect.height) return;
 
-    // Mild inverse of the 3D tilt so hover stays aligned at small angles
     const rx = ((rotate.x ?? 0) * Math.PI) / 180;
     const ry = ((rotate.y ?? 0) * Math.PI) / 180;
     const cx = rect.width / 2;
