@@ -19,7 +19,6 @@ import { blockCard } from "@/lib/yankeeBlock";
 import heroParty from "@/assets/hero-party.jpg";
 import cafeFriends from "@/assets/cafe-friends.jpg";
 import studentsHero from "@/assets/students-hero.jpg";
-import communityShot from "@/assets/yankee/community.png";
 import dotRevealImg from "@/assets/yankee/dot-reveal.png";
 import heroFolkMountains from "@/assets/hero-folk-mountains.jpg";
 
@@ -376,20 +375,17 @@ const Index = () => (
           </AnimatedSection>
 
           <AnimatedSection delay={0.22} className="col-span-1 md:col-span-3">
-            <motion.div
-              whileHover={{ y: -3 }}
-              className={surface("interactive", "h-full min-h-[140px] p-4 flex gap-4 items-center")}
-            >
-              <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden border border-foreground/10 shrink-0 shadow-[0_6px_16px_-8px_rgba(0,0,0,0.2)]">
-                <img src={communityShot} alt="" className="w-full h-full object-cover object-top" loading="lazy" />
+            <div className={blockCard(0, "h-full min-h-[140px] p-5 flex flex-col justify-between")}>
+              <div className="yankee-block__icon inline-flex w-10 h-10 items-center justify-center rounded-full font-semibold text-sm tracking-tight">
+                R
               </div>
               <div>
                 <p className="text-[15px] font-semibold lowercase">running club</p>
-                <p className="mt-1 text-[12px] text-muted-foreground lowercase leading-relaxed">
+                <p className="mt-1 text-[12px] yankee-block__muted lowercase leading-relaxed">
                   meetups, routes, no noisy threads.
                 </p>
               </div>
-            </motion.div>
+            </div>
           </AnimatedSection>
 
           <AnimatedSection delay={0.26} className="col-span-1 md:col-span-3">
