@@ -1,6 +1,6 @@
-# Intro video (web-optimized, ~8MB)
-# yankee-intro.mp4 â€” committed for Vercel/static hosting
-# yankee-intro-poster.jpg â€” cover frame at ~3s
+# Intro video (web-optimized)
+# yankee-intro.mp4 — used on home (IntroVideoSection) and story (StoryHeroVideo)
+# Source: Yankee App Introduction 16x9 1080p 81s 20260720.mp4
+# yankee-intro-poster.jpg — cover frame at ~2s
 #
-# Local master (optional): keep the full-res file outside the repo
-# e.g. Desktop/yankee videos/â€¦ and do not commit it.
+# Keep the full-res master outside the repo (Desktop/yankee videos/).

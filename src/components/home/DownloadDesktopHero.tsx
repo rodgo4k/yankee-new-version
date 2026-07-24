@@ -196,7 +196,7 @@ const DownloadDesktopHero = ({ iosHref }: DownloadDesktopHeroProps) => {
                 transition={{ duration: 0.5 }}
                 className="font-serif-display italic text-[1rem] md:text-[1.15rem] text-foreground/45 lowercase"
               >
-                download
+                coming soon
               </motion.p>
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
@@ -212,7 +212,7 @@ const DownloadDesktopHero = ({ iosHref }: DownloadDesktopHeroProps) => {
                 transition={{ duration: 0.55, delay: 0.16 }}
                 className="mt-2.5 text-[13px] md:text-[15px] text-muted-foreground lowercase max-w-md mx-auto"
               >
-                the quieter social app. hover icons — and the stickers around the edges.
+                the quieter social app we&apos;re building. hover icons — and the stickers around the edges.
               </motion.p>
 
               <motion.div
@@ -227,7 +227,7 @@ const DownloadDesktopHero = ({ iosHref }: DownloadDesktopHeroProps) => {
                   rel="noopener noreferrer"
                   className="group inline-flex items-center gap-2.5 px-5 py-3 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                 >
-                  <Apple size={16} /> download for ios
+                  <Apple size={16} /> notify me for ios
                 </a>
               </motion.div>
             </div>

@@ -16,9 +16,9 @@ const stores = [
     subtitle: "app store",
     desc: "requires ios 16 or later.",
     href: "https://apps.apple.com/us/app/yankee/id6752715457",
-    cta: "download for ios",
+    cta: "notify me for ios",
     icon: Apple,
-    bubble: "available now",
+    bubble: "coming soon",
   },
   {
     id: "android",
@@ -26,9 +26,9 @@ const stores = [
     subtitle: "google play",
     desc: "requires android 10 or later. same yankee, same quiet feed.",
     href: "https://play.google.com",
-    cta: "download for android",
+    cta: "notify me for android",
     icon: Smartphone,
-    bubble: "available now",
+    bubble: "coming soon",
   },
 ];
 
@@ -36,22 +36,22 @@ const reasons = [
   {
     icon: Shield,
     title: "private by default",
-    desc: "your messages and memory stay encrypted on your device.",
+    desc: "your messages and memory will stay encrypted on your device.",
   },
   {
     icon: WifiOff,
     title: "works offline",
-    desc: "read your feed and drafts even when the signal drops.",
+    desc: "you'll be able to read your feed and drafts even when the signal drops.",
   },
   {
     icon: Sparkles,
     title: "no ads, ever",
-    desc: "we don't sell attention. the app is the product.",
+    desc: "we won't sell attention. the app is the product.",
   },
 ];
 
 const steps = [
-  { n: "01", t: "pick your store", d: "ios or android. same app, same people." },
+  { n: "01", t: "get notified", d: "ios or android. same app, same people when we launch." },
   { n: "02", t: "create your account", d: "phone or email. no algorithm profile to fill." },
   { n: "03", t: "invite your people", d: "start a small crowd or follow friends you actually know." },
 ];
@@ -74,7 +74,7 @@ const Download = () => (
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-folk-success opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-folk-success" />
                 </span>
-                available on ios & android
+                coming soon to ios & android
               </span>
             </motion.div>
 
@@ -247,11 +247,11 @@ const Download = () => (
                   <span className="font-serif-display italic font-medium">link</span>
                 </h2>
                 <p className="mt-3 text-[14px] text-muted-foreground leading-relaxed lowercase max-w-md">
-                  email yankee@foretheist.com and we&apos;ll reply with the download links for ios and android.
+                  email yankee@foretheist.com and we&apos;ll notify you when the ios and android links are ready.
                 </p>
                 <div className="mt-6">
                   <a
-                    href="mailto:yankee@foretheist.com?subject=Send%20me%20the%20download%20link"
+                    href="mailto:yankee@foretheist.com?subject=Notify%20me%20when%20Yankee%20launches"
                     className="yankee-surface yankee-surface--control group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-folk-panel text-[14px] font-medium text-foreground lowercase hover:-translate-y-1 transition-all"
                   >
                     email me the link <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
@@ -328,11 +328,11 @@ const Download = () => (
       <div className="relative max-w-[900px] mx-auto px-5 md:px-6 text-center">
         <AnimatedSection>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
-            ready when you{" "}
-            <span className="font-serif-display italic font-medium">are.</span>
+            ready when we{" "}
+            <span className="font-serif-display italic font-medium">launch.</span>
           </h2>
           <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto">
-            download yankee, invite a few people you like, and leave the noise behind.
+            when yankee launches, invite a few people you like and leave the noise behind.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <a

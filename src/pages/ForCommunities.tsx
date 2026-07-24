@@ -104,24 +104,24 @@ const faqs = [
     a: "A Crowd is Yankee's take on a community. Small, topical, capped in size, moderated by its own members and kept alive by regular meetups.",
   },
   {
-    q: "How is a Crowd different from a group chat?",
-    a: "Crowds are structured around a topic, capped in size, and split when they grow. They include a calendar, threads and discovery, without the noise of a chat that never ends.",
+    q: "How will a Crowd be different from a group chat?",
+    a: "Crowds will be structured around a topic, capped in size, and split when they grow. They will include a calendar, threads and discovery, without the noise of a chat that never ends.",
   },
   {
     q: "Can anyone create a Crowd?",
-    a: "Yes. Any member can start a Crowd. If it reaches a small threshold of active members in the first month, it gets promoted in the directory.",
+    a: "Yes. Any member will be able to start a Crowd. If it reaches a small threshold of active members in the first month, it will get promoted in the directory.",
   },
   {
-    q: "Are Crowds moderated?",
-    a: "Yes. Every Crowd has volunteer moderators from its own members. Reports are private and handled the same day.",
+    q: "Will Crowds be moderated?",
+    a: "Yes. Every Crowd will have volunteer moderators from its own members. Reports will be private and handled the same day.",
   },
   {
-    q: "Do meetups cost anything?",
-    a: "No. Yankee never charges to host or attend a meetup. Paid events organised by a Crowd are always clearly labeled.",
+    q: "Will meetups cost anything?",
+    a: "No. Yankee will never charge to host or attend a meetup. Paid events organised by a Crowd will always be clearly labeled.",
   },
   {
     q: "Will my friends see the Crowds I join?",
-    a: "Only if you choose to show them. Membership is private by default.",
+    a: "Only if you choose to show them. Membership will be private by default.",
   },
 ];
 

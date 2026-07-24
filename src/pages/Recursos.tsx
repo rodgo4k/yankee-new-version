@@ -139,12 +139,12 @@ const privacyCards = [
   {
     icon: EyeOff,
     title: "private + encrypted",
-    text: "your feed, memory and dms live in your space, encrypted where we store them.",
+    text: "your feed, memory and dms will live in your space, encrypted where backups will live.",
   },
   {
     icon: Trash2,
     title: "gone in seconds",
-    text: "delete your account any time. memory, messages and history are destroyed for good.",
+    text: "you'll be able to delete your account any time. memory, messages and history will be destroyed for good.",
   },
 ];
 
@@ -201,7 +201,7 @@ const Features = () => (
                 to="/contact"
                 className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
               >
-                get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                get early access <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
               </Link>
               <Link
                 to="/story"
@@ -263,7 +263,7 @@ const Features = () => (
                 transition={{ duration: 0.5, delay: 0.55 }}
                 className="absolute top-4 right-2 md:top-8 md:right-6 z-20"
               >
-                <PromoPill tag="live" text="feed · chat · crowds" to="/feed" />
+                <PromoPill tag="soon" text="feed · chat · crowds" to="/feed" />
               </motion.div>
             </div>
           </div>
@@ -348,7 +348,7 @@ const Features = () => (
             always on, <span className="font-serif-display italic font-medium">only yours</span>
           </h2>
           <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-lg mx-auto">
-            feed, chat, calls, crowds and yankee ai live in one place. connected only to the people and rooms you choose.
+            feed, chat, calls, crowds and yankee ai will live in one place. connected only to the people and rooms you choose.
           </p>
         </AnimatedSection>
 
@@ -700,7 +700,7 @@ const Features = () => (
                   to="/contact"
                   className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                 >
-                  get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                  get early access <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
                 </Link>
                 <Link
                   to="/story"

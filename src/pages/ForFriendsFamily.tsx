@@ -98,23 +98,23 @@ const steps = [
 const faqs = [
   {
     q: "Do my family members need another app?",
-    a: "Yes — but it is one app for everything. Chat, calls, photos and updates live together, so you stop jumping between five different apps.",
+    a: "Yes — but it will be one app for everything. Chat, calls, photos and updates will live together, so you stop jumping between five different apps.",
   },
   {
     q: "Is it safe for kids?",
-    a: "Profiles are private by default. Parents approve contacts and group invites. There are no public metrics, no discovery algorithms and no strangers.",
+    a: "Profiles will be private by default. Parents will approve contacts and group invites. There will be no public metrics, no discovery algorithms and no strangers.",
   },
   {
     q: "Can we share photos privately?",
-    a: "Yes. Every album lives inside a private circle and is only visible to members. Downloads are optional and you can revoke access any time.",
+    a: "Yes. Every album will live inside a private circle and will only be visible to members. Downloads will be optional and you'll be able to revoke access any time.",
   },
   {
-    q: "Are calls and messages encrypted?",
-    a: "Yes. Group chats and calls are end-to-end encrypted. We cannot read the content of your conversations.",
+    q: "Will calls and messages be encrypted?",
+    a: "Yes. Group chats and calls will be end-to-end encrypted. We will not be able to read the content of your conversations.",
   },
   {
     q: "Can I have separate circles for family and friends?",
-    a: "Yes. Create as many circles as you want, each with its own members, albums and notification rules.",
+    a: "Yes. You'll be able to create as many circles as you want, each with its own members, albums and notification rules.",
   },
 ];
 
@@ -167,7 +167,7 @@ const ForFriendsFamily = () => (
                 to="/contact"
                 className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
               >
-                get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                get early access <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
               </Link>
               <a
                 href="#how"
@@ -396,7 +396,7 @@ const ForFriendsFamily = () => (
                   to="/contact"
                   className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                 >
-                  get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                  get early access <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
                 </Link>
                 <Link
                   to="/features"

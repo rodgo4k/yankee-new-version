@@ -18,14 +18,14 @@ const Terms = () => (
 
       <div className="mt-10 space-y-6 text-[15px] text-foreground/85 leading-[1.7]">
         <p>
-          These Terms of Service (&quot;Terms&quot;) are an agreement between you and Yankee LLC, a
-          Foretheist product (&quot;Yankee&quot;, &quot;we&quot;, &quot;us&quot;, or
-          &quot;our&quot;). They cover your use of the Yankee website, the Yankee iOS app, and
-          related services (the &quot;Service&quot;).
+          Yankee is not launched yet. These Terms of Service (&quot;Terms&quot;) describe the
+          agreement that will apply between you and Yankee LLC, a Foretheist product
+          (&quot;Yankee&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) when the Yankee
+          website, iOS app, and related services (the &quot;Service&quot;) become available.
         </p>
         <p>
-          Please read them carefully. By creating an account or using Yankee, you agree to these
-          Terms. If you do not agree, do not use the Service.
+          Please read them carefully. By creating an account or using Yankee when it launches, you
+          agree to these Terms. If you do not agree, do not use the Service.
         </p>
         <p>
           Our{" "}

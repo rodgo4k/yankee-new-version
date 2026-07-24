@@ -20,24 +20,21 @@ import heroParty from "@/assets/hero-party.jpg";
 import cafeFriends from "@/assets/cafe-friends.jpg";
 import studentsHero from "@/assets/students-hero.jpg";
 import communityShot from "@/assets/yankee/community.png";
-import homeFeed from "@/assets/yankee/home-feed.png";
-import chat from "@/assets/yankee/chat.png";
-import videoCall from "@/assets/yankee/video-call.png";
 import dotRevealImg from "@/assets/yankee/dot-reveal.png";
 import heroFolkMountains from "@/assets/hero-folk-mountains.jpg";
 
 const faqItems = [
   {
-    q: "What is Yankee?",
-    a: "A social network with no hidden algorithm: a chronological feed, no shadow bans, native communities (Crowds), chat, calls and integrated AI, all in a single app.",
+    q: "What's Yankee?",
+    a: "Yankee is an AI-powered, AI-native social network that brings together the experiences people currently use multiple apps for — content, communities, messaging, discovery, networking, and AI — into one real-time software.",
   },
   {
-    q: "How does it work without an algorithm?",
-    a: "Your feed shows posts from the people you follow in reverse chronological order. No 'suggested', no reordering. Who you follow is who you see.",
+    q: "How does the algorithm work?",
+    a: "On Yankee creators have a realistic chance to build momentum and go viral in their own community. You can also jump to any city in the world to see what people are posting there in real time, or explore content through different areas.",
   },
   {
-    q: "Is my data safe?",
-    a: "Yes. Everything is encrypted, we never sell your data and we never train AI on your posts. You can delete your account at any time.",
+    q: "Will my data be safe?",
+    a: "Yes. Everything will be encrypted, we will never sell your data and we will never train AI on your posts. You'll be able to delete your account at any time.",
   },
 ];
 
@@ -173,10 +170,10 @@ const Index = () => (
           </AnimatedSection>
           <AnimatedSection delay={0.1} className="text-center md:text-left flex flex-col items-center md:items-start">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
-              always on, all yours
+              all in one place, all yours
             </h2>
             <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md">
-              feed, chat, calls, crowds and yankee ai live in one place, private by design, connected only to the people
+              feed, chat, calls, crowds and yankee ai will live in one place, private by design, connected only to the people
               and rooms you choose.
             </p>
             <Link
@@ -221,10 +218,10 @@ const Index = () => (
       <div className="relative max-w-[900px] mx-auto px-5 md:px-6">
         <AnimatedSection className="text-center mb-10 md:mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
-            people who let yankee run their social life
+            how yankee will fit into real social life
           </h2>
           <p className="mt-4 text-[15px] text-muted-foreground lowercase max-w-lg mx-auto">
-            real ways people are already posting, chatting and staying close without the noise.
+            ways you'll be able to post, chat and stay close without the noise.
           </p>
         </AnimatedSection>
         <AnimatedSection delay={0.08}>
@@ -281,37 +278,6 @@ const Index = () => (
             </div>
           </div>
         </AnimatedSection>
-      </div>
-    </section>
-
-    <section className="py-20 md:py-28">
-      <div className="max-w-[1200px] mx-auto px-5 md:px-6">
-        <AnimatedSection className="text-center">
-          <p className="text-[11px] uppercase tracking-widest text-muted-foreground mb-4">a closer look</p>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight max-w-2xl mx-auto leading-[1.02]">
-            Feed. Chat. <span className="font-serif-display italic">Calls.</span> All in one calm place.
-          </h2>
-        </AnimatedSection>
-
-        <div className="mt-12 md:mt-16 grid md:grid-cols-3 gap-10 md:gap-4">
-          {[
-            { src: homeFeed, title: "Your feed", text: "Reverse-chronological. Nothing else.", rotate: "md:-rotate-2" },
-            { src: chat, title: "Real chat", text: "Text, voice notes, groups. No strange limits.", rotate: "md:rotate-1" },
-            { src: videoCall, title: "Clear calls", text: "Voice and video, right in the app.", rotate: "md:-rotate-1" },
-          ].map((c, i) => (
-            <AnimatedSection key={c.title} delay={i * 0.08}>
-              <div className={`transition-transform hover:rotate-0 hover:scale-[1.02] duration-500 ${c.rotate}`}>
-                <div className="aspect-[9/17] max-w-[280px] mx-auto md:max-w-none rounded-[2rem] overflow-hidden shadow-2xl shadow-primary/10 border border-border/50 bg-card">
-                  <img src={c.src} alt={c.title} className="w-full h-full object-cover object-top" loading="lazy" />
-                </div>
-                <div className="mt-6 px-2 text-center md:text-left">
-                  <h3 className="text-[18px] font-semibold text-foreground">{c.title}</h3>
-                  <p className="mt-1.5 text-[14px] text-muted-foreground leading-relaxed">{c.text}</p>
-                </div>
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
       </div>
     </section>
 
@@ -378,7 +344,7 @@ const Index = () => (
                 </p>
                 <span className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-folk-success px-2.5 py-1 text-[11px] font-medium text-folk-success-foreground lowercase">
                   <span className="w-1.5 h-1.5 rounded-full bg-foreground" />
-                  1,219 online
+                  coming soon
                 </span>
               </div>
             </motion.div>
@@ -471,14 +437,14 @@ const Index = () => (
             your data stays yours
           </h2>
           <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase">
-            yankee remembers things for you, not about you. private, encrypted, and wipeable whenever you want.
+            yankee will remember things for you, not about you. private, encrypted, and wipeable whenever you want.
           </p>
         </AnimatedSection>
         <div className="mt-12 grid sm:grid-cols-3 gap-4 md:gap-5">
           {[
             { t: "yours alone", d: "never sold, never used to train ai. ever." },
-            { t: "private + encrypted", d: "your stuff stays isolated and encrypted where we store it." },
-            { t: "gone in seconds", d: "delete your account anytime and your data is destroyed for good." },
+            { t: "private + encrypted", d: "your stuff will stay isolated and encrypted where we keep backups." },
+            { t: "gone in seconds", d: "when you delete your account, your data will be destroyed for good." },
           ].map((c, i) => (
             <AnimatedSection key={c.t} delay={i * 0.06}>
               <div className={blockCard(i, "p-6 md:p-7 text-center sm:text-left")}>
@@ -495,10 +461,10 @@ const Index = () => (
       <div className="max-w-[900px] mx-auto px-5 md:px-6">
         <AnimatedSection className="text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight lowercase">
-            the things people ask before downloading yankee
+            the things people ask before yankee launches
           </h2>
           <p className="mt-4 text-[15px] text-muted-foreground lowercase">
-            short answers about what yankee can do and how your data stays yours.
+            short answers about what yankee will offer and how your data will stay yours.
           </p>
         </AnimatedSection>
         <div className="mt-10 md:mt-12">
@@ -556,7 +522,7 @@ const Index = () => (
                   to="/contact"
                   className="group relative inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                 >
-                  get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                  get early access <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
                 </Link>
                 <Link
                   to="/features"

@@ -16,22 +16,22 @@ const principles = [
   {
     icon: Lock,
     title: "yours alone",
-    text: "never sold, never used to train ai. your writing stays your writing.",
+    text: "never sold, never used to train ai. your writing will stay your writing.",
   },
   {
     icon: EyeOff,
     title: "private + encrypted",
-    text: "feed, memory and dms live encrypted. plaintext stays on your devices.",
+    text: "feed, memory and dms will live encrypted. plaintext will stay on your devices.",
   },
   {
     icon: KeyRound,
     title: "your keys, not ours",
-    text: "decryption keys live with you. even we only hold ciphertext blobs.",
+    text: "decryption keys will live with you. even we will only hold ciphertext blobs.",
   },
   {
     icon: Trash2,
     title: "gone when you say so",
-    text: "delete your account any time. memory, messages and history are wiped.",
+    text: "you'll be able to delete your account any time. memory, messages and history will be wiped.",
   },
 ];
 
@@ -43,10 +43,10 @@ const blocks = [
         scrambled on your phone. <span className="font-serif-display italic font-medium">readable only there.</span>
       </>
     ),
-    body: "messages and calls are encrypted on your device and only decrypted on the recipient's. yankee cannot read them, even if asked.",
+    body: "messages and calls will be encrypted on your device and only decrypted on the recipient's. yankee will not be able to read them, even if asked.",
     chat: [
       { from: "you" as const, text: "can yankee read my dms?" },
-      { from: "them" as const, text: "no. ciphertext only on our side." },
+      { from: "them" as const, text: "no. ciphertext only on our side, by design." },
     ],
   },
   {
@@ -104,7 +104,7 @@ const glossary = [
     items: [
       {
         term: "right to deletion",
-        def: "export everything in one tap and delete your account. servers wipe within 30 days.",
+        def: "export everything in one tap and delete your account. servers will wipe within 30 days.",
       },
       {
         term: "region pinning",
@@ -126,44 +126,44 @@ const steps = [
   {
     n: "01",
     t: "encrypt on device",
-    d: "drafts, dms and memory are locked before they leave your phone.",
+    d: "drafts, dms and memory will be locked before they leave your phone.",
   },
   {
     n: "02",
     t: "store only ciphertext",
-    d: "if you enable backup, yankee servers hold blobs we cannot read.",
+    d: "if you enable backup, yankee servers will hold blobs we cannot read.",
   },
   {
     n: "03",
     t: "delete for real",
-    d: "when you wipe an account, plaintext and backups expire. no hidden copies.",
+    d: "when you wipe an account, plaintext and backups will expire. no hidden copies.",
   },
 ];
 
 const faqs = [
   {
-    q: "Can Yankee read my DMs?",
-    a: "No. Direct messages and calls are end-to-end encrypted. Keys live on your devices. Even under a subpoena, we can only hand over ciphertext blobs.",
+    q: "Will Yankee be able to read my DMs?",
+    a: "No. Direct messages and calls will be end-to-end encrypted. Keys will live on your devices. Even under a subpoena, we would only be able to hand over ciphertext blobs.",
   },
   {
-    q: "Do you sell my data or train AI on it?",
-    a: "Never. We do not sell your data and we do not run ads against it. Your posts, messages and notes are not sold to advertisers and are not used to train a model.",
+    q: "Will you sell my data or train AI on it?",
+    a: "Never. We will not sell your data and we will not run ads against it. Your posts, messages and notes will not be sold to advertisers and will not be used to train a model.",
   },
   {
-    q: "What happens when I delete my account?",
-    a: "You can export first, then delete. Active servers are wiped within 30 days and encrypted backups expire naturally. No hidden copies.",
+    q: "What will happen when I delete my account?",
+    a: "You'll be able to export first, then delete. Active servers will be wiped within 30 days and encrypted backups will expire naturally. No hidden copies.",
   },
   {
-    q: "Where does my encrypted backup live?",
-    a: "You choose EU or US region pinning. You can change it once a year. The backup is ciphertext only.",
+    q: "Where will my encrypted backup live?",
+    a: "You'll choose EU or US region pinning. You'll be able to change it once a year. The backup will be ciphertext only.",
   },
   {
-    q: "Are there third-party trackers in the app?",
-    a: "No ad SDKs, no session replay, no behavioral analytics sold to anyone. We use a small set of infrastructure providers for hosting and crash reporting only.",
+    q: "Will there be third-party trackers in the app?",
+    a: "No ad SDKs, no session replay, no behavioral analytics sold to anyone. We'll use a small set of infrastructure providers for hosting and crash reporting only.",
   },
   {
     q: "Where is the legal privacy policy?",
-    a: "The full legal policy lives at /privacy. This page explains how Yankee is built private by design, in plain words.",
+    a: "The full legal policy lives at /privacy. This page explains how Yankee is being built private by design, in plain words.",
   },
 ];
 

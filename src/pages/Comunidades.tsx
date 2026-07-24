@@ -63,16 +63,16 @@ const blocks = [
 ];
 
 const topics = [
-  { name: "photography", members: "48k" },
-  { name: "running", members: "22k" },
-  { name: "reading", members: "17k" },
-  { name: "cooking", members: "35k" },
-  { name: "gaming", members: "61k" },
-  { name: "design", members: "29k" },
-  { name: "music", members: "44k" },
-  { name: "hiking", members: "12k" },
-  { name: "film", members: "26k" },
-  { name: "cycling", members: "14k" },
+  "photography",
+  "running",
+  "reading",
+  "cooking",
+  "gaming",
+  "design",
+  "music",
+  "hiking",
+  "film",
+  "cycling",
 ];
 
 const steps = [
@@ -122,24 +122,24 @@ const faqs = [
     a: "A Crowd is Yankee's take on a community. Small, topical, capped in size, moderated by real humans and kept alive by regular meetups. Think group chat energy, structured like a magazine.",
   },
   {
-    q: "How are Crowds different from a subreddit or a Discord server?",
-    a: "Crowds are capped in size, chronological, and split when they get too big. There is no karma, no upvote ranking and no algorithmic resurfacing. Signal comes from replies, not scores.",
+    q: "How will Crowds be different from a subreddit or a Discord server?",
+    a: "Crowds will be capped in size, chronological, and split when they get too big. There will be no karma, no upvote ranking and no algorithmic resurfacing. Signal will come from replies, not scores.",
   },
   {
     q: "Can I create my own Crowd?",
-    a: "Yes. Any member can propose a Crowd. If it hits a small threshold of active members in the first month, Yankee promotes it into the main directory.",
+    a: "Yes. Any member will be able to propose a Crowd. If it hits a small threshold of active members in the first month, Yankee will promote it into the main directory.",
   },
   {
-    q: "Are Crowds moderated?",
-    a: "Every Crowd has volunteer moderators from its own members. Yankee provides the tooling, they set the tone. Reports are private and handled the same day.",
+    q: "Will Crowds be moderated?",
+    a: "Every Crowd will have volunteer moderators from its own members. Yankee will provide the tooling, they set the tone. Reports will be private and handled the same day.",
   },
   {
-    q: "Do meetups cost anything?",
-    a: "No. Yankee never charges to host or attend a meetup. Some Crowds organise paid events (a dinner, a workshop) and those are always clearly labelled.",
+    q: "Will meetups cost anything?",
+    a: "No. Yankee will never charge to host or attend a meetup. Some Crowds may organise paid events (a dinner, a workshop) and those will always be clearly labelled.",
   },
   {
     q: "Will my friends see the Crowds I join?",
-    a: "Only if you want them to. Every Crowd membership is private by default. You can pin the ones you're proud of to your profile.",
+    a: "Only if you want them to. Every Crowd membership will be private by default. You'll be able to pin the ones you're proud of to your profile.",
   },
 ];
 
@@ -187,7 +187,7 @@ const Communities = () => (
               to="/contact"
               className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
             >
-              get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+              get early access <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
             </Link>
             <Link
               to="/features"
@@ -197,7 +197,7 @@ const Communities = () => (
             </Link>
           </motion.div>
           <p className="mt-5 text-[12px] text-foreground/45 lowercase">
-            340+ crowds meeting every week
+            crowds meeting every week
           </p>
         </div>
 
@@ -346,17 +346,14 @@ const Communities = () => (
         </AnimatedSection>
 
         <div className="mt-10 md:mt-12 flex flex-wrap justify-center gap-3">
-          {topics.map((t, i) => (
-            <AnimatedSection key={t.name} delay={i * 0.03}>
+          {topics.map((name, i) => (
+            <AnimatedSection key={name} delay={i * 0.03}>
               <motion.span
                 whileHover={{ y: -3, rotate: -2 }}
                 className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-[13px] lowercase ${blockTone(i)}`}
               >
-                <span className="inline-flex items-center gap-1 opacity-70 text-[11px]">
-                  <Users size={11} /> {t.members}
-                </span>
-                <span className="opacity-50">·</span>
-                <span className="font-medium">#{t.name}</span>
+                <Users size={11} className="opacity-70" />
+                <span className="font-medium">#{name}</span>
               </motion.span>
             </AnimatedSection>
           ))}
@@ -489,7 +486,7 @@ const Communities = () => (
                   to="/contact"
                   className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                 >
-                  get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                  get early access <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
                 </Link>
                 <Link
                   to="/features"
@@ -520,7 +517,7 @@ const Communities = () => (
                   <div className="mt-3 flex items-center justify-between gap-2">
                     <span className="text-[12px] lowercase text-foreground/70">slow coffee club</span>
                     <span className="inline-flex items-center rounded-full bg-folk-success px-2.5 py-1 text-[11px] text-foreground lowercase">
-                      1,219 online
+                      coming soon
                     </span>
                   </div>
                 </motion.div>
@@ -533,7 +530,7 @@ const Communities = () => (
                   className="relative z-10 -mt-5 ml-auto max-w-[85%]"
                 >
                   <div className="yankee-surface rounded-2xl rounded-br-md bg-folk-bubble px-4 py-3 text-[13px] leading-snug text-folk-bubble-foreground lowercase">
-                    your people are already here.
+                    your people will gather here.
                   </div>
                 </motion.div>
               </div>

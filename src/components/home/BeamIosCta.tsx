@@ -11,7 +11,7 @@ type BeamIosCtaProps = {
 const BeamIosCta = ({
   href = APP_STORE_URL,
   className = "",
-  label = "download for iOS",
+  label = "notify me for iOS",
 }: BeamIosCtaProps) => (
   <BorderBeam
     size="sm"

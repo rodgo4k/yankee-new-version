@@ -18,7 +18,7 @@ const cards = [
   { src: videoCall, label: "calls" },
   { src: crowdsHome, label: "crowds" },
   { src: messages, label: "inbox" },
-  { src: aiChat, label: "yankee ai" },
+  { src: aiChat, label: "AI agent" },
   { src: profileView, label: "profile" },
   { src: searchImg, label: "search" },
 ];

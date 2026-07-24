@@ -18,16 +18,17 @@ const Privacy = () => (
 
       <div className="mt-10 space-y-6 text-[15px] text-foreground/85 leading-[1.7]">
         <p>
-          At Yankee, we take your privacy seriously. This policy explains what information we
-          collect, why we collect it, how we use it, and what choices you have. It applies to the
-          Yankee website, the Yankee iOS app, and any related services operated by Yankee LLC, a
-          Foretheist product (together, &quot;Yankee&quot;, &quot;we&quot;, &quot;us&quot;, or
-          &quot;our&quot;).
+          Yankee is not launched yet. This policy describes how privacy will work when the Yankee
+          website, iOS app, and related services become available. At Yankee, we take your privacy
+          seriously. This policy explains what information we will collect, why we will collect it,
+          how we will use it, and what choices you will have. It applies to the Yankee website, the
+          Yankee iOS app, and any related services operated by Yankee LLC, a Foretheist product
+          (together, &quot;Yankee&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;).
         </p>
         <p>
-          We try to collect only what we need to run the product. We do not sell your personal data.
-          We do not use your posts, messages, or private content to train artificial intelligence
-          models. If something in this policy is unclear, email us at{" "}
+          We will try to collect only what we need to run the product. We will not sell your personal
+          data. We will not use your posts, messages, or private content to train artificial
+          intelligence models. If something in this policy is unclear, email us at{" "}
           <a href={YANKEE_MAILTO} className="underline underline-offset-2 hover:text-foreground">
             {YANKEE_EMAIL}
           </a>{" "}
@@ -80,15 +81,15 @@ const Privacy = () => (
 
           <h3 className="text-[16px] font-semibold text-foreground pt-1">3.2 Content you create</h3>
           <p>
-            We store the content you post or share on Yankee so we can show it to the people you
+            When you post or share on Yankee, we will store that content so we can show it to the people you
             intend. This can include posts, comments, reactions, photos, videos, captions, community
-            content, memory items, and drafts. Visibility depends on the audience you choose (for
+            content, memory items, and drafts. Visibility will depend on the audience you choose (for
             example public, followers, a community, or a private circle).
           </p>
           <p>
             Direct messages and calls are designed to be end-to-end encrypted. That means the message
-            content is encrypted on your device and can be read by the intended recipients on their
-            devices. Yankee does not keep a readable copy of those message contents for our own use.
+            content will be encrypted on your device and can be read by the intended recipients on their
+            devices. Yankee will not keep a readable copy of those message contents for our own use.
             We may still store metadata needed to deliver the message (such as who sent it, when, and
             to whom).
           </p>
@@ -172,7 +173,7 @@ const Privacy = () => (
         <section className="space-y-4 pt-2">
           <h2 className="text-xl font-semibold text-foreground tracking-tight">6. Storage, security, and retention</h2>
           <p>
-            We store data on servers operated by us or our infrastructure providers. Where available,
+            We will store data on servers operated by us or our infrastructure providers. Where available,
             you may be able to choose a region for encrypted backups (for example EU or US). We use
             industry-standard measures such as encryption in transit (TLS), access controls, and
             hashed passwords.

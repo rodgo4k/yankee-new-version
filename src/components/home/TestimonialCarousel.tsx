@@ -6,35 +6,35 @@ import { surface } from "@/lib/yankeeSurface";
 const testimonials = [
   {
     quote:
-      "i switched from the other apps and finally see every post from my friends again. no more wondering if anyone saw what i shared.",
+      "you'll finally see every post from your friends again. no more wondering if anyone saw what you shared.",
     name: "maya r.",
     role: "designer · são paulo",
     initials: "MR",
   },
   {
     quote:
-      "crowds feel like the group chats we always wanted: small, calm, and actually about something we care about.",
+      "crowds will feel like the group chats we always wanted: small, calm, and actually about something we care about.",
     name: "leo k.",
     role: "founder · berlin",
     initials: "LK",
   },
   {
     quote:
-      "chat, calls and the feed in one place. my family stopped bouncing between five apps just to stay in touch.",
+      "chat, calls and the feed in one place. your family won't need five apps just to stay in touch.",
     name: "jisoo p.",
     role: "nurse · seoul",
     initials: "JP",
   },
   {
     quote:
-      "post once and it reaches everyone who follows me. that alone made me open yankee every day.",
+      "post once and it will reach everyone who follows you. that alone is why yankee is worth waiting for.",
     name: "andré s.",
     role: "creator · lisbon",
     initials: "AS",
   },
   {
     quote:
-      "the chronological feed is such a relief. it feels like social media before everything got loud.",
+      "a chronological feed again. social media before everything got loud, built the way it should be.",
     name: "nina t.",
     role: "student · montreal",
     initials: "NT",

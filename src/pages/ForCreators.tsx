@@ -98,23 +98,23 @@ const steps = [
 const faqs = [
   {
     q: "Will my followers actually see my posts?",
-    a: "Yes. Yankee is chronological. Every post you publish appears in the feed of everyone who follows you, in the order you posted it. There is no engagement ranking that quietly hides you.",
+    a: "Yes. Yankee will be chronological. Every post you publish will appear in the feed of everyone who follows you, in the order you posted it. There will be no engagement ranking that quietly hides you.",
   },
   {
     q: "Is this the same as posting to Instagram or X?",
-    a: "No. Yankee does not publish to other social networks. For Creators is about building and reaching your audience inside Yankee — complete delivery, Crowds, and an archive you own.",
+    a: "No. Yankee will not publish to other social networks. For Creators is about building and reaching your audience inside Yankee — complete delivery, Crowds, and an archive you own.",
   },
   {
     q: "Can I schedule posts?",
-    a: "Yes. Set the date, time and timezone. Yankee drafts it, queues it, and publishes it for you.",
+    a: "Yes. You'll set the date, time and timezone. Yankee will draft it, queue it, and publish it for you.",
   },
   {
-    q: "What analytics does Yankee show?",
+    q: "What analytics will Yankee show?",
     a: "Reached, opened, replies, saves and shares. Simple, honest numbers without engagement scores or dopamine graphs.",
   },
   {
-    q: "Who owns my content?",
-    a: "You do. Yankee stores your library so you can export or leave any time. We do not train models on your posts or sell your audience data.",
+    q: "Who will own my content?",
+    a: "You do. Yankee will store your library so you can export or leave any time. We will not train models on your posts or sell your audience data.",
   },
 ];
 
@@ -163,7 +163,7 @@ const ForCreators = () => (
                 to="/contact"
                 className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
               >
-                get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                get early access <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
               </Link>
               <a
                 href="#how"
@@ -394,7 +394,7 @@ const ForCreators = () => (
                   to="/contact"
                   className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                 >
-                  get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                  get early access <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
                 </Link>
                 <Link
                   to="/features"

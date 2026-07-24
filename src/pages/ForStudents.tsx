@@ -105,23 +105,23 @@ const faqs = [
   },
   {
     q: "Can I use it for group projects?",
-    a: "Yes. Create encrypted group rooms for projects, share files, pin decisions, and search every message later.",
+    a: "Yes. You'll be able to create encrypted group rooms for projects, share files, pin decisions, and search every message later.",
   },
   {
     q: "What happens when I graduate?",
-    a: "You keep a full export of your messages, files and rooms. Your account stays yours; campus-only rooms simply close out.",
+    a: "You'll keep a full export of your messages, files and rooms. Your account stays yours; campus-only rooms simply close out.",
   },
   {
-    q: "Does it work with my class schedule?",
-    a: "Yes. Each room has a quiet calendar for deadlines, meetups and study sessions. Reminders go out before anything starts.",
+    q: "Will it work with my class schedule?",
+    a: "Yes. Each room will have a quiet calendar for deadlines, meetups and study sessions. Reminders will go out before anything starts.",
   },
   {
-    q: "Is it private?",
-    a: "Yes. Rooms are private by default. Messages and calls are end-to-end encrypted. We cannot read the content.",
+    q: "Will it be private?",
+    a: "Yes. Rooms will be private by default. Messages and calls will be end-to-end encrypted. We will not be able to read the content.",
   },
   {
-    q: "Do I need to install an app?",
-    a: "No. Yankee works in your browser. There is also a mobile app for iOS and Android if you prefer it.",
+    q: "Will I need to install an app?",
+    a: "No. Yankee will work in your browser. There will also be a mobile app for iOS and Android if you prefer it.",
   },
 ];
 

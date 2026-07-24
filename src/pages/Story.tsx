@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
 import AnimatedSection from "@/components/AnimatedSection";
 import StoryHeroVideo from "@/components/story/StoryHeroVideo";
+import { blockCard } from "@/lib/yankeeBlock";
 import rememberOffice from "@/assets/remember-office.jpg";
 import cafeFriends from "@/assets/cafe-friends.jpg";
 import familyField from "@/assets/family-field.jpg";
@@ -262,19 +263,19 @@ const Story = () => (
               >
                 <motion.div
                   whileHover={{ y: -3 }}
-                  className="yankee-surface h-full rounded-[1.5rem] bg-card p-6 flex flex-col gap-5"
+                  className={blockCard(i, "p-6 flex flex-col gap-5")}
                 >
                   <div className="flex justify-start">
-                    <span className="yankee-surface inline-block max-w-[95%] px-3.5 py-2 text-[13px] leading-snug lowercase rounded-2xl rounded-bl-md bg-folk-bubble text-white">
+                    <span className="inline-block max-w-[95%] px-3.5 py-2 text-[13px] leading-snug lowercase rounded-2xl rounded-bl-md bg-white/15">
                       {p.bubble}
                     </span>
                   </div>
                   <div className="mt-auto">
-                    <div className="w-9 h-9 rounded-xl border border-foreground/15 bg-primary text-primary-foreground flex items-center justify-center mb-4">
+                    <div className="yankee-block__icon w-9 h-9 rounded-full flex items-center justify-center mb-4">
                       <Icon size={16} />
                     </div>
                     <h3 className="text-[16px] font-semibold lowercase tracking-tight">{p.title}</h3>
-                    <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed lowercase">{p.desc}</p>
+                    <p className="mt-2 text-[13px] yankee-block__muted leading-relaxed lowercase">{p.desc}</p>
                   </div>
                 </motion.div>
               </AnimatedSection>
@@ -380,7 +381,7 @@ const Story = () => (
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-folk-success opacity-75" />
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-folk-success" />
                   </span>
-                  yankee is online
+                  yankee is coming soon
                 </div>
               </div>
 

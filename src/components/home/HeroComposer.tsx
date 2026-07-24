@@ -195,7 +195,7 @@ const HeroComposer = ({ loop = true, onSequenceComplete, hideCta = false }: Hero
             to="/contact"
             className="group relative inline-flex items-center justify-center px-8 py-3.5 md:px-10 md:py-4 rounded-full text-[15px] md:text-[16px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.65),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
           >
-            get yankee
+            get early access
           </Link>
           <p className="text-[12px] md:text-[13px] text-foreground/55 lowercase">chronological � free � no switching</p>
         </div>

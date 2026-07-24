@@ -98,27 +98,27 @@ const steps = [
 const faqs = [
   {
     q: "Does every follower really see my posts?",
-    a: "Yes. Yankee is chronological. Every post you publish appears in the feed of everyone who follows you, in the order you posted it. There is no engagement ranking that quietly hides you.",
+    a: "Yes. Yankee will be chronological. Every post you publish will appear in the feed of everyone who follows you, in the order you posted it. There will be no engagement ranking that quietly hides you.",
   },
   {
     q: "Can I post to only some people?",
-    a: "Yes. Choose all followers, a specific Crowd, or close friends before you ship. The audience is always visible in the composer so there are no surprises.",
+    a: "Yes. You'll choose all followers, a specific Crowd, or close friends before you ship. The audience will always be visible in the composer so there are no surprises.",
   },
   {
     q: "What about shadow bans?",
-    a: "Yankee does not shadow ban. We do not demote posts based on how they perform, and we do not run a secret reach penalty. If someone follows you, they get the post.",
+    a: "Yankee will not shadow ban. We will not demote posts based on how they perform, and we will not run a secret reach penalty. If someone follows you, they get the post.",
   },
   {
     q: "Will my post get reshuffled later?",
-    a: "No. Once it lands, it stays in chronological order. Nothing resurfaces out of nowhere to farm attention.",
+    a: "No. Once it lands, it will stay in chronological order. Nothing will resurface out of nowhere to farm attention.",
   },
   {
-    q: "How do notifications work with reach?",
-    a: "People who asked for alerts — close friends, mentions, Crowds they care about — can get a ping. Everyone else finds the post when they open their feed.",
+    q: "How will notifications work with reach?",
+    a: "People who asked for alerts — close friends, mentions, Crowds they care about — can get a ping. Everyone else will find the post when they open their feed.",
   },
   {
     q: "Is this different from cross posting to Instagram or X?",
-    a: "Yes. Yankee does not publish to other social networks. Reach is about what happens inside Yankee: one post, complete delivery to the people who chose to follow you.",
+    a: "Yes. Yankee will not publish to other social networks. Reach is about what will happen inside Yankee: one post, complete delivery to the people who chose to follow you.",
   },
 ];
 
@@ -167,7 +167,7 @@ const Reach = () => (
                 to="/contact"
                 className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
               >
-                get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                get early access <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
               </Link>
               <a
                 href="#how"
@@ -398,7 +398,7 @@ const Reach = () => (
                   to="/contact"
                   className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                 >
-                  get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                  get early access <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
                 </Link>
                 <Link
                   to="/feed"

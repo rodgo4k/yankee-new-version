@@ -100,24 +100,24 @@ const principles = [
 
 const faqs = [
   {
-    q: "How does Yankee decide the order of my feed?",
+    q: "How will Yankee decide the order of my feed?",
     a: "By the clock, nothing else. Newest post at the top, oldest unseen at the bottom. No engagement ranking, no reshuffling, no surprise resurfacing.",
   },
   {
     q: "Will I miss posts if I don't check often?",
-    a: "No. Yankee keeps every unseen post from the people you follow until you open the app. When you come back, they are all there in order, without duplicates.",
+    a: "No. Yankee will keep every unseen post from the people you follow until you open the app. When you come back, they will all be there in order, without duplicates.",
   },
   {
-    q: "Does Yankee show suggested accounts?",
-    a: "Never in the feed. Your feed only shows people you chose to follow. Discovery lives in its own space and never leaks into your scroll.",
+    q: "Will Yankee show suggested accounts?",
+    a: "Never in the feed. Your feed will only show people you chose to follow. Discovery will live in its own space and never leak into your scroll.",
   },
   {
-    q: "Are there ads inside the feed?",
-    a: "No. We never sell your feed to advertisers. No ads, no data resale. Your feed is not for sale and never will be.",
+    q: "Will there be ads inside the feed?",
+    a: "No. We will never sell your feed to advertisers. No ads, no data resale. Your feed is not for sale and never will be.",
   },
   {
-    q: "Can I switch to a ranked feed?",
-    a: "No. A ranked feed is the problem we set out to remove. Yankee is chronological, always.",
+    q: "Will I be able to switch to a ranked feed?",
+    a: "No. A ranked feed is the problem we set out to remove. Yankee will be chronological, always.",
   },
 ];
 
@@ -166,7 +166,7 @@ const Feed = () => (
                 to="/contact"
                 className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
               >
-                get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                get early access <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
               </Link>
               <Link
                 to="/features"
@@ -374,7 +374,7 @@ const Feed = () => (
                   to="/contact"
                   className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                 >
-                  get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                  get early access <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
                 </Link>
                 <Link
                   to="/features"

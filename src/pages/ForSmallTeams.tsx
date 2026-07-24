@@ -100,23 +100,23 @@ const steps = [
 const faqs = [
   {
     q: "Do we need to stop using Slack?",
-    a: "No. You can run Yankee alongside Slack while you transition. Many teams start with one department and expand once the noise drops.",
+    a: "No. You'll be able to run Yankee alongside Slack while you transition. Many teams will start with one department and expand once the noise drops.",
   },
   {
-    q: "Is it really private?",
-    a: "Yes. Your workspace is closed by default. Messages and calls are end-to-end encrypted. We cannot read the content.",
+    q: "Will it really be private?",
+    a: "Yes. Your workspace will be closed by default. Messages and calls will be end-to-end encrypted. We will not be able to read the content.",
   },
   {
     q: "Can we share files and documents?",
-    a: "Yes. Drop files into any room or thread. Storage is shared across the workspace and access can be revoked any time.",
+    a: "Yes. You'll drop files into any room or thread. Storage will be shared across the workspace and access can be revoked any time.",
   },
   {
     q: "Can we schedule posts for later?",
-    a: "Yes. Write updates now, publish later, across time zones. Perfect for async teams and company-wide announcements.",
+    a: "Yes. Write updates now, publish later, across time zones. Built for async teams and company-wide announcements.",
   },
   {
     q: "What happens when our team grows?",
-    a: "Rooms split when they hit a healthy size. You can add workspaces, keep channels separate, and still search everything in one place.",
+    a: "Rooms will split when they hit a healthy size. You'll be able to add workspaces, keep channels separate, and still search everything in one place.",
   },
 ];
 
@@ -165,7 +165,7 @@ const ForSmallTeams = () => (
                 to="/contact"
                 className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
               >
-                get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                get early access <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
               </Link>
               <a
                 href="#how"

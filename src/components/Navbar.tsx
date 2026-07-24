@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
 
@@ -67,7 +66,8 @@ const Navbar = () => {
   useEffect(() => {
     setIsOpen(false);
     setOpenMenu(null);
-  }, [location]);
+    setOpenMobileGroup(null);
+  }, [location.pathname]);
 
   useEffect(() => {
     const tick = () => {
@@ -94,7 +94,11 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-200 ${isScrolled || isOpen ? "bg-card/90 backdrop-blur-md border-b border-border/40" : "bg-transparent border-b border-transparent"}`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-150 ${
+        isScrolled || isOpen
+          ? "bg-card/95 border-b border-border/40"
+          : "bg-transparent border-b border-transparent"
+      }`}
     >
       <div className="h-12 md:h-14 w-full px-4 md:px-6 flex items-center justify-between gap-3">
         <div className="flex items-center gap-4 md:gap-6 min-w-0">
@@ -121,49 +125,53 @@ const Navbar = () => {
                 >
                   <button
                     type="button"
-                    className={`inline-flex items-center gap-1 px-2.5 py-1 text-[13px] lowercase tracking-tight transition-colors ${ active || open ? "text-foreground" : "text-foreground/70 hover:text-foreground" }`}
+                    aria-expanded={open}
+                    aria-haspopup="true"
+                    className={`inline-flex items-center gap-1 px-2.5 py-1 text-[13px] lowercase tracking-tight transition-colors ${
+                      active || open
+                        ? "text-foreground"
+                        : "text-foreground/70 hover:text-foreground"
+                    }`}
                   >
                     {item.label}
                     <ChevronDown
                       size={11}
                       strokeWidth={2.2}
-                      className={`opacity-60 transition-transform ${open ? "rotate-180" : ""}`}
+                      className={`opacity-60 transition-transform duration-100 ${open ? "rotate-180" : ""}`}
                     />
                   </button>
 
-                  <AnimatePresence>
-                    {open && item.children && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -4 }}
-                        transition={{ duration: 0.15 }}
-                        className="absolute top-full left-0 pt-2"
-                      >
-                        <div className="yankee-surface yankee-surface--sm w-[300px] rounded-2xl bg-card p-1.5">
-                          {item.children.map((c) => {
-                            const isActive = location.pathname === c.path;
-                            return (
-                              <Link
-                                key={c.path}
-                                to={c.path}
-                                className={`block px-3.5 py-2.5 rounded-xl transition-colors ${isActive ? "bg-muted/80" : "hover:bg-muted/60"}`}
-                              >
-                                <div className="text-[13px] font-medium text-foreground leading-tight lowercase">
-                                  {c.label}
+                  {item.children && (
+                    <div
+                      className={`absolute top-full left-0 pt-2 ${
+                        open ? "block" : "hidden"
+                      }`}
+                    >
+                      <div className="yankee-surface yankee-surface--sm w-[300px] rounded-2xl bg-card p-1.5">
+                        {item.children.map((c) => {
+                          const isActive = location.pathname === c.path;
+                          return (
+                            <Link
+                              key={c.path}
+                              to={c.path}
+                              className={`block px-3.5 py-2.5 rounded-xl transition-colors ${
+                                isActive ? "bg-muted/80" : "hover:bg-muted/60"
+                              }`}
+                            >
+                              <div className="text-[13px] font-medium text-foreground leading-tight lowercase">
+                                {c.label}
+                              </div>
+                              {c.desc && (
+                                <div className="text-[12px] text-muted-foreground mt-0.5">
+                                  {c.desc}
                                 </div>
-                                {c.desc && (
-                                  <div className="text-[12px] text-muted-foreground mt-0.5">
-                                    {c.desc}
-                                  </div>
-                                )}
-                              </Link>
-                            );
-                          })}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                              )}
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -184,83 +192,75 @@ const Navbar = () => {
             to="/download"
             className="inline-flex items-center text-[13px] font-medium lowercase text-primary hover:opacity-80 transition-opacity"
           >
-            download
+            early access
           </Link>
         </div>
 
         <button
           type="button"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => setIsOpen((v) => !v)}
           className="md:hidden text-foreground p-1.5 -mr-1"
           aria-label={isOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isOpen}
         >
           {isOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden border-t border-border/40 bg-card overflow-hidden"
-          >
-            <div className="flex flex-col px-3 py-2 pb-4">
-              {navItems.map((item) => (
+      {isOpen && (
+        <div className="md:hidden border-t border-border/40 bg-card">
+          <div className="flex flex-col px-3 py-2 pb-4">
+            {navItems.map((item) => {
+              const groupOpen = openMobileGroup === item.label;
+              return (
                 <div key={item.label} className="flex flex-col">
                   <button
                     type="button"
+                    aria-expanded={groupOpen}
                     onClick={() =>
-                      setOpenMobileGroup(openMobileGroup === item.label ? null : item.label)
+                      setOpenMobileGroup(groupOpen ? null : item.label)
                     }
                     className="flex items-center justify-between px-3 py-3 text-[15px] font-medium text-foreground lowercase rounded-xl hover:bg-muted/60"
                   >
                     {item.label}
                     <ChevronDown
                       size={16}
-                      className={`transition-transform ${ openMobileGroup === item.label ? "rotate-180" : "" }`}
+                      className={`transition-transform duration-100 ${
+                        groupOpen ? "rotate-180" : ""
+                      }`}
                     />
                   </button>
-                  <AnimatePresence>
-                    {openMobileGroup === item.label && item.children && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="pl-2 overflow-hidden"
-                      >
-                        {item.children.map((c) => (
-                          <Link
-                            key={c.path}
-                            to={c.path}
-                            className="block px-3 py-2.5 text-[14px] text-muted-foreground hover:text-foreground lowercase rounded-xl hover:bg-muted/50"
-                          >
-                            {c.label}
-                          </Link>
-                        ))}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  {groupOpen && item.children && (
+                    <div className="pl-2">
+                      {item.children.map((c) => (
+                        <Link
+                          key={c.path}
+                          to={c.path}
+                          className="block px-3 py-2.5 text-[14px] text-muted-foreground hover:text-foreground lowercase rounded-xl hover:bg-muted/50"
+                        >
+                          {c.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              ))}
-              <Link
-                to="/contact"
-                className="mt-1 mx-1 px-3 py-3 text-[15px] text-foreground/80 lowercase rounded-xl hover:bg-muted/60"
-              >
-                contact
-              </Link>
-              <Link
-                to="/download"
-                className="mt-1 mx-1 inline-flex items-center justify-center py-3 rounded-full text-[14px] font-medium lowercase text-primary-foreground bg-primary"
-              >
-                download
-              </Link>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              );
+            })}
+            <Link
+              to="/contact"
+              className="mt-1 mx-1 px-3 py-3 text-[15px] text-foreground/80 lowercase rounded-xl hover:bg-muted/60"
+            >
+              contact
+            </Link>
+            <Link
+              to="/download"
+              className="mt-1 mx-1 inline-flex items-center justify-center py-3 rounded-full text-[14px] font-medium lowercase text-primary-foreground bg-primary"
+            >
+              early access
+            </Link>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

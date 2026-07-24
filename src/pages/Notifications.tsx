@@ -119,12 +119,12 @@ const faqs = [
     a: "Yes. Profiles let you switch contexts in one tap. Work hours, community events and personal time each get their own signal list and quiet schedule.",
   },
   {
-    q: "Where are my notification rules stored?",
-    a: "On your device by default. If you enable sync, the ruleset is encrypted end-to-end. Yankee never sells your attention settings.",
+    q: "Where will my notification rules be stored?",
+    a: "On your device by default. If you enable sync, the ruleset will be encrypted end-to-end. Yankee will never sell your attention settings.",
   },
   {
-    q: "Does Yankee send notifications from other apps?",
-    a: "No. Notifications are for what happens inside Yankee — your people, your Crowds, your chats. Other networks stay outside.",
+    q: "Will Yankee send notifications from other apps?",
+    a: "No. Notifications will be for what happens inside Yankee — your people, your Crowds, your chats. Other networks stay outside.",
   },
 ];
 
@@ -177,7 +177,7 @@ const Notifications = () => (
                 to="/contact"
                 className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
               >
-                get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                get early access <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
               </Link>
               <a
                 href="#how"
@@ -413,7 +413,7 @@ const Notifications = () => (
                   to="/contact"
                   className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                 >
-                  get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                  get early access <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
                 </Link>
                 <Link
                   to="/features"

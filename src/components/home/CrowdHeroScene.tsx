@@ -24,7 +24,7 @@ const featuredScenes = [
   {
     src: cafeFriends,
     title: "slow coffee club",
-    badge: "1,219 online",
+    badge: "coming soon",
     note: "meetup saturday · 12 going",
   },
   {
