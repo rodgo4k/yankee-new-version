@@ -44,6 +44,10 @@ const PrismGrid = ({
     typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches,
   );
 
+  const effectiveBox = isNarrow ? Math.max(boxSize, 56) : boxSize;
+  const idleMs = isNarrow ? 720 : 420;
+  const idleBurst = isNarrow ? 2 : 4;
+
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 768px)");
     const sync = () => setIsNarrow(mq.matches);
@@ -57,14 +61,13 @@ const PrismGrid = ({
   }, []);
 
   useEffect(() => {
-    if (isNarrow) return;
     const el = wrapRef.current;
     if (!el) return;
 
     const measure = () => {
       const { width, height } = el.getBoundingClientRect();
-      const cols = Math.max(1, Math.ceil(width / boxSize) + 2);
-      const rows = Math.max(1, Math.ceil(height / boxSize) + 2);
+      const cols = Math.max(1, Math.ceil(width / effectiveBox) + 2);
+      const rows = Math.max(1, Math.ceil(height / effectiveBox) + 2);
       setDims((prev) => (prev.cols === cols && prev.rows === rows ? prev : { cols, rows }));
     };
 
@@ -72,7 +75,7 @@ const PrismGrid = ({
     const ro = new ResizeObserver(measure);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [boxSize, isNarrow]);
+  }, [effectiveBox]);
 
   const total = dims.cols * dims.rows;
 
@@ -94,10 +97,10 @@ const PrismGrid = ({
       const existing = fadeTimers.current.get(index);
       if (existing) window.clearTimeout(existing);
 
-      const t = window.setTimeout(() => clearCell(index), 1200);
+      const t = window.setTimeout(() => clearCell(index), isNarrow ? 1400 : 1200);
       fadeTimers.current.set(index, t);
     },
-    [clearCell, colors, total],
+    [clearCell, colors, total, isNarrow],
   );
 
   useEffect(() => {
@@ -127,23 +130,23 @@ const PrismGrid = ({
   }, []);
 
   useEffect(() => {
-    if (isNarrow || !idle || total === 0) return;
+    if (!idle || total === 0) return;
 
     const id = window.setInterval(() => {
       if (!activeRef.current) return;
-      const n = 4 + Math.floor(Math.random() * 5);
+      const n = idleBurst + Math.floor(Math.random() * (isNarrow ? 2 : 5));
       for (let i = 0; i < n; i++) {
         lightCell(Math.floor(Math.random() * total));
       }
-    }, 420);
+    }, idleMs);
 
     return () => window.clearInterval(id);
-  }, [isNarrow, idle, total, lightCell]);
+  }, [idle, total, lightCell, idleMs, idleBurst, isNarrow]);
 
   const onMove = (e: ReactPointerEvent<HTMLDivElement>) => {
-    if (isNarrow || !activeRef.current) return;
+    if (!activeRef.current) return;
     const now = performance.now();
-    if (now - lastMoveRef.current < 32) return;
+    if (now - lastMoveRef.current < (isNarrow ? 48 : 32)) return;
     lastMoveRef.current = now;
 
     const el = wrapRef.current;
@@ -162,24 +165,13 @@ const PrismGrid = ({
     const ux = dx * Math.cos(ry) + cx;
     const uy = dy * Math.cos(rx) + cy;
 
-    const col = Math.floor(ux / boxSize);
-    const row = Math.floor(uy / boxSize);
+    const col = Math.floor(ux / effectiveBox);
+    const row = Math.floor(uy / effectiveBox);
     if (col < 0 || row < 0 || col >= dims.cols || row >= dims.rows) return;
     lightCell(row * dims.cols + col);
   };
 
   const cells = useMemo(() => Array.from({ length: total }, (_, i) => i), [total]);
-
-  if (isNarrow) {
-    return (
-      <div
-        ref={wrapRef}
-        className={`absolute inset-0 overflow-hidden ${className}`}
-        style={{ backgroundColor }}
-        aria-hidden
-      />
-    );
-  }
 
   return (
     <div
@@ -192,13 +184,13 @@ const PrismGrid = ({
       <div
         className="absolute left-1/2 top-1/2"
         style={{
-          width: dims.cols * boxSize,
-          height: dims.rows * boxSize,
+          width: dims.cols * effectiveBox,
+          height: dims.rows * effectiveBox,
           transform: `translate3d(-50%, -50%, 0) rotateX(${rotate.y ?? 0}deg) rotateY(${rotate.x ?? 0}deg)`,
           transformStyle: "preserve-3d",
           display: "grid",
-          gridTemplateColumns: `repeat(${dims.cols}, ${boxSize}px)`,
-          gridTemplateRows: `repeat(${dims.rows}, ${boxSize}px)`,
+          gridTemplateColumns: `repeat(${dims.cols}, ${effectiveBox}px)`,
+          gridTemplateRows: `repeat(${dims.rows}, ${effectiveBox}px)`,
           borderTop: `${borderWidth}px solid ${borderColor}`,
           borderLeft: `${borderWidth}px solid ${borderColor}`,
         }}
@@ -210,8 +202,8 @@ const PrismGrid = ({
               cellRefs.current[i] = node;
             }}
             style={{
-              width: boxSize,
-              height: boxSize,
+              width: effectiveBox,
+              height: effectiveBox,
               boxSizing: "border-box",
               borderRight: `${borderWidth}px solid ${borderColor}`,
               borderBottom: `${borderWidth}px solid ${borderColor}`,

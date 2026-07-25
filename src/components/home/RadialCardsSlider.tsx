@@ -54,8 +54,8 @@ const RadialCardsSlider = () => {
       const step = 360 / n;
       const proxy = document.createElement("div");
       const HALF_ARC = 52;
-      const PACK = 0.38;
       const narrow = window.matchMedia("(max-width: 768px)").matches;
+      const PACK = narrow ? 0.33 : 0.38;
       const frameMs = narrow ? 50 : 16;
       const spin = narrow ? 0.42 : 0.1;
       let angle = 0;
@@ -75,8 +75,8 @@ const RadialCardsSlider = () => {
 
       const layout = () => {
         const w = root.clientWidth || window.innerWidth;
-        const radiusX = Math.min(560, Math.max(narrow ? 420 : 300, w * (narrow ? 0.52 : 0.46)));
-        const radiusY = Math.min(300, Math.max(narrow ? 150 : 180, w * (narrow ? 0.22 : 0.26)));
+        const radiusX = Math.min(560, Math.max(300, w * (narrow ? 0.40 : 0.46)));
+        const radiusY = Math.min(300, Math.max(170, w * (narrow ? 0.24 : 0.26)));
 
         for (let i = 0; i < n; i++) {
           const card = cardEls[i];
