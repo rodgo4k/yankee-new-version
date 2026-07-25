@@ -83,14 +83,14 @@ const Index = () => (
             transition={{ duration: 0.85, ease: [0.25, 0.4, 0.25, 1] }}
             className="flex justify-center"
           >
-            <Logo className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto text-foreground" />
+            <Logo className="h-[4.25rem] md:h-14 lg:h-16 w-auto text-foreground" />
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.14, ease: [0.25, 0.4, 0.25, 1] }}
-            className="mt-6 md:mt-7 mx-auto max-w-[20ch] sm:max-w-[24ch] font-display lowercase text-foreground text-[1.45rem] sm:text-[1.7rem] md:text-[1.95rem] font-medium leading-[1.2] tracking-[-0.03em]"
+            className="mt-3 md:mt-7 mx-auto max-w-[20ch] sm:max-w-[24ch] font-display lowercase text-foreground text-[1.85rem] md:text-[1.95rem] font-medium leading-[1.15] md:leading-[1.2] tracking-[-0.03em]"
           >
             <span className="block">the social layer</span>
             <span className="block text-foreground/70 font-normal tracking-[-0.02em]">
