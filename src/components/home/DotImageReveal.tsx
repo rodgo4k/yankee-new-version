@@ -31,7 +31,6 @@ const DotImageReveal = ({
     y: -9999,
     active: false,
   });
-  const rafRef = useRef<number>(0);
   const [ready, setReady] = useState(false);
 
   const draw = useCallback(() => {
@@ -153,18 +152,62 @@ const DotImageReveal = ({
   useEffect(() => {
     if (!ready) return;
 
-    const loop = () => {
-      draw();
-      rafRef.current = requestAnimationFrame(loop);
-    };
-    rafRef.current = requestAnimationFrame(loop);
+    let raf = 0;
+    let inView = true;
+    let running = false;
 
-    const onResize = () => draw();
+    const tick = () => {
+      raf = 0;
+      if (!inView) {
+        running = false;
+        return;
+      }
+      draw();
+      if (pointerRef.current.active) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        running = false;
+      }
+    };
+
+    const kick = () => {
+      if (running || !inView) return;
+      running = true;
+      raf = requestAnimationFrame(tick);
+    };
+
+    draw();
+
+    const onResize = () => {
+      if (inView) draw();
+    };
     window.addEventListener("resize", onResize);
 
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        inView = entry?.isIntersecting ?? false;
+        if (inView) draw();
+        else {
+          running = false;
+          if (raf) cancelAnimationFrame(raf);
+          raf = 0;
+        }
+      },
+      { rootMargin: "80px 0px", threshold: 0 },
+    );
+    if (wrapRef.current) io.observe(wrapRef.current);
+
+    const wrap = wrapRef.current;
+    const onMove = () => kick();
+    wrap?.addEventListener("pointermove", onMove);
+    wrap?.addEventListener("pointerdown", onMove);
+
     return () => {
-      cancelAnimationFrame(rafRef.current);
+      if (raf) cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
+      io.disconnect();
+      wrap?.removeEventListener("pointermove", onMove);
+      wrap?.removeEventListener("pointerdown", onMove);
     };
   }, [ready, draw]);
 
