@@ -212,9 +212,9 @@ const ReachScene = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.25, ease }}
-                  className="self-start"
+                  className="self-end"
                 >
-                  <TypingDots />
+                  <TypingDots tone="you" />
                 </motion.div>
               )}
 

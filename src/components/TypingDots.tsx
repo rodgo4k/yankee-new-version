@@ -1,8 +1,15 @@
 import { motion } from "framer-motion";
 
-const TypingDots = ({ className = "" }: { className?: string }) => (
+type TypingDotsProps = {
+  className?: string;
+  tone?: "them" | "you";
+};
+
+const TypingDots = ({ className = "", tone = "them" }: TypingDotsProps) => (
   <div
-    className={`inline-flex h-10 min-w-[3.35rem] items-center justify-center gap-1.5 rounded-full bg-[#1a1a1a] px-3.5 ${className}`}
+    className={`inline-flex h-10 min-w-[3.35rem] items-center justify-center gap-1.5 rounded-full px-3.5 ${
+      tone === "you" ? "folk-cta" : "bg-[#1a1a1a]"
+    } ${className}`}
     aria-label="typing"
   >
     {[0, 1, 2].map((i) => (
