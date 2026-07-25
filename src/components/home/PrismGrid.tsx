@@ -40,8 +40,24 @@ const PrismGrid = ({
   const inViewRef = useRef(true);
   const lastMoveRef = useRef(0);
   const [dims, setDims] = useState({ cols: 0, rows: 0 });
+  const [isNarrow, setIsNarrow] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches,
+  );
 
   useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    const sync = () => setIsNarrow(mq.matches);
+    sync();
+    if (typeof mq.addEventListener === "function") {
+      mq.addEventListener("change", sync);
+      return () => mq.removeEventListener("change", sync);
+    }
+    mq.addListener(sync);
+    return () => mq.removeListener(sync);
+  }, []);
+
+  useEffect(() => {
+    if (isNarrow) return;
     const el = wrapRef.current;
     if (!el) return;
 
@@ -56,7 +72,7 @@ const PrismGrid = ({
     const ro = new ResizeObserver(measure);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [boxSize]);
+  }, [boxSize, isNarrow]);
 
   const total = dims.cols * dims.rows;
 
@@ -111,7 +127,7 @@ const PrismGrid = ({
   }, []);
 
   useEffect(() => {
-    if (!idle || total === 0) return;
+    if (isNarrow || !idle || total === 0) return;
 
     const id = window.setInterval(() => {
       if (!activeRef.current) return;
@@ -122,10 +138,10 @@ const PrismGrid = ({
     }, 420);
 
     return () => window.clearInterval(id);
-  }, [idle, total, lightCell]);
+  }, [isNarrow, idle, total, lightCell]);
 
   const onMove = (e: ReactPointerEvent<HTMLDivElement>) => {
-    if (!activeRef.current) return;
+    if (isNarrow || !activeRef.current) return;
     const now = performance.now();
     if (now - lastMoveRef.current < 32) return;
     lastMoveRef.current = now;
@@ -154,6 +170,17 @@ const PrismGrid = ({
 
   const cells = useMemo(() => Array.from({ length: total }, (_, i) => i), [total]);
 
+  if (isNarrow) {
+    return (
+      <div
+        ref={wrapRef}
+        className={`absolute inset-0 overflow-hidden ${className}`}
+        style={{ backgroundColor }}
+        aria-hidden
+      />
+    );
+  }
+
   return (
     <div
       ref={wrapRef}
@@ -174,7 +201,6 @@ const PrismGrid = ({
           gridTemplateRows: `repeat(${dims.rows}, ${boxSize}px)`,
           borderTop: `${borderWidth}px solid ${borderColor}`,
           borderLeft: `${borderWidth}px solid ${borderColor}`,
-          contain: "strict",
         }}
       >
         {cells.map((i) => (

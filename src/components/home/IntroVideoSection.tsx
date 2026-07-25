@@ -55,22 +55,29 @@ const IntroVideoSection = () => {
     }
 
     try {
+      if (!video.getAttribute("src")) {
+        video.src = VIDEO_SRC;
+      }
+
       if (video.readyState < 2) {
         video.load();
         await new Promise<void>((resolve, reject) => {
-          const onReady = () => {
-            cleanup();
-            resolve();
-          };
-          const onFail = () => {
-            cleanup();
-            reject(new Error("video load failed"));
-          };
-          const cleanup = () => {
+          let settled = false;
+          const finish = (fn: () => void) => {
+            if (settled) return;
+            settled = true;
+            window.clearTimeout(timeout);
             video.removeEventListener("loadeddata", onReady);
             video.removeEventListener("canplay", onReady);
             video.removeEventListener("error", onFail);
+            fn();
           };
+          const onReady = () => finish(() => resolve());
+          const onFail = () => finish(() => reject(new Error("video load failed")));
+          const timeout = window.setTimeout(
+            () => finish(() => reject(new Error("video load timeout"))),
+            12000,
+          );
           video.addEventListener("loadeddata", onReady);
           video.addEventListener("canplay", onReady);
           video.addEventListener("error", onFail);
@@ -193,11 +200,10 @@ const IntroVideoSection = () => {
               <video
                 ref={videoRef}
                 className="absolute inset-0 h-full w-full object-cover"
-                src={VIDEO_SRC}
                 poster={POSTER_SRC}
                 muted={muted}
                 playsInline
-                preload="auto"
+                preload="none"
                 onClick={togglePlay}
                 aria-label="Yankee app introduction video"
               />

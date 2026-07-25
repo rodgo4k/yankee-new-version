@@ -47,117 +47,126 @@ const RadialCardsSlider = () => {
     const root = rootRef.current;
     if (!root) return;
 
-    const cardEls = cardRefs.current.filter(Boolean) as HTMLDivElement[];
-    const n = cardEls.length;
-    const step = 360 / n;
-    const proxy = document.createElement("div");
-    const HALF_ARC = 52;
-    const PACK = 0.38;
-    let angle = 0;
-    let dragging = false;
-    let inView = true;
-    let paused = isMotionPaused();
+    let cleanup = () => {};
 
-    gsap.set(cardEls, {
-      transformOrigin: "50% 100%",
-      xPercent: -50,
-      yPercent: 0,
-      force3D: true,
-    });
+    try {
+      const cardEls = cardRefs.current.filter(Boolean) as HTMLDivElement[];
+      const n = cardEls.length;
+      if (n === 0) return;
 
-    const setters: CardSetters[] = cardEls.map((card) => ({
-      x: gsap.quickSetter(card, "x", "px") as (v: number) => void,
-      y: gsap.quickSetter(card, "y", "px") as (v: number) => void,
-      scale: gsap.quickSetter(card, "scale") as (v: number) => void,
-      rotate: gsap.quickSetter(card, "rotate", "deg") as (v: number) => void,
-      opacity: gsap.quickSetter(card, "opacity") as (v: number) => void,
-      zIndex: gsap.quickSetter(card, "zIndex") as (v: number) => void,
-    }));
+      const step = 360 / n;
+      const proxy = document.createElement("div");
+      const HALF_ARC = 52;
+      const PACK = 0.38;
+      let angle = 0;
+      let dragging = false;
+      let inView = true;
+      let paused = isMotionPaused();
 
-    const layout = () => {
-      const w = root.clientWidth;
-      const radiusX = Math.min(560, Math.max(300, w * 0.46));
-      const radiusY = Math.min(300, Math.max(180, w * 0.26));
-
-      cardEls.forEach((card, i) => {
-        const rel = norm(angle + i * step) * PACK;
-        const abs = Math.abs(rel);
-        const onArc = abs <= HALF_ARC + 4;
-
-        const t = Math.max(-1, Math.min(1, rel / HALF_ARC));
-        const theta = t * HALF_ARC * (Math.PI / 180);
-
-        const x = Math.sin(theta) * radiusX;
-        const y = -Math.cos(theta) * radiusY;
-
-        const rot =
-          (Math.atan2(Math.sin(theta) * radiusY, Math.cos(theta) * radiusX) * 180) /
-          Math.PI;
-
-        const edge = Math.min(1, abs / HALF_ARC);
-        const fade = onArc ? Math.pow(1 - edge, 1.05) : 0;
-        const scale = 0.9 + fade * 0.18;
-        const set = setters[i];
-
-        set.x(x);
-        set.y(y);
-        set.scale(scale);
-        set.rotate(rot);
-        set.opacity(Math.max(0, fade));
-        set.zIndex(Math.round(fade * 100));
-        card.style.pointerEvents = fade > 0.12 ? "auto" : "none";
+      gsap.set(cardEls, {
+        transformOrigin: "50% 100%",
+        xPercent: -50,
+        yPercent: 0,
       });
-    };
 
-    layout();
+      const setters: CardSetters[] = cardEls.map((card) => ({
+        x: gsap.quickSetter(card, "x", "px") as (v: number) => void,
+        y: gsap.quickSetter(card, "y", "px") as (v: number) => void,
+        scale: gsap.quickSetter(card, "scale") as (v: number) => void,
+        rotate: gsap.quickSetter(card, "rotate", "deg") as (v: number) => void,
+        opacity: gsap.quickSetter(card, "opacity") as (v: number) => void,
+        zIndex: gsap.quickSetter(card, "zIndex") as (v: number) => void,
+      }));
 
-    const shouldRun = () => inView && !paused;
+      const layout = () => {
+        const w = root.clientWidth;
+        const radiusX = Math.min(560, Math.max(300, w * 0.46));
+        const radiusY = Math.min(300, Math.max(180, w * 0.26));
 
-    const tick = () => {
-      if (!shouldRun() || dragging) return;
-      angle += 0.1;
+        cardEls.forEach((card, i) => {
+          const rel = norm(angle + i * step) * PACK;
+          const abs = Math.abs(rel);
+          const onArc = abs <= HALF_ARC + 4;
+
+          const t = Math.max(-1, Math.min(1, rel / HALF_ARC));
+          const theta = t * HALF_ARC * (Math.PI / 180);
+
+          const x = Math.sin(theta) * radiusX;
+          const y = -Math.cos(theta) * radiusY;
+
+          const rot =
+            (Math.atan2(Math.sin(theta) * radiusY, Math.cos(theta) * radiusX) * 180) /
+            Math.PI;
+
+          const edge = Math.min(1, abs / HALF_ARC);
+          const fade = onArc ? Math.pow(1 - edge, 1.05) : 0;
+          const scale = 0.9 + fade * 0.18;
+          const set = setters[i];
+
+          set.x(x);
+          set.y(y);
+          set.scale(scale);
+          set.rotate(rot);
+          set.opacity(Math.max(0, fade));
+          set.zIndex(Math.round(fade * 100));
+          card.style.pointerEvents = fade > 0.12 ? "auto" : "none";
+        });
+      };
+
       layout();
-    };
-    gsap.ticker.add(tick);
 
-    const [draggable] = Draggable.create(proxy, {
-      trigger: root,
-      type: "x",
-      inertia: false,
-      onPress() {
-        if (!shouldRun()) return;
-        dragging = true;
-      },
-      onDrag() {
-        if (!inView || paused) return;
-        angle += this.deltaX * 0.34;
+      const shouldRun = () => inView && !paused;
+
+      const tick = () => {
+        if (!shouldRun() || dragging) return;
+        angle += 0.1;
         layout();
-      },
-      onRelease() {
-        dragging = false;
-      },
-    });
+      };
+      gsap.ticker.add(tick);
 
-    const onResize = () => layout();
-    window.addEventListener("resize", onResize);
+      const [draggable] = Draggable.create(proxy, {
+        trigger: root,
+        type: "x",
+        inertia: false,
+        onPress() {
+          if (!shouldRun()) return;
+          dragging = true;
+        },
+        onDrag() {
+          if (!inView || paused) return;
+          angle += this.deltaX * 0.34;
+          layout();
+        },
+        onRelease() {
+          dragging = false;
+        },
+      });
 
-    const unsubView = observeInView(root, (next) => {
-      inView = next;
-      if (next) layout();
-    });
+      const onResize = () => layout();
+      window.addEventListener("resize", onResize);
 
-    const unsubPause = subscribeMotionPause((next) => {
-      paused = next;
-      if (!next && inView) layout();
-    });
+      const unsubView = observeInView(root, (next) => {
+        inView = next;
+        if (next) layout();
+      });
 
-    return () => {
-      gsap.ticker.remove(tick);
-      draggable?.kill();
-      window.removeEventListener("resize", onResize);
-      unsubView();
-      unsubPause();
-    };
+      const unsubPause = subscribeMotionPause((next) => {
+        paused = next;
+        if (!next && inView) layout();
+      });
+
+      cleanup = () => {
+        gsap.ticker.remove(tick);
+        draggable?.kill();
+        window.removeEventListener("resize", onResize);
+        unsubView();
+        unsubPause();
+      };
+    } catch (err) {
+      console.error("RadialCardsSlider init failed:", err);
+    }
+
+    return () => cleanup();
   }, []);
 
   return (
@@ -184,7 +193,7 @@ const RadialCardsSlider = () => {
                     className="w-full h-full object-cover object-top pointer-events-none"
                     draggable={false}
                     decoding="async"
-                    loading="eager"
+                    loading={i < 2 ? "eager" : "lazy"}
                   />
                 </div>
                 <p className="px-2 py-1.5 text-center text-[11px] font-medium lowercase tracking-tight border-t border-foreground/8">
