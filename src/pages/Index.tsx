@@ -79,7 +79,7 @@ const homeCrowds = [
     tags: ["#movies", "#cinema", "#nightin"],
   },
   {
-    name: "Sunrise Runners",
+    name: "Party People",
     src: heroStrip3,
     count: "1.219",
     pos: "50% 45%",
