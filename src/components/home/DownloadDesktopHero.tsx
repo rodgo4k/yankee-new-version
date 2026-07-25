@@ -227,7 +227,7 @@ const DownloadDesktopHero = ({ iosHref }: DownloadDesktopHeroProps) => {
                   rel="noopener noreferrer"
                   className="group inline-flex items-center gap-2.5 px-5 py-3 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                 >
-                  <Apple size={16} /> download for ios
+                  <Apple size={16} /> download for iOS
                 </a>
               </motion.div>
             </div>

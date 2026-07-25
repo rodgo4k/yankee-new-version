@@ -18,14 +18,14 @@ const Terms = () => (
 
       <div className="mt-10 space-y-6 text-[15px] text-foreground/85 leading-[1.7]">
         <p>
-          Yankee is not launched yet. These Terms of Service (&quot;Terms&quot;) describe the
-          agreement that will apply between you and Yankee LLC, a Foretheist product
-          (&quot;Yankee&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) when the Yankee
-          website, iOS app, and related services (the &quot;Service&quot;) become available.
+          These Terms of Service (&quot;Terms&quot;) are the agreement between you and Yankee LLC, a
+          Foretheist product (&quot;Yankee&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;)
+          for your use of the Yankee website, iOS app, and related services (the
+          &quot;Service&quot;).
         </p>
         <p>
-          Please read them carefully. By creating an account or using Yankee when it launches, you
-          agree to these Terms. If you do not agree, do not use the Service.
+          Please read them carefully. By creating an account or using Yankee, you agree to these
+          Terms. If you do not agree, do not use the Service.
         </p>
         <p>
           Our{" "}
@@ -45,7 +45,7 @@ const Terms = () => (
           </p>
           <p>
             You also confirm that you are not barred from using the Service under applicable law,
-            and that you will provide accurate information when you create and maintain your account.
+            and that you provide accurate information when you create and maintain your account.
           </p>
         </section>
 
@@ -73,11 +73,11 @@ const Terms = () => (
         <section className="space-y-4 pt-2">
           <h2 className="text-xl font-semibold text-foreground tracking-tight">3. The Service</h2>
           <p>
-            Yankee is a social product focused on chronological feeds, communities, memory, and
-            private communication. Features may change over time. We may add, change, or remove parts
-            of the Service, including experimental features, without lowering the basic idea of the
-            product overnight without notice when that is practical.
-          </p>
+          Yankee is a social product focused on chronological feeds, communities, memory, and
+          private communication. Features may change over time. We may add, change, or remove parts
+          of the Service, including experimental features, and we aim to give notice when that is
+          practical.
+        </p>
           <p>
             We do not guarantee uninterrupted or error-free access. Outages, maintenance, and device
             or network issues can affect availability.

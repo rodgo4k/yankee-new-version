@@ -16,7 +16,7 @@ const stores = [
     subtitle: "app store",
     desc: "requires ios 16 or later.",
     href: "https://apps.apple.com/us/app/yankee/id6752715457",
-    cta: "download for ios",
+    cta: "download for iOS",
     icon: Apple,
     bubble: "available now",
   },

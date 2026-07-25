@@ -21,10 +21,12 @@ import heroStrip2 from "@/assets/hero-strip-2.png";
 import heroStrip3 from "@/assets/hero-strip-3.png";
 import heroStrip4 from "@/assets/hero-strip-4.png";
 import cafeFriends from "@/assets/cafe-friends.jpg";
+import harvardHall from "@/assets/harvard-hall.png";
+import stanfordHall from "@/assets/stanford-hall.png";
+import filmNight from "@/assets/film-night.png";
+import liveThread from "@/assets/live-thread.png";
 import studentsHero from "@/assets/students-hero.jpg";
-import communityShot from "@/assets/yankee/community.png";
 import dotRevealImg from "@/assets/yankee/dot-reveal.png";
-import heroFolkMountains from "@/assets/hero-folk-mountains.jpg";
 
 const faqItems = [
   {
@@ -40,6 +42,137 @@ const faqItems = [
     a: "Yes. Everything will be encrypted, we will never sell your data and we will never train AI on your posts. You'll be able to delete your account at any time.",
   },
 ];
+
+const homeCrowds = [
+  {
+    name: "Harvard University",
+    src: harvardHall,
+    count: "8.543",
+    pos: "50% 40%",
+    span: "col-span-1 md:col-span-2",
+    tags: ["#harvard", "#campus", "#ivy"],
+  },
+  {
+    name: "Stanford University",
+    src: stanfordHall,
+    count: "6.210",
+    pos: "50% 40%",
+    span: "col-span-1 md:col-span-2",
+    tags: ["#stanford", "#campus"],
+  },
+  {
+    name: "Coffee Club",
+    src: cafeFriends,
+    count: "2.104",
+    pos: "50% 40%",
+    span: "col-span-2 row-span-2 md:col-span-2 md:row-span-2",
+    tall: true,
+    tags: ["#coffee", "#friends", "#hangout"],
+  },
+  {
+    name: "Film Night",
+    src: filmNight,
+    count: "3.891",
+    pos: "50% 35%",
+    span: "col-span-1 md:col-span-4",
+    wide: true,
+    tags: ["#movies", "#cinema", "#nightin"],
+  },
+  {
+    name: "Sunrise Runners",
+    src: heroStrip3,
+    count: "1.219",
+    pos: "50% 45%",
+    span: "col-span-1 md:col-span-4",
+    wide: true,
+    tags: ["#running", "#fitness", "#morningvibes"],
+  },
+  {
+    name: "Late Night Producers",
+    src: liveThread,
+    count: "5.879",
+    pos: "50% 35%",
+    span: "col-span-1 md:col-span-1",
+    tags: ["#music", "#studio"],
+  },
+  {
+    name: "Campus Crowd",
+    src: studentsHero,
+    count: "4.320",
+    pos: "50% 30%",
+    span: "col-span-1 md:col-span-1",
+    tags: ["#campus", "#students"],
+  },
+];
+
+const CrowdAppCard = ({
+  name,
+  src,
+  count,
+  pos,
+  tags,
+  tall,
+  wide,
+}: {
+  name: string;
+  src: string;
+  count: string;
+  pos: string;
+  tags: string[];
+  tall?: boolean;
+  wide?: boolean;
+}) => (
+  <div
+    className={`relative flex h-full w-full flex-col overflow-hidden rounded-[1.25rem] bg-foreground/10 ${
+      tall
+        ? "min-h-[280px] md:min-h-0"
+        : wide
+          ? "min-h-[160px] md:min-h-0"
+          : "min-h-[180px] md:min-h-0"
+    }`}
+  >
+    <img
+      src={src}
+      alt=""
+      className="absolute inset-0 h-full w-full object-cover"
+      style={{ objectPosition: pos }}
+      loading="lazy"
+    />
+    <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/10 to-black/50" />
+
+    <div className="relative z-10 flex min-h-0 flex-1 flex-col p-2.5 md:p-3">
+      <div className="flex items-start justify-between gap-2">
+        <div className="min-w-0 flex-1">
+          <div className="inline-flex max-w-full rounded-full bg-black/45 px-2.5 py-1 backdrop-blur-md">
+            <p className="truncate text-[11px] font-medium tracking-tight text-white md:text-[12.5px]">{name}</p>
+          </div>
+          <div className="mt-1.5 flex flex-wrap gap-1">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full border border-white/20 bg-black/40 px-2 py-0.5 text-[9px] font-medium text-white/90 backdrop-blur-md md:text-[10px]"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="shrink-0 rounded-full bg-black/45 px-2.5 py-1 backdrop-blur-md">
+          <span className="text-[11px] font-medium tabular-nums text-[#8ec5ff] md:text-[12px]">{count}</span>
+        </div>
+      </div>
+
+      <div className="mt-auto pt-3">
+        <div
+          className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/15 px-5 py-1.5 backdrop-blur-xl"
+          aria-hidden
+        >
+          <span className="text-[12px] font-semibold text-[#3b82f6] md:text-[13px]">Join</span>
+        </div>
+      </div>
+    </div>
+  </div>
+);
 
 const Index = () => (
   <Layout>
@@ -234,15 +367,7 @@ const Index = () => (
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1100px] mx-auto px-5 md:px-6">
         <AnimatedSection className="text-center max-w-2xl mx-auto">
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="font-serif-display italic text-[1.25rem] md:text-[1.45rem] text-foreground/50 lowercase"
-          >
-            crowds
-          </motion.p>
-          <h2 className="mt-3 text-[2.4rem] sm:text-5xl md:text-6xl font-semibold text-foreground tracking-tight leading-[0.98]">
+          <h2 className="text-[2.4rem] sm:text-5xl md:text-6xl font-semibold text-foreground tracking-tight leading-[0.98]">
             Find your people.
             <br />
             <span className="font-serif-display italic font-medium">Keep them close.</span>
@@ -252,149 +377,21 @@ const Index = () => (
           </p>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-14 grid grid-cols-2 md:grid-cols-6 gap-3 md:gap-4">
-          <AnimatedSection delay={0.05} className="col-span-1 md:col-span-2">
-            <div className={blockCard(0, "min-h-[160px] md:min-h-[200px] p-5 flex flex-col justify-between")}>
-              <div className="yankee-block__icon inline-flex w-12 h-12 items-center justify-center rounded-full font-serif-display text-xl italic">
-                H
-              </div>
-              <div>
-                <p className="text-[15px] font-semibold lowercase">harvard</p>
-                <p className="mt-1 text-[12px] yankee-block__muted lowercase">campus crowd</p>
-              </div>
-            </div>
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.1} className="col-span-1 md:col-span-2">
-            <div className={blockCard(1, "min-h-[160px] md:min-h-[200px] p-5 flex flex-col justify-between")}>
-              <div className="yankee-block__icon inline-flex w-12 h-12 items-center justify-center rounded-full font-semibold text-sm tracking-tight">
-                S
-              </div>
-              <div>
-                <p className="text-[15px] font-semibold lowercase">stanford</p>
-                <p className="mt-1 text-[12px] yankee-block__muted lowercase">alumni room</p>
-              </div>
-            </div>
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.15} className="col-span-2 md:col-span-2 md:row-span-2">
-            <motion.div
-              whileHover={{ y: -3 }}
-              className={surface(
-                "interactive",
-                "relative h-full min-h-[220px] md:min-h-full overflow-hidden",
-              )}
-            >
-              <img src={cafeFriends} alt="" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4">
-                <p className="font-serif-display italic text-[1.35rem] md:text-[1.6rem] text-white leading-none">
-                  slow coffee club
-                </p>
-                <span className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-folk-success px-2.5 py-1 text-[11px] font-medium text-folk-success-foreground lowercase">
-                  <span className="w-1.5 h-1.5 rounded-full bg-foreground" />
-                  coming soon
-                </span>
-              </div>
-            </motion.div>
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.18} className="col-span-2 md:col-span-4">
-            <motion.div
-              whileHover={{ y: -3 }}
-              className={surface(
-                "interactive",
-                "relative h-full min-h-[180px] md:min-h-[210px] overflow-hidden",
-              )}
-            >
-              <img
-                src={studentsHero}
-                alt=""
-                className="absolute inset-0 w-full h-full object-cover object-[50%_35%]"
-                loading="lazy"
+        <div className="mt-12 md:mt-14 grid grid-cols-2 md:grid-cols-6 auto-rows-[190px] md:auto-rows-[210px] gap-3 md:gap-4">
+          {homeCrowds.map((crowd, i) => (
+            <AnimatedSection key={crowd.name} delay={0.04 + i * 0.03} className={`${crowd.span} h-full min-h-0`}>
+              <CrowdAppCard
+                name={crowd.name}
+                src={crowd.src}
+                count={crowd.count}
+                pos={crowd.pos}
+                tags={crowd.tags}
+                tall={crowd.tall}
+                wide={crowd.wide}
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/55 to-transparent" />
-              <div className="relative h-full flex flex-col justify-end p-5 md:p-6 max-w-md">
-                <p className="text-[13px] uppercase tracking-widest text-foreground/50">this week</p>
-                <p className="mt-2 text-[18px] md:text-[22px] font-semibold tracking-tight lowercase leading-snug">
-                  film night in the backyard crowd
-                </p>
-                <p className="mt-2 text-[13px] text-foreground/60 lowercase">self moderated · capped · yours</p>
-              </div>
-            </motion.div>
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.22} className="col-span-1 md:col-span-3">
-            <div
-              className={surface(
-                "interactive",
-                "md:hidden h-full min-h-[140px] p-5 flex flex-col justify-between",
-              )}
-            >
-              <div className="inline-flex w-12 h-12 items-center justify-center rounded-full border border-foreground/10 bg-foreground/[0.04] font-semibold text-sm tracking-tight text-foreground">
-                R
-              </div>
-              <div>
-                <p className="text-[15px] font-semibold lowercase">running club</p>
-                <p className="mt-1 text-[12px] text-muted-foreground lowercase leading-relaxed">
-                  meetups, routes, no noisy threads.
-                </p>
-              </div>
-            </div>
-
-            <motion.div
-              whileHover={{ y: -3 }}
-              className={surface(
-                "interactive",
-                "hidden md:flex h-full min-h-[140px] p-4 gap-4 items-center",
-              )}
-            >
-              <div className="w-24 h-24 rounded-2xl overflow-hidden border border-foreground/10 shrink-0 shadow-[0_6px_16px_-8px_rgba(0,0,0,0.2)]">
-                <img src={communityShot} alt="" className="w-full h-full object-cover object-top" loading="lazy" />
-              </div>
-              <div>
-                <p className="text-[15px] font-semibold lowercase">running club</p>
-                <p className="mt-1 text-[12px] text-muted-foreground lowercase leading-relaxed">
-                  meetups, routes, no noisy threads.
-                </p>
-              </div>
-            </motion.div>
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.26} className="col-span-1 md:col-span-3">
-            <Link to="/communities" className="block h-full">
-              <motion.div
-                whileHover={{ y: -3 }}
-                className={surface(
-                  "interactive",
-                  "h-full min-h-[140px] bg-folk-bubble p-5 flex flex-col justify-between text-folk-bubble-foreground border-transparent",
-                )}
-              >
-                <div className="w-10 h-10 rounded-full border border-white/35 flex items-center justify-center bg-white/10">
-                  <ArrowRight size={16} />
-                </div>
-                <div>
-                  <p className="text-[16px] md:text-[18px] font-semibold lowercase leading-snug">
-                    explore new crowds
-                  </p>
-                  <p className="mt-1 text-[12px] text-white/75 lowercase">find a room that fits</p>
-                </div>
-              </motion.div>
-            </Link>
-          </AnimatedSection>
+            </AnimatedSection>
+          ))}
         </div>
-
-        <AnimatedSection delay={0.3}>
-          <div className="mt-10 md:mt-12 flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Link
-              to="/communities"
-              className={surface("control", "gap-2 px-7 py-3.5 text-[14px] font-medium text-foreground lowercase")}
-            >
-              browse crowds <ArrowRight size={14} />
-            </Link>
-            <p className="text-[12px] text-foreground/45 lowercase">small by design · moderated by people</p>
-          </div>
-        </AnimatedSection>
       </div>
     </section>
 
@@ -507,21 +504,21 @@ const Index = () => (
             </div>
 
             <div className="lg:col-span-5 relative">
-              <div className="relative mx-auto max-w-md lg:max-w-none lg:min-h-[400px]">
+              <div className="relative mx-auto max-w-md lg:max-w-none pb-2">
                 <motion.div
                   initial={{ opacity: 0, y: 28, rotate: -2 }}
                   whileInView={{ opacity: 1, y: 0, rotate: -1.5 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.7, delay: 0.12, ease: [0.25, 0.4, 0.25, 1] }}
-                  className={surface("lg", "relative z-0 ml-auto w-[92%] p-4")}
+                  className={surface("lg", "relative z-0 w-[92%] ml-auto p-4")}
                 >
                   <div className="rounded-[1.1rem] overflow-hidden aspect-[5/3] bg-muted">
-                    <img
-                      src={heroFolkMountains}
-                      alt=""
-                      className="w-full h-full object-cover object-[50%_45%]"
-                      loading="lazy"
-                    />
+                      <img
+                        src={heroStrip3}
+                        alt=""
+                        className="w-full h-full object-cover object-center"
+                        loading="lazy"
+                      />
                   </div>
                   <div className="mt-3 flex items-center justify-between gap-2">
                     <span className="text-[12px] lowercase text-foreground/70">trail photos · just now</span>
@@ -532,25 +529,25 @@ const Index = () => (
                 </motion.div>
 
                 <motion.div
-                  initial={{ opacity: 0, x: -18, y: 12 }}
-                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.55, delay: 0.28 }}
-                  className="relative z-10 -mt-6 mr-auto max-w-[85%] lg:absolute lg:left-0 lg:top-[44%] lg:mt-0 lg:max-w-[78%]"
+                  className="relative z-20 -mt-2 max-w-[88%] -translate-x-1 sm:-mt-2.5 sm:-translate-x-2"
                 >
-                  <div className="yankee-chat__bubble yankee-chat__bubble--them text-[13px]">
+                  <div className="yankee-chat__bubble yankee-chat__bubble--them text-[13px] shadow-[0_10px_28px_-12px_rgba(0,0,0,0.35)]">
                     <span className="font-semibold">maya · </span>everyone actually saw this?
                   </div>
                 </motion.div>
 
                 <motion.div
-                  initial={{ opacity: 0, x: 18, y: 12 }}
-                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.55, delay: 0.4 }}
-                  className="relative z-10 mt-3 ml-auto max-w-[80%] lg:absolute lg:right-2 lg:bottom-0 lg:mt-0 lg:max-w-[72%]"
+                  className="relative z-20 mt-2.5 flex justify-end pr-1 sm:pr-2"
                 >
-                  <div className="yankee-chat__bubble yankee-chat__bubble--you text-[13px]">
+                  <div className="yankee-chat__bubble yankee-chat__bubble--you max-w-[82%] text-[13px] shadow-[0_10px_28px_-12px_rgba(37,99,235,0.45)]">
                     yeah. no ranking. every friend.
                   </div>
                 </motion.div>

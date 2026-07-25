@@ -26,7 +26,7 @@ const reasons = [
 ];
 
 const steps = [
-  { n: "01", t: "download for ios", d: "grab yankee on the app store." },
+  { n: "01", t: "download for iOS", d: "grab yankee on the app store." },
   { n: "02", t: "create your account", d: "phone or email. no algorithm profile to fill." },
   { n: "03", t: "invite your people", d: "start a small crowd or follow friends you actually know." },
 ];
@@ -50,7 +50,7 @@ const Download = () => (
             rel="noopener noreferrer"
             className="mt-8 group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
           >
-            <Apple size={16} /> download for ios
+            <Apple size={16} /> download for iOS
           </a>
         </AnimatedSection>
       </div>
@@ -170,7 +170,7 @@ const Download = () => (
               rel="noopener noreferrer"
               className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
             >
-              <Apple size={16} /> download for ios
+              <Apple size={16} /> download for iOS
             </a>
             <Link
               to="/story"
