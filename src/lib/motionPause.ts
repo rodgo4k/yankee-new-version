@@ -39,12 +39,16 @@ export const observeInView = (
   onChange: (inView: boolean) => void,
   options?: IntersectionObserverInit,
 ) => {
+  let last = false;
   const io = new IntersectionObserver(([entry]) => {
-    onChange(entry?.isIntersecting ?? false);
+    const next = entry?.isIntersecting ?? false;
+    if (next === last) return;
+    last = next;
+    onChange(next);
   }, {
     root: null,
-    rootMargin: "80px 0px",
-    threshold: 0.01,
+    rootMargin: "120px 0px",
+    threshold: 0,
     ...options,
   });
   io.observe(el);
