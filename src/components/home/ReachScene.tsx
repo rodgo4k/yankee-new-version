@@ -64,25 +64,42 @@ export const FeedStatusPill = () => {
 };
 
 const LikeBurst = () => (
-  <motion.div
-    initial={{ scale: 0.4, opacity: 0 }}
-    animate={{ scale: [0.4, 1.25, 1], opacity: [0, 1, 1] }}
-    transition={{ duration: 0.55, ease }}
-    className="absolute -bottom-2 -right-2 z-20 flex items-center justify-center"
-  >
+  <div className="pointer-events-none absolute -right-[14px] bottom-0.5 z-20">
     <motion.div
-      animate={{ scale: [1, 1.15, 1] }}
-      transition={{ duration: 0.45, delay: 0.15, ease }}
-      className="w-7 h-7 rounded-full bg-[#FF5A6A] flex items-center justify-center shadow-[0_6px_16px_-4px_rgba(255,90,106,0.7)]"
+      initial={{ scale: 0.4, opacity: 0 }}
+      animate={{ scale: [0.4, 1.25, 1], opacity: [0, 1, 1] }}
+      transition={{ duration: 0.55, ease }}
+      className="flex items-center justify-center"
     >
-      <Heart size={12} className="fill-white text-white" />
+      <motion.div
+        animate={{ scale: [1, 1.15, 1] }}
+        transition={{ duration: 0.45, delay: 0.15, ease }}
+        className="flex h-7 w-7 items-center justify-center rounded-full bg-[#FF5A6A] shadow-[0_6px_16px_-4px_rgba(255,90,106,0.7)]"
+      >
+        <Heart size={12} className="fill-white text-white" />
+      </motion.div>
     </motion.div>
-  </motion.div>
+  </div>
 );
 
 const ReachScene = () => {
   const [step, setStep] = useState<ThreadStep>("image");
   const [cycle, setCycle] = useState(0);
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(max-width: 639px)").matches,
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 639px)");
+    const sync = () => setIsMobile(mq.matches);
+    sync();
+    if (typeof mq.addEventListener === "function") {
+      mq.addEventListener("change", sync);
+      return () => mq.removeEventListener("change", sync);
+    }
+    mq.addListener(sync);
+    return () => mq.removeListener(sync);
+  }, []);
 
   useEffect(() => {
     setStep("image");
@@ -110,17 +127,21 @@ const ReachScene = () => {
   const showTyping2 = step === "typing2";
   const showReply2 = ["reply2", "hold"].includes(step);
 
+  const imgH = isMobile ? 208 : 268;
+  const chatH = 168;
+  const chatMt = isMobile ? 12 : 14;
+
   return (
     <div className="w-full max-w-[480px] mx-auto md:ml-auto">
       <div className={surface("lg", "overflow-hidden")}>
-        <div className="relative flex flex-col h-[420px] sm:h-[460px] md:h-[500px] overflow-hidden bg-card p-3 md:p-4">
+        <div className="relative flex flex-col h-[412px] sm:h-[460px] md:h-[500px] overflow-hidden bg-card p-3 md:p-4">
           <motion.div
             key={`img-${cycle}`}
             className="relative z-0 mx-auto overflow-hidden rounded-[1.5rem] md:rounded-[1.75rem] bg-folk-panel shrink-0"
             initial={false}
             animate={
               shrunk
-                ? { height: 268, width: "94%" }
+                ? { height: imgH, width: "94%" }
                 : { height: "100%", width: "100%" }
             }
             transition={{ duration: 0.8, ease }}
@@ -130,6 +151,8 @@ const ReachScene = () => {
               alt=""
               className="absolute inset-0 w-full h-full object-cover object-bottom"
               draggable={false}
+              loading="lazy"
+              decoding="async"
             />
             <motion.div
               className="absolute top-3 left-3"
@@ -157,9 +180,9 @@ const ReachScene = () => {
             className="relative z-10 flex flex-col justify-start gap-2.5 shrink-0 overflow-visible"
             initial={false}
             animate={{
-              height: shrunk ? 168 : 0,
+              height: shrunk ? chatH : 0,
               opacity: shrunk ? 1 : 0,
-              marginTop: shrunk ? 14 : 0,
+              marginTop: shrunk ? chatMt : 0,
             }}
             transition={{ duration: 0.55, ease }}
           >
@@ -173,10 +196,10 @@ const ReachScene = () => {
                   transition={{ duration: 0.45, ease }}
                   className="relative self-start max-w-[88%] overflow-visible"
                 >
-                  <div className="yankee-chat__bubble yankee-chat__bubble--them text-[13px] md:text-[14px]">
+                  <div className="yankee-chat__bubble yankee-chat__bubble--them relative overflow-visible text-[13px] md:text-[14px]">
                     <span className="font-semibold">maya</span> these are unreal. everyone saw this?
+                    {showLike && <LikeBurst />}
                   </div>
-                  {showLike && <LikeBurst />}
                 </motion.div>
               )}
             </AnimatePresence>
