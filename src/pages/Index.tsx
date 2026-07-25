@@ -1,4 +1,4 @@
-import { ArrowRight, Clock, Users, BellOff, ShieldCheck } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
@@ -16,7 +16,10 @@ import { Logo } from "@/components/Logo";
 import PrismGrid from "@/components/home/PrismGrid";
 import { surface } from "@/lib/yankeeSurface";
 import { blockCard } from "@/lib/yankeeBlock";
-import heroParty from "@/assets/hero-party.jpg";
+import heroStrip1 from "@/assets/hero-strip-1.png";
+import heroStrip2 from "@/assets/hero-strip-2.png";
+import heroStrip3 from "@/assets/hero-strip-3.png";
+import heroStrip4 from "@/assets/hero-strip-4.png";
 import cafeFriends from "@/assets/cafe-friends.jpg";
 import studentsHero from "@/assets/students-hero.jpg";
 import communityShot from "@/assets/yankee/community.png";
@@ -35,29 +38,6 @@ const faqItems = [
   {
     q: "Will my data be safe?",
     a: "Yes. Everything will be encrypted, we will never sell your data and we will never train AI on your posts. You'll be able to delete your account at any time.",
-  },
-];
-
-const featureCards = [
-  {
-    icon: Clock,
-    title: "chronological order",
-    text: "your feed is reverse chronological, always. the latest post is at the top. no opaque ranking.",
-  },
-  {
-    icon: Users,
-    title: "complete reach",
-    text: "every post you publish reaches every person who follows you. no hidden suppression, ever.",
-  },
-  {
-    icon: BellOff,
-    title: "no suggested noise",
-    text: "only the people and crowds you follow. no 'recommended for you' pulling you away from friends.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "your crowd, your rules",
-    text: "communities are small, self moderated and built around what you actually care about.",
   },
 ];
 
@@ -106,58 +86,6 @@ const Index = () => (
     </section>
 
     <IntroVideoSection />
-
-    <section className="relative py-20 md:py-28 dotted-bg overflow-visible">
-      <div className="absolute inset-0 bg-background/70" />
-      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6 overflow-visible">
-        <AnimatedSection>
-          <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
-              it fights for your feed
-            </h2>
-            <p className="mt-5 md:mt-6 text-[15px] md:text-[17px] text-muted-foreground leading-relaxed lowercase">
-              yankee shows you every post from the people you follow, in the order they shared it. no hidden algorithm,
-              no shadow bans, no suggested content you never asked for.
-            </p>
-          </div>
-        </AnimatedSection>
-
-        <div className="mt-12 md:mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 overflow-visible">
-          {featureCards.map((c, i) => (
-            <AnimatedSection key={c.title} delay={i * 0.06} className="overflow-visible">
-              <div
-                className={blockCard(
-                  i,
-                  "group p-6 md:p-7 text-center sm:text-left flex flex-col items-center sm:items-start",
-                )}
-              >
-                <div className="yankee-block__icon mb-6 inline-flex h-11 w-11 items-center justify-center rounded-full backdrop-blur-[2px]">
-                  <c.icon size={20} strokeWidth={2.2} />
-                </div>
-                <h3 className="text-[17px] md:text-[18px] font-semibold tracking-tight lowercase">
-                  {c.title}
-                </h3>
-                <p className="mt-3 text-[13px] leading-relaxed lowercase yankee-block__muted">{c.text}</p>
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
-
-        <AnimatedSection delay={0.2}>
-          <div className="mt-10 md:mt-12 text-center">
-            <p className="text-[13px] text-muted-foreground lowercase">
-              no algorithmic feed · your attention isn&apos;t the product
-            </p>
-            <Link
-              to="/feed"
-              className="mt-4 inline-flex items-center gap-1.5 text-[14px] font-medium text-accent hover:opacity-80 lowercase"
-            >
-              see how the feed works <ArrowRight size={14} />
-            </Link>
-          </div>
-        </AnimatedSection>
-      </div>
-    </section>
 
     <DotRevealSection image={dotRevealImg} />
 
@@ -257,12 +185,33 @@ const Index = () => (
       <div className="max-w-[1400px] mx-auto px-5 md:px-6">
         <AnimatedSection>
           <div className={surface("lg", "relative overflow-hidden aspect-[16/11] md:aspect-[21/9]")}>
-            <img
-              src={heroParty}
-              alt=""
-              className="absolute inset-0 w-full h-full object-cover object-[50%_55%] scale-[1.15] md:scale-[1.2]"
-              loading="lazy"
-            />
+            <div className="absolute inset-0 grid grid-cols-4" aria-hidden>
+              <img
+                src={heroStrip1}
+                alt=""
+                className="h-full w-full object-cover object-[50%_82%]"
+                loading="lazy"
+              />
+              <img
+                src={heroStrip2}
+                alt=""
+                className="h-full w-full object-cover object-center"
+                loading="lazy"
+              />
+              <img
+                src={heroStrip3}
+                alt=""
+                className="h-full w-full object-cover object-center"
+                loading="lazy"
+              />
+              <img
+                src={heroStrip4}
+                alt=""
+                className="h-full w-full object-cover object-[50%_78%]"
+                loading="lazy"
+              />
+            </div>
+            <div className="absolute inset-0 bg-black/40" aria-hidden />
             <div className="relative h-full flex flex-col items-center justify-center px-6 md:px-8 text-center gap-5 md:gap-6">
               <SpeechBubble tail="none" size="sm">
                 <PillTag>text it once</PillTag>
