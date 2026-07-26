@@ -9,8 +9,8 @@ import {
   MoreHorizontal,
   Pencil,
   RefreshCw,
+  Search,
   Sparkles,
-  Waves,
 } from "lucide-react";
 import AiPhoneShell from "@/components/home/AiPhoneShell";
 
@@ -24,35 +24,40 @@ type Phase = "choose" | "session" | "invite" | "permissions" | "contribute";
 const phases: Phase[] = ["choose", "session", "invite", "permissions", "contribute"];
 
 const PHASE_HOLD_MS: Record<Phase, number> = {
-  choose: 4800,
-  session: 4800,
-  invite: 4600,
-  permissions: 4400,
-  contribute: 5200,
+  choose: 5200,
+  session: 5200,
+  invite: 5000,
+  permissions: 4800,
+  contribute: 5600,
 };
 
-/* ─── shared bits ─── */
+const VoiceCoil = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 20 20" className={className} fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden>
+    <path d="M10 3c0 0-3 2-3 5s3 5 3 5 3-2 3-5-3-5-3-5Z" strokeLinecap="round" />
+    <path d="M10 8c0 0-2 1.2-2 3s2 3 2 3 2-1.2 2-3-2-3-2-3Z" strokeLinecap="round" opacity="0.7" />
+  </svg>
+);
 
-const Header = ({
+/* ─── shared chrome ─── */
+
+const NavHeader = ({
   title,
   subtitle,
-  showBack = true,
+  centered = false,
+  showMenu = true,
 }: {
   title: string;
   subtitle?: string;
-  showBack?: boolean;
+  centered?: boolean;
+  showMenu?: boolean;
 }) => (
-  <div className="flex items-start justify-between px-4 mb-3">
-    <div className="flex items-start gap-2 min-w-0">
-      {showBack && <ArrowLeft size={16} className="text-white/55 mt-0.5 shrink-0" />}
-      <div className="min-w-0">
-        <p className="text-[14px] font-semibold text-white leading-tight">{title}</p>
-        {subtitle && (
-          <p className="text-[10px] text-white/40 leading-tight mt-0.5">{subtitle}</p>
-        )}
-      </div>
+  <div className="relative flex items-center px-3.5 mb-3 min-h-[36px]">
+    <ArrowLeft size={17} className="text-white/55 shrink-0 absolute left-3.5" strokeWidth={2.2} />
+    <div className={`min-w-0 ${centered ? "mx-auto text-center px-8" : "ml-7 pr-8"}`}>
+      <p className="text-[14px] font-semibold text-white leading-tight">{title}</p>
+      {subtitle && <p className="text-[10px] text-white/40 leading-tight mt-0.5">{subtitle}</p>}
     </div>
-    <MoreHorizontal size={16} className="text-white/40 shrink-0 mt-0.5" />
+    {showMenu && <MoreHorizontal size={16} className="text-white/40 shrink-0 absolute right-3.5" />}
   </div>
 );
 
@@ -67,20 +72,26 @@ const BlueBtn = ({
 }) => (
   <motion.button
     type="button"
-    initial={{ opacity: 0, y: 10, scale: 0.97 }}
+    initial={{ opacity: 0, y: 10 }}
     animate={{
       opacity: 1,
       y: 0,
-      scale: pulse ? [1, 1.03, 1] : 1,
+      boxShadow: pulse
+        ? [
+            "0 0 0 0 rgba(47,107,255,0)",
+            "0 0 0 6px rgba(47,107,255,0.22)",
+            "0 0 0 0 rgba(47,107,255,0)",
+          ]
+        : "none",
     }}
     transition={{
       opacity: { duration: 0.4, delay, ease },
       y: { duration: 0.4, delay, ease },
-      scale: pulse
-        ? { duration: 1.4, delay: delay + 0.5, repeat: Infinity, ease: "easeInOut" }
-        : { duration: 0.4, delay, ease },
+      boxShadow: pulse
+        ? { duration: 1.5, delay: delay + 0.4, repeat: Infinity, ease: "easeInOut" }
+        : undefined,
     }}
-    className="w-full rounded-full py-3 text-[12px] font-semibold text-white lowercase"
+    className="w-full rounded-full py-3 text-[12px] font-semibold text-white"
     style={{ background: BLUE }}
   >
     {label}
@@ -149,16 +160,16 @@ const ChoosePhase = () => {
   const cards = [
     {
       id: "text",
-      icon: <Pencil size={15} className="text-white/70" />,
-      iconBg: "bg-white/8",
+      icon: <Pencil size={15} className="text-amber-300" />,
+      iconBg: "bg-[#2a2a2e]",
       title: "Text",
       sub: "Messages, threads, files",
       from: -56,
     },
     {
       id: "voice",
-      icon: <Waves size={15} className="text-emerald-300/90" />,
-      iconBg: "bg-emerald-500/15",
+      icon: <VoiceCoil className="w-4 h-4 text-emerald-300" />,
+      iconBg: "bg-[#14352c]",
       title: "Voice",
       sub: "Drop-in voice, max 25",
       from: 56,
@@ -177,40 +188,35 @@ const ChoosePhase = () => {
   return (
     <motion.div
       key="choose"
-      initial={{ opacity: 0, x: 24 }}
+      initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -24 }}
-      transition={{ duration: 0.4, ease }}
-      className="flex flex-col h-full px-1"
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ duration: 0.35, ease }}
+      className="flex flex-col h-full"
     >
-      <Header title="New channel" subtitle="Step 1 of 3" />
+      <NavHeader title="New channel" subtitle="Step 1 of 3" centered showMenu={false} />
+
       <div className="px-4 flex-1 flex flex-col min-h-0">
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.08 }}
           className="text-[11px] text-white/40 leading-relaxed"
         >
           AI channels require Owner permission and a Crowd-level toggle.
         </motion.p>
-        <h3 className="mt-4 text-[22px] font-semibold text-white tracking-tight min-h-[28px]">
+
+        <h3 className="mt-5 text-[24px] font-semibold text-white tracking-tight min-h-[30px] leading-none">
           {titleTyped}
           <motion.span
             animate={{ opacity: [1, 0] }}
-            transition={{
-              duration: 0.55,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut",
-            }}
+            transition={{ duration: 0.55, repeat: Infinity, repeatType: "reverse" }}
             className="inline-block w-[2px] h-[1.05em] bg-white align-[-0.12em] ml-0.5"
             aria-hidden
           />
         </h3>
         <motion.p
-          initial={{ opacity: 0 }}
           animate={{ opacity: titleTyped.length > 4 ? 1 : 0 }}
-          className="mt-1 text-[11px] text-white/40"
+          className="mt-1.5 text-[12px] text-white/40"
         >
           How members will use this channel.
         </motion.p>
@@ -220,7 +226,7 @@ const ChoosePhase = () => {
             const show = visible > i;
             const active = c.id === "ai" && highlight;
             return (
-              <div key={c.id} className="relative px-[2px] py-[2px]">
+              <div key={c.id} className="relative">
                 <AnimatePresence>
                   {show && (
                     <motion.div
@@ -228,15 +234,12 @@ const ChoosePhase = () => {
                       animate={{
                         opacity: 1,
                         x: 0,
-                        borderColor: active ? "rgba(47,107,255,0.75)" : "rgba(255,255,255,0)",
-                        backgroundColor: active ? "rgba(47,107,255,0.14)" : "rgba(28,28,30,1)",
-                        boxShadow: active
-                          ? "0 0 0 1px rgba(47,107,255,0.35), 0 0 18px -2px rgba(47,107,255,0.45)"
-                          : "0 0 0 0 rgba(47,107,255,0)",
+                        borderColor: active ? "rgba(47,107,255,0.55)" : "rgba(255,255,255,0.06)",
+                        backgroundColor: active ? "rgba(47,107,255,0.1)" : "rgba(28,28,30,1)",
                       }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.5, ease }}
-                      className="rounded-[14px] px-3.5 py-3.5 flex items-center gap-3 border-2 box-border"
+                      className="rounded-[16px] px-3.5 py-3.5 flex items-center gap-3 border box-border"
                     >
                       <motion.div
                         animate={
@@ -244,23 +247,23 @@ const ChoosePhase = () => {
                             ? {
                                 boxShadow: [
                                   "0 0 0 0 rgba(47,107,255,0)",
-                                  "0 0 0 6px rgba(47,107,255,0.25)",
+                                  "0 0 0 5px rgba(47,107,255,0.22)",
                                   "0 0 0 0 rgba(47,107,255,0)",
                                 ],
                               }
                             : {}
                         }
-                        transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-                        className={`w-9 h-9 rounded-[10px] flex items-center justify-center shrink-0 ${c.iconBg}`}
+                        transition={{ duration: 1.6, repeat: Infinity }}
+                        className={`w-10 h-10 rounded-[12px] flex items-center justify-center shrink-0 ${c.iconBg}`}
                       >
                         {c.icon}
                       </motion.div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
-                          <p className="text-[13px] font-semibold text-white">{c.title}</p>
+                          <p className="text-[14px] font-semibold text-white">{c.title}</p>
                           {c.badge && (
                             <motion.span
-                              animate={highlight ? { scale: [1, 1.08, 1] } : {}}
+                              animate={highlight ? { scale: [1, 1.06, 1] } : {}}
                               transition={{ duration: 1.2, repeat: Infinity }}
                               className="rounded-full px-1.5 py-0.5 text-[8px] font-bold tracking-wide text-white uppercase"
                               style={{ background: BLUE }}
@@ -269,9 +272,9 @@ const ChoosePhase = () => {
                             </motion.span>
                           )}
                         </div>
-                        <p className="text-[10px] text-white/40 mt-0.5">{c.sub}</p>
+                        <p className="text-[11px] text-white/40 mt-0.5">{c.sub}</p>
                       </div>
-                      <ChevronRight size={14} className="text-white/25 shrink-0" />
+                      <ChevronRight size={15} className="text-white/25 shrink-0" />
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -301,10 +304,11 @@ const SessionPhase = () => {
     }, 28);
 
     const timers = [
-      window.setTimeout(() => setSourcesOn(1), 700),
-      window.setTimeout(() => setSourcesOn(2), 1050),
-      window.setTimeout(() => setSourcesOn(3), 1400),
-      window.setTimeout(() => setWhoOn(true), 1800),
+      window.setTimeout(() => setSourcesOn(1), 600),
+      window.setTimeout(() => setSourcesOn(2), 950),
+      window.setTimeout(() => setSourcesOn(3), 1300),
+      window.setTimeout(() => setSourcesOn(4), 1650),
+      window.setTimeout(() => setWhoOn(true), 2000),
     ];
 
     return () => {
@@ -313,56 +317,67 @@ const SessionPhase = () => {
     };
   }, []);
 
+  // Print order: Posts · Notions · Events (outline) · This Crowd only (filled)
   const sources = [
-    { label: "Posts", onAt: 1 },
-    { label: "Notions", onAt: 2 },
-    { label: "This Crowd only", onAt: 3 },
-    { label: "Events", onAt: 99 },
+    { label: "Posts", onAt: 1, filled: false },
+    { label: "Notions", onAt: 2, filled: false },
+    { label: "Events", onAt: 3, filled: false },
+    { label: "This Crowd only", onAt: 4, filled: true },
   ];
 
   return (
     <motion.div
       key="session"
-      initial={{ opacity: 0, x: 24 }}
+      initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -24 }}
-      transition={{ duration: 0.4, ease }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ duration: 0.35, ease }}
       className="flex flex-col h-full"
     >
-      <Header title="New session" subtitle="ai-questions" />
-      <div className="px-4 flex-1 flex flex-col gap-4">
+      <NavHeader title="New session" subtitle="ai-questions" />
+
+      <div className="px-4 flex-1 flex flex-col gap-4 min-h-0">
         <div>
-          <p className="text-[10px] text-white/40 mb-1.5">Goal</p>
-          <div className="rounded-xl bg-[#1c1c1e] px-3 py-2.5 min-h-[40px]">
-            <p className="text-[11px] text-white/80">
-              {typed}
-              <motion.span
-                animate={{ opacity: [1, 0] }}
-                transition={{ duration: 0.6, repeat: Infinity }}
-                className="inline-block w-[1.5px] h-[12px] bg-[#2f6bff] align-middle ml-0.5"
-              />
+          <p className="text-[11px] text-white/45 mb-1.5">Goal</p>
+          <div className="rounded-2xl bg-[#1c1c1e] px-3.5 py-3 min-h-[48px] border border-white/[0.06]">
+            <p className="text-[12px] text-white/80 leading-snug">
+              {typed || (
+                <span className="text-white/25">e.g. recommend shoes for the Blue Hills trail…</span>
+              )}
+              {typed.length > 0 && typed.length < goalFull.length && (
+                <motion.span
+                  animate={{ opacity: [1, 0] }}
+                  transition={{ duration: 0.55, repeat: Infinity }}
+                  className="inline-block w-[1.5px] h-[12px] bg-[#2f6bff] align-middle ml-0.5"
+                />
+              )}
             </p>
           </div>
         </div>
 
         <div>
-          <p className="text-[10px] text-white/40 mb-1.5">Sources the AI can read</p>
+          <p className="text-[11px] text-white/45 mb-2">Sources the AI can read</p>
           <div className="flex flex-wrap gap-1.5">
             {sources.map((s) => {
               const on = sourcesOn >= s.onAt;
+              const filled = on && s.filled;
+              const outlined = on && !s.filled;
               return (
                 <motion.span
                   key={s.label}
                   animate={{
-                    backgroundColor: on ? "rgba(47,107,255,0.28)" : "rgba(255,255,255,0.06)",
-                    borderColor: on ? "rgba(47,107,255,0.45)" : "rgba(255,255,255,0.08)",
-                    color: on ? "#9bb8ff" : "rgba(255,255,255,0.28)",
-                    scale: on ? [1, 1.08, 1] : 1,
+                    backgroundColor: filled
+                      ? "rgba(47,107,255,0.95)"
+                      : outlined
+                        ? "rgba(47,107,255,0.12)"
+                        : "rgba(255,255,255,0.05)",
+                    borderColor: on ? "rgba(47,107,255,0.65)" : "rgba(255,255,255,0.08)",
+                    color: filled ? "#fff" : outlined ? "#9bb8ff" : "rgba(255,255,255,0.3)",
+                    scale: on ? [1, 1.05, 1] : 1,
                   }}
                   transition={{ duration: 0.35, ease }}
-                  className="inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[10px]"
+                  className="inline-flex items-center rounded-full border px-2.5 py-1.5 text-[11px] font-medium"
                 >
-                  {!on && s.label === "Events" && <Ban size={9} />}
                   {s.label}
                 </motion.span>
               );
@@ -371,27 +386,27 @@ const SessionPhase = () => {
         </div>
 
         <div>
-          <p className="text-[10px] text-white/40 mb-1.5">Who sees the result</p>
+          <p className="text-[11px] text-white/45 mb-2">Who sees the result</p>
           <div className="flex flex-wrap gap-1.5">
             <motion.span
               animate={{
-                backgroundColor: whoOn ? "rgba(47,107,255,0.28)" : "rgba(255,255,255,0.06)",
-                borderColor: whoOn ? "rgba(47,107,255,0.45)" : "rgba(255,255,255,0.08)",
-                color: whoOn ? "#9bb8ff" : "rgba(255,255,255,0.35)",
+                backgroundColor: whoOn ? "rgba(47,107,255,0.95)" : "rgba(255,255,255,0.05)",
+                borderColor: whoOn ? "rgba(47,107,255,0.95)" : "rgba(255,255,255,0.08)",
+                color: whoOn ? "#fff" : "rgba(255,255,255,0.35)",
               }}
-              className="inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[10px]"
+              className="inline-flex items-center gap-1 rounded-full border px-2.5 py-1.5 text-[11px] font-medium"
             >
-              {whoOn && <Check size={9} />}
+              {whoOn && <Check size={10} strokeWidth={2.5} />}
               Participants
             </motion.span>
-            <span className="inline-flex items-center rounded-full border border-white/8 bg-white/[0.06] px-2.5 py-1 text-[10px] text-white/30">
+            <span className="inline-flex items-center rounded-full border border-[#2f6bff]/55 bg-[#2f6bff]/10 px-2.5 py-1.5 text-[11px] font-medium text-[#9bb8ff]">
               Channel after publish
             </span>
           </div>
         </div>
 
         <div className="mt-auto pb-1">
-          <BlueBtn label="Invite members" delay={2.1} pulse />
+          <BlueBtn label="Invite members" delay={2} pulse />
         </div>
       </div>
     </motion.div>
@@ -401,48 +416,85 @@ const SessionPhase = () => {
 /* ─── 3. Invite members ─── */
 
 const members = [
-  { name: "Chris Parker", hint: "writes", role: "contribute" as const, color: BLUE, from: -56 },
-  { name: "Maya Reed", hint: "writes", role: "contribute" as const, color: BLUE, from: 56 },
-  { name: "Ryan Scott", hint: "reads only", role: "view" as const, color: "rgba(255,255,255,0.14)", from: -56 },
-  { name: "Tyler Shaw", hint: "publishes", role: "publish" as const, color: GREEN, from: 56 },
+  {
+    name: "Chris Parker",
+    hint: "can add input",
+    role: "contribute" as const,
+    accent: BLUE,
+    from: -56,
+    tint: "#4a6fa5",
+    invited: true,
+  },
+  {
+    name: "Maya Reed",
+    hint: "can add input",
+    role: "contribute" as const,
+    accent: BLUE,
+    from: 56,
+    tint: "#8b5a7a",
+    invited: true,
+  },
+  {
+    name: "Ryan Scott",
+    hint: "reads only",
+    role: "view" as const,
+    accent: "rgba(255,255,255,0.45)",
+    from: -56,
+    tint: "#5a6b5a",
+    invited: false,
+  },
+  {
+    name: "Tyler Shaw",
+    hint: "runs and publishes",
+    role: "publish" as const,
+    accent: GREEN,
+    from: 56,
+    tint: "#2d8a6e",
+    invited: true,
+  },
 ];
 
 const InvitePhase = () => {
   const [visible, setVisible] = useState(0);
   const [rolesOn, setRolesOn] = useState(false);
+  const [searchPulse, setSearchPulse] = useState(false);
 
   useEffect(() => {
-    const timers = members.map((_, i) =>
-      window.setTimeout(() => setVisible(i + 1), 300 + i * 400),
-    );
-    timers.push(window.setTimeout(() => setRolesOn(true), 300 + members.length * 400 + 150));
+    const timers = [
+      window.setTimeout(() => setSearchPulse(true), 200),
+      ...members.map((_, i) => window.setTimeout(() => setVisible(i + 1), 400 + i * 400)),
+    ];
+    timers.push(window.setTimeout(() => setRolesOn(true), 400 + members.length * 400 + 150));
     return () => timers.forEach(clearTimeout);
   }, []);
 
   return (
     <motion.div
       key="invite"
-      initial={{ opacity: 0, x: 24 }}
+      initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -24 }}
-      transition={{ duration: 0.4, ease }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ duration: 0.35, ease }}
       className="flex flex-col h-full"
     >
-      <Header title="Invite members" subtitle="Everyone joins with a role" />
+      <NavHeader title="Invite members" subtitle="Everyone joins with a role" />
+
       <div className="px-4 flex-1 flex flex-col min-h-0">
         <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="rounded-xl bg-[#1c1c1e] px-3 py-2.5 mb-3"
+          animate={{
+            borderColor: searchPulse ? "rgba(47,107,255,0.35)" : "rgba(255,255,255,0.06)",
+          }}
+          className="rounded-2xl bg-[#1c1c1e] border px-3 py-2.5 mb-3 flex items-center gap-2"
         >
-          <p className="text-[11px] text-white/35">Search Crowd members</p>
+          <Search size={13} className="text-white/30 shrink-0" />
+          <p className="text-[12px] text-white/35">Search Crowd members</p>
         </motion.div>
 
-        <div className="flex flex-col gap-2 flex-1 pb-1">
+        <div className="flex flex-col gap-2 flex-1 pb-1 overflow-hidden">
           {members.map((m, i) => {
             const show = visible > i;
             return (
-              <div key={m.name} className="relative px-[2px] min-h-[52px]">
+              <div key={m.name} className="relative min-h-[56px]">
                 <AnimatePresence>
                   {show && (
                     <motion.div
@@ -450,25 +502,38 @@ const InvitePhase = () => {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.5, ease }}
-                      className="rounded-xl bg-[#1c1c1e] px-3 py-2.5 flex items-center gap-2.5"
+                      className="rounded-2xl bg-[#1c1c1e] px-3 py-2.5 flex items-center gap-2.5 border border-white/[0.06]"
                     >
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center text-[11px] text-white/70 font-medium shrink-0">
+                      <span
+                        className="relative w-9 h-9 rounded-full flex items-center justify-center text-[12px] text-white/85 font-medium shrink-0"
+                        style={{ background: m.tint }}
+                      >
                         {m.name[0]}
-                      </div>
+                        {m.invited && (
+                          <motion.span
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ delay: 0.25, type: "spring", stiffness: 400 }}
+                            className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-[#2f6bff] border-2 border-[#1c1c1e] flex items-center justify-center"
+                          >
+                            <Check size={8} className="text-white" strokeWidth={3} />
+                          </motion.span>
+                        )}
+                      </span>
                       <div className="flex-1 min-w-0">
-                        <p className="text-[12px] text-white font-medium truncate">{m.name}</p>
-                        <p className="text-[9px] text-white/35 whitespace-nowrap truncate">{m.hint}</p>
+                        <p className="text-[13px] text-white font-medium truncate">{m.name}</p>
+                        <p className="text-[10px] text-white/35 whitespace-nowrap truncate">{m.hint}</p>
                       </div>
                       <motion.span
-                        initial={{ scale: 0.6, opacity: 0 }}
+                        initial={{ scale: 0.5, opacity: 0 }}
                         animate={
                           rolesOn
-                            ? { scale: [0.6, 1.15, 1], opacity: 1 }
-                            : { scale: 0.6, opacity: 0 }
+                            ? { scale: [0.5, 1.1, 1], opacity: 1 }
+                            : { scale: 0.5, opacity: 0 }
                         }
-                        transition={{ duration: 0.45, delay: i * 0.06, ease }}
-                        className="rounded-full px-2.5 py-1 text-[9px] font-semibold text-white lowercase shrink-0"
-                        style={{ background: m.color }}
+                        transition={{ duration: 0.4, delay: i * 0.06, ease }}
+                        className="rounded-full px-2.5 py-1 text-[10px] font-semibold lowercase shrink-0 border bg-transparent"
+                        style={{ borderColor: m.accent, color: m.accent }}
                       >
                         {m.role}
                       </motion.span>
@@ -481,7 +546,7 @@ const InvitePhase = () => {
         </div>
 
         <div className="mt-3 pb-1">
-          <BlueBtn label="Invite 3 members" delay={1.8} />
+          <BlueBtn label="Invite 3 members" delay={1.9} pulse />
         </div>
       </div>
     </motion.div>
@@ -491,11 +556,11 @@ const InvitePhase = () => {
 /* ─── 4. Permissions ─── */
 
 const perms = [
-  { title: "Use AI channel", desc: "Inherited from Crowd Owner", allow: true },
-  { title: "Start session", desc: "Owner, Admin or allowed Member", allow: true },
-  { title: "Add members", desc: "Owner only", allow: false },
-  { title: "Run prompt", desc: "Per-session permission", allow: true },
-  { title: "Publish output", desc: "Per-session permission", allow: false },
+  { title: "Use AI channel", desc: "Inherited from Crowd Owner", state: "inherit" as const },
+  { title: "Start session", desc: "Owner, Admin or allowed Member", state: "allow" as const },
+  { title: "Add members", desc: "Owner only", state: "deny" as const },
+  { title: "Run prompt", desc: "Per-session permission", state: "allow" as const },
+  { title: "Publish output", desc: "Per-session permission", state: "deny" as const },
 ];
 
 const PermissionsPhase = () => {
@@ -504,75 +569,95 @@ const PermissionsPhase = () => {
 
   useEffect(() => {
     const timers = perms.map((_, i) =>
-      window.setTimeout(() => setShown(i + 1), 280 + i * 220),
+      window.setTimeout(() => setShown(i + 1), 280 + i * 240),
     );
-    timers.push(window.setTimeout(() => setLocked(true), 280 + perms.length * 220 + 350));
+    timers.push(window.setTimeout(() => setLocked(true), 280 + perms.length * 240 + 300));
     return () => timers.forEach(clearTimeout);
   }, []);
 
   return (
     <motion.div
       key="permissions"
-      initial={{ opacity: 0, x: 24 }}
+      initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -24 }}
-      transition={{ duration: 0.4, ease }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ duration: 0.35, ease }}
       className="flex flex-col h-full"
     >
-      <Header title="Permissions" subtitle="ai-questions" />
-      <div className="px-4 flex-1 flex flex-col">
-        <p className="text-[10px] text-white/40 leading-relaxed mb-3">
-          Who can do what in this session, inherits from the Crowd unless overridden.
+      <NavHeader title="Permissions" subtitle="ai-questions" />
+
+      <div className="px-4 flex-1 flex flex-col min-h-0">
+        <p className="text-[11px] text-white/40 leading-relaxed mb-3">
+          Who can do what in this session. Inherits from the Crowd unless overridden.
         </p>
+
         <div className="flex flex-col gap-2 flex-1 overflow-hidden">
           {perms.map((p, i) => {
             if (shown <= i) return null;
+            const inheritOn = locked && p.state === "inherit";
+            const allowOn = locked && p.state === "allow";
+            const denyOn = locked && p.state === "deny";
             return (
               <motion.div
                 key={p.title}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, ease }}
-                className="rounded-xl bg-[#1c1c1e] px-3 py-2.5 flex items-center gap-2"
+                initial={{ opacity: 0, y: 14, x: i % 2 === 0 ? -20 : 20 }}
+                animate={{ opacity: 1, y: 0, x: 0 }}
+                transition={{ duration: 0.4, ease }}
+                className="rounded-2xl bg-[#1c1c1e] border border-white/[0.06] px-3 py-2.5 flex items-center gap-2"
               >
                 <div className="flex-1 min-w-0">
-                  <p className="text-[11px] text-white font-medium">{p.title}</p>
-                  <p className="text-[9px] text-white/35 truncate">{p.desc}</p>
+                  <p className="text-[12px] text-white font-medium">{p.title}</p>
+                  <p className="text-[10px] text-white/35 truncate">{p.desc}</p>
                 </div>
                 <div className="flex items-center gap-1.5 shrink-0">
-                  <RefreshCw size={11} className="text-white/25" />
                   <motion.span
                     animate={
-                      locked && p.allow
-                        ? { scale: [1, 1.25, 1], backgroundColor: GREEN }
-                        : { backgroundColor: p.allow && locked ? GREEN : "rgba(255,255,255,0.08)" }
+                      inheritOn
+                        ? { scale: [1, 1.18, 1], backgroundColor: BLUE }
+                        : { backgroundColor: "rgba(255,255,255,0.07)" }
                     }
-                    transition={{ duration: 0.4, delay: i * 0.05 }}
-                    className="w-5 h-5 rounded-full flex items-center justify-center"
+                    transition={{ duration: 0.35, delay: i * 0.04 }}
+                    className="w-7 h-7 rounded-full flex items-center justify-center"
                   >
-                    <Check size={10} className={locked && p.allow ? "text-white" : "text-white/25"} />
+                    <RefreshCw
+                      size={12}
+                      className={inheritOn ? "text-white" : "text-white/30"}
+                    />
                   </motion.span>
                   <motion.span
                     animate={
-                      locked && !p.allow
-                        ? { scale: [1, 1.25, 1], backgroundColor: RED }
-                        : {
-                            backgroundColor:
-                              !p.allow && locked ? RED : "rgba(255,255,255,0.08)",
-                          }
+                      allowOn
+                        ? { scale: [1, 1.18, 1], backgroundColor: GREEN }
+                        : { backgroundColor: "rgba(255,255,255,0.07)" }
                     }
-                    transition={{ duration: 0.4, delay: i * 0.05 + 0.05 }}
-                    className="w-5 h-5 rounded-full flex items-center justify-center"
+                    transition={{ duration: 0.35, delay: i * 0.04 + 0.05 }}
+                    className="w-7 h-7 rounded-full flex items-center justify-center"
                   >
-                    <Ban size={10} className={locked && !p.allow ? "text-white" : "text-white/25"} />
+                    <Check
+                      size={12}
+                      className={allowOn ? "text-white" : "text-white/25"}
+                      strokeWidth={2.5}
+                    />
+                  </motion.span>
+                  <motion.span
+                    animate={
+                      denyOn
+                        ? { scale: [1, 1.18, 1], backgroundColor: RED }
+                        : { backgroundColor: "rgba(255,255,255,0.07)" }
+                    }
+                    transition={{ duration: 0.35, delay: i * 0.04 + 0.1 }}
+                    className="w-7 h-7 rounded-full flex items-center justify-center"
+                  >
+                    <Ban size={12} className={denyOn ? "text-white" : "text-white/25"} />
                   </motion.span>
                 </div>
               </motion.div>
             );
           })}
         </div>
+
         <div className="mt-3 pb-1">
-          <BlueBtn label="Done" delay={1.8} />
+          <BlueBtn label="Done" delay={1.7} />
         </div>
       </div>
     </motion.div>
@@ -588,6 +673,7 @@ const contribs = [
     role: "contribute",
     text: "Use the Blue Hills terrain notes and the $600 budget.",
     from: -56,
+    tint: "#4a6fa5",
   },
   {
     name: "Maya Reed",
@@ -595,6 +681,7 @@ const contribs = [
     role: "contribute",
     text: "Pin the 2 Notions about waterproofing.",
     from: 56,
+    tint: "#8b5a7a",
   },
 ];
 
@@ -651,81 +738,79 @@ const ContributePhase = () => {
   return (
     <motion.div
       key="contribute"
-      initial={{ opacity: 0, x: 24 }}
+      initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -24 }}
-      transition={{ duration: 0.4, ease }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ duration: 0.35, ease }}
       className="flex flex-col h-full min-h-0"
     >
-      <div className="flex items-center gap-2.5 px-4 mb-2">
-        <ArrowLeft size={16} className="text-white/55 shrink-0" />
+      <div className="flex items-center gap-2 px-3.5 mb-2 shrink-0">
+        <ArrowLeft size={17} className="text-white/55 shrink-0" strokeWidth={2.2} />
         <div
-          className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
-          style={{ background: "linear-gradient(135deg,#1a9b8e,#0d3d4a)" }}
+          className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(45,212,168,0.35)]"
+          style={{ background: "linear-gradient(135deg,#2dd4a8,#0f766e)" }}
         >
-          <Sparkles size={13} className="text-white" />
+          <Sparkles size={12} className="text-white" />
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5">
-            <p className="text-[13px] font-semibold text-white">ai-questions</p>
-            <span
-              className="rounded px-1 py-px text-[8px] font-bold text-white uppercase"
-              style={{ background: BLUE }}
-            >
+            <p className="text-[13px] font-semibold text-white leading-none">ai-questions</p>
+            <span className="rounded-[4px] border border-white/20 px-1 py-px text-[8px] font-bold text-white/70 uppercase">
               AI
             </span>
           </div>
-          <p className="text-[9px] text-white/40">Boston Runners · AI channel</p>
+          <p className="text-[9px] text-white/40 mt-0.5">Boston Runners · AI channel</p>
         </div>
         <MoreHorizontal size={16} className="text-white/40" />
       </div>
 
-      <div className="flex items-center gap-2 px-4 mb-2.5">
+      <div className="flex items-center gap-2 px-3.5 mb-2.5 shrink-0">
         <div className="flex items-center -space-x-1.5">
           {["C", "M", "T"].map((letter, i) => (
             <span
               key={letter}
-              className="relative w-6 h-6 rounded-full border border-black flex items-center justify-center text-[9px] text-white/80 font-medium"
+              className="w-[22px] h-[22px] rounded-full border border-black flex items-center justify-center text-[8px] text-white/85 font-medium"
               style={{
-                background: ["#4a6fa5", "#6b5b95", "#2d8a6e"][i],
+                background: ["#4a6fa5", "#8b5a7a", "#2d8a6e"][i],
                 zIndex: 3 - i,
               }}
             >
               {letter}
-              <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#34c759] border border-black" />
             </span>
           ))}
         </div>
-        <span className="w-1.5 h-1.5 rounded-full bg-[#34c759] shrink-0" />
-        <span className="text-[10px] font-medium" style={{ color: GREEN }}>
-          Active
+        <span className="inline-flex items-center gap-1 rounded-full bg-[#34c759]/18 px-2 py-0.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#34c759] animate-pulse" />
+          <span className="text-[10px] font-semibold" style={{ color: GREEN }}>
+            Active
+          </span>
         </span>
         <span className="text-[10px] text-white/40">3 in session</span>
       </div>
 
-      <div className="px-4 mb-2.5">
+      <div className="px-3.5 mb-2.5 shrink-0">
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="rounded-xl bg-[#1c1c1e] px-3 py-2.5"
+          className="rounded-2xl bg-[#1c1c1e] border border-white/5 px-3 py-2.5"
         >
-          <p className="text-[9px] text-white/35 mb-1">Session goal</p>
-          <p className="text-[11px] text-white/80 leading-snug">
+          <p className="text-[10px] text-white/35 mb-1">Session goal</p>
+          <p className="text-[12px] text-white/85 leading-snug">
             Summarize last week and recommend shoes for the Blue Hills trail.
           </p>
         </motion.div>
       </div>
 
-      <div className="px-4 flex-1 flex flex-col min-h-0">
+      <div className="px-3.5 flex-1 flex flex-col min-h-0">
         <p className="text-[10px] text-white/35 mb-2 shrink-0">Contributions · {shownCount}</p>
         <div
           ref={scrollRef}
-          className="flex flex-col gap-2 flex-1 min-h-0 overflow-y-auto overflow-x-hidden pb-1 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          className="flex flex-col gap-2 flex-1 min-h-0 overflow-y-auto overflow-x-hidden pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {contribs.map((c, i) => {
             const show = cards > i;
             return (
-              <div key={c.name} className="relative px-[2px] shrink-0">
+              <div key={c.name} className="relative shrink-0">
                 <AnimatePresence>
                   {show && (
                     <motion.div
@@ -734,10 +819,13 @@ const ContributePhase = () => {
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.5, ease }}
                       onAnimationComplete={scrollToBottom}
-                      className="rounded-2xl bg-[#1c1c1e] p-2.5"
+                      className="rounded-2xl bg-[#1c1c1e] border border-white/5 p-2.5"
                     >
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="relative w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-[10px] text-white/60">
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <span
+                          className="relative w-6 h-6 rounded-full flex items-center justify-center text-[10px] text-white/85 shrink-0"
+                          style={{ background: c.tint }}
+                        >
                           {c.name[0]}
                           <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#34c759] border border-[#1c1c1e]" />
                         </span>
@@ -766,10 +854,10 @@ const ContributePhase = () => {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5, ease }}
                 onAnimationComplete={scrollToBottom}
-                className="rounded-2xl bg-[#2f6bff]/15 border border-[#2f6bff]/25 p-2.5 mx-[2px] shrink-0"
+                className="rounded-2xl bg-[#2f6bff]/12 border border-[#2f6bff]/35 p-2.5 shrink-0"
               >
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="relative w-6 h-6 rounded-full bg-[#2f6bff]/30 flex items-center justify-center text-[10px] text-white">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="relative w-6 h-6 rounded-full bg-[#2f6bff]/35 flex items-center justify-center text-[10px] text-white shrink-0">
                     Y
                     <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#34c759] border border-[#0a0a0b]" />
                   </span>
@@ -788,42 +876,65 @@ const ContributePhase = () => {
           </AnimatePresence>
         </div>
 
-        <div className="shrink-0">
         {showRun && (
-          <motion.button
-            type="button"
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-2 w-full rounded-full py-2.5 text-[11px] font-semibold text-white lowercase"
-            style={{ background: BLUE }}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-[9px] text-white/30 text-center mt-1.5 shrink-0"
           >
-            Run with {shownCount} contributions
-          </motion.button>
+            Hold your contribution to edit or remove it before running.
+          </motion.p>
         )}
 
-        <motion.div
-          animate={{
-            borderColor: sent ? "rgba(47,107,255,0.2)" : "rgba(47,107,255,0.7)",
-          }}
-          className="mt-2 mb-1 rounded-full border bg-[#1c1c1e] px-3 py-2 flex items-center gap-2"
-        >
-          <p className="flex-1 text-[10px] text-white/70 truncate min-h-[14px]">
-            {sent ? "Write another contribution…" : typed}
-            {!sent && typed.length < draft.length && (
-              <motion.span
-                animate={{ opacity: [1, 0] }}
-                transition={{ duration: 0.55, repeat: Infinity }}
-                className="inline-block w-[1.5px] h-[11px] bg-[#2f6bff] align-middle ml-0.5"
-              />
-            )}
-          </p>
-          <span
-            className="w-7 h-7 rounded-full flex items-center justify-center shrink-0"
-            style={{ background: BLUE }}
+        <div className="shrink-0 pt-1">
+          {showRun && (
+            <motion.button
+              type="button"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                boxShadow: [
+                  "0 0 0 0 rgba(47,107,255,0)",
+                  "0 0 0 6px rgba(47,107,255,0.22)",
+                  "0 0 0 0 rgba(47,107,255,0)",
+                ],
+              }}
+              transition={{
+                boxShadow: { duration: 1.5, repeat: Infinity, delay: 0.3 },
+              }}
+              className="mt-1.5 w-full rounded-full py-3 text-[12px] font-semibold text-white"
+              style={{ background: BLUE }}
+            >
+              Run with {shownCount} contributions
+            </motion.button>
+          )}
+
+          <motion.div
+            animate={{
+              borderColor: sent ? "rgba(255,255,255,0.08)" : "rgba(47,107,255,0.7)",
+            }}
+            className="mt-2 mb-1 rounded-full border bg-[#1c1c1e] px-3 py-2 flex items-center gap-2"
           >
-            <ArrowUp size={13} className="text-white" />
-          </span>
-        </motion.div>
+            <p className="flex-1 text-[11px] text-white/70 truncate min-h-[14px]">
+              {sent
+                ? "Write another contribution…"
+                : typed || "Write another contribution…"}
+              {!sent && typed.length < draft.length && typed.length > 0 && (
+                <motion.span
+                  animate={{ opacity: [1, 0] }}
+                  transition={{ duration: 0.55, repeat: Infinity }}
+                  className="inline-block w-[1.5px] h-[11px] bg-[#2f6bff] align-middle ml-0.5"
+                />
+              )}
+            </p>
+            <span
+              className="w-7 h-7 rounded-full flex items-center justify-center shrink-0"
+              style={{ background: BLUE }}
+            >
+              <ArrowUp size={13} className="text-white" />
+            </span>
+          </motion.div>
         </div>
       </div>
     </motion.div>

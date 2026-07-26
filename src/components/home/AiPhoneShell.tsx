@@ -18,7 +18,14 @@ const AiPhoneShell = ({ children, className = "", rotate = -1.5 }: AiPhoneShellP
     transition={{ duration: 0.75, ease }}
     className={`relative mx-auto w-[280px] sm:w-[300px] shrink-0 ${className}`}
   >
-    <div className="yankee-surface rounded-[2rem] bg-[#0a0a0b] p-[7px] shadow-[0_28px_80px_-28px_rgba(0,0,0,0.55)]">
+    <div
+      className="rounded-[2rem] bg-[#1a1a1c] p-[6px]"
+      style={{
+        border: "1px solid rgba(255,255,255,0.08)",
+        boxShadow:
+          "0 28px 80px -28px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.04)",
+      }}
+    >
       <div className="relative aspect-[9/19.2] rounded-[1.55rem] bg-black overflow-hidden">
         {/* status bar */}
         <div className="absolute top-0 inset-x-0 z-20 flex items-center justify-between px-5 pt-2.5 pointer-events-none">
