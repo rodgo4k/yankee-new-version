@@ -6,7 +6,7 @@ import stanfordHall from "@/assets/stanford-hall.png";
 import filmNight from "@/assets/film-night.png";
 import liveThread from "@/assets/live-thread.png";
 import heroStrip3 from "@/assets/hero-strip-3.png";
-import dormLore from "@/assets/dorm-lore.png";
+import studyHall from "@/assets/study-hall.png";
 
 type CrowdCard = {
   name: string;
@@ -72,12 +72,12 @@ export const crowdCards: CrowdCard[] = [
     tags: ["#music", "#studio"],
   },
   {
-    name: "Dorm Lore",
-    src: dormLore,
+    name: "Study Hall",
+    src: studyHall,
     count: "4.320",
-    pos: "50% 45%",
+    pos: "50% 40%",
     span: "col-span-1 md:col-span-1",
-    tags: ["#campus", "#students"],
+    tags: ["#study", "#campus"],
   },
 ];
 

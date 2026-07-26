@@ -15,7 +15,6 @@ import ReachScene, { FeedStatusPill } from "@/components/home/ReachScene";
 import { Logo } from "@/components/Logo";
 import PrismGrid from "@/components/home/PrismGrid";
 import { surface } from "@/lib/yankeeSurface";
-import { blockCard } from "@/lib/yankeeBlock";
 import heroStrip1 from "@/assets/hero-strip-1.png";
 import heroStrip2 from "@/assets/hero-strip-2.png";
 import heroStrip3 from "@/assets/hero-strip-3.png";
@@ -23,6 +22,7 @@ import heroStrip4 from "@/assets/hero-strip-4.png";
 import squadPhotos from "@/assets/squad-photos.png";
 import dotRevealImg from "@/assets/yankee/dot-reveal.png";
 import CrowdsBento from "@/components/home/CrowdsBento";
+import PrivacyHeroScene from "@/components/home/PrivacyHeroScene";
 
 const faqItems = [
   {
@@ -255,24 +255,29 @@ const Index = () => (
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
             your data stays yours
           </h2>
-          <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase">
-            yankee remembers things for you, not about you. private, encrypted, and wipeable whenever you want.
+          <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-lg mx-auto">
+            no ad ids, no behavioral trackers, no third party sdks. what we do not collect cannot be leaked, sold or subpoenaed.
           </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              to="/contact"
+              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
+            >
+              ask us anything <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+            </Link>
+            <Link
+              to="/privacy"
+              className="yankee-surface yankee-surface--control inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full bg-card text-[14px] font-medium text-foreground lowercase hover:-translate-y-1 transition-all"
+            >
+              read the policy
+            </Link>
+          </div>
+          <p className="mt-5 text-[12px] text-foreground/45 lowercase">encrypted · wipeable · never sold</p>
         </AnimatedSection>
-        <div className="mt-12 grid sm:grid-cols-3 gap-4 md:gap-5">
-          {[
-            { t: "yours alone", d: "never sold, never used to train ai. ever." },
-            { t: "private + encrypted", d: "your stuff stays isolated and encrypted where we keep backups." },
-            { t: "gone in seconds", d: "when you delete your account, your data is destroyed for good." },
-          ].map((c, i) => (
-            <AnimatedSection key={c.t} delay={i * 0.06}>
-              <div className={blockCard(i, "p-6 md:p-7 text-center sm:text-left")}>
-                <h3 className="text-[17px] font-semibold lowercase">{c.t}</h3>
-                <p className="mt-3 text-[13px] leading-relaxed lowercase yankee-block__muted">{c.d}</p>
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
+
+        <AnimatedSection delay={0.12} className="mt-12 md:mt-16">
+          <PrivacyHeroScene />
+        </AnimatedSection>
       </div>
     </section>
 
