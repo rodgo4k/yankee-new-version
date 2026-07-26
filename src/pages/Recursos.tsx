@@ -9,7 +9,7 @@ import FeedGuardsScene from "@/components/home/FeedGuardsScene";
 import FocusPresentScene from "@/components/home/FocusPresentScene";
 import PeopleCloseScene from "@/components/home/PeopleCloseScene";
 import PrivacyStayYoursScene from "@/components/home/PrivacyStayYoursScene";
-import MemoryPhoneScene from "@/components/home/MemoryPhoneScene";
+import MemoryVaultScene from "@/components/home/MemoryVaultScene";
 import { FeaturesAlwaysScene } from "@/components/home/FeaturesAlwaysScene";
 import homeFeed from "@/assets/yankee/home-feed.png";
 import chatImg from "@/assets/yankee/chat.png";
@@ -507,7 +507,7 @@ const Features = () => (
           </AnimatedSection>
 
           <AnimatedSection className="lg:col-span-7 flex justify-center" delay={0.1}>
-            <MemoryPhoneScene />
+            <MemoryVaultScene />
           </AnimatedSection>
         </div>
       </div>

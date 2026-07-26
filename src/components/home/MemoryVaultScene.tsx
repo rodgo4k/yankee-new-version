@@ -56,7 +56,6 @@ const MemoryVaultScene = ({ className = "" }: { className?: string }) => {
   return (
     <div className={`relative w-full max-w-[420px] mx-auto ${className}`}>
       <div className="relative aspect-square w-full max-w-[400px] mx-auto">
-        {}
         <motion.div
           animate={{
             opacity: phase === "erase" ? [0.35, 0.15, 0.35] : [0.45, 0.7, 0.45],
@@ -73,8 +72,6 @@ const MemoryVaultScene = ({ className = "" }: { className?: string }) => {
                   : `radial-gradient(circle, ${BLUE}28 0%, transparent 68%)`,
           }}
         />
-
-        {}
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 48, repeat: Infinity, ease: "linear" }}
@@ -85,8 +82,6 @@ const MemoryVaultScene = ({ className = "" }: { className?: string }) => {
           transition={{ duration: 64, repeat: Infinity, ease: "linear" }}
           className="absolute inset-[14%] rounded-full border border-foreground/[0.07]"
         />
-
-        {}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           {ring.map((t) => {
             const p = polar(t.a, 148);
@@ -106,8 +101,6 @@ const MemoryVaultScene = ({ className = "" }: { className?: string }) => {
             );
           })}
         </div>
-
-        {}
         <AnimatePresence mode="sync">
           {fragments.map((f, fi) => {
             const sealed = phase === "seal" && tick >= 2;
@@ -147,8 +140,6 @@ const MemoryVaultScene = ({ className = "" }: { className?: string }) => {
             );
           })}
         </AnimatePresence>
-
-        {}
         <div className="absolute inset-0 flex items-center justify-center">
           <motion.div
             animate={{
@@ -247,8 +238,6 @@ const MemoryVaultScene = ({ className = "" }: { className?: string }) => {
                 </motion.div>
               )}
             </AnimatePresence>
-
-            {}
             {phase === "seal" && tick >= 2 && (
               <>
                 {[0, 1].map((r) => (
@@ -265,8 +254,6 @@ const MemoryVaultScene = ({ className = "" }: { className?: string }) => {
             )}
           </motion.div>
         </div>
-
-        {}
         {phase === "keys" &&
           hex.slice(0, 4).map((h, hi) => {
             const p = polar(60 + hi * 75, 168);
@@ -283,8 +270,6 @@ const MemoryVaultScene = ({ className = "" }: { className?: string }) => {
               </motion.span>
             );
           })}
-
-        {}
         {phase === "erase" && tick >= 2 && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             {Array.from({ length: 14 }).map((_, n) => {
