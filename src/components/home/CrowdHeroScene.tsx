@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Users } from "lucide-react";
 import cafeFriends from "@/assets/cafe-friends.jpg";
 import studentsHero from "@/assets/students-hero.jpg";
+import dormLore from "@/assets/dorm-lore.png";
 import heroParty from "@/assets/hero-party.jpg";
 import stanfordHall from "@/assets/stanford-hall.png";
 import harvardHall from "@/assets/harvard-hall.png";
@@ -53,11 +54,11 @@ const featuredScenes = [
     pos: "50% 40%",
   },
   {
-    src: studentsHero,
+    src: dormLore,
     name: "Dorm Lore",
     count: "4.320",
     tags: ["#campus", "#students"],
-    pos: "50% 30%",
+    pos: "50% 45%",
   },
   {
     src: heroParty,
