@@ -313,14 +313,14 @@ const Communities = () => (
             >
               <img src={cafeFriends} alt="A Crowd meetup" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
-              <div className="absolute bottom-5 left-5 right-5 flex flex-col gap-2.5">
-                <div className="yankee-chat__bubble yankee-chat__bubble--them text-[13px] max-w-[85%]">
+              <div className="absolute bottom-5 left-5 right-5 flex flex-col items-start gap-2.5">
+                <div className="yankee-chat__bubble yankee-chat__bubble--them w-fit max-w-[85%] text-[13px]">
                   who&apos;s in for saturday?
                 </div>
-                <div className="yankee-chat__bubble yankee-chat__bubble--you text-[13px] max-w-[85%]">
+                <div className="yankee-chat__bubble yankee-chat__bubble--you w-fit max-w-[85%] text-[13px]">
                   count me in, bringing the film camera
                 </div>
-                <div className="yankee-surface self-start max-w-[85%] rounded-2xl rounded-bl-md bg-card px-3.5 py-2 text-[13px] leading-snug lowercase">
+                <div className="yankee-surface w-fit max-w-[85%] rounded-2xl rounded-bl-md bg-card px-3.5 py-2 text-[13px] leading-snug lowercase">
                   12 going · rsvp closes friday 8pm
                 </div>
               </div>
