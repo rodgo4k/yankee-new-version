@@ -6,8 +6,9 @@ import AnimatedSection from "@/components/AnimatedSection";
 import FAQ from "@/components/FAQ";
 import PromoPill from "@/components/home/PromoPill";
 import CrowdHeroScene from "@/components/home/CrowdHeroScene";
+import CrowdsBento from "@/components/home/CrowdsBento";
+import CrowdAppCard from "@/components/home/CrowdAppCard";
 import cafeFriends from "@/assets/cafe-friends.jpg";
-import studentsHero from "@/assets/students-hero.jpg";
 import community from "@/assets/yankee/community.png";
 import { blockCard, blockTone } from "@/lib/yankeeBlock";
 
@@ -237,6 +238,25 @@ const Communities = () => (
               </AnimatedSection>
             );
           })}
+        </div>
+      </div>
+    </section>
+
+    <section className="relative py-20 md:py-28 overflow-hidden dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1100px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="text-center max-w-2xl mx-auto">
+          <h2 className="text-[2.4rem] sm:text-5xl md:text-6xl font-semibold text-foreground tracking-tight leading-[0.98]">
+            Find your people.
+            <br />
+            <span className="font-serif-display italic font-medium">Keep them close.</span>
+          </h2>
+          <p className="mt-5 md:mt-6 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase">
+            small, self moderated communities around what you actually care about. no endless feeds of strangers.
+          </p>
+        </AnimatedSection>
+        <div className="mt-12 md:mt-14">
+          <CrowdsBento />
         </div>
       </div>
     </section>
@@ -504,22 +524,15 @@ const Communities = () => (
                   whileInView={{ opacity: 1, y: 0, rotate: 1.5 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.7, delay: 0.12, ease }}
-                  className="yankee-surface mr-auto w-[92%] rounded-[1.5rem] bg-card p-4"
+                  className="mr-auto w-[92%] aspect-[4/5]"
                 >
-                  <div className="rounded-[1.1rem] overflow-hidden aspect-[5/3] bg-muted">
-                    <img
-                      src={studentsHero}
-                      alt=""
-                      className="w-full h-full object-cover object-[50%_35%]"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="mt-3 flex items-center justify-between gap-2">
-                    <span className="text-[12px] lowercase text-foreground/70">slow coffee club</span>
-                    <span className="inline-flex items-center rounded-full bg-folk-success px-2.5 py-1 text-[11px] text-foreground lowercase">
-                      coming soon
-                    </span>
-                  </div>
+                  <CrowdAppCard
+                    name="Coffee Club"
+                    src={cafeFriends}
+                    count="2.104"
+                    tags={["#coffee", "#friends"]}
+                    pos="50% 40%"
+                  />
                 </motion.div>
 
                 <motion.div

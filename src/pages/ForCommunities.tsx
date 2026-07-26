@@ -6,6 +6,7 @@ import AnimatedSection from "@/components/AnimatedSection";
 import FAQ from "@/components/FAQ";
 import PromoPill from "@/components/home/PromoPill";
 import CommunityOrgHeroScene from "@/components/home/CommunityOrgHeroScene";
+import CrowdsBento from "@/components/home/CrowdsBento";
 import crowdsHome from "@/assets/yankee/crowds-home.png";
 import studentsHero from "@/assets/students-hero.jpg";
 import { blockCard } from "@/lib/yankeeBlock";
@@ -215,6 +216,25 @@ const ForCommunities = () => (
               </AnimatedSection>
             );
           })}
+        </div>
+      </div>
+    </section>
+
+    <section className="relative py-20 md:py-28 overflow-hidden dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1100px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="text-center max-w-2xl mx-auto">
+          <h2 className="text-[2.4rem] sm:text-5xl md:text-6xl font-semibold text-foreground tracking-tight leading-[0.98]">
+            Find your people.
+            <br />
+            <span className="font-serif-display italic font-medium">Keep them close.</span>
+          </h2>
+          <p className="mt-5 md:mt-6 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase">
+            small, self moderated communities around what you actually care about. no endless feeds of strangers.
+          </p>
+        </AnimatedSection>
+        <div className="mt-12 md:mt-14">
+          <CrowdsBento />
         </div>
       </div>
     </section>

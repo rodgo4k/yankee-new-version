@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Users } from "lucide-react";
+import { Users } from "lucide-react";
 import cafeFriends from "@/assets/cafe-friends.jpg";
 import studentsHero from "@/assets/students-hero.jpg";
 import heroParty from "@/assets/hero-party.jpg";
@@ -8,36 +8,63 @@ import stanfordHall from "@/assets/stanford-hall.png";
 import harvardHall from "@/assets/harvard-hall.png";
 import filmNight from "@/assets/film-night.png";
 import liveThread from "@/assets/live-thread.png";
-import crowdsHome from "@/assets/yankee/crowds-home.png";
 import yankeeScene from "@/assets/yankee-scene.jpg";
+import CrowdAppCard from "@/components/home/CrowdAppCard";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 
 const leftCrowds = [
-  { letter: "H", name: "harvard", meta: "campus crowd", bg: harvardHall },
-  { letter: "S", name: "stanford", meta: "alumni room", bg: stanfordHall },
-  { letter: "R", name: "running club", meta: "routes & meetups", bg: yankeeScene },
-  { letter: "F", name: "film · nyc", meta: "just split", bg: filmNight },
+  {
+    name: "Harvard University",
+    count: "8.543",
+    tags: ["#harvard", "#campus"],
+    bg: harvardHall,
+    pos: "50% 35%",
+  },
+  {
+    name: "Stanford University",
+    count: "6.210",
+    tags: ["#stanford", "#campus"],
+    bg: stanfordHall,
+    pos: "50% 40%",
+  },
+  {
+    name: "Running Club",
+    count: "3.012",
+    tags: ["#running", "#outdoors"],
+    bg: yankeeScene,
+    pos: "50% 30%",
+  },
+  {
+    name: "Movie Dump",
+    count: "3.891",
+    tags: ["#movies", "#cinema"],
+    bg: filmNight,
+    pos: "50% 35%",
+  },
 ];
 
 const featuredScenes = [
   {
     src: cafeFriends,
-    title: "slow coffee club",
-    badge: "coming soon",
-    note: "meetup saturday · 12 going",
+    name: "Coffee Club",
+    count: "2.104",
+    tags: ["#coffee", "#friends"],
+    pos: "50% 40%",
   },
   {
     src: studentsHero,
-    title: "film night backyard",
-    badge: "84 going",
-    note: "self moderated · capped",
+    name: "Dorm Lore",
+    count: "4.320",
+    tags: ["#campus", "#students"],
+    pos: "50% 30%",
   },
   {
     src: heroParty,
-    title: "listening party",
-    badge: "live now",
-    note: "doors open · bring a friend",
+    name: "Link Up",
+    count: "1.219",
+    tags: ["#party", "#nightout"],
+    pos: "50% 45%",
   },
 ];
 
@@ -90,77 +117,53 @@ const CrowdHeroScene = () => {
           initial={{ opacity: 0, y: 28, rotate: -4 }}
           animate={{ opacity: 1, y: 0, rotate: -2 }}
           transition={{ duration: 0.55, ease }}
-          className="yankee-surface col-span-5 md:col-span-3 relative rounded-[1.35rem] overflow-hidden flex flex-col justify-between min-h-[160px] md:min-h-[220px] p-4 md:p-5"
+          className="col-span-5 md:col-span-3 relative min-h-[160px] md:min-h-[220px]"
         >
-          {leftCrowds.map((crowd, i) => (
-            <motion.img
-              key={crowd.name}
-              src={crowd.bg}
-              alt=""
-              initial={false}
-              animate={{ opacity: i === leftIndex ? 1 : 0 }}
-              transition={{ duration: 0.55, ease }}
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-          ))}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/20" />
-          <div className="relative z-10 w-11 h-11 md:w-12 md:h-12 rounded-full border-2 border-white/80 bg-black/30 backdrop-blur-sm flex items-center justify-center font-serif-display text-xl italic text-white">
-            {left.letter}
-          </div>
-          <div className="relative z-10">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={left.name}
-                initial={{ y: 10, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -8, opacity: 0 }}
-                transition={{ duration: 0.28 }}
-              >
-                <p className="text-[14px] md:text-[15px] font-semibold lowercase text-white">{left.name}</p>
-                <p className="mt-1 text-[11px] md:text-[12px] text-white/70 lowercase">{left.meta}</p>
-              </motion.div>
-            </AnimatePresence>
-          </div>
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={left.name}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.35, ease }}
+              className="absolute inset-0"
+            >
+              <CrowdAppCard
+                name={left.name}
+                src={left.bg}
+                count={left.count}
+                tags={left.tags}
+                pos={left.pos}
+                className="rounded-[1.35rem]"
+              />
+            </motion.div>
+          </AnimatePresence>
         </motion.div>
 
         <motion.div
           layout
-          className="yankee-surface col-span-7 md:col-span-6 relative rounded-[1.35rem] overflow-hidden bg-card min-h-[160px] md:min-h-[280px]"
+          className="col-span-7 md:col-span-6 relative min-h-[160px] md:min-h-[280px]"
         >
           <AnimatePresence mode="wait">
-            <motion.img
-              key={featured.src}
-              src={featured.src}
-              alt=""
-              initial={{ opacity: 0, scale: 1.08 }}
+            <motion.div
+              key={featured.name}
+              initial={{ opacity: 0, scale: 1.04 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.04 }}
-              transition={{ duration: 0.55, ease }}
-              className="absolute inset-0 w-full h-full object-cover"
-            />
+              exit={{ opacity: 0, scale: 1.02 }}
+              transition={{ duration: 0.45, ease }}
+              className="absolute inset-0"
+            >
+              <CrowdAppCard
+                name={featured.name}
+                src={featured.src}
+                count={featured.count}
+                tags={featured.tags}
+                pos={featured.pos}
+                wide
+                className="rounded-[1.35rem]"
+              />
+            </motion.div>
           </AnimatePresence>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent" />
-          <div className="absolute bottom-4 left-4 right-4">
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={featured.title}
-                initial={{ y: 14, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -10, opacity: 0 }}
-                transition={{ duration: 0.35 }}
-                className="font-serif-display italic text-[1.25rem] md:text-[1.55rem] text-white leading-none"
-              >
-                {featured.title}
-              </motion.p>
-            </AnimatePresence>
-            <div className="mt-2 flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-folk-success px-2.5 py-1 text-[11px] font-medium text-foreground lowercase">
-                <span className="w-1.5 h-1.5 rounded-full bg-foreground" />
-                {featured.badge}
-              </span>
-              <span className="text-[11px] text-white/75 lowercase">{featured.note}</span>
-            </div>
-          </div>
         </motion.div>
 
         <div className="col-span-12 md:col-span-3 flex md:flex-col gap-3 md:gap-4">
@@ -168,28 +171,23 @@ const CrowdHeroScene = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.15, ease }}
-            className="yankee-surface relative flex-1 rounded-[1.35rem] overflow-hidden flex flex-col justify-between min-h-[120px] p-4 text-white"
+            className="relative flex-1 min-h-[140px]"
           >
-            <img
-              src={crowdsHome}
-              alt=""
-              className="absolute inset-0 w-full h-full object-cover object-top"
+            <CrowdAppCard
+              name="Explore Crowds"
+              src={studentsHero}
+              count="12.4k"
+              tags={["#discover"]}
+              pos="50% 30%"
+              className="rounded-[1.35rem]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/45 to-black/25" />
-            <div className="relative z-10 w-9 h-9 rounded-full border-2 border-white/50 bg-black/25 flex items-center justify-center">
-              <ArrowRight size={15} />
-            </div>
-            <div className="relative z-10">
-              <p className="text-[14px] md:text-[15px] font-semibold lowercase leading-snug">explore new crowds</p>
-              <p className="mt-1 text-[11px] text-white/75 lowercase">find a room that fits</p>
-            </div>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.25, ease }}
-            className="yankee-surface relative flex-1 rounded-[1.35rem] overflow-hidden min-h-[120px] p-4"
+            className="relative flex-1 rounded-[1.35rem] overflow-hidden min-h-[120px] p-4"
           >
             <img
               src={liveThread}

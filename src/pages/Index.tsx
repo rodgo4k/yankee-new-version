@@ -20,13 +20,9 @@ import heroStrip1 from "@/assets/hero-strip-1.png";
 import heroStrip2 from "@/assets/hero-strip-2.png";
 import heroStrip3 from "@/assets/hero-strip-3.png";
 import heroStrip4 from "@/assets/hero-strip-4.png";
-import cafeFriends from "@/assets/cafe-friends.jpg";
-import harvardHall from "@/assets/harvard-hall.png";
-import stanfordHall from "@/assets/stanford-hall.png";
-import filmNight from "@/assets/film-night.png";
-import liveThread from "@/assets/live-thread.png";
-import studentsHero from "@/assets/students-hero.jpg";
+import squadPhotos from "@/assets/squad-photos.png";
 import dotRevealImg from "@/assets/yankee/dot-reveal.png";
+import CrowdsBento from "@/components/home/CrowdsBento";
 
 const faqItems = [
   {
@@ -43,140 +39,9 @@ const faqItems = [
   },
 ];
 
-const homeCrowds = [
-  {
-    name: "Harvard University",
-    src: harvardHall,
-    count: "8.543",
-    pos: "50% 40%",
-    span: "col-span-1 md:col-span-2",
-    tags: ["#harvard", "#campus", "#ivy"],
-  },
-  {
-    name: "Stanford University",
-    src: stanfordHall,
-    count: "6.210",
-    pos: "50% 40%",
-    span: "col-span-1 md:col-span-2",
-    tags: ["#stanford", "#campus"],
-  },
-  {
-    name: "Coffee Club",
-    src: cafeFriends,
-    count: "2.104",
-    pos: "50% 40%",
-    span: "col-span-2 row-span-2 md:col-span-2 md:row-span-2",
-    tall: true,
-    tags: ["#coffee", "#friends", "#hangout"],
-  },
-  {
-    name: "Film Night",
-    src: filmNight,
-    count: "3.891",
-    pos: "50% 35%",
-    span: "col-span-1 md:col-span-4",
-    wide: true,
-    tags: ["#movies", "#cinema", "#nightin"],
-  },
-  {
-    name: "Party People",
-    src: heroStrip3,
-    count: "1.219",
-    pos: "50% 45%",
-    span: "col-span-1 md:col-span-4",
-    wide: true,
-    tags: ["#running", "#fitness", "#morningvibes"],
-  },
-  {
-    name: "Late Night Producers",
-    src: liveThread,
-    count: "5.879",
-    pos: "50% 35%",
-    span: "col-span-1 md:col-span-1",
-    tags: ["#music", "#studio"],
-  },
-  {
-    name: "Campus Crowd",
-    src: studentsHero,
-    count: "4.320",
-    pos: "50% 30%",
-    span: "col-span-1 md:col-span-1",
-    tags: ["#campus", "#students"],
-  },
-];
-
-const CrowdAppCard = ({
-  name,
-  src,
-  count,
-  pos,
-  tags,
-  tall,
-  wide,
-}: {
-  name: string;
-  src: string;
-  count: string;
-  pos: string;
-  tags: string[];
-  tall?: boolean;
-  wide?: boolean;
-}) => (
-  <div
-    className={`relative flex h-full w-full flex-col overflow-hidden rounded-[1.25rem] bg-foreground/10 ${
-      tall
-        ? "min-h-[280px] md:min-h-0"
-        : wide
-          ? "min-h-[160px] md:min-h-0"
-          : "min-h-[180px] md:min-h-0"
-    }`}
-  >
-    <img
-      src={src}
-      alt=""
-      className="absolute inset-0 h-full w-full object-cover"
-      style={{ objectPosition: pos }}
-      loading="lazy"
-    />
-    <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/10 to-black/50" />
-
-    <div className="relative z-10 flex min-h-0 flex-1 flex-col p-2.5 md:p-3">
-      <div className="flex items-start justify-between gap-2">
-        <div className="min-w-0 flex-1">
-          <div className="inline-flex max-w-full rounded-full bg-black/45 px-2.5 py-1 backdrop-blur-md">
-            <p className="truncate text-[11px] font-medium tracking-tight text-white md:text-[12.5px]">{name}</p>
-          </div>
-          <div className="mt-1.5 flex flex-wrap gap-1">
-            {tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full border border-white/20 bg-black/40 px-2 py-0.5 text-[9px] font-medium text-white/90 backdrop-blur-md md:text-[10px]"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-        <div className="shrink-0 rounded-full bg-black/45 px-2.5 py-1 backdrop-blur-md">
-          <span className="text-[11px] font-medium tabular-nums text-[#8ec5ff] md:text-[12px]">{count}</span>
-        </div>
-      </div>
-
-      <div className="mt-auto pt-3">
-        <div
-          className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/15 px-5 py-1.5 backdrop-blur-xl"
-          aria-hidden
-        >
-          <span className="text-[12px] font-semibold text-[#3b82f6] md:text-[13px]">Join</span>
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
 const Index = () => (
   <Layout>
-    <section className="relative -mt-12 md:-mt-14 min-h-[100svh] overflow-x-hidden bg-card flex flex-col">
+    <section className="relative -mt-12 md:-mt-14 min-h-[100svh] overflow-x-clip bg-card flex flex-col">
       <PrismGrid
         className="pointer-events-auto z-0"
         backgroundColor="hsl(40 30% 97%)"
@@ -186,7 +51,7 @@ const Index = () => (
         rotate={{ x: 0, y: 0 }}
         idle
       />
-      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-card/30 via-transparent to-background/80 pointer-events-none" />
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-card/30 via-transparent via-55% to-background pointer-events-none" />
 
       <div className="relative z-10 flex-1 flex flex-col justify-center w-full max-w-[920px] mx-auto px-5 md:px-6 py-10 md:py-12 text-center">
         <div className="mt-6 md:mt-0 md:translate-y-12 lg:translate-y-14">
@@ -377,20 +242,8 @@ const Index = () => (
           </p>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-14 grid grid-cols-2 md:grid-cols-6 auto-rows-[190px] md:auto-rows-[210px] gap-3 md:gap-4">
-          {homeCrowds.map((crowd, i) => (
-            <AnimatedSection key={crowd.name} delay={0.04 + i * 0.03} className={`${crowd.span} h-full min-h-0`}>
-              <CrowdAppCard
-                name={crowd.name}
-                src={crowd.src}
-                count={crowd.count}
-                pos={crowd.pos}
-                tags={crowd.tags}
-                tall={crowd.tall}
-                wide={crowd.wide}
-              />
-            </AnimatedSection>
-          ))}
+        <div className="mt-12 md:mt-14">
+          <CrowdsBento />
         </div>
       </div>
     </section>
@@ -514,14 +367,14 @@ const Index = () => (
                 >
                   <div className="rounded-[1.1rem] overflow-hidden aspect-[5/3] bg-muted">
                       <img
-                        src={heroStrip3}
+                        src={squadPhotos}
                         alt=""
-                        className="w-full h-full object-cover object-center"
+                        className="w-full h-full object-cover object-[50%_35%]"
                         loading="lazy"
                       />
                   </div>
                   <div className="mt-3 flex items-center justify-between gap-2">
-                    <span className="text-[12px] lowercase text-foreground/70">trail photos · just now</span>
+                    <span className="text-[12px] lowercase text-foreground/70">squad photos · just now</span>
                     <span className="inline-flex items-center rounded-full bg-foreground px-2.5 py-1 text-[11px] text-background lowercase">
                       seen by all
                     </span>

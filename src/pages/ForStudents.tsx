@@ -6,6 +6,8 @@ import AnimatedSection from "@/components/AnimatedSection";
 import FAQ from "@/components/FAQ";
 import PromoPill from "@/components/home/PromoPill";
 import StudentHeroScene from "@/components/home/StudentHeroScene";
+import CrowdsBento from "@/components/home/CrowdsBento";
+import CrowdAppCard from "@/components/home/CrowdAppCard";
 import studentChat from "@/assets/yankee/chat.png";
 import harvardHall from "@/assets/harvard-hall.png";
 import { blockCard } from "@/lib/yankeeBlock";
@@ -219,6 +221,25 @@ const ForStudents = () => (
       </div>
     </section>
 
+    <section className="relative py-20 md:py-28 overflow-hidden dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1100px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="text-center max-w-2xl mx-auto">
+          <h2 className="text-[2.4rem] sm:text-5xl md:text-6xl font-semibold text-foreground tracking-tight leading-[0.98]">
+            Find your campus.
+            <br />
+            <span className="font-serif-display italic font-medium">Keep them close.</span>
+          </h2>
+          <p className="mt-5 md:mt-6 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase">
+            campus crowds, class rooms and crews that stay human sized. no endless feeds of strangers.
+          </p>
+        </AnimatedSection>
+        <div className="mt-12 md:mt-14">
+          <CrowdsBento />
+        </div>
+      </div>
+    </section>
+
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
@@ -421,22 +442,15 @@ const ForStudents = () => (
                   whileInView={{ opacity: 1, y: 0, rotate: -1.5 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.7, delay: 0.12, ease }}
-                  className="yankee-surface ml-auto w-[92%] rounded-[1.5rem] bg-card p-4"
+                  className="ml-auto w-[92%] aspect-[4/5]"
                 >
-                  <div className="rounded-[1.1rem] overflow-hidden aspect-[5/3] bg-muted">
-                    <img
-                      src={harvardHall}
-                      alt=""
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="mt-3 flex items-center justify-between gap-2">
-                    <span className="text-[12px] lowercase text-foreground/70">verified · .edu</span>
-                    <span className="inline-flex items-center rounded-full bg-foreground px-2.5 py-1 text-[11px] text-background lowercase">
-                      study mode on
-                    </span>
-                  </div>
+                  <CrowdAppCard
+                    name="Harvard University"
+                    src={harvardHall}
+                    count="8.543"
+                    tags={["#harvard", "#campus", "#edu"]}
+                    pos="50% 35%"
+                  />
                 </motion.div>
 
                 <motion.div

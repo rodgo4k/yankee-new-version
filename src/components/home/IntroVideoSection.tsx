@@ -9,12 +9,36 @@ const POSTER_SRC = "/videos/yankee-intro-poster.jpg";
 
 const IntroVideoSection = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const hideControlsTimer = useRef<number | null>(null);
   const [playing, setPlaying] = useState(false);
   const [hasPlayed, setHasPlayed] = useState(false);
   const [muted, setMuted] = useState(true);
   const [progress, setProgress] = useState(0);
   const [showControls, setShowControls] = useState(false);
   const [loadError, setLoadError] = useState(false);
+
+  const clearHideTimer = () => {
+    if (hideControlsTimer.current != null) {
+      window.clearTimeout(hideControlsTimer.current);
+      hideControlsTimer.current = null;
+    }
+  };
+
+  const scheduleHideControls = (delay = 1600) => {
+    clearHideTimer();
+    hideControlsTimer.current = window.setTimeout(() => {
+      setShowControls(false);
+      hideControlsTimer.current = null;
+    }, delay);
+  };
+
+  const revealControls = (autoHide = true) => {
+    setShowControls(true);
+    if (autoHide) scheduleHideControls();
+    else clearHideTimer();
+  };
+
+  useEffect(() => () => clearHideTimer(), []);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -28,6 +52,8 @@ const IntroVideoSection = () => {
       setPlaying(false);
       setHasPlayed(false);
       setProgress(0);
+      setShowControls(false);
+      clearHideTimer();
       video.currentTime = 0;
     };
     const onError = () => setLoadError(true);
@@ -91,6 +117,8 @@ const IntroVideoSection = () => {
       setPlaying(true);
       setHasPlayed(true);
       setLoadError(false);
+      setShowControls(false);
+      scheduleHideControls(400);
     } catch {
       try {
         video.muted = true;
@@ -101,6 +129,8 @@ const IntroVideoSection = () => {
         video.muted = false;
         setMuted(false);
         setLoadError(false);
+        setShowControls(false);
+        scheduleHideControls(400);
       } catch {
         setLoadError(true);
       }
@@ -112,11 +142,20 @@ const IntroVideoSection = () => {
     if (!video) return;
     video.pause();
     setPlaying(false);
+    setShowControls(true);
+    clearHideTimer();
   };
 
   const togglePlay = () => {
-    if (playing) pause();
-    else void play();
+    if (playing) {
+      if (!showControls) {
+        revealControls(true);
+        return;
+      }
+      pause();
+    } else {
+      void play();
+    }
   };
 
   const toggleMute = (e: MouseEvent) => {
@@ -137,6 +176,7 @@ const IntroVideoSection = () => {
     const ratio = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
     video.currentTime = ratio * video.duration;
     setProgress(ratio * 100);
+    if (playing) scheduleHideControls();
   };
 
   const seekFromClientX = (clientX: number, track: HTMLElement) => {
@@ -151,6 +191,8 @@ const IntroVideoSection = () => {
   const onSeekPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
     e.stopPropagation();
     e.preventDefault();
+    clearHideTimer();
+    setShowControls(true);
     const track = e.currentTarget;
     track.setPointerCapture(e.pointerId);
     seekFromClientX(e.clientX, track);
@@ -161,6 +203,7 @@ const IntroVideoSection = () => {
       track.removeEventListener("pointermove", onMove);
       track.removeEventListener("pointerup", onUp);
       track.removeEventListener("pointercancel", onUp);
+      if (playing) scheduleHideControls();
     };
 
     track.addEventListener("pointermove", onMove);
@@ -184,8 +227,14 @@ const IntroVideoSection = () => {
         <AnimatedSection delay={0.08}>
           <div
             className="relative mx-auto w-full max-w-[800px]"
-            onMouseEnter={() => setShowControls(true)}
-            onMouseLeave={() => setShowControls(false)}
+            onMouseEnter={() => {
+              if (!hasPlayed) return;
+              revealControls(false);
+            }}
+            onMouseLeave={() => {
+              if (playing) scheduleHideControls(400);
+              else clearHideTimer();
+            }}
           >
             <motion.div
               whileHover={{ scale: hasPlayed && !playing ? 1 : 1.005 }}
@@ -225,7 +274,6 @@ const IntroVideoSection = () => {
                 </div>
               )}
 
-              {}
               {!playing && !hasPlayed && !loadError && (
                 <div className="absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                   <BeamPillButton tone="glass" aria-label="play video" onClick={() => void play()}>
@@ -235,7 +283,6 @@ const IntroVideoSection = () => {
                 </div>
               )}
 
-              {}
               {!playing && hasPlayed && (
                 <div className="absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                   <BeamPillButton tone="glass" shape="round" aria-label="play" onClick={() => void play()}>
@@ -244,10 +291,11 @@ const IntroVideoSection = () => {
                 </div>
               )}
 
-              {}
               {playing && (
                 <div
-                  className={`absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-200 ${ showCenterControl ? "opacity-100" : "opacity-0 pointer-events-none" }`}
+                  className={`absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-200 ${
+                    showCenterControl ? "opacity-100" : "opacity-0 pointer-events-none"
+                  }`}
                 >
                   <BeamPillButton tone="glass" shape="round" aria-label="pause" onClick={pause}>
                     <Pause size={22} className="fill-white text-white" />
@@ -258,7 +306,7 @@ const IntroVideoSection = () => {
               {hasPlayed && (
                 <button
                   type="button"
-                  aria-label={playing ? "pause video" : "play video"}
+                  aria-label={playing ? (showControls ? "pause video" : "show controls") : "play video"}
                   onClick={togglePlay}
                   className="absolute inset-0 bottom-14 z-[15] cursor-pointer bg-transparent"
                 />
@@ -266,7 +314,9 @@ const IntroVideoSection = () => {
 
               {hasPlayed && (
                 <div
-                  className={`absolute inset-x-0 bottom-0 z-[25] h-14 touch-none transition-opacity duration-200 ${ controlsVisible ? "opacity-100" : "opacity-90" }`}
+                  className={`absolute inset-x-0 bottom-0 z-[25] h-14 touch-none transition-opacity duration-200 ${
+                    controlsVisible ? "opacity-100" : "opacity-0 pointer-events-none"
+                  }`}
                 >
                   <div
                     role="slider"
@@ -296,10 +346,15 @@ const IntroVideoSection = () => {
               {hasPlayed && (
                 <button
                   type="button"
-                  onClick={toggleMute}
+                  onClick={(e) => {
+                    toggleMute(e);
+                    if (playing) scheduleHideControls();
+                  }}
                   aria-label={muted ? "unmute video" : "mute video"}
                   aria-pressed={muted}
-                  className="absolute z-20 top-3 right-3 w-9 h-9 rounded-full border border-white/40 bg-black/25 backdrop-blur-[3px] text-white flex items-center justify-center hover:bg-black/40 transition-colors"
+                  className={`absolute z-20 top-3 right-3 w-9 h-9 rounded-full border border-white/40 bg-black/25 backdrop-blur-[3px] text-white flex items-center justify-center hover:bg-black/40 transition-colors ${
+                    playing && !showControls ? "opacity-0 pointer-events-none" : "opacity-100"
+                  }`}
                 >
                   {muted ? <VolumeX size={16} /> : <Volume2 size={16} />}
                 </button>
