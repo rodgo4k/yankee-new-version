@@ -1,10 +1,11 @@
-import { ArrowRight, Clock, Eye, Users, Lock, Bell } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
 import AnimatedSection from "@/components/AnimatedSection";
 import StoryHeroVideo from "@/components/story/StoryHeroVideo";
-import { blockCard } from "@/lib/yankeeBlock";
+import { StoryPrinciplesScene } from "@/components/home/StoryFeatureScenes";
+import { Logo } from "@/components/Logo";
 import rememberOffice from "@/assets/remember-office.jpg";
 import cafeFriends from "@/assets/cafe-friends.jpg";
 import familyField from "@/assets/family-field.jpg";
@@ -14,39 +15,6 @@ import studentsHero from "@/assets/students-hero.jpg";
 import homeFeed from "@/assets/yankee/home-feed.png";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
-
-const principles = [
-  {
-    icon: Clock,
-    title: "your feed, in order",
-    desc: "chronological by default. no hidden reshuffling, no surprise resurfacing.",
-    bubble: "newest first, always",
-  },
-  {
-    icon: Eye,
-    title: "every post reaches everyone",
-    desc: "when you follow someone, you see every post. the follow button actually means something.",
-    bubble: "no shadow banning",
-  },
-  {
-    icon: Users,
-    title: "crowds stay small",
-    desc: "groups have a ceiling. when they get too big, they split before they become forums.",
-    bubble: "capped by design",
-  },
-  {
-    icon: Lock,
-    title: "memory is private",
-    desc: "your saved posts, notes and preferences are encrypted and never used to train models.",
-    bubble: "encrypted, yours alone",
-  },
-  {
-    icon: Bell,
-    title: "notifications you control",
-    desc: "no bait, no streaks, no alerts designed to pull you back in.",
-    bubble: "only pings you asked for",
-  },
-];
 
 const moments = [
   { src: rememberOffice, caption: "a group that actually shows up", rotate: -2 },
@@ -252,35 +220,8 @@ const Story = () => (
           </h2>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-14 grid sm:grid-cols-2 lg:grid-cols-6 gap-4">
-          {principles.map((p, i) => {
-            const Icon = p.icon;
-            return (
-              <AnimatedSection
-                key={p.title}
-                delay={i * 0.06}
-                className={i === 3 ? "lg:col-span-2 lg:col-start-2" : "lg:col-span-2"}
-              >
-                <motion.div
-                  whileHover={{ y: -3 }}
-                  className={blockCard(i, "p-6 flex flex-col gap-5")}
-                >
-                  <div className="flex justify-start">
-                    <span className="inline-block max-w-[95%] px-3.5 py-2 text-[13px] leading-snug lowercase rounded-2xl rounded-bl-md bg-white/15">
-                      {p.bubble}
-                    </span>
-                  </div>
-                  <div className="mt-auto">
-                    <div className="yankee-block__icon w-9 h-9 rounded-full flex items-center justify-center mb-4">
-                      <Icon size={16} />
-                    </div>
-                    <h3 className="text-[16px] font-semibold lowercase tracking-tight">{p.title}</h3>
-                    <p className="mt-2 text-[13px] yankee-block__muted leading-relaxed lowercase">{p.desc}</p>
-                  </div>
-                </motion.div>
-              </AnimatedSection>
-            );
-          })}
+        <div className="mt-12 md:mt-14">
+          <StoryPrinciplesScene />
         </div>
       </div>
     </section>
@@ -385,19 +326,11 @@ const Story = () => (
                 </div>
               </div>
 
-              <div className="lg:col-span-5 relative min-h-[240px] lg:min-h-full border-t lg:border-t-0 lg:border-l border-border">
-                <img
-                  src={rememberOffice}
-                  alt=""
-                  className="absolute inset-0 w-full h-full object-cover"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4">
-                  <span className="yankee-surface yankee-surface--control inline-flex rounded-full bg-card px-3 py-1.5 text-[12px] lowercase">
-                    remote first · small by choice
-                  </span>
-                </div>
+              <div className="lg:col-span-5 relative min-h-[240px] lg:min-h-full border-t lg:border-t-0 lg:border-l border-border bg-white flex flex-col items-center justify-center gap-5 p-8">
+                <Logo className="h-12 md:h-14 w-auto text-foreground" />
+                <span className="yankee-surface yankee-surface--control inline-flex rounded-full bg-card px-3 py-1.5 text-[12px] lowercase">
+                  remote first · small by choice
+                </span>
               </div>
             </div>
           </div>

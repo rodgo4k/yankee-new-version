@@ -3,8 +3,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowLeft,
   ChevronDown,
-  Compass,
-  Home,
   Lock,
   Mic,
   MicOff,
@@ -12,7 +10,6 @@ import {
   PhoneOff,
   Plus,
   Search,
-  Send,
   Settings,
   Share2,
   SlidersHorizontal,
@@ -22,6 +19,8 @@ import {
   Volume2,
 } from "lucide-react";
 import AiPhoneShell from "@/components/home/AiPhoneShell";
+import YankeePhoneNav from "@/components/home/YankeePhoneNav";
+import { faceByGender, uniqueFacesFor } from "@/lib/crowdFaces";
 import hillsSunset from "@/assets/hills-sunset.jpg";
 import liveThread from "@/assets/live-thread.png";
 import cafeFriends from "@/assets/cafe-friends.jpg";
@@ -47,50 +46,21 @@ const phaseLabel: Record<Phase, string> = {
   voice: "join voice",
 };
 
-/* ─── shared chrome ─── */
-
-const BottomNav = ({ active = "profile" }: { active?: "discover" | "messages" | "home" | "profile" | "ai" }) => {
-  const items = [
-    { id: "discover" as const, icon: <Compass size={16} /> },
-    { id: "messages" as const, icon: <Send size={15} /> },
-    { id: "home" as const, icon: <Home size={16} /> },
-    { id: "profile" as const, icon: <User size={15} /> },
-    { id: "ai" as const, icon: <span className="text-[11px] font-bold tracking-wide">AI</span> },
-  ];
-  return (
-    <div className="absolute bottom-5 inset-x-3 z-30">
-      <div className="rounded-full bg-[#1c1c1e]/95 border border-white/[0.06] px-2 py-1.5 flex items-center justify-between shadow-[0_8px_28px_-8px_rgba(0,0,0,0.7)]">
-        {items.map((it) => {
-          const on = it.id === active;
-          return (
-            <span
-              key={it.id}
-              className={`w-9 h-9 rounded-full flex items-center justify-center ${
-                on ? "bg-white text-black" : "text-white/45"
-              }`}
-            >
-              {it.icon}
-            </span>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
-
 const Avatar = ({
   letter,
   tint,
   size = 28,
   className = "",
+  src,
 }: {
   letter: string;
   tint: string;
   size?: number;
   className?: string;
+  src?: string;
 }) => (
   <span
-    className={`inline-flex shrink-0 items-center justify-center rounded-full text-white/90 font-medium ${className}`}
+    className={`relative inline-flex shrink-0 items-center justify-center rounded-full text-white/90 font-medium overflow-hidden ${className}`}
     style={{
       width: size,
       height: size,
@@ -100,32 +70,30 @@ const Avatar = ({
       fontSize: size * 0.36,
     }}
   >
-    {letter}
+    {src ? <img src={src} alt="" className="absolute inset-0 w-full h-full object-cover" /> : letter}
   </span>
 );
-
-/* ─── 1. Discover crowds ─── */
 
 const crowds = [
   {
     name: "Sunrise Runners",
-    count: "465",
+    count: "465,870",
     img: hillsSunset,
     tags: ["#running", "#fitness", "#morningvibes"],
     pos: "50% 40%",
   },
   {
     name: "Late Night Producers",
-    count: "879",
+    count: "5,768",
     img: liveThread,
-    tags: ["#music", "#studio", "#latenight"],
+    tags: ["#music", "#producers", "#latenight"],
     pos: "50% 30%",
   },
   {
     name: "Coffee Club",
-    count: "1.2k",
+    count: "5,768",
     img: cafeFriends,
-    tags: ["#coffee", "#slow", "#friends"],
+    tags: ["#coffee", "#club", "#coffeelife"],
     pos: "50% 45%",
   },
 ];
@@ -272,16 +240,17 @@ const DiscoverPhase = () => {
         </div>
       </div>
 
-      <BottomNav active="discover" />
+      <YankeePhoneNav active="crowd" />
     </motion.div>
   );
 };
 
-/* ─── 2. Chat + channel drawer ─── */
+const chatNames = ["Diana", "Maya"] as const;
+const chatFaces = uniqueFacesFor([...chatNames]);
 
 const chatMessages = [
-  { from: "Diana", time: "17:30", text: "Hello Guys!", you: false, tint: "#6b5b95" },
-  { from: "Diana", time: "17:30", text: "I was walking to class.", you: false, tint: "#6b5b95" },
+  { from: "Diana", time: "17:30", text: "Hello Guys!", you: false, tint: "#6b5b95", src: chatFaces[0] },
+  { from: "Diana", time: "17:30", text: "I was walking to class.", you: false, tint: "#6b5b95", src: chatFaces[0] },
   { from: "you", time: "17:31", text: "Wait…", you: true },
   { from: "you", time: "17:31", text: "same thing happened to me last week", you: true },
   {
@@ -290,6 +259,7 @@ const chatMessages = [
     text: "Campus sidewalks are dangerous, honestly.",
     you: false,
     tint: "#8b5a7a",
+    src: chatFaces[1],
   },
   {
     from: "you",
@@ -303,6 +273,7 @@ const chatMessages = [
     text: "Speaking of campus look at this ↓",
     you: false,
     tint: "#8b5a7a",
+    src: chatFaces[1],
     image: true,
   },
 ];
@@ -315,10 +286,10 @@ const textChannels = [
 ];
 
 const voiceChannels = [
-  { name: "Study-Room", avatars: ["S", "E", "A", "J"], extra: "+5" },
-  { name: "Announcements", avatars: [] as string[] },
-  { name: "Off-Topic", avatars: ["M"] },
-  { name: "Study-Group", avatars: [] as string[] },
+  { name: "Study-Room", avatars: ["f", "m", "f", "m"] as const, extra: "+5" },
+  { name: "Announcements", avatars: [] as ("f" | "m")[] },
+  { name: "Off-Topic", avatars: ["f"] as const },
+  { name: "Study-Group", avatars: [] as ("f" | "m")[] },
 ];
 
 const ChatPhase = () => {
@@ -362,7 +333,7 @@ const ChatPhase = () => {
         <User size={15} className="text-white/40 shrink-0" />
       </div>
 
-      <div className="flex-1 min-h-0 overflow-hidden px-3 pb-14 flex flex-col gap-2">
+      <div className="flex-1 min-h-0 overflow-hidden px-3 pb-16 flex flex-col justify-end gap-2.5">
         {chatMessages.map((m, i) => {
           if (visible <= i) return null;
           return (
@@ -374,16 +345,16 @@ const ChatPhase = () => {
               className={`flex ${m.you ? "justify-end" : "justify-start"} gap-1.5`}
             >
               {!m.you && (
-                <Avatar letter={m.from[0]} tint={m.tint || "#555"} size={22} className="mt-1" />
+                <Avatar letter={m.from[0]} tint={m.tint || "#555"} size={24} className="mt-1" src={m.src} />
               )}
-              <div className={`max-w-[78%] flex flex-col ${m.you ? "items-end" : "items-start"}`}>
+              <div className={`max-w-[82%] flex flex-col ${m.you ? "items-end" : "items-start"}`}>
                 {!m.you && (
                   <p className="text-[9px] text-white/35 mb-0.5 px-1">
                     {m.from} · {m.time}
                   </p>
                 )}
                 <div
-                  className={`rounded-2xl px-2.5 py-1.5 text-[11px] leading-snug ${
+                  className={`rounded-2xl px-3 py-2 text-[12px] leading-snug ${
                     m.you
                       ? "rounded-br-md text-white"
                       : "rounded-bl-md bg-[#1c1c1e] text-white/85 border border-white/[0.04]"
@@ -396,9 +367,9 @@ const ChatPhase = () => {
                   <motion.div
                     initial={{ opacity: 0, scale: 0.92 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="mt-1.5 w-[150px] rounded-xl overflow-hidden border border-white/[0.06]"
+                    className="mt-1.5 w-full max-w-[200px] rounded-xl overflow-hidden border border-white/[0.06]"
                   >
-                    <img src={harvardHall} alt="" className="w-full h-[88px] object-cover" />
+                    <img src={harvardHall} alt="" className="w-full h-[110px] object-cover" />
                   </motion.div>
                 )}
               </div>
@@ -407,7 +378,7 @@ const ChatPhase = () => {
         })}
       </div>
 
-      <div className="absolute bottom-5 inset-x-3 z-20 flex items-center gap-1.5">
+      <div className="absolute bottom-3 inset-x-3 z-20 flex items-center gap-1.5">
         <span className="w-8 h-8 rounded-full bg-[#1c1c1e] border border-white/[0.06] flex items-center justify-center text-white/40">
           <Plus size={14} />
         </span>
@@ -497,11 +468,12 @@ const ChatPhase = () => {
                         <div className="flex items-center -space-x-1.5">
                           {ch.avatars.map((a, j) => (
                             <Avatar
-                              key={a + j}
-                              letter={a}
+                              key={`${ch.name}-${j}`}
+                              letter="U"
                               tint={["#4a6fa5", "#8b5a7a", "#2d8a6e", "#b07a4a"][j % 4]}
                               size={18}
                               className="border border-[#121214]"
+                              src={faceByGender(a, j)}
                             />
                           ))}
                           {ch.extra && (
@@ -527,24 +499,31 @@ const ChatPhase = () => {
     </motion.div>
   );
 };
-
-/* ─── 3. Voice room ─── */
+const participantNames = [
+  "Sophia Carter",
+  "Ethan Miller",
+  "Alyssa Johnson",
+  "Emily Brooks",
+  "Alex Morgan",
+  "Jamie Collins",
+  "Chris Parker",
+  "Maya Reed",
+] as const;
+const participantFaces = uniqueFacesFor([...participantNames]);
 
 const participants = [
-  { name: "Sophia Carter", letter: "S", tint: "#4a6fa5" },
-  { name: "Ethan Miller", letter: "E", tint: "#6b5b95" },
-  { name: "Alyssa Johnson", letter: "A", tint: "#8b5a7a" },
-  { name: "Emily Brooks", letter: "E", tint: "#2d8a6e", speaking: true },
-  { name: "Alex Morgan", letter: "A", tint: "#b07a4a" },
-  { name: "Jamie Collins", letter: "J", tint: "#3d7a9a" },
-  { name: "Chris Parker", letter: "C", tint: "#5a6b5a" },
-  { name: "Maya Reed", letter: "M", tint: "#9a5a6a" },
-  { name: "Ryan Scott", letter: "R", tint: "#5a5a8a" },
+  { name: "Sophia Carter", letter: "S", tint: "#4a6fa5", src: participantFaces[0] },
+  { name: "Ethan Miller", letter: "E", tint: "#6b5b95", src: participantFaces[1] },
+  { name: "Alyssa Johnson", letter: "A", tint: "#8b5a7a", src: participantFaces[2] },
+  { name: "Emily Brooks", letter: "E", tint: "#2d8a6e", speaking: true, src: participantFaces[3] },
+  { name: "Alex Morgan", letter: "A", tint: "#b07a4a", src: participantFaces[4] },
+  { name: "Jamie Collins", letter: "J", tint: "#3d7a9a", src: participantFaces[5] },
+  { name: "Chris Parker", letter: "C", tint: "#5a6b5a", src: participantFaces[6] },
+  { name: "Maya Reed", letter: "M", tint: "#9a5a6a", src: participantFaces[7] },
 ];
 
 const VoicePhase = () => {
   const [step, setStep] = useState(0);
-  // 0 join card, 1 pip, 2 grid, 3 menu
 
   useEffect(() => {
     const timers = [
@@ -605,7 +584,7 @@ const VoicePhase = () => {
                       transition={{ delay: 0.35 + i * 0.05 }}
                       className="shrink-0"
                     >
-                      <Avatar letter={p.letter} tint={p.tint} size={32} />
+                      <Avatar letter={p.letter} tint={p.tint} size={32} src={p.src} />
                     </motion.div>
                   ))}
                 </div>
@@ -649,28 +628,31 @@ const VoicePhase = () => {
             >
               <div className="grid grid-cols-3 gap-1">
                 {participants.slice(0, 6).map((p) => (
-                  <Avatar key={p.name} letter={p.letter} tint={p.tint} size={26} />
+                  <Avatar key={p.name} letter={p.letter} tint={p.tint} size={26} src={p.src} />
                 ))}
               </div>
               <p className="text-[8px] text-white/40 text-center mt-1">Study-Room</p>
             </motion.div>
 
-            <div className="px-3 flex-1 flex flex-col gap-2 pt-1 pb-14 overflow-hidden">
+            <div className="px-3 flex-1 min-h-0 flex flex-col justify-end gap-2.5 pt-1 pb-16 overflow-hidden">
               {[
                 { from: "Diana", text: "Hello Guys!", you: false },
-                { from: "Maya", text: "Campus sidewalks are dangerous.", you: false },
-                { from: "you", text: "same thing happened to me", you: true },
+                { from: "Diana", text: "I was walking to class.", you: false },
+                { from: "you", text: "Wait…", you: true },
+                { from: "Maya", text: "Campus sidewalks are dangerous, honestly.", you: false },
+                { from: "you", text: "same thing happened to me last week", you: true },
+                { from: "Maya", text: "Especially when you're late and not looking down.", you: false },
               ].map((m, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.12 }}
+                  transition={{ delay: i * 0.08 }}
                   className={`flex ${m.you ? "justify-end" : "justify-start"}`}
                 >
                   <span
-                    className={`rounded-2xl px-2.5 py-1.5 text-[11px] max-w-[75%] ${
-                      m.you ? "text-white rounded-br-md" : "bg-[#1c1c1e] text-white/80 rounded-bl-md"
+                    className={`rounded-2xl px-3 py-2 text-[12px] leading-snug max-w-[82%] ${
+                      m.you ? "text-white rounded-br-md" : "bg-[#1c1c1e] text-white/85 rounded-bl-md"
                     }`}
                     style={m.you ? { background: BLUE } : undefined}
                   >
@@ -680,7 +662,7 @@ const VoicePhase = () => {
               ))}
             </div>
 
-            <div className="absolute bottom-5 inset-x-3 flex items-center gap-1.5">
+            <div className="absolute bottom-3 inset-x-3 flex items-center gap-1.5">
               <span className="w-8 h-8 rounded-full bg-[#1c1c1e] flex items-center justify-center text-white/40">
                 <Plus size={14} />
               </span>
@@ -723,7 +705,7 @@ const VoicePhase = () => {
                   }}
                 >
                   <div className="flex-1 flex items-center justify-center">
-                    <Avatar letter={p.letter} tint={p.tint} size={36} />
+                    <Avatar letter={p.letter} tint={p.tint} size={36} src={p.src} />
                   </div>
                   <div className="px-1.5 pb-1.5 flex items-center gap-0.5">
                     <p className="text-[8px] text-white/80 truncate flex-1 leading-tight">{p.name.split(" ")[0]}</p>
@@ -787,8 +769,6 @@ const VoicePhase = () => {
     </motion.div>
   );
 };
-
-/* ─── main scene ─── */
 
 const CrowdFeelScene = ({ className = "" }: { className?: string }) => {
   const [phaseIndex, setPhaseIndex] = useState(0);

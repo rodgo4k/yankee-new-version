@@ -197,7 +197,7 @@ const ReachStepsScene = () => {
 
   return (
     <div className="relative max-w-[920px] mx-auto">
-      {/* vertical rail */}
+      {}
       <div
         className="absolute left-5 md:left-1/2 top-3 bottom-3 w-px bg-foreground/10 md:-translate-x-px"
         aria-hidden
@@ -222,7 +222,7 @@ const ReachStepsScene = () => {
               transition={{ duration: 0.4 }}
               className="relative grid md:grid-cols-2 gap-5 md:gap-10 items-center pl-12 md:pl-0"
             >
-              {/* node on rail */}
+              {}
               <button
                 type="button"
                 onClick={() => setActive(i)}

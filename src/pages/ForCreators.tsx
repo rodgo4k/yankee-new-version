@@ -1,4 +1,4 @@
-import { ArrowRight, Eye, Users, Download, Ban, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
@@ -6,94 +6,15 @@ import AnimatedSection from "@/components/AnimatedSection";
 import FAQ from "@/components/FAQ";
 import PromoPill from "@/components/home/PromoPill";
 import CreatorHeroScene from "@/components/home/CreatorHeroScene";
+import {
+  CreatorDealScene,
+  CreatorMeansScene,
+  CreatorStepsScene,
+} from "@/components/home/CreatorFeatureScenes";
 import rememberOffice from "@/assets/remember-office.jpg";
 import heroParty from "@/assets/hero-party.jpg";
-import { blockCard } from "@/lib/yankeeBlock";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
-
-const principles = [
-  {
-    icon: Eye,
-    title: "every follower, every time",
-    text: "what you post reaches everyone who follows you. no quiet demotion, no auction for your own audience.",
-  },
-  {
-    icon: Ban,
-    title: "no algorithm tax",
-    text: "chronological delivery. yankee does not bury your work to sell boosts back to you.",
-  },
-  {
-    icon: Users,
-    title: "crowds that stay human",
-    text: "grow rooms that cap and split on purpose. conversations stay grounded, not stadium-sized.",
-  },
-  {
-    icon: Download,
-    title: "you own the archive",
-    text: "export posts, replies and metrics any time. leave with your work if you ever need to.",
-  },
-];
-
-const blocks = [
-  {
-    kicker: "complete reach",
-    title: (
-      <>
-        post once. <span className="font-serif-display italic font-medium">reach every follower.</span>
-      </>
-    ),
-    body: "your people chose to follow you. yankee makes sure they see what you make, without ranking games in the middle.",
-    chat: [
-      { from: "them" as const, text: "your last post reached 98% of followers." },
-      { from: "you" as const, text: "that feels like the old internet." },
-    ],
-  },
-  {
-    kicker: "honest numbers",
-    title: (
-      <>
-        views, saves, replies. <span className="font-serif-display italic font-medium">nothing vanity.</span>
-      </>
-    ),
-    body: "simple delivery stats you can trust. no dopamine graphs, no mystery engagement score.",
-    chat: [
-      { from: "them" as const, text: "248 reached · 61 opened · 9 replies" },
-      { from: "you" as const, text: "that's the real number. good." },
-    ],
-  },
-  {
-    kicker: "portable work",
-    title: (
-      <>
-        your archive, <span className="font-serif-display italic font-medium">always exportable</span>
-      </>
-    ),
-    body: "download every post, metric and reply. your content is yours, not locked inside rules that change overnight.",
-    chat: [
-      { from: "you" as const, text: "can i download everything?" },
-      { from: "them" as const, text: "yes. markdown, csv or media zip." },
-    ],
-  },
-];
-
-const steps = [
-  {
-    n: "01",
-    t: "set up your profile",
-    d: "claim your name, pin a few posts, and invite the people who already care about your work.",
-  },
-  {
-    n: "02",
-    t: "post to your people",
-    d: "ship to all followers, a crowd, or close friends. one composer, clear audience every time.",
-  },
-  {
-    n: "03",
-    t: "see real delivery",
-    d: "watch reached, opened and replies without vanity math. then keep making the next thing.",
-  },
-];
 
 const faqs = [
   {
@@ -192,21 +113,8 @@ const ForCreators = () => (
           </h2>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {principles.map((p, i) => {
-            const Icon = p.icon;
-            return (
-              <AnimatedSection key={p.title} delay={i * 0.06}>
-                <div className={blockCard(i, "p-6")}>
-                  <div className="yankee-block__icon w-10 h-10 rounded-full flex items-center justify-center mb-5">
-                    <Icon size={18} />
-                  </div>
-                  <h3 className="text-[15px] font-semibold lowercase tracking-tight">{p.title}</h3>
-                  <p className="mt-3 text-[13px] yankee-block__muted leading-relaxed lowercase">{p.text}</p>
-                </div>
-              </AnimatedSection>
-            );
-          })}
+        <div className="mt-12 md:mt-14">
+          <CreatorDealScene />
         </div>
       </div>
     </section>
@@ -214,7 +122,7 @@ const ForCreators = () => (
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
-        <AnimatedSection className="max-w-2xl mx-auto text-center">
+        <AnimatedSection className="max-w-2xl mx-auto text-center mb-12 md:mb-16">
           <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">what it does</p>
           <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
             what yankee does{" "}
@@ -222,32 +130,9 @@ const ForCreators = () => (
           </h2>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-16 grid md:grid-cols-3 gap-4">
-          {blocks.map((b, i) => (
-            <AnimatedSection key={b.kicker} delay={i * 0.08}>
-              <div className={blockCard(i, "p-6 md:p-7 flex flex-col gap-5")}>
-                <p className="font-serif-display italic text-[1.05rem] yankee-block__kicker lowercase leading-none">
-                  {b.kicker}
-                </p>
-                <h3 className="text-[22px] md:text-[24px] font-semibold leading-[1.08] tracking-tight lowercase">
-                  {b.title}
-                </h3>
-                <p className="text-[13px] md:text-[14px] yankee-block__muted leading-relaxed lowercase">{b.body}</p>
-                <div className="yankee-chat mt-auto">
-                  {b.chat.map((m, j) => (
-                    <div key={j} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>
-                      <span
-                        className={`yankee-chat__bubble ${ m.from === "you" ? "yankee-chat__bubble--you" : "yankee-chat__bubble--them" }`}
-                      >
-                        {m.text}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
+        <AnimatedSection delay={0.08}>
+          <CreatorMeansScene />
+        </AnimatedSection>
       </div>
     </section>
 
@@ -261,16 +146,10 @@ const ForCreators = () => (
           </h2>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-14 grid md:grid-cols-3 gap-4">
-          {steps.map((s, i) => (
-            <AnimatedSection key={s.n} delay={i * 0.08}>
-              <div className={blockCard(i, "p-6 flex flex-col")}>
-                <span className="font-serif-display italic text-[1.5rem] yankee-block__kicker leading-none">{s.n}</span>
-                <h3 className="mt-5 text-[17px] font-semibold lowercase tracking-tight">{s.t}</h3>
-                <p className="mt-2 text-[13px] yankee-block__muted leading-relaxed lowercase">{s.d}</p>
-              </div>
-            </AnimatedSection>
-          ))}
+        <div className="mt-12 md:mt-14">
+          <AnimatedSection delay={0.08}>
+            <CreatorStepsScene />
+          </AnimatedSection>
         </div>
       </div>
     </section>

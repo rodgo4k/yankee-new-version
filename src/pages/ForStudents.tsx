@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, Moon, Download, GraduationCap, Shield } from "lucide-react";
+import { ArrowRight, Shield } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
@@ -8,97 +8,15 @@ import PromoPill from "@/components/home/PromoPill";
 import StudentHeroScene from "@/components/home/StudentHeroScene";
 import CrowdsBento from "@/components/home/CrowdsBento";
 import CrowdAppCard from "@/components/home/CrowdAppCard";
+import {
+  StudentIdeaScene,
+  StudentMeansScene,
+  StudentStepsScene,
+} from "@/components/home/StudentFeatureScenes";
 import studentChat from "@/assets/yankee/chat.png";
 import harvardHall from "@/assets/harvard-hall.png";
-import { blockCard } from "@/lib/yankeeBlock";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
-
-const principles = [
-  {
-    icon: BookOpen,
-    title: "one room per class",
-    text: "notes, questions and recordings stay in a capped, chronological room you can find when you are cramming.",
-  },
-  {
-    icon: Moon,
-    title: "study mode built in",
-    text: "snooze the app for a set number of hours. only urgent dms and calls break through.",
-  },
-  {
-    icon: GraduationCap,
-    title: "campus verified",
-    text: "verify your student email. unlock study mode, campus rooms and student-only crowds.",
-  },
-  {
-    icon: Download,
-    title: "yours after graduation",
-    text: "export every message, file and thread. nothing is trapped inside a platform you leave behind.",
-  },
-];
-
-const blocks = [
-  {
-    kicker: "class first",
-    title: (
-      <>
-        one room for each course,{" "}
-        <span className="font-serif-display italic font-medium">not a noisy channel</span>
-      </>
-    ),
-    body: "post notes, ask questions, share the recording link. each class room is capped, chronological and easy to find.",
-    chat: [
-      { from: "you" as const, text: "lecture recording is up" },
-      { from: "them" as const, text: "saved to the psych 101 room" },
-    ],
-  },
-  {
-    kicker: "focus built in",
-    title: (
-      <>
-        study mode on,{" "}
-        <span className="font-serif-display italic font-medium">emergencies still through</span>
-      </>
-    ),
-    body: "snooze the whole app for a set number of hours. your focus belongs to you.",
-    chat: [
-      { from: "you" as const, text: "focus mode is on for 3 hours" },
-      { from: "them" as const, text: "got it. emergency calls still come through" },
-    ],
-  },
-  {
-    kicker: "yours after graduation",
-    title: (
-      <>
-        your notes,{" "}
-        <span className="font-serif-display italic font-medium">always portable</span>
-      </>
-    ),
-    body: "export every message, file and thread when you graduate. nothing trapped inside a platform you no longer use.",
-    chat: [
-      { from: "you" as const, text: "graduating next semester" },
-      { from: "them" as const, text: "your archive is ready. download anytime." },
-    ],
-  },
-];
-
-const steps = [
-  {
-    n: "01",
-    t: "verify with .edu",
-    d: "confirm your student email. unlock study mode, campus rooms and student-only crowds.",
-  },
-  {
-    n: "02",
-    t: "join or start your rooms",
-    d: "create rooms for courses, clubs, or your crew. invite people by link, phone or email.",
-  },
-  {
-    n: "03",
-    t: "study, chat, plan",
-    d: "share notes, organize meetups, and turn on study mode when it is time to focus.",
-  },
-];
 
 const faqs = [
   {
@@ -202,21 +120,8 @@ const ForStudents = () => (
           </h2>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {principles.map((p, i) => {
-            const Icon = p.icon;
-            return (
-              <AnimatedSection key={p.title} delay={i * 0.06}>
-                <div className={blockCard(i, "p-6")}>
-                  <div className="yankee-block__icon w-10 h-10 rounded-full flex items-center justify-center mb-5">
-                    <Icon size={18} />
-                  </div>
-                  <h3 className="text-[15px] font-semibold lowercase tracking-tight">{p.title}</h3>
-                  <p className="mt-3 text-[13px] yankee-block__muted leading-relaxed lowercase">{p.text}</p>
-                </div>
-              </AnimatedSection>
-            );
-          })}
+        <div className="mt-12 md:mt-14">
+          <StudentIdeaScene />
         </div>
       </div>
     </section>
@@ -243,7 +148,7 @@ const ForStudents = () => (
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
-        <AnimatedSection className="max-w-2xl mx-auto text-center">
+        <AnimatedSection className="max-w-2xl mx-auto text-center mb-12 md:mb-16">
           <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">what it does</p>
           <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
             what yankee does{" "}
@@ -251,32 +156,9 @@ const ForStudents = () => (
           </h2>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-16 grid md:grid-cols-3 gap-4">
-          {blocks.map((b, i) => (
-            <AnimatedSection key={b.kicker} delay={i * 0.08}>
-              <div className={blockCard(i, "p-6 md:p-7 flex flex-col gap-5")}>
-                <p className="font-serif-display italic text-[1.05rem] yankee-block__kicker lowercase leading-none">
-                  {b.kicker}
-                </p>
-                <h3 className="text-[22px] md:text-[24px] font-semibold leading-[1.08] tracking-tight lowercase">
-                  {b.title}
-                </h3>
-                <p className="text-[13px] md:text-[14px] yankee-block__muted leading-relaxed lowercase">{b.body}</p>
-                <div className="yankee-chat mt-auto">
-                  {b.chat.map((m, j) => (
-                    <div key={j} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>
-                      <span
-                        className={`yankee-chat__bubble ${ m.from === "you" ? "yankee-chat__bubble--you" : "yankee-chat__bubble--them" }`}
-                      >
-                        {m.text}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
+        <AnimatedSection delay={0.08}>
+          <StudentMeansScene />
+        </AnimatedSection>
       </div>
     </section>
 
@@ -350,16 +232,10 @@ const ForStudents = () => (
           </h2>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-14 grid md:grid-cols-3 gap-4">
-          {steps.map((s, i) => (
-            <AnimatedSection key={s.n} delay={i * 0.08}>
-              <div className={blockCard(i, "p-6 flex flex-col")}>
-                <span className="font-serif-display italic text-[1.5rem] yankee-block__kicker leading-none">{s.n}</span>
-                <h3 className="mt-5 text-[17px] font-semibold lowercase tracking-tight">{s.t}</h3>
-                <p className="mt-2 text-[13px] yankee-block__muted leading-relaxed lowercase">{s.d}</p>
-              </div>
-            </AnimatedSection>
-          ))}
+        <div className="mt-12 md:mt-14">
+          <AnimatedSection delay={0.08}>
+            <StudentStepsScene />
+          </AnimatedSection>
         </div>
       </div>
     </section>
@@ -461,7 +337,7 @@ const ForStudents = () => (
                   className="relative z-10 -mt-5 mr-auto max-w-[85%]"
                 >
                   <div className="yankee-chat__bubble yankee-chat__bubble--them text-[13px] md:text-[14px]">
-                    campus rooms · your crew
+                    study mode on. only crew can ring.
                   </div>
                 </motion.div>
               </div>

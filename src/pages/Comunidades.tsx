@@ -32,18 +32,18 @@ const topics = [
 const steps = [
   {
     n: "01",
-    t: "pick a crowd",
-    d: "search by interest or city. peek inside before you join. no lock in.",
+    t: "find a crowd",
+    d: "browse Crowds Connected, or explore new rooms by interest. peek before you join.",
   },
   {
     n: "02",
-    t: "get the good threads",
-    d: "yankee filters what your crowd is actually engaging with and mutes the noise.",
+    t: "peek and join",
+    d: "swipe explore cards, request private access, or join open crowds in one tap.",
   },
   {
     n: "03",
-    t: "show up in person",
-    d: "meetups appear in the crowd feed. rsvp in one tap, get a nudge before it starts.",
+    t: "open the room",
+    d: "drop into #channels, chat with the crowd, then join voice when the room is live.",
   },
 ];
 
@@ -179,7 +179,7 @@ const Communities = () => (
               <span className="font-serif-display italic font-medium">crowd different</span>
             </h2>
             <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto lg:mx-0">
-              voice replies, member moderation, capped rooms and live voice. screens from the app,
+              voice replies, member moderation, explore and live voice. the same screens from the app,
               animated.
             </p>
             <ul className="mt-8 space-y-4 max-w-md mx-auto lg:mx-0 text-left">
@@ -249,9 +249,9 @@ const Communities = () => (
             </p>
             <ul className="mt-8 space-y-3 max-w-md mx-auto lg:mx-0 text-left">
               {[
-                "swipe crowds · join or request access",
-                "chat in channels with live member counts",
-                "jump into voice with a floating pip",
+                "swipe explore cards · join or request access",
+                "chat in #channels with live member counts",
+                "join voice · pip while you keep chatting",
               ].map((item) => (
                 <li
                   key={item}
@@ -409,8 +409,8 @@ const Communities = () => (
               <span className="font-serif-display italic font-medium">many rhythms.</span>
             </h2>
             <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md">
-              every crowd is a chronological thread, a small events board and a shared memory. no
-              infinite scroll.
+              text channels, live voice rooms and the people already inside. one crowd, human-sized,
+              no infinite stranger scroll.
             </p>
             <Link
               to="/features"

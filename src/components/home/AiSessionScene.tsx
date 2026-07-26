@@ -38,8 +38,6 @@ const VoiceCoil = ({ className = "" }: { className?: string }) => (
   </svg>
 );
 
-/* ─── shared chrome ─── */
-
 const NavHeader = ({
   title,
   subtitle,
@@ -97,8 +95,6 @@ const BlueBtn = ({
     {label}
   </motion.button>
 );
-
-/* ─── 1. Choose type ─── */
 
 const ChoosePhase = () => {
   const [visible, setVisible] = useState(0);
@@ -287,8 +283,6 @@ const ChoosePhase = () => {
   );
 };
 
-/* ─── 2. New session ─── */
-
 const SessionPhase = () => {
   const goalFull = "recommend shoes for the Blue Hills trail…";
   const [typed, setTyped] = useState("");
@@ -316,8 +310,6 @@ const SessionPhase = () => {
       timers.forEach(clearTimeout);
     };
   }, []);
-
-  // Print order: Posts · Notions · Events (outline) · This Crowd only (filled)
   const sources = [
     { label: "Posts", onAt: 1, filled: false },
     { label: "Notions", onAt: 2, filled: false },
@@ -412,8 +404,6 @@ const SessionPhase = () => {
     </motion.div>
   );
 };
-
-/* ─── 3. Invite members ─── */
 
 const members = [
   {
@@ -553,8 +543,6 @@ const InvitePhase = () => {
   );
 };
 
-/* ─── 4. Permissions ─── */
-
 const perms = [
   { title: "Use AI channel", desc: "Inherited from Crowd Owner", state: "inherit" as const },
   { title: "Start session", desc: "Owner, Admin or allowed Member", state: "allow" as const },
@@ -663,8 +651,6 @@ const PermissionsPhase = () => {
     </motion.div>
   );
 };
-
-/* ─── 5. Contributions ─── */
 
 const contribs = [
   {
@@ -940,8 +926,6 @@ const ContributePhase = () => {
     </motion.div>
   );
 };
-
-/* ─── main cycling scene ─── */
 
 const phaseLabel: Record<Phase, string> = {
   choose: "choose type",

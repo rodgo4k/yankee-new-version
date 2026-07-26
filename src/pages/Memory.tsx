@@ -6,11 +6,10 @@ import AnimatedSection from "@/components/AnimatedSection";
 import FAQ from "@/components/FAQ";
 import PromoPill from "@/components/home/PromoPill";
 import MemoryHeroScene from "@/components/home/MemoryHeroScene";
-import MemorySafetyScene from "@/components/home/MemorySafetyScene";
+import MemoryVaultScene from "@/components/home/MemoryVaultScene";
 import MemoryStepsScene from "@/components/home/MemoryStepsScene";
 import rememberOffice from "@/assets/remember-office.jpg";
 import tripPhotos from "@/assets/trip-photos.png";
-import { blockCard } from "@/lib/yankeeBlock";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 
@@ -245,7 +244,7 @@ const Memory = () => (
             className="lg:col-span-7 flex justify-center lg:justify-end shrink-0"
             delay={0.1}
           >
-            <MemorySafetyScene />
+            <MemoryVaultScene />
           </AnimatedSection>
         </div>
       </div>
@@ -270,25 +269,25 @@ const Memory = () => (
             const Icon = e.icon;
             return (
               <AnimatedSection key={e.badge} delay={i * 0.08}>
-                <div className={blockCard(i, "p-6 md:p-8 flex flex-col gap-5")}>
+                <div className="yankee-surface h-full rounded-[1.5rem] bg-card p-6 md:p-8 flex flex-col gap-5 transition-transform duration-300 hover:-translate-y-1.5">
                   <div className="flex items-center justify-between gap-3">
-                    <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-[11px] lowercase">
-                      <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                    <span className="inline-flex items-center gap-2 rounded-full bg-foreground/[0.06] px-3 py-1 text-[11px] text-foreground/70 lowercase">
+                      <span className="w-1.5 h-1.5 rounded-full bg-foreground/50" />
                       {e.badge}
                     </span>
-                    <span className="yankee-block__icon w-9 h-9 rounded-full flex items-center justify-center">
+                    <span className="w-9 h-9 rounded-full bg-foreground/[0.06] flex items-center justify-center text-foreground/55">
                       <Icon size={16} />
                     </span>
                   </div>
-                  <h3 className="text-[24px] md:text-[28px] font-semibold leading-[1.08] tracking-tight lowercase">
+                  <h3 className="text-[24px] md:text-[28px] font-semibold leading-[1.08] tracking-tight lowercase text-foreground">
                     {e.title}
                   </h3>
-                  <p className="text-[14px] yankee-block__muted leading-relaxed lowercase">{e.body}</p>
+                  <p className="text-[14px] text-muted-foreground leading-relaxed lowercase">{e.body}</p>
                   <div className="flex flex-wrap gap-2">
                     {e.chips.map((c) => (
                       <span
                         key={c}
-                        className="px-3 py-1.5 rounded-full bg-white/15 text-[12px] opacity-90 lowercase"
+                        className="px-3 py-1.5 rounded-full bg-foreground/[0.06] text-[12px] text-foreground/70 lowercase"
                       >
                         {c}
                       </span>
@@ -327,14 +326,14 @@ const Memory = () => (
         <div className="mt-12 md:mt-16 grid md:grid-cols-3 gap-4">
           {blocks.map((b, i) => (
             <AnimatedSection key={b.kicker} delay={i * 0.08}>
-              <div className={blockCard(i, "p-6 md:p-7 flex flex-col gap-5")}>
-                <p className="font-serif-display italic text-[1.05rem] yankee-block__kicker lowercase leading-none">
+              <div className="yankee-surface h-full rounded-[1.5rem] bg-card p-6 md:p-7 flex flex-col gap-5 transition-transform duration-300 hover:-translate-y-1.5">
+                <p className="font-serif-display italic text-[1.05rem] text-foreground/50 lowercase leading-none">
                   {b.kicker}
                 </p>
-                <h3 className="text-[22px] md:text-[24px] font-semibold leading-[1.08] tracking-tight lowercase">
+                <h3 className="text-[22px] md:text-[24px] font-semibold leading-[1.08] tracking-tight lowercase text-foreground">
                   {b.title}
                 </h3>
-                <p className="text-[13px] md:text-[14px] yankee-block__muted leading-relaxed lowercase">{b.body}</p>
+                <p className="text-[13px] md:text-[14px] text-muted-foreground leading-relaxed lowercase">{b.body}</p>
                 <div className="yankee-chat mt-auto">
                   {b.chat.map((m, j) => (
                     <div key={j} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>

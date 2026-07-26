@@ -23,11 +23,11 @@ const GREEN = "#34c759";
 
 type Phase = "home" | "chats" | "profiles";
 const phases: Phase[] = ["home", "chats", "profiles"];
-const HOLD: Record<Phase, number> = { home: 6400, chats: 5600, profiles: 6200 };
+const HOLD: Record<Phase, number> = { home: 6000, chats: 5600, profiles: 5600 };
 const labels: Record<Phase, string> = {
-  home: "every follower, every time",
-  chats: "alerts they asked for",
-  profiles: "discovery stays outside the feed",
+  home: "surfaces the right posts",
+  chats: "keeps people close to the feed",
+  profiles: "discovery stays outside the scroll",
 };
 
 const Avatar = ({
@@ -69,7 +69,7 @@ const HomePhase = () => {
   const [step, setStep] = useState(0);
 
   useEffect(() => {
-    const timers = [1, 2, 3, 4, 5].map((n, i) => window.setTimeout(() => setStep(n), 200 + i * 380));
+    const timers = [1, 2, 3, 4].map((n, i) => window.setTimeout(() => setStep(n), 220 + i * 400));
     return () => timers.forEach(clearTimeout);
   }, []);
 
@@ -90,14 +90,12 @@ const HomePhase = () => {
         <Bell size={15} className="text-white/70" />
         <span className="relative">
           <Avatar src={self} size={26} />
-          <motion.span
-            initial={{ scale: 0 }}
-            animate={{ scale: step >= 1 ? 1 : 0 }}
+          <span
             className="absolute -bottom-0.5 -left-0.5 min-w-[12px] h-[12px] rounded-full text-[7px] font-bold text-white flex items-center justify-center px-0.5"
             style={{ background: BLUE }}
           >
             1
-          </motion.span>
+          </span>
         </span>
       </div>
 
@@ -113,12 +111,7 @@ const HomePhase = () => {
               <p className="text-[13px] font-semibold text-white truncate">Paityn Franci</p>
               <p className="text-[10px] text-white/40">Posted 24 minutes ago.</p>
             </div>
-            <motion.span
-              animate={step >= 5 ? { scale: [1, 1.2, 1] } : {}}
-              transition={{ duration: 0.45 }}
-            >
-              <Heart size={15} className="text-white/55" style={step >= 5 ? { color: "#ff453a" } : undefined} />
-            </motion.span>
+            <Heart size={15} className="text-white/55" />
             <span className="w-6 h-6 rounded-full border border-white/25 flex items-center justify-center text-white/55">
               <DollarSign size={11} />
             </span>
@@ -128,54 +121,30 @@ const HomePhase = () => {
 
         {step >= 2 && (
           <motion.div
-            initial={{ opacity: 0, y: 18, scale: 0.97 }}
+            initial={{ opacity: 0, y: 16, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.5, ease }}
+            transition={{ duration: 0.45, ease }}
             className="relative flex-1 min-h-[220px] rounded-[1.35rem] overflow-hidden"
           >
             <img src={cafeFriends} alt="" className="absolute inset-0 w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-black/75" />
-
             <div className="absolute top-2.5 left-2.5 right-2.5 flex items-start justify-between gap-2">
-              <motion.span
-                initial={{ opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="inline-flex items-center gap-1 rounded-full bg-black/45 backdrop-blur-sm px-2 py-1 text-[9px] text-white/90"
-              >
+              <span className="inline-flex items-center gap-1 rounded-full bg-black/45 backdrop-blur-sm px-2 py-1 text-[9px] text-white/90">
                 <MapPin size={10} style={{ color: BLUE }} />
                 Massachusetts | Boston
-              </motion.span>
-              <motion.span
-                initial={{ opacity: 0, x: 8 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="inline-flex items-center gap-1 rounded-full bg-black/45 backdrop-blur-sm pl-1 pr-2 py-1"
-              >
+              </span>
+              <span className="inline-flex items-center gap-1 rounded-full bg-black/45 backdrop-blur-sm pl-1 pr-2 py-1">
                 <span className="flex -space-x-1.5">
-                  {viewers.map((v, vi) => (
-                    <motion.span
-                      key={v}
-                      initial={{ opacity: 0, scale: 0.6 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.15 + vi * 0.08 }}
-                    >
-                      <Avatar src={v} size={14} />
-                    </motion.span>
+                  {viewers.map((v) => (
+                    <Avatar key={v} src={v} size={14} />
                   ))}
                 </span>
-                <motion.span
-                  key={step}
-                  initial={{ opacity: 0.5 }}
-                  animate={{ opacity: 1 }}
-                  className="text-[9px] text-white/90 font-medium tabular-nums"
-                >
-                  5.300
-                </motion.span>
-              </motion.span>
+                <span className="text-[9px] text-white/90 font-medium">5.300</span>
+              </span>
             </div>
-
             {step >= 3 && (
               <motion.div
-                initial={{ opacity: 0, y: 14 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="absolute bottom-2.5 left-2.5 right-2.5"
               >
@@ -183,11 +152,10 @@ const HomePhase = () => {
                   I never tire of admiring this view before going to work. What do you think guys?
                 </p>
                 <p className="text-[10px] text-white/55 mb-2">#let&apos;s go #excited</p>
-
                 {step >= 4 && (
                   <motion.div
-                    initial={{ opacity: 0, y: 12, scale: 0.96 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
                     className="rounded-2xl bg-black/45 backdrop-blur-md border border-white/10 px-2.5 py-2 flex items-center gap-2"
                   >
                     <Avatar src={emily} size={28} badge />
@@ -234,7 +202,7 @@ const ChatsPhase = () => {
   const [ready, setReady] = useState(0);
 
   useEffect(() => {
-    const timers = rows.map((_, i) => window.setTimeout(() => setReady(i + 1), 160 + i * 80));
+    const timers = rows.map((_, i) => window.setTimeout(() => setReady(i + 1), 180 + i * 85));
     return () => timers.forEach(clearTimeout);
   }, []);
 
@@ -268,9 +236,8 @@ const ChatsPhase = () => {
           return (
             <motion.div
               key={r.name}
-              initial={{ opacity: 0, x: -16 }}
+              initial={{ opacity: 0, x: -14 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3, ease }}
               className="flex items-center gap-2.5 py-2"
             >
               <Avatar src={faces[i]} size={40} online={r.online} />
@@ -279,14 +246,10 @@ const ChatsPhase = () => {
                 <p className="text-[11px] text-white/40 truncate">{r.preview}</p>
               </div>
               {r.unread && (
-                <motion.span
-                  initial={{ scale: 0.6 }}
-                  animate={{ scale: 1 }}
-                  className="flex items-center gap-1 shrink-0"
-                >
+                <span className="flex items-center gap-1 shrink-0">
                   <span className="text-[10px] text-white/70">{r.unread}</span>
                   <span className="w-1.5 h-1.5 rounded-full" style={{ background: BLUE }} />
-                </motion.span>
+                </span>
               )}
             </motion.div>
           );
@@ -321,20 +284,20 @@ const ProfilesPhase = () => {
   const [ready, setReady] = useState(0);
 
   useEffect(() => {
-    const timers = names.map((_, i) => window.setTimeout(() => setReady(i + 1), 120 + i * 85));
+    const timers = names.map((_, i) => window.setTimeout(() => setReady(i + 1), 140 + i * 90));
     return () => timers.forEach(clearTimeout);
   }, []);
 
   const filters = ["Posts", "Profiles", "Notions", "Crowds"] as const;
   const layout = [
-    { top: "4%", left: "6%", size: 74, drift: 5 },
-    { top: "0%", left: "56%", size: 70, drift: 7 },
-    { top: "24%", left: "60%", size: 78, drift: 4 },
-    { top: "30%", left: "4%", size: 66, drift: 6 },
-    { top: "44%", left: "32%", size: 84, drift: 5 },
-    { top: "60%", left: "60%", size: 72, drift: 8 },
-    { top: "70%", left: "8%", size: 76, drift: 4 },
-    { top: "80%", left: "40%", size: 68, drift: 6 },
+    { top: "2%", left: "8%", size: 72 },
+    { top: "0%", left: "58%", size: 68 },
+    { top: "22%", left: "62%", size: 76 },
+    { top: "28%", left: "6%", size: 64 },
+    { top: "42%", left: "34%", size: 80 },
+    { top: "58%", left: "62%", size: 70 },
+    { top: "68%", left: "10%", size: 74 },
+    { top: "78%", left: "42%", size: 66 },
   ];
 
   return (
@@ -356,7 +319,7 @@ const ProfilesPhase = () => {
             style={{
               background: f === "Profiles" ? "#2a2a2c" : "#1c1c1e",
               color: f === "Profiles" ? "#fff" : "rgba(255,255,255,0.55)",
-              border: f === "Profiles" ? "1px solid rgba(255,255,255,0.22)" : "1px solid transparent",
+              border: f === "Profiles" ? "1px solid rgba(255,255,255,0.2)" : "1px solid transparent",
             }}
           >
             {f}
@@ -371,26 +334,13 @@ const ProfilesPhase = () => {
           return (
             <motion.div
               key={name + i}
-              initial={{ opacity: 0, scale: 0.7, y: 16 }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-                y: [0, -pos.drift, 0],
-              }}
-              transition={{
-                opacity: { duration: 0.35, ease },
-                scale: { duration: 0.35, ease },
-                y: { duration: 3.2 + i * 0.2, repeat: Infinity, ease: "easeInOut", delay: i * 0.1 },
-              }}
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.35, ease }}
               className="absolute flex flex-col items-center text-center"
-              style={{ top: pos.top, left: pos.left, width: pos.size + 36 }}
+              style={{ top: pos.top, left: pos.left, width: pos.size + 28 }}
             >
-              <motion.div
-                whileInView={{ scale: [1, 1.03, 1] }}
-                transition={{ duration: 2.8, repeat: Infinity, delay: i * 0.15 }}
-              >
-                <Avatar src={faces[i]} size={pos.size} />
-              </motion.div>
+              <Avatar src={faces[i]} size={pos.size} />
               <p className="mt-1.5 text-[10px] font-semibold text-white leading-tight">{name}</p>
               <p className="text-[8px] text-white/40">{handles[i]}</p>
             </motion.div>
@@ -402,7 +352,7 @@ const ProfilesPhase = () => {
   );
 };
 
-const ReachPromiseScene = ({ className = "" }: { className?: string }) => {
+const FeedDoesScene = ({ className = "" }: { className?: string }) => {
   const [i, setI] = useState(0);
   const phase = phases[i];
 
@@ -413,7 +363,7 @@ const ReachPromiseScene = ({ className = "" }: { className?: string }) => {
 
   return (
     <div className={`w-[280px] sm:w-[300px] shrink-0 ${className}`}>
-      <AiPhoneShell className="!w-full !max-w-none" rotate={-1.5}>
+      <AiPhoneShell className="!w-full !max-w-none" rotate={1.5}>
         <div className="absolute top-11 right-4 z-30 flex gap-1">
           {phases.map((p, idx) => (
             <motion.span
@@ -439,4 +389,4 @@ const ReachPromiseScene = ({ className = "" }: { className?: string }) => {
   );
 };
 
-export default ReachPromiseScene;
+export default FeedDoesScene;

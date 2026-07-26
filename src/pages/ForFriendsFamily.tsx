@@ -1,4 +1,4 @@
-import { ArrowRight, Heart, Phone, Moon, Shield, Users } from "lucide-react";
+import { ArrowRight, Users } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
@@ -6,94 +6,15 @@ import AnimatedSection from "@/components/AnimatedSection";
 import FAQ from "@/components/FAQ";
 import PromoPill from "@/components/home/PromoPill";
 import FamilyHeroScene from "@/components/home/FamilyHeroScene";
+import {
+  FamilyIdeaScene,
+  FamilyMeansScene,
+  FamilyStepsScene,
+} from "@/components/home/FamilyFeatureScenes";
 import videoCall from "@/assets/yankee/video-call.png";
 import cafeFriends from "@/assets/cafe-friends.jpg";
-import { blockCard } from "@/lib/yankeeBlock";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
-
-const principles = [
-  {
-    icon: Shield,
-    title: "private by default",
-    text: "profiles start closed. every follow and invite is approved by you. no strangers, no discovery feed.",
-  },
-  {
-    icon: Heart,
-    title: "only your people",
-    text: "no public metrics, no like counts, no pressure to perform. just the people you actually love.",
-  },
-  {
-    icon: Phone,
-    title: "chat and calls together",
-    text: "threads, albums, voice and video in one calm place. stop jumping between five apps.",
-  },
-  {
-    icon: Moon,
-    title: "quiet when you are",
-    text: "quiet hours on by default. family can still reach you. everything else waits until morning.",
-  },
-];
-
-const blocks = [
-  {
-    kicker: "only who you chose",
-    title: (
-      <>
-        a private space for <span className="font-serif-display italic font-medium">your people</span>
-      </>
-    ),
-    body: "no public feeds, no suggested accounts, no ads. every circle stays closed to everyone else.",
-    chat: [
-      { from: "you" as const, text: "did mom see the hike photos?" },
-      { from: "them" as const, text: "yes. saved to the family album." },
-    ],
-  },
-  {
-    kicker: "real conversations",
-    title: (
-      <>
-        groups and calls, <span className="font-serif-display italic font-medium">no performance</span>
-      </>
-    ),
-    body: "one thread for each side of the family. voice and video built in. no streaks, no pressure to post.",
-    chat: [
-      { from: "them" as const, text: "cousins group call at 7?" },
-      { from: "you" as const, text: "i'm in. bring the pizza story." },
-    ],
-  },
-  {
-    kicker: "quiet by design",
-    title: (
-      <>
-        notifications that <span className="font-serif-display italic font-medium">know their place</span>
-      </>
-    ),
-    body: "important people can still reach you. the rest waits for the morning digest.",
-    chat: [
-      { from: "them" as const, text: "quiet mode on. only family calls ring." },
-      { from: "you" as const, text: "perfect. finally a real dinner." },
-    ],
-  },
-];
-
-const steps = [
-  {
-    n: "01",
-    t: "create your circle",
-    d: "start a private group for your family, your closest friends, or both. no one else can find it.",
-  },
-  {
-    n: "02",
-    t: "invite your people",
-    d: "send a simple link. they join with their phone number. no public profile needed.",
-  },
-  {
-    n: "03",
-    t: "chat, share, call",
-    d: "post updates, share albums, start a group call. everything stays inside your circle.",
-  },
-];
 
 const faqs = [
   {
@@ -193,21 +114,8 @@ const ForFriendsFamily = () => (
           </h2>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {principles.map((p, i) => {
-            const Icon = p.icon;
-            return (
-              <AnimatedSection key={p.title} delay={i * 0.06}>
-                <div className={blockCard(i, "p-6")}>
-                  <div className="yankee-block__icon w-10 h-10 rounded-full flex items-center justify-center mb-5">
-                    <Icon size={18} />
-                  </div>
-                  <h3 className="text-[15px] font-semibold lowercase tracking-tight">{p.title}</h3>
-                  <p className="mt-3 text-[13px] yankee-block__muted leading-relaxed lowercase">{p.text}</p>
-                </div>
-              </AnimatedSection>
-            );
-          })}
+        <div className="mt-12 md:mt-14">
+          <FamilyIdeaScene />
         </div>
       </div>
     </section>
@@ -215,7 +123,7 @@ const ForFriendsFamily = () => (
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
-        <AnimatedSection className="max-w-2xl mx-auto text-center">
+        <AnimatedSection className="max-w-2xl mx-auto text-center mb-12 md:mb-16">
           <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">what it does</p>
           <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
             what yankee does{" "}
@@ -223,32 +131,9 @@ const ForFriendsFamily = () => (
           </h2>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-16 grid md:grid-cols-3 gap-4">
-          {blocks.map((b, i) => (
-            <AnimatedSection key={b.kicker} delay={i * 0.08}>
-              <div className={blockCard(i, "p-6 md:p-7 flex flex-col gap-5")}>
-                <p className="font-serif-display italic text-[1.05rem] yankee-block__kicker lowercase leading-none">
-                  {b.kicker}
-                </p>
-                <h3 className="text-[22px] md:text-[24px] font-semibold leading-[1.08] tracking-tight lowercase">
-                  {b.title}
-                </h3>
-                <p className="text-[13px] md:text-[14px] yankee-block__muted leading-relaxed lowercase">{b.body}</p>
-                <div className="yankee-chat mt-auto">
-                  {b.chat.map((m, j) => (
-                    <div key={j} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>
-                      <span
-                        className={`yankee-chat__bubble ${ m.from === "you" ? "yankee-chat__bubble--you" : "yankee-chat__bubble--them" }`}
-                      >
-                        {m.text}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
+        <AnimatedSection delay={0.08}>
+          <FamilyMeansScene />
+        </AnimatedSection>
       </div>
     </section>
 
@@ -322,16 +207,10 @@ const ForFriendsFamily = () => (
           </h2>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-14 grid md:grid-cols-3 gap-4">
-          {steps.map((s, i) => (
-            <AnimatedSection key={s.n} delay={i * 0.08}>
-              <div className={blockCard(i, "p-6 flex flex-col")}>
-                <span className="font-serif-display italic text-[1.5rem] yankee-block__kicker leading-none">{s.n}</span>
-                <h3 className="mt-5 text-[17px] font-semibold lowercase tracking-tight">{s.t}</h3>
-                <p className="mt-2 text-[13px] yankee-block__muted leading-relaxed lowercase">{s.d}</p>
-              </div>
-            </AnimatedSection>
-          ))}
+        <div className="mt-12 md:mt-14">
+          <AnimatedSection delay={0.08}>
+            <FamilyStepsScene />
+          </AnimatedSection>
         </div>
       </div>
     </section>

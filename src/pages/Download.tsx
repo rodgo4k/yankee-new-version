@@ -1,29 +1,11 @@
-import { ArrowRight, Apple, QrCode, Shield, WifiOff, Sparkles } from "lucide-react";
+import { ArrowRight, Apple, QrCode } from "lucide-react";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import AnimatedSection from "@/components/AnimatedSection";
 import DownloadDesktopHero from "@/components/home/DownloadDesktopHero";
+import { DownloadReasonsScene } from "@/components/home/DownloadFeatureScenes";
 import { APP_STORE_URL } from "@/lib/appStore";
 import { YANKEE_EMAIL, YANKEE_MAILTO } from "@/lib/email";
-import { blockCard } from "@/lib/yankeeBlock";
-
-const reasons = [
-  {
-    icon: Shield,
-    title: "private by default",
-    desc: "your messages and memory stay encrypted on your device.",
-  },
-  {
-    icon: WifiOff,
-    title: "works offline",
-    desc: "you can read your feed and drafts even when the signal drops.",
-  },
-  {
-    icon: Sparkles,
-    title: "no ads, ever",
-    desc: "we won't sell attention. the app is the product.",
-  },
-];
 
 const steps = [
   { n: "01", t: "download for iOS", d: "grab yankee on the app store." },
@@ -104,22 +86,7 @@ const Download = () => (
           </h2>
         </AnimatedSection>
 
-        <div className="grid sm:grid-cols-3 gap-4">
-          {reasons.map((r, i) => {
-            const Icon = r.icon;
-            return (
-              <AnimatedSection key={r.title} delay={i * 0.06}>
-                <div className={blockCard(i, "p-6")}>
-                  <div className="yankee-block__icon w-9 h-9 rounded-full flex items-center justify-center mb-4">
-                    <Icon size={16} />
-                  </div>
-                  <h3 className="text-[16px] font-semibold lowercase tracking-tight">{r.title}</h3>
-                  <p className="mt-2 text-[13px] yankee-block__muted leading-relaxed lowercase">{r.desc}</p>
-                </div>
-              </AnimatedSection>
-            );
-          })}
-        </div>
+        <DownloadReasonsScene />
       </div>
     </section>
 

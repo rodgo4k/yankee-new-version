@@ -77,7 +77,7 @@ const NotifStepsScene = () => {
 
   return (
     <div className="yankee-surface rounded-[1.75rem] md:rounded-[2rem] bg-card overflow-hidden">
-      {/* day strip */}
+      {}
       <div className="relative px-5 md:px-8 pt-6 md:pt-8 pb-4">
         <div className="flex items-center justify-between mb-3">
           <p className="text-[12px] text-foreground/45 lowercase">your day · notifications</p>
@@ -85,9 +85,9 @@ const NotifStepsScene = () => {
         </div>
 
         <div className="relative h-14 md:h-16 rounded-2xl bg-foreground/[0.04] border border-foreground/8 overflow-hidden">
-          {/* daytime */}
+          {}
           <div className="absolute inset-y-0 left-0 w-[55%] bg-folk-surface-warm/80" />
-          {/* quiet hours arc */}
+          {}
           <motion.div
             className="absolute inset-y-0 right-0 flex items-center justify-center"
             animate={{
@@ -105,7 +105,7 @@ const NotifStepsScene = () => {
             </div>
           </motion.div>
 
-          {/* digest pin */}
+          {}
           <AnimatePresence>
             {digestReady && (
               <motion.div
@@ -123,7 +123,7 @@ const NotifStepsScene = () => {
         </div>
       </div>
 
-      {/* stage */}
+      {}
       <div className="px-5 md:px-8 pb-6 md:pb-8 min-h-[240px] md:min-h-[260px]">
         <AnimatePresence mode="wait">
           {active === 0 && (
@@ -267,7 +267,7 @@ const NotifStepsScene = () => {
         </AnimatePresence>
       </div>
 
-      {/* step switcher */}
+      {}
       <div className="border-t border-foreground/8 px-4 md:px-6 py-4 flex flex-col sm:flex-row gap-2 sm:gap-3 sm:items-stretch">
         {steps.map((s, i) => {
           const on = i === active;

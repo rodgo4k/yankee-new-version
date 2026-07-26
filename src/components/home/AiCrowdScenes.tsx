@@ -161,7 +161,6 @@ const Composer = ({
   </motion.div>
 );
 
-/** Collaborative prompt card in the channel */
 export const CollabPromptPhase = () => {
   const [step, setStep] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -357,7 +356,6 @@ export const CollabPromptPhase = () => {
   );
 };
 
-/** Result after the crowd ran the prompt */
 export const ResultPhase = () => {
   const [step, setStep] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -554,7 +552,6 @@ export const ResultPhase = () => {
   );
 };
 
-/** Slash commands sheet — matches app COMMANDS menu */
 export const CommandsPhase = () => {
   const [sheetIn, setSheetIn] = useState(false);
   const [active, setActive] = useState(0);
@@ -565,7 +562,6 @@ export const CommandsPhase = () => {
       window.setTimeout(() => setSheetIn(true), 400),
       window.setTimeout(() => setTypedSlash("/"), 200),
     ];
-    // highlight moves down then settles on /prompt
     [0, 1, 2, 3, 4, 0].forEach((idx, i) => {
       timers.push(window.setTimeout(() => setActive(idx), 700 + i * 420));
     });
@@ -628,7 +624,7 @@ export const CommandsPhase = () => {
       />
 
       <div className="flex-1 min-h-0 relative overflow-hidden">
-        {/* dimmed chat backdrop */}
+        {}
         <motion.div
           animate={{ opacity: sheetIn ? 0.45 : 0 }}
           className="absolute inset-0 bg-black/50 z-10 pointer-events-none"

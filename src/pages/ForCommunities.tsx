@@ -1,4 +1,4 @@
-import { ArrowRight, Users, Split, MapPin, Shield, Calendar } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
@@ -7,97 +7,15 @@ import FAQ from "@/components/FAQ";
 import PromoPill from "@/components/home/PromoPill";
 import CommunityOrgHeroScene from "@/components/home/CommunityOrgHeroScene";
 import CrowdsBento from "@/components/home/CrowdsBento";
+import {
+  CommunityIdeaScene,
+  CommunityMeansScene,
+  CommunityStepsScene,
+} from "@/components/home/CommunityFeatureScenes";
 import crowdsHome from "@/assets/yankee/crowds-home.png";
 import studentsHero from "@/assets/students-hero.jpg";
-import { blockCard } from "@/lib/yankeeBlock";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
-
-const principles = [
-  {
-    icon: Users,
-    title: "capped by design",
-    text: "every crowd stays at a size that keeps conversations real. when it fills, yankee suggests a natural split.",
-  },
-  {
-    icon: Shield,
-    title: "owned by members",
-    text: "volunteer mods from the crowd set the tone. reports are private and handled the same day.",
-  },
-  {
-    icon: Calendar,
-    title: "meetups built in",
-    text: "photo walks, book clubs, dinners. one tap rsvp and a reminder before you leave.",
-  },
-  {
-    icon: Split,
-    title: "split, don't sprawl",
-    text: "when a room grows, it becomes two rooms. nobody gets lost in a stadium chat.",
-  },
-];
-
-const blocks = [
-  {
-    kicker: "capped by design",
-    title: (
-      <>
-        rooms that stay at the{" "}
-        <span className="font-serif-display italic font-medium">right size</span>
-      </>
-    ),
-    body: "every crowd caps at a number that keeps conversations real. when it fills, yankee suggests a natural split.",
-    chat: [
-      { from: "you" as const, text: "the film crowd is getting big" },
-      { from: "them" as const, text: "it split into film nyc and film london." },
-    ],
-  },
-  {
-    kicker: "owned by members",
-    title: (
-      <>
-        moderation by the{" "}
-        <span className="font-serif-display italic font-medium">people who show up</span>
-      </>
-    ),
-    body: "volunteer mods from the crowd set the tone. reports are private, handled fast, never by a faceless policy team.",
-    chat: [
-      { from: "you" as const, text: "someone is off topic in running" },
-      { from: "them" as const, text: "a mod from the crowd replied in 12m." },
-    ],
-  },
-  {
-    kicker: "from thread to table",
-    title: (
-      <>
-        meetups that{" "}
-        <span className="font-serif-display italic font-medium">actually happen</span>
-      </>
-    ),
-    body: "every crowd has a quiet calendar. one tap rsvp and a reminder before you leave.",
-    chat: [
-      { from: "them" as const, text: "photo walk saturday. 12 going." },
-      { from: "you" as const, text: "count me in" },
-    ],
-  },
-];
-
-const steps = [
-  {
-    n: "01",
-    t: "start your crowd",
-    d: "pick a topic, a city, or a vibe. set the cap and the tone. your room is private until you invite people.",
-  },
-  {
-    n: "02",
-    t: "invite your people",
-    d: "send a simple link. they join with their phone number. no public profile needed.",
-  },
-  {
-    n: "03",
-    t: "meet, chat, repeat",
-    d: "host threads and events. when the room grows, split it naturally so conversations stay close.",
-  },
-];
 
 const faqs = [
   {
@@ -201,21 +119,8 @@ const ForCommunities = () => (
           </h2>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {principles.map((p, i) => {
-            const Icon = p.icon;
-            return (
-              <AnimatedSection key={p.title} delay={i * 0.06}>
-                <div className={blockCard(i, "p-6")}>
-                  <div className="yankee-block__icon w-10 h-10 rounded-full flex items-center justify-center mb-5">
-                    <Icon size={18} />
-                  </div>
-                  <h3 className="text-[15px] font-semibold lowercase tracking-tight">{p.title}</h3>
-                  <p className="mt-3 text-[13px] yankee-block__muted leading-relaxed lowercase">{p.text}</p>
-                </div>
-              </AnimatedSection>
-            );
-          })}
+        <div className="mt-12 md:mt-14">
+          <CommunityIdeaScene />
         </div>
       </div>
     </section>
@@ -242,7 +147,7 @@ const ForCommunities = () => (
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
-        <AnimatedSection className="max-w-2xl mx-auto text-center">
+        <AnimatedSection className="max-w-2xl mx-auto text-center mb-12 md:mb-16">
           <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">what it does</p>
           <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
             what yankee does{" "}
@@ -250,32 +155,9 @@ const ForCommunities = () => (
           </h2>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-16 grid md:grid-cols-3 gap-4">
-          {blocks.map((b, i) => (
-            <AnimatedSection key={b.kicker} delay={i * 0.08}>
-              <div className={blockCard(i, "p-6 md:p-7 flex flex-col gap-5")}>
-                <p className="font-serif-display italic text-[1.05rem] yankee-block__kicker lowercase leading-none">
-                  {b.kicker}
-                </p>
-                <h3 className="text-[22px] md:text-[24px] font-semibold leading-[1.08] tracking-tight lowercase">
-                  {b.title}
-                </h3>
-                <p className="text-[13px] md:text-[14px] yankee-block__muted leading-relaxed lowercase">{b.body}</p>
-                <div className="yankee-chat mt-auto">
-                  {b.chat.map((m, j) => (
-                    <div key={j} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>
-                      <span
-                        className={`yankee-chat__bubble ${ m.from === "you" ? "yankee-chat__bubble--you" : "yankee-chat__bubble--them" }`}
-                      >
-                        {m.text}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
+        <AnimatedSection delay={0.08}>
+          <CommunityMeansScene />
+        </AnimatedSection>
       </div>
     </section>
 
@@ -355,16 +237,10 @@ const ForCommunities = () => (
           </h2>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-14 grid md:grid-cols-3 gap-4">
-          {steps.map((s, i) => (
-            <AnimatedSection key={s.n} delay={i * 0.08}>
-              <div className={blockCard(i, "p-6 flex flex-col")}>
-                <span className="font-serif-display italic text-[1.5rem] yankee-block__kicker leading-none">{s.n}</span>
-                <h3 className="mt-5 text-[17px] font-semibold lowercase tracking-tight">{s.t}</h3>
-                <p className="mt-2 text-[13px] yankee-block__muted leading-relaxed lowercase">{s.d}</p>
-              </div>
-            </AnimatedSection>
-          ))}
+        <div className="mt-12 md:mt-14">
+          <AnimatedSection delay={0.08}>
+            <CommunityStepsScene />
+          </AnimatedSection>
         </div>
       </div>
     </section>

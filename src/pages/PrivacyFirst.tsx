@@ -1,4 +1,4 @@
-import { ArrowRight, Lock, EyeOff, Trash2, Shield, KeyRound, MapPin, FileText } from "lucide-react";
+import { ArrowRight, Lock, Shield, Trash2, MapPin, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
@@ -6,76 +6,16 @@ import AnimatedSection from "@/components/AnimatedSection";
 import FAQ from "@/components/FAQ";
 import PromoPill from "@/components/home/PromoPill";
 import PrivacyHeroScene from "@/components/home/PrivacyHeroScene";
+import {
+  PrivacyStanceScene,
+  PrivacyMeansScene,
+  PrivacyGlossaryScene,
+  PrivacyLayersScene,
+} from "@/components/home/PrivacyFeatureScenes";
 import tripPhotos from "@/assets/trip-photos.png";
 import rememberOffice from "@/assets/remember-office.jpg";
-import { blockCard } from "@/lib/yankeeBlock";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
-
-const principles = [
-  {
-    icon: Lock,
-    title: "yours alone",
-    text: "never sold, never used to train ai. your writing stays your writing.",
-  },
-  {
-    icon: EyeOff,
-    title: "private + encrypted",
-    text: "feed, memory and dms live encrypted. plaintext stays on your devices.",
-  },
-  {
-    icon: KeyRound,
-    title: "your keys, not ours",
-    text: "decryption keys live with you. even we only hold ciphertext blobs.",
-  },
-  {
-    icon: Trash2,
-    title: "gone when you say so",
-    text: "you can delete your account any time. memory, messages and history get wiped.",
-  },
-];
-
-const blocks = [
-  {
-    kicker: "end to end",
-    title: (
-      <>
-        scrambled on your phone. <span className="font-serif-display italic font-medium">readable only there.</span>
-      </>
-    ),
-    body: "messages and calls are encrypted on your device and only decrypted on the recipient's. yankee cannot read them, even if asked.",
-    chat: [
-      { from: "you" as const, text: "can yankee read my dms?" },
-      { from: "them" as const, text: "no. ciphertext only on our side, by design." },
-    ],
-  },
-  {
-    kicker: "zero trackers",
-    title: (
-      <>
-        no ad sdks. <span className="font-serif-display italic font-medium">no session replay.</span>
-      </>
-    ),
-    body: "if we do not ship a tracker, we cannot leak it. yankee is funded by people, not by selling attention.",
-    chat: [
-      { from: "them" as const, text: "third party analytics: none." },
-      { from: "you" as const, text: "good. keep it that way." },
-    ],
-  },
-  {
-    kicker: "local first",
-    title: (
-      <>
-        your device holds the <span className="font-serif-display italic font-medium">primary copy.</span>
-      </>
-    ),
-    body: "the cloud is an encrypted backup you can pause or turn off. nothing trains a model on your posts.",
-    chat: [
-      { from: "you" as const, text: "pause cloud backup" },
-      { from: "them" as const, text: "paused. everything stays on device." },
-    ],
-  },
-];
 
 const glossary = [
   {
@@ -119,24 +59,6 @@ const glossary = [
         def: "we publish what we receive, what we can hand over, and what we cannot. usually almost nothing.",
       },
     ],
-  },
-];
-
-const steps = [
-  {
-    n: "01",
-    t: "encrypt on device",
-    d: "drafts, dms and memory are locked before they leave your phone.",
-  },
-  {
-    n: "02",
-    t: "store only ciphertext",
-    d: "if you enable backup, yankee servers hold blobs we cannot read.",
-  },
-  {
-    n: "03",
-    t: "delete for real",
-    d: "when you wipe an account, plaintext and backups expire. no hidden copies.",
   },
 ];
 
@@ -244,21 +166,8 @@ const PrivacyFirst = () => (
           </h2>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {principles.map((p, i) => {
-            const Icon = p.icon;
-            return (
-              <AnimatedSection key={p.title} delay={i * 0.06}>
-                <div className={blockCard(i, "p-6")}>
-                  <div className="yankee-block__icon w-10 h-10 rounded-full flex items-center justify-center mb-5">
-                    <Icon size={18} />
-                  </div>
-                  <h3 className="text-[15px] font-semibold lowercase tracking-tight">{p.title}</h3>
-                  <p className="mt-3 text-[13px] yankee-block__muted leading-relaxed lowercase">{p.text}</p>
-                </div>
-              </AnimatedSection>
-            );
-          })}
+        <div className="mt-12 md:mt-14">
+          <PrivacyStanceScene />
         </div>
       </div>
     </section>
@@ -274,31 +183,10 @@ const PrivacyFirst = () => (
           </h2>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-16 grid md:grid-cols-3 gap-4">
-          {blocks.map((b, i) => (
-            <AnimatedSection key={b.kicker} delay={i * 0.08}>
-              <div className={blockCard(i, "p-6 md:p-7 flex flex-col gap-5")}>
-                <p className="font-serif-display italic text-[1.05rem] yankee-block__kicker lowercase leading-none">
-                  {b.kicker}
-                </p>
-                <h3 className="text-[22px] md:text-[24px] font-semibold leading-[1.08] tracking-tight lowercase">
-                  {b.title}
-                </h3>
-                <p className="text-[13px] md:text-[14px] yankee-block__muted leading-relaxed lowercase">{b.body}</p>
-                <div className="yankee-chat mt-auto">
-                  {b.chat.map((m, j) => (
-                    <div key={j} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>
-                      <span
-                        className={`yankee-chat__bubble ${ m.from === "you" ? "yankee-chat__bubble--you" : "yankee-chat__bubble--them" }`}
-                      >
-                        {m.text}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </AnimatedSection>
-          ))}
+        <div className="mt-12 md:mt-16">
+          <AnimatedSection>
+            <PrivacyMeansScene />
+          </AnimatedSection>
         </div>
       </div>
     </section>
@@ -321,15 +209,8 @@ const PrivacyFirst = () => (
             <AnimatedSection>
               <p className="text-[13px] font-serif-display italic text-foreground/45 lowercase mb-4">{cat.name}</p>
             </AnimatedSection>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {cat.items.map((item, i) => (
-                <AnimatedSection key={item.term} delay={i * 0.05}>
-                  <div className={blockCard(i, "p-5 md:p-6 flex flex-col")}>
-                    <h3 className="text-[15px] font-semibold lowercase tracking-tight leading-snug">{item.term}</h3>
-                    <p className="mt-3 text-[13px] yankee-block__muted leading-relaxed lowercase flex-1">{item.def}</p>
-                  </div>
-                </AnimatedSection>
-              ))}
+            <div className="mt-4">
+              <PrivacyGlossaryScene items={cat.items} />
             </div>
           </div>
         ))}
@@ -346,16 +227,10 @@ const PrivacyFirst = () => (
           </h2>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-14 grid md:grid-cols-3 gap-4">
-          {steps.map((s, i) => (
-            <AnimatedSection key={s.n} delay={i * 0.08}>
-              <div className={blockCard(i, "p-6 flex flex-col")}>
-                <span className="font-serif-display italic text-[1.5rem] yankee-block__kicker leading-none">{s.n}</span>
-                <h3 className="mt-5 text-[17px] font-semibold lowercase tracking-tight">{s.t}</h3>
-                <p className="mt-2 text-[13px] yankee-block__muted leading-relaxed lowercase">{s.d}</p>
-              </div>
-            </AnimatedSection>
-          ))}
+        <div className="mt-12 md:mt-14">
+          <AnimatedSection>
+            <PrivacyLayersScene />
+          </AnimatedSection>
         </div>
       </div>
     </section>

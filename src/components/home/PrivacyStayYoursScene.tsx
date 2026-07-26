@@ -1,307 +1,354 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, EyeOff, Lock, Shield, Trash2 } from "lucide-react";
+import { ArrowLeft, Bookmark, Film, Image as ImageIcon, MoreVertical, Pencil, Plus } from "lucide-react";
 import AiPhoneShell from "@/components/home/AiPhoneShell";
+import { faceFor, uniqueFacesFor } from "@/lib/crowdFaces";
+import hillsSunset from "@/assets/hills-sunset.jpg";
+import cafeFriends from "@/assets/cafe-friends.jpg";
+import filmNight from "@/assets/film-night.png";
+import liveThread from "@/assets/live-thread.png";
+import tripPhotos from "@/assets/trip-photos.png";
+import studentsHero from "@/assets/students-hero.jpg";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
+const PINK_BG = "#f4c4d4";
+const INK = "#2a1f1c";
+const MUTED = "#6b5a56";
 const BLUE = "#2f6bff";
-const GREEN = "#34c759";
-const RED = "#8b2e2e";
 
-type Phase = "alone" | "encrypt" | "wipe";
-
-const phases: Phase[] = ["alone", "encrypt", "wipe"];
-const HOLD: Record<Phase, number> = { alone: 5200, encrypt: 5600, wipe: 5600 };
+type Phase = "view" | "edit";
+const phases: Phase[] = ["view", "edit"];
+const HOLD: Record<Phase, number> = { view: 6200, edit: 6200 };
 const labels: Record<Phase, string> = {
-  alone: "yours alone",
-  encrypt: "private + encrypted",
-  wipe: "gone in seconds",
+  view: "your profile, your rules",
+  edit: "change what they see",
 };
 
-/* ─── 1. Yours alone ─── */
+const CircleBtn = ({ children }: { children: React.ReactNode }) => (
+  <span className="w-8 h-8 rounded-full bg-white/55 backdrop-blur-sm flex items-center justify-center text-[#3a2a28] shadow-sm">
+    {children}
+  </span>
+);
 
-const AlonePhase = () => {
-  const [shown, setShown] = useState(0);
+const Avatar = ({ src, size }: { src: string; size: number }) => (
+  <span
+    className="relative inline-flex shrink-0 rounded-full overflow-hidden bg-white/40"
+    style={{ width: size, height: size, minWidth: size }}
+  >
+    <img src={src} alt="" className="absolute inset-0 w-full h-full object-cover" />
+  </span>
+);
+
+const ViewPhase = () => {
+  const sarah = faceFor("Sarah Moriaty");
+  const [connA, connB] = uniqueFacesFor(["Chris Parker", "Maya Reed"]);
+  const [admA, admB] = uniqueFacesFor(["Ethan Miller", "Emily Clark"]);
+  const [ready, setReady] = useState(0);
 
   useEffect(() => {
-    const timers = [
-      window.setTimeout(() => setShown(1), 400),
-      window.setTimeout(() => setShown(2), 1200),
-      window.setTimeout(() => setShown(3), 2200),
-    ];
+    const timers = [1, 2, 3, 4].map((n, i) => window.setTimeout(() => setReady(n), 180 + i * 220));
     return () => timers.forEach(clearTimeout);
   }, []);
 
-  const items = [
-    { title: "Never sold", sub: "your data is not a product" },
-    { title: "Never trains AI", sub: "models never see your posts" },
-    { title: "Yours alone", sub: "private by design, always" },
+  const stories = [
+    { label: "Dailys", src: hillsSunset },
+    { label: "Me", src: sarah },
+    { label: "New", src: null as string | null },
+    { label: "Pets", src: liveThread },
+    { label: "Makes", src: filmNight },
+  ];
+
+  const grid = [filmNight, studentsHero, cafeFriends, tripPhotos, hillsSunset, liveThread];
+
+  return (
+    <motion.div
+      key="view"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -8 }}
+      className="relative flex flex-col h-full min-h-0 overflow-hidden"
+      style={{ background: PINK_BG }}
+    >
+      <div className="flex items-center justify-between px-3.5 pt-0.5 mb-2 shrink-0">
+        <CircleBtn>
+          <ArrowLeft size={14} strokeWidth={2.2} />
+        </CircleBtn>
+        <CircleBtn>
+          <MoreVertical size={14} />
+        </CircleBtn>
+      </div>
+
+      <div className="flex flex-col items-center px-4 shrink-0">
+        {ready >= 1 && (
+          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}>
+            <Avatar src={sarah} size={78} />
+          </motion.div>
+        )}
+        {ready >= 2 && (
+          <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="mt-2 text-center">
+            <p className="text-[15px] font-semibold" style={{ color: INK }}>
+              Sarah Moriaty
+            </p>
+            <p className="text-[10px] mt-0.5" style={{ color: MUTED }}>
+              @moriatyyi · She/her
+            </p>
+            <p className="text-[11px] mt-1.5 leading-snug max-w-[200px]" style={{ color: INK }}>
+              Coffee, chaos &amp; creativity. A heart with Wi-Fi.
+            </p>
+          </motion.div>
+        )}
+      </div>
+
+      {ready >= 3 && (
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mt-3 px-4 flex justify-between gap-2 shrink-0"
+        >
+          {[
+            {
+              label: "Connections",
+              node: (
+                <span className="inline-flex items-center rounded-full bg-white/70 pl-1 pr-1.5 py-1 gap-0.5">
+                  <Avatar src={connA} size={18} />
+                  <Avatar src={connB} size={18} />
+                  <span className="ml-0.5 text-[9px] font-semibold rounded-full bg-[#f8d4e0] px-1.5 py-0.5" style={{ color: INK }}>
+                    +198
+                  </span>
+                </span>
+              ),
+            },
+            {
+              label: "Hearts",
+              node: (
+                <span className="inline-flex items-center justify-center rounded-full bg-white/70 px-3 py-1.5 text-[11px] font-semibold" style={{ color: INK }}>
+                  25k
+                </span>
+              ),
+            },
+            {
+              label: "Admirers",
+              node: (
+                <span className="inline-flex items-center rounded-full bg-white/70 pl-1 pr-1.5 py-1 gap-0.5">
+                  <Avatar src={admA} size={18} />
+                  <Avatar src={admB} size={18} />
+                  <span className="ml-0.5 text-[9px] font-semibold rounded-full bg-[#f8d4e0] px-1.5 py-0.5" style={{ color: INK }}>
+                    237k
+                  </span>
+                </span>
+              ),
+            },
+          ].map((s) => (
+            <div key={s.label} className="flex-1 flex flex-col items-center gap-1 min-w-0">
+              {s.node}
+              <p className="text-[9px]" style={{ color: MUTED }}>
+                {s.label}
+              </p>
+            </div>
+          ))}
+        </motion.div>
+      )}
+
+      {ready >= 4 && (
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mt-3 px-3 flex gap-2.5 overflow-hidden shrink-0"
+        >
+          {stories.map((st) => (
+            <div key={st.label} className="flex flex-col items-center gap-1 shrink-0 w-[46px]">
+              {st.src ? (
+                <Avatar src={st.src} size={42} />
+              ) : (
+                <span className="w-[42px] h-[42px] rounded-full bg-white/70 flex items-center justify-center" style={{ color: INK }}>
+                  <Plus size={16} />
+                </span>
+              )}
+              <p className="text-[8px] truncate w-full text-center" style={{ color: MUTED }}>
+                {st.label}
+              </p>
+            </div>
+          ))}
+        </motion.div>
+      )}
+
+      <div className="relative mt-3 flex-1 min-h-0">
+        <div className="absolute left-1/2 -translate-x-1/2 top-0 z-10 -translate-y-1/2">
+          <div className="flex items-center gap-3 rounded-full bg-white/55 backdrop-blur-md border border-white/50 px-3 py-1.5 shadow-sm">
+            <ImageIcon size={13} style={{ color: INK }} />
+            <Film size={13} className="opacity-45" style={{ color: INK }} />
+            <Bookmark size={13} className="opacity-45" style={{ color: INK }} />
+          </div>
+        </div>
+        <div className="grid grid-cols-3 gap-[2px] h-full overflow-hidden pt-3">
+          {grid.map((src, i) => (
+            <motion.img
+              key={`${src}-${i}`}
+              src={src}
+              alt=""
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.05 * i }}
+              className="w-full h-full object-cover min-h-[72px]"
+            />
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const EditPhase = () => {
+  const sophia = faceFor("Sophia Carter");
+  const [layout, setLayout] = useState<"Vertical" | "Horizontal">("Horizontal");
+  const [colorIdx, setColorIdx] = useState(5);
+
+  useEffect(() => {
+    const t1 = window.setTimeout(() => setColorIdx(1), 1400);
+    const t2 = window.setTimeout(() => setLayout("Vertical"), 2800);
+    const t3 = window.setTimeout(() => setLayout("Horizontal"), 4200);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+    };
+  }, []);
+
+  const colors = [
+    "#111111",
+    "#ffffff",
+    "#a8e6cf",
+    "#f6e7a1",
+    "#7a8f5a",
+    "#1e3a5f",
+    "#1f4d3a",
+    "#6b1e2e",
+    "#5c4033",
+    "#3d2a5c",
+    "#2a2a2a",
+  ];
+
+  const fields = [
+    { label: "Name", value: "Sophia Carter" },
+    { label: "User", value: "SophiaKindVibes" },
+    { label: "Pronoun", value: "She/her" },
+    { label: "Link", value: "www.sophiaworld.com" },
+    { label: "Description", value: "Welcome to my world!", count: "20/150" },
   ];
 
   return (
     <motion.div
-      key="alone"
-      initial={{ opacity: 0, x: 16 }}
+      key="edit"
+      initial={{ opacity: 0, x: 14 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -16 }}
-      className="flex flex-col h-full px-3.5"
+      exit={{ opacity: 0, x: -14 }}
+      className="relative flex flex-col h-full min-h-0 overflow-hidden px-3.5"
+      style={{ background: PINK_BG }}
     >
-      <div className="flex items-center gap-2 mb-3">
-        <span
-          className="w-7 h-7 rounded-full flex items-center justify-center"
-          style={{ background: BLUE }}
-        >
-          <Shield size={13} className="text-white" />
+      <div className="flex items-center justify-between mb-2 shrink-0">
+        <ArrowLeft size={16} style={{ color: INK }} />
+        <span className="w-7 h-7 rounded-full bg-white/70 flex items-center justify-center" style={{ color: INK }}>
+          <Pencil size={12} />
         </span>
-        <p className="text-[13px] font-semibold text-white">Privacy</p>
       </div>
 
-      <div className="flex flex-col gap-2.5">
-        {items.map((item, i) => {
-          if (shown <= i) return null;
-          return (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 14, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.4, ease }}
-              className="rounded-2xl bg-[#1c1c1e] border border-[#3a3a3c]/45 p-3 flex items-center gap-2.5"
-            >
-              <motion.span
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ type: "spring", delay: 0.1 }}
-                className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
-                style={{ background: GREEN }}
-              >
-                <Check size={14} className="text-white" strokeWidth={2.5} />
-              </motion.span>
-              <div>
-                <p className="text-[12px] font-semibold text-white">{item.title}</p>
-                <p className="text-[10px] text-white/40 mt-0.5">{item.sub}</p>
-              </div>
-            </motion.div>
-          );
-        })}
-      </div>
-
-      {shown >= 3 && (
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="mt-auto mb-1 text-center text-[10px] text-white/35"
-        >
-          never sold · never used to train AI · ever
-        </motion.p>
-      )}
-    </motion.div>
-  );
-};
-
-/* ─── 2. Private + encrypted ─── */
-
-const EncryptPhase = () => {
-  const plain = "still on for saturday?";
-  const cipher = "a8f3 · 9c21 · e4b0 · 7d12";
-  const [locked, setLocked] = useState(false);
-  const [backed, setBacked] = useState(false);
-
-  useEffect(() => {
-    const timers = [
-      window.setTimeout(() => setLocked(true), 1200),
-      window.setTimeout(() => setBacked(true), 2600),
-    ];
-    return () => timers.forEach(clearTimeout);
-  }, []);
-
-  return (
-    <motion.div
-      key="encrypt"
-      initial={{ opacity: 0, x: 16 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -16 }}
-      className="flex flex-col h-full px-3.5"
-    >
-      <div className="flex items-center gap-2 mb-3">
-        <EyeOff size={15} style={{ color: BLUE }} />
-        <p className="text-[13px] font-semibold text-white">Encrypted</p>
-      </div>
-
-      <div className="rounded-2xl bg-[#1c1c1e] border border-[#3a3a3c]/45 p-3.5 mb-3">
-        <p className="text-[10px] text-white/35 mb-2">On your device</p>
-        <div className="relative min-h-[40px]">
-          <motion.p
-            animate={{ opacity: locked ? 0 : 1, y: locked ? -6 : 0 }}
-            className="text-[14px] font-medium text-white absolute inset-x-0"
-          >
-            {plain}
-          </motion.p>
-          <motion.p
-            animate={{ opacity: locked ? 1 : 0, y: locked ? 0 : 6 }}
-            className="text-[13px] text-white/45 tracking-wide absolute inset-x-0"
-          >
-            {cipher}
-          </motion.p>
-        </div>
-        <motion.div
-          animate={{
-            backgroundColor: locked ? BLUE : "rgba(255,255,255,0.08)",
-          }}
-          className="mt-4 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1"
-        >
-          <Lock size={11} className="text-white" />
-          <span className="text-[10px] font-semibold text-white">
-            {locked ? "Locked end to end" : "Readable here"}
+      <div className="flex flex-col items-center shrink-0 mb-3">
+        <div className="relative">
+          <Avatar src={sophia} size={68} />
+          <span className="absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full bg-white flex items-center justify-center shadow-sm" style={{ color: INK }}>
+            <Pencil size={10} />
           </span>
-        </motion.div>
-      </div>
-
-      <AnimatePresence>
-        {backed && (
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="rounded-2xl bg-[#1c1c1e] border border-[#3a3a3c]/45 p-3"
-          >
-            <p className="text-[10px] text-white/35 mb-1.5">Backup space</p>
-            <p className="text-[11px] text-white/55 leading-snug">
-              Feed, memory and DMs stay in your space. encrypted where backups live.
-            </p>
-            <div className="mt-2.5 flex gap-1.5">
-              {["feed", "memory", "dms"].map((t, i) => (
-                <motion.span
-                  key={t}
-                  initial={{ opacity: 0, scale: 0.85 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: i * 0.08 }}
-                  className="rounded-full bg-white/5 border border-white/[0.06] px-2 py-0.5 text-[9px] text-white/50"
-                >
-                  {t}
-                </motion.span>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
-  );
-};
-
-/* ─── 3. Gone in seconds ─── */
-
-const WipePhase = () => {
-  const [confirm, setConfirm] = useState(false);
-  const [wiping, setWiping] = useState(false);
-  const [gone, setGone] = useState(false);
-
-  useEffect(() => {
-    const timers = [
-      window.setTimeout(() => setConfirm(true), 600),
-      window.setTimeout(() => setWiping(true), 2200),
-      window.setTimeout(() => setGone(true), 3800),
-    ];
-    return () => timers.forEach(clearTimeout);
-  }, []);
-
-  const rows = ["Memory", "Messages", "History", "Drafts"];
-
-  return (
-    <motion.div
-      key="wipe"
-      initial={{ opacity: 0, x: 16 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -16 }}
-      className="relative flex flex-col h-full px-3.5"
-    >
-      <div className="flex items-center gap-2 mb-3">
-        <Trash2 size={15} className="text-red-400" />
-        <p className="text-[13px] font-semibold text-white">Delete account</p>
-      </div>
-
-      <div className="rounded-2xl bg-[#1c1c1e] border border-[#3a3a3c]/45 p-3 mb-3">
-        <p className="text-[11px] text-white/55 leading-snug mb-2.5">
-          Wipe everything in seconds. nothing left to sell or recover.
+        </div>
+        <p className="mt-2 text-[14px] font-semibold" style={{ color: INK }}>
+          Sophia Carter
         </p>
-        <div className="flex flex-col gap-1.5">
-          {rows.map((r, i) => (
-            <motion.div
-              key={r}
-              animate={{
-                opacity: gone || (wiping && i <= 3) ? (gone ? 0.25 : 0.55) : 1,
-                x: wiping && !gone ? [0, -2, 2, 0] : 0,
+        <p className="text-[10px]" style={{ color: MUTED }}>
+          @SophiaKindVibes
+        </p>
+        <p className="text-[10px]" style={{ color: MUTED }}>
+          She/her
+        </p>
+      </div>
+
+      <div className="shrink-0 mb-2">
+        <p className="text-[10px] font-medium mb-1.5" style={{ color: MUTED }}>
+          Color
+        </p>
+        <div className="flex flex-wrap gap-1.5">
+          {colors.map((c, i) => (
+            <motion.button
+              key={c + i}
+              type="button"
+              animate={{ scale: colorIdx === i ? 1.12 : 1 }}
+              className="w-5 h-5 rounded-full border-2"
+              style={{
+                background: c,
+                borderColor: colorIdx === i ? BLUE : "rgba(0,0,0,0.08)",
               }}
-              transition={{
-                x: wiping && !gone ? { duration: 0.35, delay: i * 0.08 } : undefined,
-              }}
-              className="flex items-center justify-between rounded-xl bg-black/25 px-2.5 py-1.5"
-            >
-              <span className="text-[11px] text-white/70">{r}</span>
-              {(wiping || gone) && (
-                <motion.span
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="text-[9px] font-semibold"
-                  style={{ color: gone ? RED : "#f59e0b" }}
-                >
-                  {gone ? "destroyed" : "wiping…"}
-                </motion.span>
-              )}
-            </motion.div>
+            />
           ))}
         </div>
       </div>
 
-      <AnimatePresence>
-        {confirm && !gone && (
-          <motion.div
-            initial={{ y: 40, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="mt-auto rounded-2xl bg-[#161618] border border-[#3a3a3c]/50 p-3"
-          >
-            <p className="text-[12px] font-semibold text-white text-center">Delete everything?</p>
-            <p className="mt-1 text-[10px] text-white/40 text-center">
-              Memory, messages and history are destroyed for good.
-            </p>
-            <motion.button
+      <div className="shrink-0 mb-2.5">
+        <p className="text-[10px] font-medium mb-1.5" style={{ color: MUTED }}>
+          Layout
+        </p>
+        <div className="inline-flex rounded-full bg-white/50 p-0.5 gap-0.5">
+          {(["Vertical", "Horizontal"] as const).map((opt) => (
+            <button
+              key={opt}
               type="button"
-              animate={
-                wiping
-                  ? {}
-                  : {
-                      boxShadow: [
-                        "0 0 0 0 rgba(139,46,46,0)",
-                        "0 0 0 6px rgba(139,46,46,0.25)",
-                        "0 0 0 0 rgba(139,46,46,0)",
-                      ],
-                    }
-              }
-              transition={{ duration: 1.4, repeat: Infinity }}
-              className="mt-3 w-full rounded-2xl py-3 text-[12px] font-semibold text-white"
-              style={{ background: RED }}
+              onClick={() => setLayout(opt)}
+              className="rounded-full px-3 py-1 text-[10px] font-medium transition-colors"
+              style={{
+                background: layout === opt ? "#1c1c1e" : "transparent",
+                color: layout === opt ? "#fff" : MUTED,
+              }}
             >
-              {wiping ? "Deleting…" : "Delete account"}
-            </motion.button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              {opt}
+            </button>
+          ))}
+        </div>
+      </div>
 
-      {gone && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.94 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="mt-auto rounded-2xl border border-dashed border-white/15 px-3 py-4 text-center"
-        >
-          <Check size={18} className="text-white/50 mx-auto mb-1.5" />
-          <p className="text-[12px] font-semibold text-white">Gone in seconds</p>
-          <p className="text-[10px] text-white/40 mt-0.5">destroyed for good</p>
-        </motion.div>
-      )}
+      <div className="flex-1 min-h-0 overflow-hidden space-y-1.5 pb-2">
+        {fields.map((f, i) => (
+          <motion.div
+            key={f.label}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.05 * i }}
+            className="rounded-xl bg-white/85 px-2.5 py-1.5 relative"
+          >
+            {f.count && (
+              <span className="absolute top-1.5 right-2 text-[8px]" style={{ color: MUTED }}>
+                {f.count}
+              </span>
+            )}
+            <p className="text-[8px]" style={{ color: MUTED }}>
+              {f.label}
+            </p>
+            <p className="text-[11px] font-medium truncate" style={{ color: INK }}>
+              {f.value}
+            </p>
+            {f.label === "Name" && (
+              <div className="mt-1 space-y-0.5">
+                <p className="text-[7px] leading-tight" style={{ color: MUTED }}>
+                  · After changing your username/name, you can only modify it again after 7 days.
+                </p>
+                <p className="text-[7px] leading-tight" style={{ color: MUTED }}>
+                  · You will be able to change your username/name back within 14 days.
+                </p>
+                <p className="text-[8px] font-medium text-red-500">This username already exists</p>
+              </div>
+            )}
+          </motion.div>
+        ))}
+      </div>
     </motion.div>
   );
 };
-
-/* ─── main ─── */
 
 const PrivacyStayYoursScene = ({ className = "" }: { className?: string }) => {
   const [i, setI] = useState(0);
@@ -314,23 +361,22 @@ const PrivacyStayYoursScene = ({ className = "" }: { className?: string }) => {
 
   return (
     <div className={`w-[280px] sm:w-[300px] shrink-0 ${className}`}>
-      <AiPhoneShell className="!w-full !max-w-none" rotate={1.5}>
+      <AiPhoneShell className="!w-full !max-w-none" rotate={1.5} light>
         <div className="absolute top-11 right-4 z-30 flex gap-1">
           {phases.map((p, idx) => (
             <motion.span
               key={p}
               animate={{
                 width: idx === i ? 14 : 4,
-                backgroundColor: idx === i ? BLUE : "rgba(255,255,255,0.18)",
+                backgroundColor: idx === i ? "#e879a9" : "rgba(0,0,0,0.18)",
               }}
               className="h-1 rounded-full"
             />
           ))}
         </div>
         <AnimatePresence mode="wait">
-          {phase === "alone" && <AlonePhase key="alone" />}
-          {phase === "encrypt" && <EncryptPhase key="encrypt" />}
-          {phase === "wipe" && <WipePhase key="wipe" />}
+          {phase === "view" && <ViewPhase key="view" />}
+          {phase === "edit" && <EditPhase key="edit" />}
         </AnimatePresence>
       </AiPhoneShell>
       <p className="mt-4 text-center text-[12px] text-foreground/45 lowercase tracking-tight">

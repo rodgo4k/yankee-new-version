@@ -1,239 +1,360 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  AtSign,
-  Bell,
-  BellOff,
-  Check,
-  Filter,
+  ArrowLeft,
   MessageSquare,
-  Moon,
-  Star,
-  X,
+  Mic,
+  Phone,
+  PhoneOff,
+  Play,
+  Search,
 } from "lucide-react";
 import AiPhoneShell from "@/components/home/AiPhoneShell";
+import { faceFor, uniqueFacesFor } from "@/lib/crowdFaces";
+import harvardHall from "@/assets/harvard-hall.png";
 
-const ease = [0.25, 0.4, 0.25, 1] as const;
+const ease = [0.22, 1, 0.36, 1] as const;
 const BLUE = "#2f6bff";
 const GREEN = "#34c759";
 const RED = "#ff453a";
 
-type Phase = "people" | "noise" | "quiet" | "rules";
-
-const phases: Phase[] = ["people", "noise", "quiet", "rules"];
-const HOLD: Record<Phase, number> = {
-  people: 5600,
-  noise: 5400,
-  quiet: 5600,
-  rules: 5600,
-};
+type Phase = "banners" | "thread" | "ring";
+const phases: Phase[] = ["banners", "thread", "ring"];
+const HOLD: Record<Phase, number> = { banners: 6400, thread: 6800, ring: 5200 };
 const labels: Record<Phase, string> = {
-  people: "real people first",
-  noise: "noise stays off",
-  quiet: "quiet when you need it",
-  rules: "you set the rules",
+  banners: "real people first",
+  thread: "replies that actually matter",
+  ring: "only the alerts you asked for",
 };
 
 const Avatar = ({
-  letter,
-  tint,
-  size = 34,
+  src,
+  size,
+  online,
 }: {
-  letter: string;
-  tint: string;
-  size?: number;
+  src: string;
+  size: number;
+  online?: boolean;
 }) => (
   <span
-    className="inline-flex shrink-0 items-center justify-center rounded-full text-white/90 font-medium"
-    style={{
-      width: size,
-      height: size,
-      minWidth: size,
-      minHeight: size,
-      background: tint,
-      fontSize: size * 0.34,
-    }}
+    className="relative inline-flex shrink-0 rounded-full overflow-hidden bg-[#2a2a2c]"
+    style={{ width: size, height: size, minWidth: size }}
   >
-    {letter}
+    <img src={src} alt="" className="absolute inset-0 w-full h-full object-cover" />
+    {online && (
+      <span
+        className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border-2 border-black"
+        style={{ background: GREEN }}
+      />
+    )}
   </span>
 );
 
-/* ─── 1. Real people first ─── */
+const bannerCast = [
+  { name: "Mia Taylor", preview: "Yo, bestieee, when are we hanging out??", unread: "+4", online: true },
+  { name: "Ethan Carter", preview: "Sent you a post", unread: "+2", online: true },
+  { name: "Bella Rodriguez", preview: "OMG STOP HAHA Literally jaw on the floor rn.", unread: "+2", online: false },
+  { name: "Ryan Brooks", preview: "Tell me we weren't just talking about this??", unread: "+1", online: false },
+] as const;
 
-const PeoplePhase = () => {
-  const [count, setCount] = useState(0);
-  const items = [
-    {
-      name: "Maya Reed",
-      text: "dm · saturday loft?",
-      time: "now",
-      tint: "#8b5a7a",
-      icon: MessageSquare,
-    },
-    {
-      name: "Chris Parker",
-      text: "replied to your post",
-      time: "12s",
-      tint: "#4a6fa5",
-      icon: MessageSquare,
-    },
-    {
-      name: "Boston Runners",
-      text: "@you in the thread",
-      time: "40s",
-      tint: "#2d8a6e",
-      icon: AtSign,
-    },
-  ];
+const BannersPhase = () => {
+  const faces = uniqueFacesFor(bannerCast.map((b) => b.name));
+  const [stage, setStage] = useState(0);
 
   useEffect(() => {
     const timers = [
-      window.setTimeout(() => setCount(1), 400),
-      window.setTimeout(() => setCount(2), 1300),
-      window.setTimeout(() => setCount(3), 2300),
+      window.setTimeout(() => setStage(1), 350),
+      window.setTimeout(() => setStage(2), 1100),
+      window.setTimeout(() => setStage(3), 1850),
+      window.setTimeout(() => setStage(4), 2600),
+      window.setTimeout(() => setStage(5), 3400),
+      window.setTimeout(() => setStage(6), 4200),
     ];
     return () => timers.forEach(clearTimeout);
   }, []);
 
+  const showBanners = stage >= 1 && stage < 5;
+  const showList = stage >= 5;
+
   return (
     <motion.div
-      key="people"
-      initial={{ opacity: 0, x: 16 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -16 }}
-      className="flex flex-col h-full px-3.5"
+      key="banners"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, filter: "blur(6px)" }}
+      transition={{ duration: 0.35 }}
+      className="relative flex flex-col h-full min-h-0 overflow-hidden"
     >
-      <div className="flex items-center gap-2 mb-3">
-        <Bell size={15} style={{ color: BLUE }} />
-        <p className="text-[13px] font-semibold text-white flex-1">Inbox</p>
-        <span className="rounded-full px-2 py-0.5 text-[9px] font-semibold text-white" style={{ background: BLUE }}>
-          live
-        </span>
+      {}
+      <div className={`px-3.5 flex items-center gap-2 mb-2 shrink-0 transition-opacity duration-500 ${showList ? "opacity-100" : "opacity-40"}`}>
+        <ArrowLeft size={15} className="text-white/55" />
+        <div className="flex-1 flex justify-center">
+          <div className="inline-flex rounded-full bg-[#1c1c1e] p-0.5 border border-white/[0.06]">
+            <span className="rounded-full bg-white text-black px-3 py-1 text-[10px] font-semibold">Chats</span>
+            <span className="rounded-full px-3 py-1 text-[10px] text-white/40">Request</span>
+            <span className="rounded-full px-3 py-1 text-[10px] text-white/40">Spin</span>
+          </div>
+        </div>
       </div>
 
-      <div className="flex flex-col gap-2.5 flex-1">
-        {items.map((n, i) => {
-          if (count <= i) return null;
-          const Icon = n.icon;
-          return (
-            <motion.div
-              key={n.name}
-              initial={{ opacity: 0, y: -22, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.4, ease }}
-              className="rounded-2xl bg-[#1c1c1e] border border-[#3a3a3c]/45 p-2.5 flex gap-2.5"
+      <AnimatePresence>
+        {showBanners && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="absolute inset-x-0 top-10 bottom-0 z-20 px-3 pt-2"
+          >
+            <div className="absolute inset-0 bg-black/55 backdrop-blur-[3px]" />
+            <div className="relative space-y-2">
+              {bannerCast.map((b, i) => {
+                if (stage < i + 1) return null;
+                return (
+                  <motion.div
+                    key={b.name}
+                    layoutId={`notif-${b.name}`}
+                    initial={{ opacity: 0, y: -48, scale: 0.94 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ type: "spring", stiffness: 380, damping: 28 }}
+                    className="rounded-[1.15rem] bg-[#2c2c2e]/95 border border-white/10 px-3 py-2.5 flex items-center gap-2.5 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.8)]"
+                  >
+                    <Avatar src={faces[i]} size={36} online={b.online} />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2">
+                        <p className="text-[12px] font-semibold text-white truncate">{b.name}</p>
+                        <span className="text-[9px] text-white/35">now</span>
+                      </div>
+                      <p className="text-[11px] text-white/55 truncate">{b.preview}</p>
+                    </div>
+                    <span className="text-[10px] font-medium tabular-nums" style={{ color: BLUE }}>
+                      {b.unread}
+                    </span>
+                  </motion.div>
+                );
+              })}
+            </div>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: stage >= 3 ? 1 : 0 }}
+              className="relative mt-4 text-center text-[10px] text-white/40 lowercase"
             >
-              <div className="relative shrink-0">
-                <Avatar letter={n.name[0]} tint={n.tint} />
-                <motion.span
-                  animate={{ scale: [1, 1.25, 1] }}
-                  transition={{ duration: 1.2, repeat: Infinity }}
-                  className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border-2 border-[#1c1c1e]"
-                  style={{ background: RED }}
-                />
-              </div>
-              <div className="min-w-0 flex-1">
-                <div className="flex items-baseline justify-between gap-2">
-                  <p className="text-[12px] font-semibold text-white truncate">{n.name}</p>
-                  <span className="text-[9px] text-white/35 shrink-0">{n.time}</span>
-                </div>
-                <p className="text-[11px] text-white/50 mt-0.5 flex items-center gap-1">
-                  <Icon size={10} className="text-white/35" />
-                  {n.text}
-                </p>
-              </div>
-            </motion.div>
-          );
-        })}
-      </div>
+              only people you talk to · noise stays off
+            </motion.p>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {count >= 3 && (
-        <motion.p
+      {showList && (
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="mt-2 mb-1 text-center text-[10px] text-white/35"
+          className="flex-1 min-h-0 flex flex-col px-3.5"
         >
-          dms · replies · mentions · always ring
-        </motion.p>
+          <div className="mb-2 rounded-full bg-[#1c1c1e] border border-white/[0.06] px-3 py-2 flex items-center gap-2 shrink-0">
+            <Search size={13} className="text-white/35" />
+            <p className="text-[12px] text-white/35">Search peoples</p>
+          </div>
+          <div className="flex-1 min-h-0 overflow-hidden space-y-0.5">
+            {bannerCast.map((b, i) => (
+              <motion.div
+                key={b.name}
+                layoutId={`notif-${b.name}`}
+                className="flex items-center gap-2.5 py-2"
+                transition={{ type: "spring", stiffness: 320, damping: 30 }}
+              >
+                <Avatar src={faces[i]} size={40} online={b.online} />
+                <div className="flex-1 min-w-0">
+                  <p className="text-[13px] font-semibold text-white truncate">{b.name}</p>
+                  <p className="text-[11px] text-white/40 truncate">{b.preview}</p>
+                </div>
+                <span className="flex items-center gap-1 shrink-0">
+                  <span className="text-[10px] text-white/70">{b.unread}</span>
+                  <motion.span
+                    animate={{ scale: [1, 1.35, 1], opacity: [0.7, 1, 0.7] }}
+                    transition={{ duration: 1.4, repeat: Infinity, delay: i * 0.12 }}
+                    className="w-1.5 h-1.5 rounded-full"
+                    style={{ background: BLUE }}
+                  />
+                </span>
+              </motion.div>
+            ))}
+            {stage >= 6 &&
+              [
+                { name: "Logan Harris", preview: "Sent you a post" },
+                { name: "Ava Nguyen", preview: "I saw this and it instantly made me think of you." },
+                { name: "Zoe Martinez", preview: "Pls explain why this made me cackle at 2AM" },
+                { name: "Jake Miller", preview: "Dropped a message" },
+              ].map((r, i) => {
+                const src = faceFor(r.name);
+                return (
+                  <motion.div
+                    key={r.name}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.07 }}
+                    className="flex items-center gap-2.5 py-2"
+                  >
+                    <Avatar src={src} size={40} />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[13px] font-semibold text-white truncate">{r.name}</p>
+                      <p className="text-[11px] text-white/40 truncate">{r.preview}</p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+          </div>
+        </motion.div>
       )}
     </motion.div>
   );
 };
 
-/* ─── 2. Noise stays off ─── */
-
-const NoisePhase = () => {
-  const [gone, setGone] = useState<number[]>([]);
-  const noise = [
-    { title: "streak reminder", sub: "come back for day 12" },
-    { title: "re-engagement", sub: "people you may know" },
-    { title: "empty nudge", sub: "post something today" },
-  ];
+const ThreadPhase = () => {
+  const maya = faceFor("Maya Reed");
+  const diana = faceFor("Diana");
+  const [step, setStep] = useState(0);
 
   useEffect(() => {
-    const timers = [
-      window.setTimeout(() => setGone([0]), 1200),
-      window.setTimeout(() => setGone([0, 1]), 2200),
-      window.setTimeout(() => setGone([0, 1, 2]), 3200),
-    ];
+    const timers = [1, 2, 3, 4, 5, 6].map((n, i) => window.setTimeout(() => setStep(n), 220 + i * 480));
     return () => timers.forEach(clearTimeout);
   }, []);
 
   return (
     <motion.div
-      key="noise"
-      initial={{ opacity: 0, x: 16 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -16 }}
-      className="flex flex-col h-full px-3.5"
+      key="thread"
+      initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      exit={{ opacity: 0, scale: 0.97 }}
+      transition={{ duration: 0.45, ease }}
+      className="relative flex flex-col h-full min-h-0 px-3 pb-3"
     >
-      <div className="flex items-center gap-2 mb-3">
-        <Filter size={15} style={{ color: BLUE }} />
-        <p className="text-[13px] font-semibold text-white flex-1">Noise</p>
-        <span className="rounded-full bg-white/10 px-2 py-0.5 text-[9px] text-white/50">silent</span>
+      <div className="flex items-center gap-2 mb-3 shrink-0">
+        <ArrowLeft size={15} className="text-white/55" />
+        <div className="flex-1 flex items-center justify-center gap-1.5">
+          <span className="flex -space-x-1.5">
+            <Avatar src={maya} size={22} />
+            <Avatar src={diana} size={22} />
+          </span>
+          <p className="text-[13px] font-semibold text-white">Maya, Diana</p>
+        </div>
       </div>
 
-      <div className="flex flex-col gap-2 flex-1">
-        <AnimatePresence>
-          {noise.map((n, i) => {
-            if (gone.includes(i)) return null;
-            return (
-              <motion.div
-                key={n.title}
-                layout
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 0.55, y: 0 }}
-                exit={{ opacity: 0, x: 40, scale: 0.92 }}
-                transition={{ duration: 0.35, ease }}
-                className="rounded-2xl bg-[#1c1c1e] border border-dashed border-white/20 p-3 flex items-center gap-2.5"
-              >
-                <span className="w-8 h-8 rounded-full bg-white/8 flex items-center justify-center shrink-0">
-                  <BellOff size={13} className="text-white/40" />
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="text-[12px] font-semibold text-white/70">{n.title}</p>
-                  <p className="text-[10px] text-white/35 mt-0.5">{n.sub}</p>
-                </div>
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
-
-        {gone.length >= 3 && (
+      {}
+      <AnimatePresence>
+        {step === 1 && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="mt-auto mb-1 rounded-2xl bg-[#1c1c1e] border border-[#3a3a3c]/45 p-3.5 flex items-center gap-2.5"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, height: 0 }}
+            className="mb-2 rounded-xl px-3 py-2 flex items-center gap-2 border border-white/10"
+            style={{ background: "rgba(47,107,255,0.18)" }}
+          >
+            <MessageSquare size={12} style={{ color: BLUE }} />
+            <p className="text-[10px] text-white/80">new reply in this thread</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="flex-1 min-h-0 overflow-hidden flex flex-col justify-end gap-2.5">
+        {step >= 1 && (
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="self-end"
           >
             <span
-              className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
-              style={{ background: GREEN }}
+              className="inline-block max-w-[82%] rounded-2xl rounded-br-md px-3 py-2 text-[12px] text-white leading-snug"
+              style={{ background: BLUE }}
             >
-              <Check size={15} className="text-white" strokeWidth={2.8} />
+              Wait… same thing happened to me last week
             </span>
+            <p className="text-[9px] text-white/30 text-right mt-0.5">17:31</p>
+          </motion.div>
+        )}
+        {step >= 2 && (
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="flex gap-2 items-end">
+            <Avatar src={maya} size={24} />
             <div>
-              <p className="text-[12px] font-semibold text-white">noise stays off</p>
-              <p className="text-[10px] text-white/40 mt-0.5">silent by default · always</p>
+              <span className="inline-block max-w-[82%] rounded-2xl rounded-bl-md bg-[#1c1c1e] px-3 py-2 text-[12px] text-white/85 leading-snug">
+                Campus sidewalks are dangerous, honestly.
+              </span>
+              <p className="text-[9px] text-white/35 mt-0.5">Maya · 17:31</p>
+            </div>
+          </motion.div>
+        )}
+        {step >= 3 && (
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="self-end">
+            <span
+              className="inline-block max-w-[82%] rounded-2xl rounded-br-md px-3 py-2 text-[12px] text-white leading-snug"
+              style={{ background: BLUE }}
+            >
+              Especially when you&apos;re late and not looking down.
+            </span>
+          </motion.div>
+        )}
+        {step >= 4 && (
+          <motion.div
+            initial={{ opacity: 0, y: 24, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            className="flex gap-2 items-end"
+          >
+            <Avatar src={maya} size={24} />
+            <div className="max-w-[78%]">
+              <span className="inline-block rounded-2xl rounded-bl-md bg-[#1c1c1e] px-3 py-2 text-[12px] text-white/85 mb-1.5">
+                Speaking of campus look at this ↓
+              </span>
+              <div className="rounded-xl overflow-hidden border border-white/[0.06]">
+                <img src={harvardHall} alt="" className="w-full h-[100px] object-cover" />
+              </div>
+              <div className="mt-1.5 flex gap-1.5">
+                <motion.span
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  className="rounded-full bg-[#1c1c1e] px-2 py-0.5 text-[11px]"
+                >
+                  👀
+                </motion.span>
+                <motion.span
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.1 }}
+                  className="rounded-full bg-[#1c1c1e] px-2 py-0.5 text-[11px]"
+                >
+                  😇
+                </motion.span>
+              </div>
+              <p className="text-[9px] text-white/35 mt-0.5">Maya</p>
+            </div>
+          </motion.div>
+        )}
+        {step >= 5 && (
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="flex gap-2 items-center">
+            <Avatar src={maya} size={24} />
+            <div className="flex-1 rounded-2xl bg-[#1c1c1e] px-2 py-2 flex items-center gap-2 max-w-[78%]">
+              <span className="w-7 h-7 rounded-full flex items-center justify-center shrink-0" style={{ background: BLUE }}>
+                <Play size={11} className="text-white fill-white" />
+              </span>
+              <div className="flex-1 flex items-center gap-[2px] h-5">
+                {Array.from({ length: 26 }).map((_, i) => (
+                  <motion.span
+                    key={i}
+                    animate={{ height: ["28%", "95%", "38%"] }}
+                    transition={{ duration: 0.85, repeat: Infinity, delay: i * 0.028 }}
+                    className="w-[2px] rounded-full bg-white/55"
+                  />
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+        {step >= 6 && (
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="flex gap-2 items-end">
+            <Avatar src={diana} size={24} />
+            <div>
+              <span className="inline-block rounded-2xl rounded-bl-md bg-[#1c1c1e] px-3 py-2 text-[12px] text-white/85">
+                Okay but this looks unreal 🍂
+              </span>
+              <p className="text-[9px] text-white/35 mt-0.5">Diana · 17:30</p>
             </div>
           </motion.div>
         )}
@@ -242,179 +363,88 @@ const NoisePhase = () => {
   );
 };
 
-/* ─── 3. Quiet hours ─── */
-
-const QuietPhase = () => {
-  const [step, setStep] = useState(0);
+const RingPhase = () => {
+  const mia = faceFor("Mia Taylor");
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const timers = [
-      window.setTimeout(() => setStep(1), 500),
-      window.setTimeout(() => setStep(2), 1800),
-      window.setTimeout(() => setStep(3), 3000),
-    ];
-    return () => timers.forEach(clearTimeout);
+    const t = window.setTimeout(() => setReady(true), 400);
+    return () => clearTimeout(t);
   }, []);
 
   return (
     <motion.div
-      key="quiet"
-      initial={{ opacity: 0, x: 16 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -16 }}
-      className="flex flex-col h-full px-3.5"
+      key="ring"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="relative flex flex-col h-full min-h-0 px-3.5 overflow-hidden"
     >
-      <div className="flex items-center gap-2 mb-3">
-        <Moon size={15} style={{ color: BLUE }} />
-        <p className="text-[13px] font-semibold text-white flex-1">Quiet hours</p>
-        <span className="rounded-full bg-white/10 px-2 py-0.5 text-[9px] text-white/50">10pm–8am</span>
+      <div className="flex items-center mb-4">
+        <ArrowLeft size={16} className="text-white/60" />
+        <motion.p
+          animate={{ opacity: [0.45, 1, 0.45] }}
+          transition={{ duration: 1.6, repeat: Infinity }}
+          className="flex-1 text-center text-[13px] text-white/80"
+        >
+          Contacting you...
+        </motion.p>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="rounded-2xl bg-[#1c1c1e] border border-[#3a3a3c]/45 p-3.5 mb-3"
-      >
-        <div className="flex items-center justify-between mb-3">
-          <p className="text-[12px] font-semibold text-white">holding non-urgent</p>
-          <span className="text-[10px] text-white/40">until digest</span>
-        </div>
-        <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
+      <div className="flex-1 flex flex-col items-center justify-center pb-24">
+        <div className="relative flex items-center justify-center">
+          {[0, 1, 2].map((w) => (
+            <motion.span
+              key={w}
+              initial={{ opacity: 0, scale: 0.7 }}
+              animate={{ opacity: [0.35, 0], scale: [0.85, 1.55] }}
+              transition={{ duration: 2.1, repeat: Infinity, delay: w * 0.55, ease: "easeOut" }}
+              className="absolute rounded-full border"
+              style={{
+                width: 112 + w * 28,
+                height: 112 + w * 28,
+                borderColor: BLUE,
+              }}
+            />
+          ))}
           <motion.div
-            className="h-full rounded-full"
-            style={{ background: BLUE }}
-            initial={{ width: "20%" }}
-            animate={{ width: step >= 2 ? "100%" : "45%" }}
-            transition={{ duration: 1.2, ease }}
-          />
+            animate={{ scale: [1, 1.04, 1] }}
+            transition={{ duration: 1.8, repeat: Infinity }}
+          >
+            <Avatar src={mia} size={112} />
+          </motion.div>
         </div>
-        <p className="mt-2 text-[10px] text-white/40">2 soft replies · 1 crowd ping</p>
-      </motion.div>
-
-      {step >= 2 && (
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="rounded-2xl bg-[#1c1c1e] border border-[#3a3a3c]/45 p-3.5 flex-1"
-        >
-          <p className="text-[10px] text-white/35 mb-2">Evening digest</p>
-          <p className="text-[13px] font-semibold text-white">ready · skim in seconds</p>
-          <div className="mt-3 space-y-2">
-            {["maya liked your loft note", "leo mentioned you in runners"].map((row, i) => (
-              <motion.div
-                key={row}
-                initial={{ opacity: 0, x: -8 }}
-                animate={{ opacity: step >= 2 + Math.min(i, 1) ? 1 : 0.3, x: 0 }}
-                className="rounded-xl bg-white/[0.04] px-3 py-2 text-[11px] text-white/55"
-              >
-                {row}
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      )}
-
-      {step >= 3 && (
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="mt-2 mb-1 text-center text-[10px] text-white/35"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: ready ? 1 : 0, y: ready ? 0 : 8 }}
+          className="mt-5 text-[18px] font-semibold text-white"
         >
-          one digest · then close the phone
+          Mia Taylor
         </motion.p>
-      )}
+        <p className="mt-1.5 flex items-center gap-1.5 text-[12px] text-white/70">
+          <Mic size={12} style={{ color: BLUE }} /> Voice call
+        </p>
+      </div>
+
+      <div className="absolute bottom-8 inset-x-0 flex items-end justify-center gap-7">
+        <motion.span
+          animate={{ scale: [1, 1.08, 1] }}
+          transition={{ duration: 1.2, repeat: Infinity }}
+          className="w-14 h-14 rounded-full flex items-center justify-center text-white"
+          style={{ background: GREEN }}
+        >
+          <Phone size={22} />
+        </motion.span>
+        <span className="w-12 h-12 rounded-full bg-[#1c1c1e] flex items-center justify-center text-white/70 mb-1">
+          <MessageSquare size={18} />
+        </span>
+        <span className="w-14 h-14 rounded-full flex items-center justify-center text-white" style={{ background: RED }}>
+          <PhoneOff size={22} />
+        </span>
+      </div>
     </motion.div>
   );
 };
-
-/* ─── 4. You set the rules ─── */
-
-const RulesPhase = () => {
-  const [on, setOn] = useState([false, false, false]);
-
-  useEffect(() => {
-    const timers = [
-      window.setTimeout(() => setOn([true, false, false]), 600),
-      window.setTimeout(() => setOn([true, true, false]), 1600),
-      window.setTimeout(() => setOn([true, true, true]), 2600),
-    ];
-    return () => timers.forEach(clearTimeout);
-  }, []);
-
-  const rows = [
-    { icon: Star, label: "star Maya", note: "always loud", allow: true },
-    { icon: BellOff, label: "mute promo crowd", note: "feed stays, pings off", allow: false },
-    { icon: Bell, label: "close friends", note: "ring on post", allow: true },
-  ];
-
-  return (
-    <motion.div
-      key="rules"
-      initial={{ opacity: 0, x: 16 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -16 }}
-      className="flex flex-col h-full px-3.5"
-    >
-      <div className="flex items-center gap-2 mb-3">
-        <BellOff size={15} style={{ color: BLUE }} />
-        <p className="text-[13px] font-semibold text-white flex-1">Your rules</p>
-      </div>
-
-      <div className="flex flex-col gap-2.5 flex-1">
-        {rows.map((r, i) => {
-          const Icon = r.icon;
-          const ready = on[i];
-          return (
-            <motion.div
-              key={r.label}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.08 }}
-              className="rounded-2xl bg-[#1c1c1e] border border-[#3a3a3c]/45 p-3 flex items-center gap-2.5"
-            >
-              <span
-                className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
-                style={{ background: ready ? (r.allow ? "rgba(47,107,255,0.25)" : "rgba(255,69,58,0.2)") : "rgba(255,255,255,0.08)" }}
-              >
-                <Icon size={14} className="text-white" />
-              </span>
-              <div className="min-w-0 flex-1">
-                <p className="text-[12px] font-semibold text-white">{r.label}</p>
-                <p className="text-[10px] text-white/40 mt-0.5">{r.note}</p>
-              </div>
-              {ready && (
-                <motion.span
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="w-6 h-6 rounded-full flex items-center justify-center shrink-0"
-                  style={{ background: r.allow ? GREEN : "rgba(255,69,58,0.35)" }}
-                >
-                  {r.allow ? (
-                    <Check size={12} className="text-white" strokeWidth={3} />
-                  ) : (
-                    <X size={12} className="text-white" strokeWidth={3} />
-                  )}
-                </motion.span>
-              )}
-            </motion.div>
-          );
-        })}
-      </div>
-
-      {on.every(Boolean) && (
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="mt-2 mb-1 text-center text-[10px] text-white/35"
-        >
-          your signal list · your call
-        </motion.p>
-      )}
-    </motion.div>
-  );
-};
-
-/* ─── main ─── */
 
 const NotifRulesScene = ({ className = "" }: { className?: string }) => {
   const [i, setI] = useState(0);
@@ -428,28 +458,36 @@ const NotifRulesScene = ({ className = "" }: { className?: string }) => {
   return (
     <div className={`w-[280px] sm:w-[300px] shrink-0 ${className}`}>
       <AiPhoneShell className="!w-full !max-w-none" rotate={1.5}>
-        <div className="absolute top-11 right-4 z-30 flex gap-1">
+        {}
+        <div className="absolute top-14 left-2 z-30 flex flex-col gap-1.5">
           {phases.map((p, idx) => (
             <motion.span
               key={p}
               animate={{
-                width: idx === i ? 14 : 4,
+                height: idx === i ? 16 : 4,
                 backgroundColor: idx === i ? BLUE : "rgba(255,255,255,0.18)",
               }}
-              className="h-1 rounded-full"
+              className="w-1 rounded-full"
             />
           ))}
         </div>
         <AnimatePresence mode="wait">
-          {phase === "people" && <PeoplePhase key="people" />}
-          {phase === "noise" && <NoisePhase key="noise" />}
-          {phase === "quiet" && <QuietPhase key="quiet" />}
-          {phase === "rules" && <RulesPhase key="rules" />}
+          {phase === "banners" && <BannersPhase key="banners" />}
+          {phase === "thread" && <ThreadPhase key="thread" />}
+          {phase === "ring" && <RingPhase key="ring" />}
         </AnimatePresence>
       </AiPhoneShell>
-      <p className="mt-4 text-center text-[12px] text-foreground/45 lowercase tracking-tight">
-        {labels[phase]}
-      </p>
+      <AnimatePresence mode="wait">
+        <motion.p
+          key={phase}
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -4 }}
+          className="mt-4 text-center text-[12px] text-foreground/45 lowercase tracking-tight"
+        >
+          {labels[phase]}
+        </motion.p>
+      </AnimatePresence>
     </div>
   );
 };

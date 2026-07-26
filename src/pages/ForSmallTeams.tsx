@@ -6,17 +6,17 @@ import AnimatedSection from "@/components/AnimatedSection";
 import FAQ from "@/components/FAQ";
 import PromoPill from "@/components/home/PromoPill";
 import TeamHeroScene from "@/components/home/TeamHeroScene";
-import AiSessionScene from "@/components/home/AiSessionScene";
+import { AiModelsStrip } from "@/components/home/AiFeatureScenes";
 import {
   AiChooseDemo,
   AiContributeDemo,
   AiInviteDemo,
-  AiModelsStrip,
   AiTrioScene,
   AiCollabDemo,
   AiResultDemo,
   AiCommandsDemo,
-} from "@/components/home/AiFeatureScenes";
+  AiSessionScene,
+} from "@/components/home/AiPrintDemos";
 import smallTeamCollab from "@/assets/small-team-collab.jpg";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
@@ -64,7 +64,7 @@ const faqs = [
 
 const ForSmallTeams = () => (
   <Layout>
-    {/* ── hero (banner component unchanged) ── */}
+    {}
     <section className="relative -mt-12 md:-mt-14 pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden dotted-bg">
       <div className="absolute inset-0 bg-background/85" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
@@ -129,7 +129,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
-    {/* ── multi-llm strip ── */}
+    {}
     <section className="relative py-16 md:py-20 dotted-bg">
       <div className="absolute inset-0 bg-background/70" />
       <div className="relative max-w-[900px] mx-auto px-5 md:px-6 text-center">
@@ -152,7 +152,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
-    {/* ── choose type ── */}
+    {}
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
@@ -196,7 +196,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
-    {/* ── trio: session / invite / contributions ── */}
+    {}
     <section id="in-app" className="relative py-20 md:py-28 dotted-bg overflow-hidden">
       <div className="absolute inset-0 bg-background/75" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
@@ -220,7 +220,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
-    {/* ── invite + roles ── */}
+    {}
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
@@ -264,7 +264,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
-    {/* ── contributions ── */}
+    {}
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/75" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
@@ -289,7 +289,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
-    {/* ── collaborative prompt in the crowd ── */}
+    {}
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
@@ -314,7 +314,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
-    {/* ── result from crowd sources ── */}
+    {}
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/75" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
@@ -339,7 +339,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
-    {/* ── slash commands ── */}
+    {}
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
@@ -364,7 +364,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
-    {/* ── full flow phone ── */}
+    {}
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/70" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
@@ -378,8 +378,7 @@ const ForSmallTeams = () => (
               <span className="font-serif-display italic font-medium">session play out.</span>
             </h2>
             <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md">
-              choose type → define goal &amp; sources → invite with roles → set permissions →
-              collect contributions. the same screens from the app, animated.
+              hello → ask → generate. the same yankee ai screens from the app, animated end to end.
             </p>
           </AnimatedSection>
           <AnimatedSection className="lg:col-span-7 flex justify-center lg:justify-end shrink-0" delay={0.1}>
@@ -389,7 +388,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
-    {/* ── steps ── */}
+    {}
     <section id="how" className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/70" />
       <div className="relative max-w-[1100px] mx-auto px-5 md:px-6">
@@ -421,7 +420,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
-    {/* ── faq ── */}
+    {}
     <section className="py-20 md:py-28">
       <div className="max-w-[900px] mx-auto px-5 md:px-6">
         <AnimatedSection className="text-center">
@@ -438,7 +437,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
-    {/* ── cta ── */}
+    {}
     <section className="relative py-20 md:py-28 overflow-hidden dotted-bg">
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">

@@ -10,7 +10,6 @@ import NotifRulesScene from "@/components/home/NotifRulesScene";
 import NotifStepsScene from "@/components/home/NotifStepsScene";
 import tripPhotos from "@/assets/trip-photos.png";
 import messages from "@/assets/yankee/messages.png";
-import { blockCard } from "@/lib/yankeeBlock";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 
@@ -235,14 +234,14 @@ const Notifications = () => (
         <div className="mt-12 md:mt-16 grid md:grid-cols-3 gap-4">
           {blocks.map((b, i) => (
             <AnimatedSection key={b.kicker} delay={i * 0.08}>
-              <div className={blockCard(i, "p-6 md:p-7 flex flex-col gap-5")}>
-                <p className="font-serif-display italic text-[1.05rem] yankee-block__kicker lowercase leading-none">
+              <div className="yankee-surface h-full rounded-[1.5rem] bg-card p-6 md:p-7 flex flex-col gap-5 transition-transform duration-300 hover:-translate-y-1.5">
+                <p className="font-serif-display italic text-[1.05rem] text-foreground/50 lowercase leading-none">
                   {b.kicker}
                 </p>
-                <h3 className="text-[22px] md:text-[24px] font-semibold leading-[1.08] tracking-tight lowercase">
+                <h3 className="text-[22px] md:text-[24px] font-semibold leading-[1.08] tracking-tight lowercase text-foreground">
                   {b.title}
                 </h3>
-                <p className="text-[13px] md:text-[14px] yankee-block__muted leading-relaxed lowercase">{b.body}</p>
+                <p className="text-[13px] md:text-[14px] text-muted-foreground leading-relaxed lowercase">{b.body}</p>
                 <div className="yankee-chat mt-auto">
                   {b.chat.map((m, j) => (
                     <div key={j} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>

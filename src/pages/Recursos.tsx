@@ -5,20 +5,26 @@ import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import AnimatedSection from "@/components/AnimatedSection";
 import PromoPill from "@/components/home/PromoPill";
-import homeFeed from "@/assets/yankee/home-feed.png";
-import chatImg from "@/assets/yankee/chat.png";
-import aiChat from "@/assets/yankee/ai-chat.png";
-import crowdsHome from "@/assets/yankee/crowds-home.png";
-import messages from "@/assets/yankee/messages.png";
-import videoCall from "@/assets/yankee/video-call.png";
-import community from "@/assets/yankee/community.png";
-import profileView from "@/assets/yankee/profile-view.png";
-import searchImg from "@/assets/yankee/search.png";
-import { blockCard } from "@/lib/yankeeBlock";
 import FeedGuardsScene from "@/components/home/FeedGuardsScene";
 import FocusPresentScene from "@/components/home/FocusPresentScene";
 import PeopleCloseScene from "@/components/home/PeopleCloseScene";
 import PrivacyStayYoursScene from "@/components/home/PrivacyStayYoursScene";
+import MemoryPhoneScene from "@/components/home/MemoryPhoneScene";
+import { FeaturesAlwaysScene } from "@/components/home/FeaturesAlwaysScene";
+import homeFeed from "@/assets/yankee/home-feed.png";
+import chatImg from "@/assets/yankee/chat.png";
+import crowdsHome from "@/assets/yankee/crowds-home.png";
+import messages from "@/assets/yankee/messages.png";
+import videoCall from "@/assets/yankee/video-call.png";
+import voiceCall from "@/assets/yankee/voice-call.png";
+import facetime from "@/assets/yankee/facetime.png";
+import profileView from "@/assets/yankee/profile-view.png";
+import profileEdit from "@/assets/yankee/profile-edit.png";
+import searchImg from "@/assets/yankee/search.png";
+import searchTyping from "@/assets/yankee/search-typing.png";
+import contacting from "@/assets/yankee/contacting.png";
+import aiChat from "@/assets/yankee/ai-chat.png";
+import aiHello from "@/assets/yankee/ai-hello.png";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 
@@ -152,12 +158,21 @@ const privacyCards = [
   },
 ];
 
-const memoryChat = [
-  { from: "you" as const, text: "what was the name of that cafe we loved in lisbon?" },
-  { from: "them" as const, text: "the one you saved as 'tiny blue door near the tram stop'? manteigaria." },
-  { from: "you" as const, text: "right. and the photo dump from last summer?" },
-  { from: "them" as const, text: "album 'college friends' with 34 photos. july 14th." },
-  { from: "you" as const, text: "perfect. thanks yankee." },
+const marqueePrints = [
+  homeFeed,
+  messages,
+  videoCall,
+  voiceCall,
+  aiChat,
+  aiHello,
+  profileView,
+  profileEdit,
+  searchImg,
+  searchTyping,
+  chatImg,
+  crowdsHome,
+  facetime,
+  contacting,
 ];
 
 const Features = () => (
@@ -276,16 +291,14 @@ const Features = () => (
         <AnimatedSection delay={0.15}>
           <div className="yankee-surface mt-14 md:mt-16 overflow-hidden rounded-[1.5rem] bg-card">
             <div className="flex gap-3 md:gap-4 p-3 md:p-4 animate-[yankee-marquee_40s_linear_infinite] w-max">
-              {[homeFeed, messages, videoCall, community, aiChat, profileView, searchImg, chatImg, crowdsHome, homeFeed, messages, videoCall].map(
-                (src, i) => (
+              {[...marqueePrints, ...marqueePrints].map((src, i) => (
                   <div
                     key={i}
                     className="yankee-surface yankee-surface--media w-[110px] md:w-[140px] shrink-0 rounded-[1rem] overflow-hidden aspect-[9/17] bg-muted"
                   >
                     <img src={src} alt="" className="w-full h-full object-cover object-top" loading="lazy" />
                   </div>
-                ),
-              )}
+                ))}
             </div>
           </div>
           <p className="mt-4 text-center text-[12px] text-foreground/45 lowercase">
@@ -365,51 +378,8 @@ const Features = () => (
           </p>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {[
-            {
-              title: "feed",
-              text: "chronological, always. only people you follow.",
-              src: homeFeed,
-            },
-            {
-              title: "chat",
-              text: "threads that pick up exactly where you left them.",
-              src: chatImg,
-            },
-            {
-              title: "calls",
-              text: "voice and video, right inside the same calm app.",
-              src: videoCall,
-            },
-            {
-              title: "crowds",
-              text: "small rooms around what you actually care about.",
-              src: crowdsHome,
-            },
-            {
-              title: "yankee ai",
-              text: "drafts, reminders and follow-ups that stay private.",
-              src: aiChat,
-            },
-            {
-              title: "search",
-              text: "find people, posts and rooms without the noise.",
-              src: searchImg,
-            },
-          ].map((card, i) => (
-            <AnimatedSection key={card.title} delay={i * 0.05}>
-              <div className={blockCard(i, "p-4 flex flex-col gap-4")}>
-                <div className="yankee-surface yankee-surface--media rounded-[1.1rem] overflow-hidden aspect-[4/3] bg-card">
-                  <img src={card.src} alt="" className="w-full h-full object-cover object-top" loading="lazy" />
-                </div>
-                <div>
-                  <h3 className="text-[16px] font-semibold lowercase tracking-tight">{card.title}</h3>
-                  <p className="mt-1.5 text-[13px] yankee-block__muted leading-relaxed lowercase">{card.text}</p>
-                </div>
-              </div>
-            </AnimatedSection>
-          ))}
+        <div className="mt-12 md:mt-14">
+          <FeaturesAlwaysScene />
         </div>
 
         <AnimatedSection delay={0.25}>
@@ -536,25 +506,8 @@ const Features = () => (
             </Link>
           </AnimatedSection>
 
-          <AnimatedSection className="lg:col-span-7" delay={0.1}>
-            <div className="yankee-chat rounded-[1.75rem] p-5 md:p-7 flex flex-col gap-3 max-w-[440px] mx-auto">
-              {memoryChat.map((m, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.08 * i, ease }}
-                  className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}
-                >
-                  <span
-                    className={`yankee-chat__bubble ${ m.from === "you" ? "yankee-chat__bubble--you" : "yankee-chat__bubble--them" }`}
-                  >
-                    {m.text}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
+          <AnimatedSection className="lg:col-span-7 flex justify-center" delay={0.1}>
+            <MemoryPhoneScene />
           </AnimatedSection>
         </div>
       </div>

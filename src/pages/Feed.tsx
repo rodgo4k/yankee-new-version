@@ -6,14 +6,14 @@ import AnimatedSection from "@/components/AnimatedSection";
 import FAQ from "@/components/FAQ";
 import PromoPill from "@/components/home/PromoPill";
 import FeedHonestScene from "@/components/home/FeedHonestScene";
+import FeedDoesScene from "@/components/home/FeedDoesScene";
 import FeedStepsScene from "@/components/home/FeedStepsScene";
 import homeFeed from "@/assets/yankee/home-feed.png";
 import yankeeScene from "@/assets/yankee-scene.jpg";
-import { blockCard } from "@/lib/yankeeBlock";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 
-const feedBlocks = [
+const feedPoints = [
   {
     kicker: "shows what matters",
     title: (
@@ -22,13 +22,6 @@ const feedBlocks = [
       </>
     ),
     body: "yankee reads through every account you follow and puts their posts first. no ranking games.",
-    chat: [
-      { from: "you" as const, text: "what did i miss from last night?" },
-      {
-        from: "them" as const,
-        text: "42 posts. 6 from close friends. kayla shared album covers.",
-      },
-    ],
   },
   {
     kicker: "keeps the feed finite",
@@ -38,11 +31,6 @@ const feedBlocks = [
       </>
     ),
     body: "no infinite scroll. yankee marks the bottom of your feed and steps back, so you can close the app without guilt.",
-    chat: [
-      { from: "them" as const, text: "you're all caught up. next new post in about 3h." },
-      { from: "you" as const, text: "wait that's it?" },
-      { from: "them" as const, text: "that's it. see you later." },
-    ],
   },
   {
     kicker: "remembers quietly",
@@ -52,10 +40,6 @@ const feedBlocks = [
       </>
     ),
     body: "a private memory of what you save, who you reply to, and what you skip. every week it gets sharper.",
-    chat: [
-      { from: "you" as const, text: "any new photo dumps from the paris crew?" },
-      { from: "them" as const, text: "sara posted 12 photos this morning. saved to your paris folder." },
-    ],
   },
 ];
 
@@ -247,40 +231,38 @@ const Feed = () => (
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
-        <AnimatedSection className="max-w-2xl mx-auto text-center">
-          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">what it does</p>
-          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
-            what yankee does <br className="hidden md:block" />
-            <span className="font-serif-display italic font-medium">for your feed</span>
-          </h2>
-        </AnimatedSection>
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <AnimatedSection
+            className="lg:col-span-6 flex justify-center lg:justify-start shrink-0 order-2 lg:order-1"
+            delay={0.1}
+          >
+            <FeedDoesScene />
+          </AnimatedSection>
 
-        <div className="mt-12 md:mt-16 grid md:grid-cols-3 gap-4">
-          {feedBlocks.map((b, i) => (
-            <AnimatedSection key={b.kicker} delay={i * 0.08}>
-              <div className={blockCard(i, "p-6 md:p-7 flex flex-col gap-5")}>
-                <p className="font-serif-display italic text-[1.05rem] yankee-block__kicker lowercase leading-none">
-                  {b.kicker}
-                </p>
-                <h3 className="text-[22px] md:text-[24px] font-semibold leading-[1.08] tracking-tight lowercase">
-                  {b.title}
-                </h3>
-                <p className="text-[13px] md:text-[14px] yankee-block__muted leading-relaxed lowercase">{b.body}</p>
-
-                <div className="yankee-chat mt-auto">
-                  {b.chat.map((m, j) => (
-                    <div key={j} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>
-                      <span
-                        className={`yankee-chat__bubble ${ m.from === "you" ? "yankee-chat__bubble--you" : "yankee-chat__bubble--them" }`}
-                      >
-                        {m.text}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </AnimatedSection>
-          ))}
+          <AnimatedSection className="lg:col-span-6 text-center lg:text-left order-1 lg:order-2">
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+              what it does
+            </p>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+              what yankee does{" "}
+              <span className="font-serif-display italic font-medium">for your feed</span>
+            </h2>
+            <ul className="mt-8 space-y-6 max-w-md mx-auto lg:mx-0 text-left">
+              {feedPoints.map((p) => (
+                <li key={p.kicker}>
+                  <p className="font-serif-display italic text-[1.05rem] text-foreground/50 lowercase leading-none">
+                    {p.kicker}
+                  </p>
+                  <h3 className="mt-2 text-[18px] md:text-[20px] font-semibold leading-[1.1] tracking-tight lowercase">
+                    {p.title}
+                  </h3>
+                  <p className="mt-2 text-[13px] md:text-[14px] text-muted-foreground leading-relaxed lowercase">
+                    {p.body}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </AnimatedSection>
         </div>
       </div>
     </section>

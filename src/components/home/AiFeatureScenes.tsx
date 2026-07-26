@@ -27,7 +27,6 @@ const renderTrioPhase = (key: (typeof trio)[number]["key"]) => {
   return <ContributePhase />;
 };
 
-/** Three phones like the app print: session → invite → contributions */
 export const AiTrioScene = () => {
   const [active, setActive] = useState(0);
 

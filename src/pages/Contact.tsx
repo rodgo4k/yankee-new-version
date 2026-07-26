@@ -1,14 +1,17 @@
-import { ArrowRight, ArrowUpRight, Mail, Instagram, Twitter, Music2, Handshake, Newspaper, LifeBuoy, Briefcase, Globe2, Clock } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Mail, Instagram, Twitter, Music2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
 import AnimatedSection from "@/components/AnimatedSection";
+import {
+  ContactHelpScene,
+  ContactMetaScene,
+} from "@/components/home/ContactFeatureScenes";
 import friendsVideoCall from "@/assets/friends-video-call.jpg";
 import cafeFriends from "@/assets/cafe-friends.jpg";
 import smallTeamCollab from "@/assets/small-team-collab.jpg";
 import rememberOffice from "@/assets/remember-office.jpg";
 import { YANKEE_EMAIL, YANKEE_MAILTO } from "@/lib/email";
-import { blockCard } from "@/lib/yankeeBlock";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 
@@ -20,33 +23,6 @@ const channels = [
   { name: "instagram", handle: "@yankeeapp", href: "https://instagram.com/yankeeapp", icon: Instagram, kind: "social" as const },
   { name: "x / twitter", handle: "@yankeeapp", href: "https://x.com/yankeeapp", icon: Twitter, kind: "social" as const },
   { name: "tiktok", handle: "@yankeeapp", href: "https://tiktok.com/@yankeeapp", icon: Music2, kind: "social" as const },
-];
-
-const helps = [
-  {
-    icon: Handshake,
-    bubble: "collabs welcome",
-    t: "partnerships",
-    d: "brands, creators or crowds interested in collaborating with us.",
-  },
-  {
-    icon: Newspaper,
-    bubble: "we reply fast",
-    t: "press",
-    d: "interviews, coverage requests or background on the company.",
-  },
-  {
-    icon: LifeBuoy,
-    bubble: "real humans",
-    t: "support",
-    d: "trouble with your account, a bug, or a moderation question.",
-  },
-  {
-    icon: Briefcase,
-    bubble: "we're hiring",
-    t: "careers",
-    d: "engineering, design and community roles. come build with us.",
-  },
 ];
 
 const inboxPreview = [
@@ -229,69 +205,14 @@ const Contact = () => (
           </h2>
         </AnimatedSection>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {helps.map((h, i) => {
-            const Icon = h.icon;
-            return (
-              <AnimatedSection key={h.t} delay={i * 0.06}>
-                <div className={blockCard(i, "p-6 flex flex-col gap-5")}>
-                  <span className="yankee-chat__bubble yankee-chat__bubble--you text-[13px]">
-                    {h.bubble}
-                  </span>
-                  <div className="mt-auto">
-                    <div className="yankee-block__icon w-9 h-9 rounded-full flex items-center justify-center mb-4">
-                      <Icon size={16} />
-                    </div>
-                    <h3 className="text-[16px] font-semibold lowercase tracking-tight">{h.t}</h3>
-                    <p className="mt-2 text-[13px] yankee-block__muted leading-relaxed lowercase">{h.d}</p>
-                  </div>
-                </div>
-              </AnimatedSection>
-            );
-          })}
-        </div>
+        <ContactHelpScene />
       </div>
     </section>
 
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
-        <div className="grid md:grid-cols-2 gap-4">
-          <AnimatedSection>
-            <div className={blockCard(0, "p-7 md:p-8")}>
-              <div className="yankee-block__icon w-9 h-9 rounded-full flex items-center justify-center mb-5">
-                <Globe2 size={16} />
-              </div>
-              <p className="font-serif-display italic text-[1.1rem] yankee-block__kicker lowercase">office</p>
-              <h3 className="mt-2 text-2xl md:text-3xl font-semibold lowercase tracking-tight">
-                global · remote-first
-              </h3>
-              <p className="mt-3 text-[14px] yankee-block__muted leading-relaxed lowercase">
-                the yankee team is distributed across three continents. we publish our current locations in the careers listings.
-              </p>
-              <Link
-                to="/careers"
-                className="mt-6 inline-flex items-center gap-1.5 text-[13px] font-medium lowercase underline underline-offset-4 decoration-2"
-              >
-                see careers <ArrowRight size={13} />
-              </Link>
-            </div>
-          </AnimatedSection>
-          <AnimatedSection delay={0.08}>
-            <div className={blockCard(1, "p-7 md:p-8")}>
-              <div className="yankee-block__icon w-9 h-9 rounded-full flex items-center justify-center mb-5">
-                <Clock size={16} />
-              </div>
-              <p className="font-serif-display italic text-[1.1rem] yankee-block__kicker lowercase">response time</p>
-              <h3 className="mt-2 text-2xl md:text-3xl font-semibold lowercase tracking-tight">
-                under 48 hours
-              </h3>
-              <p className="mt-3 text-[14px] yankee-block__muted leading-relaxed lowercase">
-                every email is triaged the same day it arrives. if it&apos;s urgent — a moderation issue or a security report — we escalate immediately.
-              </p>
-            </div>
-          </AnimatedSection>
-        </div>
+        <ContactMetaScene />
       </div>
     </section>
 
