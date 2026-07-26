@@ -401,10 +401,10 @@ const SessionPhase = () => {
 /* ─── 3. Invite members ─── */
 
 const members = [
-  { name: "Caio Pereira", hint: "writes", role: "contribute" as const, color: BLUE, from: -56 },
-  { name: "Lia Almeida", hint: "writes", role: "contribute" as const, color: BLUE, from: 56 },
-  { name: "Rafa Santos", hint: "reads only", role: "view" as const, color: "rgba(255,255,255,0.14)", from: -56 },
-  { name: "Thiago Silva", hint: "publishes", role: "publish" as const, color: GREEN, from: 56 },
+  { name: "Chris Parker", hint: "writes", role: "contribute" as const, color: BLUE, from: -56 },
+  { name: "Maya Reed", hint: "writes", role: "contribute" as const, color: BLUE, from: 56 },
+  { name: "Ryan Scott", hint: "reads only", role: "view" as const, color: "rgba(255,255,255,0.14)", from: -56 },
+  { name: "Tyler Shaw", hint: "publishes", role: "publish" as const, color: GREEN, from: 56 },
 ];
 
 const InvitePhase = () => {
@@ -583,14 +583,14 @@ const PermissionsPhase = () => {
 
 const contribs = [
   {
-    name: "Caio Pereira",
+    name: "Chris Parker",
     time: "4 min",
     role: "contribute",
     text: "Use the Blue Hills terrain notes and the $600 budget.",
     from: -56,
   },
   {
-    name: "Lia Almeida",
+    name: "Maya Reed",
     time: "2 min",
     role: "contribute",
     text: "Pin the 2 Notions about waterproofing.",
@@ -682,7 +682,7 @@ const ContributePhase = () => {
 
       <div className="flex items-center gap-2 px-4 mb-2.5">
         <div className="flex items-center -space-x-1.5">
-          {["C", "L", "T"].map((letter, i) => (
+          {["C", "M", "T"].map((letter, i) => (
             <span
               key={letter}
               className="relative w-6 h-6 rounded-full border border-black flex items-center justify-center text-[9px] text-white/80 font-medium"

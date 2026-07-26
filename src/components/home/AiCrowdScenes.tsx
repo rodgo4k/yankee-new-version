@@ -61,7 +61,7 @@ export const OnlinePresence = ({
 }) => (
   <div className="flex items-center gap-2 px-4 mb-2.5">
     <div className="flex items-center -space-x-1.5">
-      {["C", "L", "T"].map((letter, i) => (
+      {["C", "M", "T"].map((letter, i) => (
         <span
           key={letter}
           className="relative w-6 h-6 rounded-full border border-black flex items-center justify-center text-[9px] text-white/80 font-medium"
@@ -116,13 +116,13 @@ export const CollabPromptPhase = () => {
 
   const inputs = [
     {
-      who: "Caio",
+      who: "Chris",
       text: "Use the Blue Hills terrain notes and the $600 per-person budget.",
       from: -48,
       reaction: true,
     },
     {
-      who: "Lia",
+      who: "Maya",
       text: "Pin the 2 Notions I added about waterproofing.",
       from: 48,
       reaction: false,
@@ -156,7 +156,7 @@ export const CollabPromptPhase = () => {
             <p className="text-[11px] text-white/80 leading-relaxed">
               let&apos;s lock the Blue Hills trail training for this weekend
             </p>
-            <p className="mt-1 text-[9px] text-white/30">Lia Almeida · 9:32</p>
+            <p className="mt-1 text-[9px] text-white/30">Maya Reed · 9:32</p>
           </motion.div>
         </div>
 
@@ -233,7 +233,7 @@ export const CollabPromptPhase = () => {
               animate={{ opacity: 1 }}
               className="text-[9px] text-white/35"
             >
-              Lia is typing…
+              Maya is typing…
             </motion.p>
           )}
         </AnimatePresence>
@@ -284,7 +284,7 @@ export const ResultPhase = () => {
           </span>
           <p className="text-[10px] text-white/50">Prompt ran</p>
         </div>
-        <p className="text-[9px] text-white/35">3 inputs · Caio, Lia, you</p>
+        <p className="text-[9px] text-white/35">3 inputs · Chris, Maya, you</p>
       </div>
 
       <div className="px-3 flex-1 min-h-0 overflow-hidden">
@@ -310,7 +310,7 @@ export const ResultPhase = () => {
                   </span>
                 </div>
                 <p className="mt-1.5 text-[10px] text-white/55 leading-relaxed">
-                  Best grip on wet rock, fits the $600 budget, straight from Lia&apos;s Notions.
+                  Best grip on wet rock, fits the $600 budget, straight from Maya&apos;s Notions.
                 </p>
               </div>
 
@@ -448,7 +448,7 @@ export const CommandsPhase = () => {
           <p className="text-[11px] text-white/80 leading-relaxed">
             let&apos;s lock the Blue Hills trail training for this weekend
           </p>
-          <p className="mt-1 text-[9px] text-white/30">Lia Almeida · 9:32</p>
+          <p className="mt-1 text-[9px] text-white/30">Maya Reed · 9:32</p>
         </div>
       </div>
 
