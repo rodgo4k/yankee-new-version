@@ -13,6 +13,9 @@ import {
   AiInviteDemo,
   AiModelsStrip,
   AiTrioScene,
+  AiCollabDemo,
+  AiResultDemo,
+  AiCommandsDemo,
 } from "@/components/home/AiFeatureScenes";
 import smallTeamCollab from "@/assets/small-team-collab.jpg";
 
@@ -281,6 +284,81 @@ const ForSmallTeams = () => (
               members drop notes into the session. the shared prompt grows in real time. then you
               run it across every model you picked.
             </p>
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+
+    {/* ── collaborative prompt in the crowd ── */}
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <AnimatedSection className="lg:col-span-6">
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+              in the crowd
+            </p>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase max-w-[14ch]">
+              a live collaborative prompt{" "}
+              <span className="font-serif-display italic font-medium">inside the channel.</span>
+            </h2>
+            <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md">
+              see who is online, add inputs as a card in the chat, react, and run when the crowd is
+              ready. ai lives where the conversation already is.
+            </p>
+          </AnimatedSection>
+          <AnimatedSection className="lg:col-span-6 flex justify-center lg:justify-end" delay={0.1}>
+            <AiCollabDemo />
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+
+    {/* ── result from crowd sources ── */}
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/75" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <AnimatedSection className="lg:col-span-6 order-2 lg:order-1 flex justify-center lg:justify-start">
+            <AiResultDemo />
+          </AnimatedSection>
+          <AnimatedSection className="lg:col-span-6 order-1 lg:order-2" delay={0.08}>
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+              crowd sources
+            </p>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase max-w-[15ch]">
+              the answer cites{" "}
+              <span className="font-serif-display italic font-medium">your crowd.</span>
+            </h2>
+            <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md">
+              top picks, week summaries and source chips from chat, notions and budget notes. then
+              iterate, save or publish back to the feed.
+            </p>
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+
+    {/* ── slash commands ── */}
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <AnimatedSection className="lg:col-span-6">
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+              commands
+            </p>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase max-w-[14ch]">
+              /prompt, /run, /invite{" "}
+              <span className="font-serif-display italic font-medium">right in chat.</span>
+            </h2>
+            <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md">
+              start a collaborative prompt, pick sources, invite members and iterate without leaving
+              the crowd channel.
+            </p>
+          </AnimatedSection>
+          <AnimatedSection className="lg:col-span-6 flex justify-center lg:justify-end" delay={0.1}>
+            <AiCommandsDemo />
           </AnimatedSection>
         </div>
       </div>

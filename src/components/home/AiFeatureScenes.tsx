@@ -7,6 +7,11 @@ import {
   InvitePhase,
   ContributePhase,
 } from "@/components/home/AiSessionScene";
+import {
+  CollabPromptPhase,
+  ResultPhase,
+  CommandsPhase,
+} from "@/components/home/AiCrowdScenes";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 
@@ -97,6 +102,24 @@ export const AiInviteDemo = () => (
 export const AiContributeDemo = () => (
   <AiPhoneShell rotate={1.5}>
     <ContributePhase />
+  </AiPhoneShell>
+);
+
+export const AiCollabDemo = () => (
+  <AiPhoneShell rotate={-1.5}>
+    <CollabPromptPhase />
+  </AiPhoneShell>
+);
+
+export const AiResultDemo = () => (
+  <AiPhoneShell rotate={2}>
+    <ResultPhase />
+  </AiPhoneShell>
+);
+
+export const AiCommandsDemo = () => (
+  <AiPhoneShell rotate={-2}>
+    <CommandsPhase />
   </AiPhoneShell>
 );
 

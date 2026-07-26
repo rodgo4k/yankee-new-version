@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowLeft,
@@ -287,7 +287,7 @@ const ChoosePhase = () => {
 /* ─── 2. New session ─── */
 
 const SessionPhase = () => {
-  const goalFull = "recommend shoes for the Sintra trail…";
+  const goalFull = "recommend shoes for the Blue Hills trail…";
   const [typed, setTyped] = useState("");
   const [sourcesOn, setSourcesOn] = useState(0);
   const [whoOn, setWhoOn] = useState(false);
@@ -585,13 +585,15 @@ const contribs = [
   {
     name: "Caio Pereira",
     time: "4 min",
-    text: "Use the Sintra terrain notes and factor in the R$ 600 per-person budget.",
+    role: "contribute",
+    text: "Use the Blue Hills terrain notes and the $600 budget.",
     from: -56,
   },
   {
     name: "Lia Almeida",
     time: "2 min",
-    text: "Add a line about multi-llm. compare gpt-4o, claude and gemini side by side.",
+    role: "contribute",
+    text: "Pin the 2 Notions about waterproofing.",
     from: 56,
   },
 ];
@@ -601,6 +603,14 @@ const ContributePhase = () => {
   const draft = "Add the two trails we did in May and the group's average time";
   const [typed, setTyped] = useState("");
   const [sent, setSent] = useState(false);
+  const [showRun, setShowRun] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+  };
 
   useEffect(() => {
     const timers: number[] = [
@@ -615,7 +625,12 @@ const ContributePhase = () => {
         setTyped(draft.slice(0, i));
         if (i >= draft.length) {
           window.clearInterval(typeId);
-          timers.push(window.setTimeout(() => setSent(true), 450));
+          timers.push(
+            window.setTimeout(() => {
+              setSent(true);
+              setShowRun(true);
+            }, 450),
+          );
         }
       }, 22);
     }, 1200);
@@ -626,6 +641,11 @@ const ContributePhase = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const id = window.setTimeout(scrollToBottom, 60);
+    return () => window.clearTimeout(id);
+  }, [cards, sent, showRun, typed]);
+
   const shownCount = cards + (sent ? 1 : 0);
 
   return (
@@ -635,9 +655,9 @@ const ContributePhase = () => {
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -24 }}
       transition={{ duration: 0.4, ease }}
-      className="flex flex-col h-full"
+      className="flex flex-col h-full min-h-0"
     >
-      <div className="flex items-center gap-2.5 px-4 mb-3">
+      <div className="flex items-center gap-2.5 px-4 mb-2">
         <ArrowLeft size={16} className="text-white/55 shrink-0" />
         <div
           className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
@@ -655,18 +675,57 @@ const ContributePhase = () => {
               AI
             </span>
           </div>
-          <p className="text-[9px] text-white/40">Lisbon Runners · AI channel</p>
+          <p className="text-[9px] text-white/40">Boston Runners · AI channel</p>
         </div>
         <MoreHorizontal size={16} className="text-white/40" />
       </div>
 
+      <div className="flex items-center gap-2 px-4 mb-2.5">
+        <div className="flex items-center -space-x-1.5">
+          {["C", "L", "T"].map((letter, i) => (
+            <span
+              key={letter}
+              className="relative w-6 h-6 rounded-full border border-black flex items-center justify-center text-[9px] text-white/80 font-medium"
+              style={{
+                background: ["#4a6fa5", "#6b5b95", "#2d8a6e"][i],
+                zIndex: 3 - i,
+              }}
+            >
+              {letter}
+              <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#34c759] border border-black" />
+            </span>
+          ))}
+        </div>
+        <span className="w-1.5 h-1.5 rounded-full bg-[#34c759] shrink-0" />
+        <span className="text-[10px] font-medium" style={{ color: GREEN }}>
+          Active
+        </span>
+        <span className="text-[10px] text-white/40">3 in session</span>
+      </div>
+
+      <div className="px-4 mb-2.5">
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="rounded-xl bg-[#1c1c1e] px-3 py-2.5"
+        >
+          <p className="text-[9px] text-white/35 mb-1">Session goal</p>
+          <p className="text-[11px] text-white/80 leading-snug">
+            Summarize last week and recommend shoes for the Blue Hills trail.
+          </p>
+        </motion.div>
+      </div>
+
       <div className="px-4 flex-1 flex flex-col min-h-0">
-        <p className="text-[10px] text-white/35 mb-2">Contributions · {shownCount}</p>
-        <div className="flex flex-col gap-2.5 flex-1 overflow-hidden pb-1">
+        <p className="text-[10px] text-white/35 mb-2 shrink-0">Contributions · {shownCount}</p>
+        <div
+          ref={scrollRef}
+          className="flex flex-col gap-2 flex-1 min-h-0 overflow-y-auto overflow-x-hidden pb-1 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        >
           {contribs.map((c, i) => {
             const show = cards > i;
             return (
-              <div key={c.name} className="relative px-[2px]">
+              <div key={c.name} className="relative px-[2px] shrink-0">
                 <AnimatePresence>
                   {show && (
                     <motion.div
@@ -674,18 +733,20 @@ const ContributePhase = () => {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.5, ease }}
-                      className="rounded-2xl bg-[#1c1c1e] p-3"
+                      onAnimationComplete={scrollToBottom}
+                      className="rounded-2xl bg-[#1c1c1e] p-2.5"
                     >
-                      <div className="flex items-center gap-2 mb-1.5">
-                        <span className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-[10px] text-white/60">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="relative w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-[10px] text-white/60">
                           {c.name[0]}
+                          <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#34c759] border border-[#1c1c1e]" />
                         </span>
                         <p className="text-[11px] text-white font-medium truncate flex-1">{c.name}</p>
                         <span
                           className="rounded-full px-1.5 py-0.5 text-[8px] font-semibold text-white lowercase"
                           style={{ background: BLUE }}
                         >
-                          contribute
+                          {c.role}
                         </span>
                         <span className="text-[9px] text-white/30">{c.time}</span>
                       </div>
@@ -704,13 +765,21 @@ const ContributePhase = () => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5, ease }}
-                className="rounded-2xl bg-[#2f6bff]/15 border border-[#2f6bff]/25 p-3 mx-[2px]"
+                onAnimationComplete={scrollToBottom}
+                className="rounded-2xl bg-[#2f6bff]/15 border border-[#2f6bff]/25 p-2.5 mx-[2px] shrink-0"
               >
-                <div className="flex items-center gap-2 mb-1.5">
-                  <span className="w-6 h-6 rounded-full bg-[#2f6bff]/30 flex items-center justify-center text-[10px] text-white">
-                    you
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="relative w-6 h-6 rounded-full bg-[#2f6bff]/30 flex items-center justify-center text-[10px] text-white">
+                    Y
+                    <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#34c759] border border-[#0a0a0b]" />
                   </span>
                   <p className="text-[11px] text-white font-medium flex-1">You</p>
+                  <span
+                    className="rounded-full px-1.5 py-0.5 text-[8px] font-semibold text-white lowercase"
+                    style={{ background: GREEN }}
+                  >
+                    publish
+                  </span>
                   <span className="text-[9px] text-white/30">now</span>
                 </div>
                 <p className="text-[11px] text-white/85 leading-relaxed">{draft}</p>
@@ -719,22 +788,27 @@ const ContributePhase = () => {
           </AnimatePresence>
         </div>
 
+        <div className="shrink-0">
+        {showRun && (
+          <motion.button
+            type="button"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-2 w-full rounded-full py-2.5 text-[11px] font-semibold text-white lowercase"
+            style={{ background: BLUE }}
+          >
+            Run with {shownCount} contributions
+          </motion.button>
+        )}
+
         <motion.div
           animate={{
             borderColor: sent ? "rgba(47,107,255,0.2)" : "rgba(47,107,255,0.7)",
-            boxShadow: sent
-              ? "0 0 0 0 rgba(47,107,255,0)"
-              : [
-                  "0 0 0 0 rgba(47,107,255,0)",
-                  "0 0 0 4px rgba(47,107,255,0.2)",
-                  "0 0 0 0 rgba(47,107,255,0)",
-                ],
           }}
-          transition={{ duration: 1.5, repeat: sent ? 0 : Infinity }}
-          className="mt-3 mb-1 rounded-full border bg-[#1c1c1e] px-3 py-2 flex items-center gap-2"
+          className="mt-2 mb-1 rounded-full border bg-[#1c1c1e] px-3 py-2 flex items-center gap-2"
         >
           <p className="flex-1 text-[10px] text-white/70 truncate min-h-[14px]">
-            {sent ? "Write a contribution…" : typed}
+            {sent ? "Write another contribution…" : typed}
             {!sent && typed.length < draft.length && (
               <motion.span
                 animate={{ opacity: [1, 0] }}
@@ -743,14 +817,14 @@ const ContributePhase = () => {
               />
             )}
           </p>
-          <motion.span
-            animate={sent ? { scale: [1, 0.85, 1] } : {}}
+          <span
             className="w-7 h-7 rounded-full flex items-center justify-center shrink-0"
             style={{ background: BLUE }}
           >
             <ArrowUp size={13} className="text-white" />
-          </motion.span>
+          </span>
         </motion.div>
+        </div>
       </div>
     </motion.div>
   );
