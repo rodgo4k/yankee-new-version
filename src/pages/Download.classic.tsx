@@ -36,12 +36,12 @@ const reasons = [
   {
     icon: Shield,
     title: "private by default",
-    desc: "your messages and memory will stay encrypted on your device.",
+    desc: "your messages and memory stay encrypted on your device.",
   },
   {
     icon: WifiOff,
     title: "works offline",
-    desc: "you'll be able to read your feed and drafts even when the signal drops.",
+    desc: "you can read your feed and drafts even when the signal drops.",
   },
   {
     icon: Sparkles,
@@ -247,11 +247,11 @@ const Download = () => (
                   <span className="font-serif-display italic font-medium">link</span>
                 </h2>
                 <p className="mt-3 text-[14px] text-muted-foreground leading-relaxed lowercase max-w-md">
-                  email yankee@foretheist.com and we&apos;ll notify you when the ios and android links are ready.
+                  email yankee@foretheist.com and we&apos;ll send you the ios and android download links.
                 </p>
                 <div className="mt-6">
                   <a
-                    href="mailto:yankee@foretheist.com?subject=Notify%20me%20when%20Yankee%20launches"
+                    href="mailto:yankee@foretheist.com?subject=Send%20me%20the%20Yankee%20download%20link"
                     className="yankee-surface yankee-surface--control group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-folk-panel text-[14px] font-medium text-foreground lowercase hover:-translate-y-1 transition-all"
                   >
                     email me the link <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
@@ -332,7 +332,7 @@ const Download = () => (
             <span className="font-serif-display italic font-medium">are.</span>
           </h2>
           <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto">
-            when yankee launches, invite a few people you like and leave the noise behind.
+            download yankee, invite a few people you like and leave the noise behind.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <a

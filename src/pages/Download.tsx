@@ -11,12 +11,12 @@ const reasons = [
   {
     icon: Shield,
     title: "private by default",
-    desc: "your messages and memory will stay encrypted on your device.",
+    desc: "your messages and memory stay encrypted on your device.",
   },
   {
     icon: WifiOff,
     title: "works offline",
-    desc: "you'll be able to read your feed and drafts even when the signal drops.",
+    desc: "you can read your feed and drafts even when the signal drops.",
   },
   {
     icon: Sparkles,
@@ -66,21 +66,21 @@ const Download = () => (
                 <div className="yankee-surface w-28 h-28 rounded-[1.25rem] bg-card flex items-center justify-center">
                   <QrCode size={56} strokeWidth={1.5} className="text-foreground" />
                 </div>
-                <p className="mt-4 text-[13px] font-medium lowercase text-foreground">scan at launch</p>
-                <p className="mt-1 text-[12px] text-muted-foreground lowercase">we'll send the link at launch</p>
+                <p className="mt-4 text-[13px] font-medium lowercase text-foreground">scan on your phone</p>
+                <p className="mt-1 text-[12px] text-muted-foreground lowercase">opens the app store</p>
               </div>
               <div className="sm:col-span-8 p-7 md:p-9 flex flex-col justify-center">
-                <p className="font-serif-display italic text-[1.2rem] text-foreground/50 lowercase">want a heads up?</p>
+                <p className="font-serif-display italic text-[1.2rem] text-foreground/50 lowercase">on another device?</p>
                 <h2 className="mt-2 text-2xl sm:text-3xl font-semibold text-foreground tracking-tight leading-[1.05] lowercase">
-                  join the{" "}
-                  <span className="font-serif-display italic font-medium">launch list</span>
+                  send yourself the{" "}
+                  <span className="font-serif-display italic font-medium">link</span>
                 </h2>
                 <p className="mt-3 text-[14px] text-muted-foreground leading-relaxed lowercase max-w-md">
-                  email {YANKEE_EMAIL} and we&apos;ll notify you when yankee is ready for ios.
+                  email {YANKEE_EMAIL} and we&apos;ll send you the ios download link.
                 </p>
                 <div className="mt-6">
                   <a
-                    href={`${YANKEE_MAILTO}?subject=Notify%20me%20when%20Yankee%20launches`}
+                    href={`${YANKEE_MAILTO}?subject=Send%20me%20the%20Yankee%20download%20link`}
                     className="yankee-surface yankee-surface--control group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-folk-panel text-[14px] font-medium text-foreground lowercase hover:-translate-y-1 transition-all"
                   >
                     email me the link <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
@@ -161,7 +161,7 @@ const Download = () => (
             <span className="font-serif-display italic font-medium">are.</span>
           </h2>
           <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto">
-            when yankee launches, invite a few people you like and leave the noise behind.
+            download yankee, invite a few people you like and leave the noise behind.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <a

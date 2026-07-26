@@ -16,22 +16,22 @@ const principles = [
   {
     icon: Lock,
     title: "private by default",
-    text: "everything you save will stay on your phone first. backed up as ciphertext only.",
+    text: "everything you save stays on your phone first. backed up as ciphertext only.",
   },
   {
     icon: KeyRound,
     title: "your keys, not ours",
-    text: "decryption keys will live on your devices. we'll only ever hold encrypted blobs.",
+    text: "decryption keys live on your devices. we only ever hold encrypted blobs.",
   },
   {
     icon: Brain,
     title: "never trained on",
-    text: "your writing, saves and notes will never be used to train a model. not ours, not anyone else's.",
+    text: "your writing, saves and notes are never used to train a model. not ours, not anyone else's.",
   },
   {
     icon: Trash2,
     title: "erase anything, anytime",
-    text: "delete a memory and it will be wiped from your device and our backups within 30 days.",
+    text: "delete a memory and it is wiped from your device and our backups within 30 days.",
   },
 ];
 
@@ -114,7 +114,7 @@ const steps = [
   {
     n: "01",
     t: "text yankee",
-    d: "yankee will sit inside the threads you already use, ready to hold anything you toss its way.",
+    d: "yankee sits inside the threads you already use, ready to hold anything you toss its way.",
   },
   {
     n: "02",
@@ -130,28 +130,28 @@ const steps = [
 
 const faqs = [
   {
-    q: "Where will my memory live?",
-    a: "On your device first. Yankee will keep an encrypted backup so you can restore on a new phone. Plaintext will never leave your devices.",
+    q: "Where does my memory live?",
+    a: "On your device first. Yankee keeps an encrypted backup so you can restore on a new phone. Plaintext never leaves your devices.",
   },
   {
-    q: "Will Yankee be able to read what I save?",
-    a: "No. Decryption keys will live on your devices. Even under a subpoena, we would only be able to hand over ciphertext blobs.",
+    q: "Can Yankee read what I save?",
+    a: "No. Decryption keys live on your devices. Even under a subpoena, we would only be able to hand over ciphertext blobs.",
   },
   {
-    q: "Will my memory be used to train AI?",
-    a: "Never. Your writing, saves and notes will not be used to train a model. Not ours, not anyone else's.",
+    q: "Is my memory used to train AI?",
+    a: "Never. Your writing, saves and notes are not used to train a model. Not ours, not anyone else's.",
   },
   {
-    q: "What will I be able to share with someone else?",
-    a: "A single memory at a time. A playlist, a place, a plan, a recipe. They will only see what you passed. You'll be able to revoke access any time.",
+    q: "What can I share with someone else?",
+    a: "A single memory at a time. A playlist, a place, a plan, a recipe. They only see what you passed. You can revoke access any time.",
   },
   {
     q: "What happens when I delete a memory?",
-    a: "It will be wiped from your device and our encrypted backups within 30 days. No hidden copies.",
+    a: "It is wiped from your device and our encrypted backups within 30 days. No hidden copies.",
   },
   {
-    q: "Will Memory be available to everyone?",
-    a: "Yes. Save, recall, shared handoffs and cross-device sync will be available to everyone at launch. No tiers, no locked features.",
+    q: "Is Memory available to everyone?",
+    a: "Yes. Save, recall, shared handoffs and cross-device sync are available to everyone. No tiers, no locked features.",
   },
 ];
 

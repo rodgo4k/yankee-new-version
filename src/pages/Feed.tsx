@@ -100,24 +100,24 @@ const principles = [
 
 const faqs = [
   {
-    q: "How will Yankee decide the order of my feed?",
+    q: "How does Yankee decide the order of my feed?",
     a: "By the clock, nothing else. Newest post at the top, oldest unseen at the bottom. No engagement ranking, no reshuffling, no surprise resurfacing.",
   },
   {
-    q: "Will I miss posts if I don't check often?",
-    a: "No. Yankee will keep every unseen post from the people you follow until you open the app. When you come back, they will all be there in order, without duplicates.",
+    q: "Do I miss posts if I don't check often?",
+    a: "No. Yankee keeps every unseen post from the people you follow until you open the app. When you come back, they are all there in order, without duplicates.",
   },
   {
-    q: "Will Yankee show suggested accounts?",
-    a: "Never in the feed. Your feed will only show people you chose to follow. Discovery will live in its own space and never leak into your scroll.",
+    q: "Does Yankee show suggested accounts?",
+    a: "Never in the feed. Your feed only shows people you chose to follow. Discovery lives in its own space and never leaks into your scroll.",
   },
   {
-    q: "Will there be ads inside the feed?",
-    a: "No. We will never sell your feed to advertisers. No ads, no data resale. Your feed is not for sale and never will be.",
+    q: "Are there ads inside the feed?",
+    a: "No. We never sell your feed to advertisers. No ads, no data resale. Your feed is not for sale.",
   },
   {
-    q: "Will I be able to switch to a ranked feed?",
-    a: "No. A ranked feed is the problem we set out to remove. Yankee will be chronological, always.",
+    q: "Can I switch to a ranked feed?",
+    a: "No. A ranked feed is the problem we set out to remove. Yankee is chronological, always.",
   },
 ];
 

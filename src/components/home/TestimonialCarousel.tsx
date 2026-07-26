@@ -6,14 +6,14 @@ import { surface } from "@/lib/yankeeSurface";
 const testimonials = [
   {
     quote:
-      "you'll finally see every post from your friends again. no more wondering if anyone saw what you shared.",
+      "you finally see every post from your friends again. no more wondering if anyone saw what you shared.",
     name: "maya r.",
     role: "designer · são paulo",
     initials: "MR",
   },
   {
     quote:
-      "crowds will feel like the group chats we always wanted: small, calm, and actually about something we care about.",
+      "crowds feel like the group chats we always wanted: small, calm, and actually about something we care about.",
     name: "leo k.",
     role: "founder · berlin",
     initials: "LK",
@@ -27,7 +27,7 @@ const testimonials = [
   },
   {
     quote:
-      "post once and it will reach everyone who follows you. that alone is why yankee is worth waiting for.",
+      "post once and it reaches everyone who follows you. that alone is why yankee is on my home screen.",
     name: "andré s.",
     role: "creator · lisbon",
     initials: "AS",

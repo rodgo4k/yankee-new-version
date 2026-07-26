@@ -100,15 +100,15 @@ const steps = [
 const faqs = [
   {
     q: "Do we need to stop using Slack?",
-    a: "No. You'll be able to run Yankee alongside Slack while you transition. Many teams will start with one department and expand once the noise drops.",
+    a: "No. You can run Yankee alongside Slack while you transition. Many teams start with one department and expand once the noise drops.",
   },
   {
-    q: "Will it really be private?",
-    a: "Yes. Your workspace will be closed by default. Messages and calls will be end-to-end encrypted. We will not be able to read the content.",
+    q: "Is it really private?",
+    a: "Yes. Your workspace is closed by default. Messages and calls are end-to-end encrypted. We cannot read the content.",
   },
   {
     q: "Can we share files and documents?",
-    a: "Yes. You'll drop files into any room or thread. Storage will be shared across the workspace and access can be revoked any time.",
+    a: "Yes. You drop files into any room or thread. Storage is shared across the workspace and access can be revoked any time.",
   },
   {
     q: "Can we schedule posts for later?",
@@ -116,7 +116,7 @@ const faqs = [
   },
   {
     q: "What happens when our team grows?",
-    a: "Rooms will split when they hit a healthy size. You'll be able to add workspaces, keep channels separate, and still search everything in one place.",
+    a: "Rooms split when they hit a healthy size. You can add workspaces, keep channels separate, and still search everything in one place.",
   },
 ];
 
@@ -143,7 +143,7 @@ const ForSmallTeams = () => (
               className="mt-6 text-[2.4rem] sm:text-5xl md:text-[3.4rem] font-semibold text-foreground tracking-tight leading-[0.95] lowercase max-w-[12ch] mx-auto lg:mx-0"
             >
               a workspace your team{" "}
-              <span className="font-serif-display italic font-medium">will actually love.</span>
+              <span className="font-serif-display italic font-medium">actually loves.</span>
             </motion.h1>
 
             <motion.p

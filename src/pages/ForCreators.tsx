@@ -97,24 +97,24 @@ const steps = [
 
 const faqs = [
   {
-    q: "Will my followers actually see my posts?",
-    a: "Yes. Yankee will be chronological. Every post you publish will appear in the feed of everyone who follows you, in the order you posted it. There will be no engagement ranking that quietly hides you.",
+    q: "Do my followers actually see my posts?",
+    a: "Yes. Yankee is chronological. Every post you publish appears in the feed of everyone who follows you, in the order you posted it. There is no engagement ranking that quietly hides you.",
   },
   {
     q: "Is this the same as posting to Instagram or X?",
-    a: "No. Yankee will not publish to other social networks. For Creators is about building and reaching your audience inside Yankee — complete delivery, Crowds, and an archive you own.",
+    a: "No. Yankee does not publish to other social networks. For Creators is about building and reaching your audience inside Yankee — complete delivery, Crowds, and an archive you own.",
   },
   {
     q: "Can I schedule posts?",
-    a: "Yes. You'll set the date, time and timezone. Yankee will draft it, queue it, and publish it for you.",
+    a: "Yes. You set the date, time and timezone. Yankee drafts it, queues it, and publishes it for you.",
   },
   {
-    q: "What analytics will Yankee show?",
+    q: "What analytics does Yankee show?",
     a: "Reached, opened, replies, saves and shares. Simple, honest numbers without engagement scores or dopamine graphs.",
   },
   {
-    q: "Who will own my content?",
-    a: "You do. Yankee will store your library so you can export or leave any time. We will not train models on your posts or sell your audience data.",
+    q: "Who owns my content?",
+    a: "You do. Yankee stores your library so you can export or leave any time. We do not train models on your posts or sell your audience data.",
   },
 ];
 

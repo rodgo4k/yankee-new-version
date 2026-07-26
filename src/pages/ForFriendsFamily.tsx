@@ -98,23 +98,23 @@ const steps = [
 const faqs = [
   {
     q: "Do my family members need another app?",
-    a: "Yes — but it will be one app for everything. Chat, calls, photos and updates will live together, so you stop jumping between five different apps.",
+    a: "Yes — but it is one app for everything. Chat, calls, photos and updates live together, so you stop jumping between five different apps.",
   },
   {
     q: "Is it safe for kids?",
-    a: "Profiles will be private by default. Parents will approve contacts and group invites. There will be no public metrics, no discovery algorithms and no strangers.",
+    a: "Profiles are private by default. Parents approve contacts and group invites. There are no public metrics, no discovery algorithms and no strangers.",
   },
   {
     q: "Can we share photos privately?",
-    a: "Yes. Every album will live inside a private circle and will only be visible to members. Downloads will be optional and you'll be able to revoke access any time.",
+    a: "Yes. Every album lives inside a private circle and is only visible to members. Downloads are optional and you can revoke access any time.",
   },
   {
-    q: "Will calls and messages be encrypted?",
-    a: "Yes. Group chats and calls will be end-to-end encrypted. We will not be able to read the content of your conversations.",
+    q: "Are calls and messages encrypted?",
+    a: "Yes. Group chats and calls are end-to-end encrypted. We cannot read the content of your conversations.",
   },
   {
     q: "Can I have separate circles for family and friends?",
-    a: "Yes. You'll be able to create as many circles as you want, each with its own members, albums and notification rules.",
+    a: "Yes. You can create as many circles as you want, each with its own members, albums and notification rules.",
   },
 ];
 

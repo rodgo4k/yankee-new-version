@@ -103,7 +103,7 @@ const allowList = [
 
 const faqs = [
   {
-    q: "Will I miss messages from real people?",
+    q: "Do I miss messages from real people?",
     a: "No. Direct messages, mentions and replies from people you talk to always land. What stays silent are empty nudges, streak reminders and re-engagement prompts.",
   },
   {
@@ -119,12 +119,12 @@ const faqs = [
     a: "Yes. Profiles let you switch contexts in one tap. Work hours, community events and personal time each get their own signal list and quiet schedule.",
   },
   {
-    q: "Where will my notification rules be stored?",
-    a: "On your device by default. If you enable sync, the ruleset will be encrypted end-to-end. Yankee will never sell your attention settings.",
+    q: "Where are my notification rules stored?",
+    a: "On your device by default. If you enable sync, the ruleset is encrypted end-to-end. Yankee never sells your attention settings.",
   },
   {
-    q: "Will Yankee send notifications from other apps?",
-    a: "No. Notifications will be for what happens inside Yankee — your people, your Crowds, your chats. Other networks stay outside.",
+    q: "Does Yankee send notifications from other apps?",
+    a: "No. Notifications are for what happens inside Yankee — your people, your Crowds, your chats. Other networks stay outside.",
   },
 ];
 

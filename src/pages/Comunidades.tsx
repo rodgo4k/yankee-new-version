@@ -123,24 +123,24 @@ const faqs = [
     a: "A Crowd is Yankee's take on a community. Small, topical, capped in size, moderated by real humans and kept alive by regular meetups. Think group chat energy, structured like a magazine.",
   },
   {
-    q: "How will Crowds be different from a subreddit or a Discord server?",
-    a: "Crowds will be capped in size, chronological, and split when they get too big. There will be no karma, no upvote ranking and no algorithmic resurfacing. Signal will come from replies, not scores.",
+    q: "How are Crowds different from a subreddit or a Discord server?",
+    a: "Crowds are capped in size, chronological, and split when they get too big. There is no karma, no upvote ranking and no algorithmic resurfacing. Signal comes from replies, not scores.",
   },
   {
     q: "Can I create my own Crowd?",
-    a: "Yes. Any member will be able to propose a Crowd. If it hits a small threshold of active members in the first month, Yankee will promote it into the main directory.",
+    a: "Yes. Any member can propose a Crowd. If it hits a small threshold of active members in the first month, Yankee promotes it into the main directory.",
   },
   {
-    q: "Will Crowds be moderated?",
-    a: "Every Crowd will have volunteer moderators from its own members. Yankee will provide the tooling, they set the tone. Reports will be private and handled the same day.",
+    q: "Are Crowds moderated?",
+    a: "Every Crowd has volunteer moderators from its own members. Yankee provides the tooling, they set the tone. Reports are private and handled the same day.",
   },
   {
-    q: "Will meetups cost anything?",
-    a: "No. Yankee will never charge to host or attend a meetup. Some Crowds may organise paid events (a dinner, a workshop) and those will always be clearly labelled.",
+    q: "Do meetups cost anything?",
+    a: "No. Yankee never charges to host or attend a meetup. Some Crowds may organise paid events (a dinner, a workshop) and those are always clearly labelled.",
   },
   {
-    q: "Will my friends see the Crowds I join?",
-    a: "Only if you want them to. Every Crowd membership will be private by default. You'll be able to pin the ones you're proud of to your profile.",
+    q: "Do my friends see the Crowds I join?",
+    a: "Only if you want them to. Every Crowd membership is private by default. You can pin the ones you're proud of to your profile.",
   },
 ];
 
@@ -543,7 +543,7 @@ const Communities = () => (
                   className="relative z-10 -mt-5 ml-auto max-w-[85%]"
                 >
                   <div className="yankee-chat__bubble yankee-chat__bubble--you text-[13px] md:text-[14px]">
-                    your people will gather here.
+                    your people gather here.
                   </div>
                 </motion.div>
               </div>

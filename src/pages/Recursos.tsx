@@ -139,12 +139,12 @@ const privacyCards = [
   {
     icon: EyeOff,
     title: "private + encrypted",
-    text: "your feed, memory and dms will live in your space, encrypted where backups will live.",
+    text: "your feed, memory and dms live in your space, encrypted where backups live.",
   },
   {
     icon: Trash2,
     title: "gone in seconds",
-    text: "you'll be able to delete your account any time. memory, messages and history will be destroyed for good.",
+    text: "you can delete your account any time. memory, messages and history are destroyed for good.",
   },
 ];
 
@@ -348,7 +348,7 @@ const Features = () => (
             always on, <span className="font-serif-display italic font-medium">only yours</span>
           </h2>
           <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-lg mx-auto">
-            feed, chat, calls, crowds and yankee ai will live in one place. connected only to the people and rooms you choose.
+            feed, chat, calls, crowds and yankee ai live in one place. connected only to the people and rooms you choose.
           </p>
         </AnimatedSection>
 

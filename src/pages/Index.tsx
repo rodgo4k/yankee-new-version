@@ -34,8 +34,8 @@ const faqItems = [
     a: "On Yankee creators have a realistic chance to build momentum and go viral in their own community. You can also jump to any city in the world to see what people are posting there in real time, or explore content through different areas.",
   },
   {
-    q: "Will my data be safe?",
-    a: "Yes. Everything will be encrypted, we will never sell your data and we will never train AI on your posts. You'll be able to delete your account at any time.",
+    q: "Is my data safe?",
+    a: "Yes. Everything is encrypted, we never sell your data and we never train AI on your posts. You can delete your account at any time.",
   },
 ];
 
@@ -99,7 +99,7 @@ const Index = () => (
               all in one place, all yours
             </h2>
             <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md">
-              feed, chat, calls, crowds and yankee ai will live in one place, private by design, connected only to the people
+              feed, chat, calls, crowds and yankee ai live in one place, private by design, connected only to the people
               and rooms you choose.
             </p>
             <Link
@@ -144,10 +144,10 @@ const Index = () => (
       <div className="relative max-w-[900px] mx-auto px-5 md:px-6">
         <AnimatedSection className="text-center mb-10 md:mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
-            how yankee will fit into real social life
+            how yankee fits into real social life
           </h2>
           <p className="mt-4 text-[15px] text-muted-foreground lowercase max-w-lg mx-auto">
-            ways you'll be able to post, chat and stay close without the noise.
+            ways you can post, chat and stay close without the noise.
           </p>
         </AnimatedSection>
         <AnimatedSection delay={0.08}>
@@ -256,14 +256,14 @@ const Index = () => (
             your data stays yours
           </h2>
           <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase">
-            yankee will remember things for you, not about you. private, encrypted, and wipeable whenever you want.
+            yankee remembers things for you, not about you. private, encrypted, and wipeable whenever you want.
           </p>
         </AnimatedSection>
         <div className="mt-12 grid sm:grid-cols-3 gap-4 md:gap-5">
           {[
             { t: "yours alone", d: "never sold, never used to train ai. ever." },
-            { t: "private + encrypted", d: "your stuff will stay isolated and encrypted where we keep backups." },
-            { t: "gone in seconds", d: "when you delete your account, your data will be destroyed for good." },
+            { t: "private + encrypted", d: "your stuff stays isolated and encrypted where we keep backups." },
+            { t: "gone in seconds", d: "when you delete your account, your data is destroyed for good." },
           ].map((c, i) => (
             <AnimatedSection key={c.t} delay={i * 0.06}>
               <div className={blockCard(i, "p-6 md:p-7 text-center sm:text-left")}>
@@ -280,10 +280,10 @@ const Index = () => (
       <div className="max-w-[900px] mx-auto px-5 md:px-6">
         <AnimatedSection className="text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight lowercase">
-            the things people ask before yankee launches
+            the things people ask about yankee
           </h2>
           <p className="mt-4 text-[15px] text-muted-foreground lowercase">
-            short answers about what yankee will offer and how your data will stay yours.
+            short answers about what yankee offers and how your data stays yours.
           </p>
         </AnimatedSection>
         <div className="mt-10 md:mt-12">
