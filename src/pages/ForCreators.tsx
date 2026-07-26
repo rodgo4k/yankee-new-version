@@ -423,7 +423,7 @@ const ForCreators = () => (
                     />
                   </div>
                   <div className="mt-3 flex items-center justify-between gap-2">
-                    <span className="text-[12px] lowercase text-foreground/70">just posted · listening party</span>
+                    <span className="text-[12px] lowercase text-foreground/70">just posted · park picnic</span>
                     <span className="inline-flex items-center rounded-full bg-foreground px-2.5 py-1 text-[11px] text-background lowercase">
                       seen by all
                     </span>

@@ -1,4 +1,4 @@
-import { ArrowRight, Clock, Split, Moon, Search, Shield } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
@@ -6,122 +6,62 @@ import AnimatedSection from "@/components/AnimatedSection";
 import FAQ from "@/components/FAQ";
 import PromoPill from "@/components/home/PromoPill";
 import TeamHeroScene from "@/components/home/TeamHeroScene";
-import teamFeed from "@/assets/yankee/home-feed.png";
+import AiSessionScene from "@/components/home/AiSessionScene";
+import {
+  AiChooseDemo,
+  AiContributeDemo,
+  AiInviteDemo,
+  AiModelsStrip,
+  AiTrioScene,
+} from "@/components/home/AiFeatureScenes";
 import smallTeamCollab from "@/assets/small-team-collab.jpg";
-import { blockCard } from "@/lib/yankeeBlock";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
-
-const principles = [
-  {
-    icon: Clock,
-    title: "chronological, always",
-    text: "announcements stay in order. threads stay readable. nothing reshuffles overnight.",
-  },
-  {
-    icon: Split,
-    title: "rooms that stay small",
-    text: "cap a sprint room, a standup, a launch. when it gets loud, yankee suggests a split.",
-  },
-  {
-    icon: Moon,
-    title: "focus hours by default",
-    text: "only urgent mentions and direct calls break through. the rest waits until morning.",
-  },
-  {
-    icon: Shield,
-    title: "private workspace",
-    text: "closed by default. encrypted messages and calls. no public search indexing.",
-  },
-];
-
-const blocks = [
-  {
-    kicker: "one calm feed",
-    title: (
-      <>
-        one feed, in order, with <span className="font-serif-display italic font-medium">zero noise</span>
-      </>
-    ),
-    body: "announcements stay at the top. threads stay readable. no algorithm deciding what your team needs to see.",
-    chat: [
-      { from: "you" as const, text: "quarterly review is live in the feed." },
-      { from: "them" as const, text: "got it. catching up on the thread now." },
-    ],
-  },
-  {
-    kicker: "split before it gets loud",
-    title: (
-      <>
-        rooms for projects, rituals,{" "}
-        <span className="font-serif-display italic font-medium">and squads</span>
-      </>
-    ),
-    body: "create capped rooms for a sprint, a standup, or a launch. when a room gets too big, yankee suggests a split.",
-    chat: [
-      { from: "them" as const, text: "new design room is capped at 8. join?" },
-      { from: "you" as const, text: "in. much better than the old channel." },
-    ],
-  },
-  {
-    kicker: "quiet hours",
-    title: (
-      <>
-        important things reach you.{" "}
-        <span className="font-serif-display italic font-medium">everything else waits</span>
-      </>
-    ),
-    body: "set team-wide focus hours. only urgent mentions and direct calls break through.",
-    chat: [
-      { from: "you" as const, text: "focus mode is on. back at 9." },
-      { from: "them" as const, text: "no worries. the deadline can wait." },
-    ],
-  },
-];
 
 const steps = [
   {
     n: "01",
-    t: "create your workspace",
-    d: "set up a private workspace for your company. no public profiles, no search indexing.",
+    t: "choose ai prompt",
+    d: "open any crowd, create a channel, and pick ai prompt. text and voice stay one tap away.",
   },
   {
     n: "02",
-    t: "invite your team",
-    d: "send invite links by email or phone. everyone joins in seconds.",
+    t: "invite with roles",
+    d: "contribute, view or publish. everyone shapes the prompt before it runs across your models.",
   },
   {
     n: "03",
-    t: "post, thread, decide",
-    d: "share updates, discuss in threads, make calls. everything lives in one calm, searchable place.",
+    t: "run and share",
+    d: "execute the shared prompt. results stay inside the crowd: searchable, exportable, yours.",
   },
 ];
 
 const faqs = [
   {
-    q: "Do we need to stop using Slack?",
-    a: "No. You can run Yankee alongside Slack while you transition. Many teams start with one department and expand once the noise drops.",
+    q: "Which AI models does Yankee support?",
+    a: "Yankee AI runs prompts across GPT-4o, Claude, Gemini and Yankee Local. You pick which models to include in each session and compare outputs side by side.",
   },
   {
-    q: "Is it really private?",
-    a: "Yes. Your workspace is closed by default. Messages and calls are end-to-end encrypted. We cannot read the content.",
+    q: "Can my crowd collaborate on a prompt before it runs?",
+    a: "Yes. Invite members with contribute, view or publish roles. Everyone can add lines, refine the goal and attach sources before you execute.",
   },
   {
-    q: "Can we share files and documents?",
-    a: "Yes. You drop files into any room or thread. Storage is shared across the workspace and access can be revoked any time.",
+    q: "What sources can I attach to a session?",
+    a: "Posts from your crowd, Notion pages and crowd history. Events and external web search are optional. Context stays inside your group by default.",
   },
   {
-    q: "Can we schedule posts for later?",
-    a: "Yes. Write updates now, publish later, across time zones. Built for async teams and company-wide announcements.",
+    q: "Who sees the AI results?",
+    a: "You control visibility per session: participants only, the full crowd or specific members with publish permission. Nothing leaks outside unless you share it.",
   },
   {
-    q: "What happens when our team grows?",
-    a: "Rooms split when they hit a healthy size. You can add workspaces, keep channels separate, and still search everything in one place.",
+    q: "Does Yankee train on our prompts?",
+    a: "No. Your prompts, contributions and results stay in your crowd. Yankee does not use your content to train models or sell data to third parties.",
   },
 ];
 
 const ForSmallTeams = () => (
   <Layout>
+    {/* ── hero (banner component unchanged) ── */}
     <section className="relative -mt-12 md:-mt-14 pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden dotted-bg">
       <div className="absolute inset-0 bg-background/85" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
@@ -133,7 +73,7 @@ const ForSmallTeams = () => (
               transition={{ duration: 0.5 }}
               className="flex justify-center lg:justify-start"
             >
-              <PromoPill tag="small teams" text="quieter than slack · sharper than email" to="/features" />
+              <PromoPill tag="yankee ai" text="multi-llm · collaborate on prompts" to="/features" />
             </motion.div>
 
             <motion.h1
@@ -142,8 +82,8 @@ const ForSmallTeams = () => (
               transition={{ duration: 0.75, delay: 0.08, ease }}
               className="mt-6 text-[2.4rem] sm:text-5xl md:text-[3.4rem] font-semibold text-foreground tracking-tight leading-[0.95] lowercase max-w-[12ch] mx-auto lg:mx-0"
             >
-              a workspace your team{" "}
-              <span className="font-serif-display italic font-medium">actually loves.</span>
+              <span className="normal-case">AI</span> in the crowd,{" "}
+              <span className="font-serif-display italic font-medium">built together.</span>
             </motion.h1>
 
             <motion.p
@@ -152,7 +92,8 @@ const ForSmallTeams = () => (
               transition={{ duration: 0.55, delay: 0.18 }}
               className="mt-6 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto lg:mx-0"
             >
-              no channel overload, no missing threads, no noisy notifications. just one calm place for work to happen.
+              collaborate on prompts with your crowd. run one session across gpt-4o, claude, gemini
+              and yankee local. permissions, sources and results stay inside your group.
             </motion.p>
 
             <motion.div
@@ -165,16 +106,17 @@ const ForSmallTeams = () => (
                 to="/contact"
                 className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-[14px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
               >
-                get yankee <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                get yankee{" "}
+                <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
               </Link>
               <a
-                href="#how"
+                href="#in-app"
                 className="yankee-surface yankee-surface--control inline-flex items-center gap-1.5 px-5 py-3.5 rounded-full bg-card text-[14px] font-medium text-foreground lowercase hover:-translate-y-1 transition-all"
               >
-                see how it works
+                see it in the app
               </a>
             </motion.div>
-            <p className="mt-5 text-[12px] text-foreground/45 lowercase">quieter than slack · sharper than email</p>
+            <p className="mt-5 text-[12px] text-foreground/45 lowercase">multi-llm · collaborate on prompts</p>
           </div>
 
           <div className="lg:col-span-7">
@@ -184,153 +126,216 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
-    <section className="relative py-20 md:py-28 dotted-bg">
+    {/* ── multi-llm strip ── */}
+    <section className="relative py-16 md:py-20 dotted-bg">
       <div className="absolute inset-0 bg-background/70" />
-      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
-        <AnimatedSection className="max-w-2xl mx-auto text-center">
-          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">the idea</p>
+      <div className="relative max-w-[900px] mx-auto px-5 md:px-6 text-center">
+        <AnimatedSection>
+          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+            multi-llm
+          </p>
           <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
-            work without the{" "}
-            <span className="font-serif-display italic font-medium">notification tax</span>
+            one prompt.{" "}
+            <span className="font-serif-display italic font-medium">many models.</span>
           </h2>
+          <p className="mt-4 text-[15px] text-muted-foreground lowercase max-w-lg mx-auto leading-relaxed">
+            run the same session across gpt-4o, claude, gemini and yankee local. then compare side
+            by side.
+          </p>
         </AnimatedSection>
-
-        <div className="mt-12 md:mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {principles.map((p, i) => {
-            const Icon = p.icon;
-            return (
-              <AnimatedSection key={p.title} delay={i * 0.06}>
-                <div className={blockCard(i, "p-6")}>
-                  <div className="yankee-block__icon w-10 h-10 rounded-full flex items-center justify-center mb-5">
-                    <Icon size={18} />
-                  </div>
-                  <h3 className="text-[15px] font-semibold lowercase tracking-tight">{p.title}</h3>
-                  <p className="mt-3 text-[13px] yankee-block__muted leading-relaxed lowercase">{p.text}</p>
-                </div>
-              </AnimatedSection>
-            );
-          })}
-        </div>
+        <AnimatedSection delay={0.1} className="mt-10">
+          <AiModelsStrip />
+        </AnimatedSection>
       </div>
     </section>
 
+    {/* ── choose type ── */}
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
-        <AnimatedSection className="max-w-2xl mx-auto text-center">
-          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">what it does</p>
-          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
-            what yankee does{" "}
-            <span className="font-serif-display italic font-medium">for your team</span>
-          </h2>
-        </AnimatedSection>
-
-        <div className="mt-12 md:mt-16 grid md:grid-cols-3 gap-4">
-          {blocks.map((b, i) => (
-            <AnimatedSection key={b.kicker} delay={i * 0.08}>
-              <div className={blockCard(i, "p-6 md:p-7 flex flex-col gap-5")}>
-                <p className="font-serif-display italic text-[1.05rem] yankee-block__kicker lowercase leading-none">
-                  {b.kicker}
-                </p>
-                <h3 className="text-[22px] md:text-[24px] font-semibold leading-[1.08] tracking-tight lowercase">
-                  {b.title}
-                </h3>
-                <p className="text-[13px] md:text-[14px] yankee-block__muted leading-relaxed lowercase">{b.body}</p>
-                <div className="yankee-chat mt-auto">
-                  {b.chat.map((m, j) => (
-                    <div key={j} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>
-                      <span
-                        className={`yankee-chat__bubble ${ m.from === "you" ? "yankee-chat__bubble--you" : "yankee-chat__bubble--them" }`}
-                      >
-                        {m.text}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section className="relative py-20 md:py-28 dotted-bg">
-      <div className="absolute inset-0 bg-background/75" />
-      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
-          <AnimatedSection className="lg:col-span-5">
-            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">catch up</p>
-            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
-              open once.{" "}
-              <span className="font-serif-display italic font-medium">see what matters.</span>
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <AnimatedSection className="lg:col-span-5 order-2 lg:order-1 flex justify-center lg:justify-start">
+            <AiChooseDemo />
+          </AnimatedSection>
+          <AnimatedSection className="lg:col-span-7 order-1 lg:order-2" delay={0.08}>
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+              channel type
+            </p>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase max-w-[16ch]">
+              pick <span className="font-serif-display italic font-medium">ai prompt</span> and
+              start a session
             </h2>
             <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md">
-              a chronological team feed with a real ending. when you&apos;re caught up, yankee says so and lets you go.
+              text, voice or ai prompt. the new channel type lets your crowd share one prompt with
+              citations, not a private chat with a bot.
             </p>
             <ul className="mt-8 space-y-3 max-w-md">
               {[
-                "searchable threads across every room",
-                "pinned announcements that stay put",
-                "no infinite scroll of status noise",
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-3 text-[14px] text-foreground/80 lowercase">
-                  <Search size={14} className="mt-1 shrink-0 text-foreground/40" />
+                "ai prompt marked new in the channel picker",
+                "shared prompts with citations from your crowd",
+                "owner permission + crowd-level toggle",
+              ].map((item, i) => (
+                <motion.li
+                  key={item}
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.15 + i * 0.08 }}
+                  className="flex items-start gap-3 text-[14px] text-foreground/80 lowercase"
+                >
+                  <Sparkles size={14} className="mt-1 shrink-0 text-foreground/40" />
                   {item}
-                </li>
+                </motion.li>
               ))}
             </ul>
-          </AnimatedSection>
-
-          <AnimatedSection className="lg:col-span-7" delay={0.1}>
-            <div className="relative mx-auto max-w-[300px]">
-              <motion.div
-                initial={{ opacity: 0, y: 24, rotate: -2 }}
-                whileInView={{ opacity: 1, y: 0, rotate: -1.5 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, ease }}
-                className="yankee-surface yankee-surface--media rounded-[1.75rem] bg-card p-3 overflow-hidden aspect-[9/17]"
-              >
-                <img
-                  src={teamFeed}
-                  alt="Yankee team feed"
-                  className="w-full h-full object-cover object-top rounded-[1.25rem]"
-                  loading="lazy"
-                />
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, x: 14 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.25 }}
-                className="absolute -right-2 bottom-[18%] z-10 max-w-[70%]"
-              >
-                <div className="yankee-chat__bubble yankee-chat__bubble--you text-[12px]">
-                  you&apos;re all caught up
-                </div>
-              </motion.div>
-            </div>
           </AnimatedSection>
         </div>
       </div>
     </section>
 
+    {/* ── trio: session / invite / contributions ── */}
+    <section id="in-app" className="relative py-20 md:py-28 dotted-bg overflow-hidden">
+      <div className="absolute inset-0 bg-background/75" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <AnimatedSection className="max-w-2xl mx-auto text-center">
+          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+            in the app
+          </p>
+          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+            from session to{" "}
+            <span className="font-serif-display italic font-medium">shared result.</span>
+          </h2>
+          <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-lg mx-auto">
+            define a goal, attach crowd sources, invite with roles, then watch contributions build
+            the final prompt.
+          </p>
+        </AnimatedSection>
+
+        <AnimatedSection delay={0.12} className="mt-12 md:mt-16">
+          <AiTrioScene />
+        </AnimatedSection>
+      </div>
+    </section>
+
+    {/* ── invite + roles ── */}
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <AnimatedSection className="lg:col-span-6">
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+              roles
+            </p>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase max-w-[14ch]">
+              contribute, view or{" "}
+              <span className="font-serif-display italic font-medium">publish.</span>
+            </h2>
+            <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md">
+              every member joins with a role. some add lines to the prompt, some only read, one
+              person runs and publishes the output.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-2">
+              {[
+                { label: "contribute", bg: "#2f6bff" },
+                { label: "view", bg: "rgba(0,0,0,0.35)" },
+                { label: "publish", bg: "#34c759" },
+              ].map((r, i) => (
+                <motion.span
+                  key={r.label}
+                  initial={{ opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 + i * 0.1 }}
+                  className="rounded-full px-4 py-2 text-[12px] font-semibold text-white lowercase"
+                  style={{ background: r.bg }}
+                >
+                  {r.label}
+                </motion.span>
+              ))}
+            </div>
+          </AnimatedSection>
+          <AnimatedSection className="lg:col-span-6 flex justify-center lg:justify-end" delay={0.1}>
+            <AiInviteDemo />
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+
+    {/* ── contributions ── */}
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/75" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <AnimatedSection className="lg:col-span-6 order-2 lg:order-1 flex justify-center lg:justify-start">
+            <AiContributeDemo />
+          </AnimatedSection>
+          <AnimatedSection className="lg:col-span-6 order-1 lg:order-2" delay={0.08}>
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+              ai channel
+            </p>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase max-w-[15ch]">
+              contributions merge into{" "}
+              <span className="font-serif-display italic font-medium">one prompt.</span>
+            </h2>
+            <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md">
+              members drop notes into the session. the shared prompt grows in real time. then you
+              run it across every model you picked.
+            </p>
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+
+    {/* ── full flow phone ── */}
+    <section className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/70" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <AnimatedSection className="lg:col-span-5">
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+              full flow
+            </p>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+              watch the whole{" "}
+              <span className="font-serif-display italic font-medium">session play out.</span>
+            </h2>
+            <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md">
+              choose type → define goal &amp; sources → invite with roles → set permissions →
+              collect contributions. the same screens from the app, animated.
+            </p>
+          </AnimatedSection>
+          <AnimatedSection className="lg:col-span-7 flex justify-center lg:justify-end shrink-0" delay={0.1}>
+            <AiSessionScene />
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+
+    {/* ── steps ── */}
     <section id="how" className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/70" />
       <div className="relative max-w-[1100px] mx-auto px-5 md:px-6">
         <AnimatedSection className="max-w-2xl mx-auto text-center">
-          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">how it works</p>
+          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+            how it works
+          </p>
           <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
-            three steps. <span className="font-serif-display italic font-medium">then you&apos;re in.</span>
+            three steps.{" "}
+            <span className="font-serif-display italic font-medium">then you&apos;re in.</span>
           </h2>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-14 grid md:grid-cols-3 gap-4">
+        <div className="mt-12 md:mt-14 grid md:grid-cols-3 gap-6 md:gap-8">
           {steps.map((s, i) => (
             <AnimatedSection key={s.n} delay={i * 0.08}>
-              <div className={blockCard(i, "p-6 flex flex-col")}>
-                <span className="font-serif-display italic text-[1.5rem] yankee-block__kicker leading-none">{s.n}</span>
-                <h3 className="mt-5 text-[17px] font-semibold lowercase tracking-tight">{s.t}</h3>
-                <p className="mt-2 text-[13px] yankee-block__muted leading-relaxed lowercase">{s.d}</p>
+              <div className="text-center md:text-left">
+                <span className="font-serif-display italic text-[2rem] text-foreground/30 leading-none">
+                  {s.n}
+                </span>
+                <h3 className="mt-4 text-[17px] font-semibold lowercase tracking-tight">{s.t}</h3>
+                <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed lowercase">
+                  {s.d}
+                </p>
               </div>
             </AnimatedSection>
           ))}
@@ -338,6 +343,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
+    {/* ── faq ── */}
     <section className="py-20 md:py-28">
       <div className="max-w-[900px] mx-auto px-5 md:px-6">
         <AnimatedSection className="text-center">
@@ -345,7 +351,7 @@ const ForSmallTeams = () => (
             frequently <span className="font-serif-display italic font-medium">asked</span>
           </h2>
           <p className="mt-4 text-[15px] text-muted-foreground lowercase">
-            short answers about slack, privacy and files.
+            short answers about models, collaboration and privacy.
           </p>
         </AnimatedSection>
         <div className="mt-10 md:mt-12">
@@ -354,6 +360,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
+    {/* ── cta ── */}
     <section className="relative py-20 md:py-28 overflow-hidden dotted-bg">
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
@@ -366,7 +373,7 @@ const ForSmallTeams = () => (
                 viewport={{ once: true }}
                 className="font-serif-display italic text-[1.35rem] md:text-[1.6rem] text-foreground/55 lowercase leading-none"
               >
-                yankee
+                yankee ai
               </motion.p>
               <motion.h2
                 initial={{ opacity: 0, y: 22 }}
@@ -375,8 +382,9 @@ const ForSmallTeams = () => (
                 transition={{ duration: 0.7, delay: 0.08, ease }}
                 className="mt-4 md:mt-5 text-[2.4rem] sm:text-5xl md:text-6xl font-semibold text-foreground tracking-tight leading-[0.95] max-w-[14ch]"
               >
-                ready to give your team{" "}
-                <span className="font-serif-display italic font-medium">a quieter tool?</span>
+                ready to run{" "}
+                <span className="normal-case">AI</span>{" "}
+                <span className="font-serif-display italic font-medium">with your crowd?</span>
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0, y: 14 }}
@@ -385,7 +393,8 @@ const ForSmallTeams = () => (
                 transition={{ duration: 0.55, delay: 0.16 }}
                 className="mt-6 max-w-md text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase"
               >
-                quieter rooms, clearer threads, less noise than slack. built for teams that want focus.
+                multi-llm sessions, collaborative prompts and crowd sources. built for groups that
+                think together.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 14 }}
@@ -398,7 +407,8 @@ const ForSmallTeams = () => (
                   to="/contact"
                   className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 md:px-8 md:py-4 rounded-full text-[14px] md:text-[15px] font-semibold text-folk-bubble-foreground lowercase tracking-tight folk-cta shadow-[0_14px_40px_-10px_rgba(37,99,235,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] hover:brightness-105 transition-[filter,transform] active:scale-[0.98]"
                 >
-                  talk to us <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                  get yankee{" "}
+                  <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
                 </Link>
                 <Link
                   to="/features"
@@ -427,9 +437,12 @@ const ForSmallTeams = () => (
                     />
                   </div>
                   <div className="mt-3 flex items-center justify-between gap-2">
-                    <span className="text-[12px] lowercase text-foreground/70">design room · capped at 8</span>
-                    <span className="inline-flex items-center rounded-full bg-foreground px-2.5 py-1 text-[11px] text-background lowercase">
-                      focus on
+                    <span className="text-[12px] lowercase text-foreground/70">
+                      ai session · multi-llm
+                    </span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-folk-bubble px-2.5 py-1 text-[11px] text-white lowercase">
+                      <Sparkles size={10} />
+                      live
                     </span>
                   </div>
                 </motion.div>
@@ -442,7 +455,7 @@ const ForSmallTeams = () => (
                   className="relative z-10 -mt-5 mr-auto max-w-[85%]"
                 >
                   <div className="yankee-chat__bubble yankee-chat__bubble--them text-[13px] md:text-[14px]">
-                    no channel overload. just the work.
+                    one prompt. your crowd. many models.
                   </div>
                 </motion.div>
               </div>

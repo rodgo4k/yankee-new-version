@@ -311,7 +311,7 @@ const Communities = () => (
               whileHover={{ y: -2 }}
               className="yankee-surface relative rounded-[1.75rem] overflow-hidden min-h-[360px] md:min-h-[440px]"
             >
-              <img src={cafeFriends} alt="A Crowd meetup" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+              <img src={cafeFriends} alt="A Crowd meetup" className="absolute inset-0 w-full h-full object-cover object-bottom" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
               <div className="absolute bottom-5 left-5 right-5 flex flex-col items-start gap-2.5">
                 <div className="yankee-chat__bubble yankee-chat__bubble--them w-fit max-w-[85%] text-[13px]">
@@ -531,7 +531,7 @@ const Communities = () => (
                     src={cafeFriends}
                     count="2.104"
                     tags={["#coffee", "#friends"]}
-                    pos="50% 40%"
+                    pos="50% 100%"
                   />
                 </motion.div>
 

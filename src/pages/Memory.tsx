@@ -481,9 +481,9 @@ const Memory = () => (
                   className="yankee-surface relative z-10 -mt-8 mr-auto w-[78%] rounded-[1.25rem] bg-card p-3"
                 >
                   <div className="rounded-[0.9rem] overflow-hidden aspect-[16/10] bg-muted">
-                    <img src={tripPhotos} alt="" className="w-full h-full object-cover" loading="lazy" />
+                    <img src={tripPhotos} alt="" className="w-full h-full object-cover object-bottom" loading="lazy" />
                   </div>
-                  <p className="mt-2 text-[12px] lowercase text-foreground/70">album · beach week · 34 photos</p>
+                  <p className="mt-2 text-[12px] lowercase text-foreground/70">album · college friends · 34 photos</p>
                 </motion.div>
 
                 <motion.div

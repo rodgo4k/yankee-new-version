@@ -32,9 +32,9 @@ const navItems: NavItem[] = [
   {
     label: "solutions",
     children: [
+      { label: "Yankee AI", path: "/yankee-ai", desc: "Multi-llm · collaborate on prompts" },
       { label: "For creators", path: "/for-creators", desc: "Reach every follower, every time" },
       { label: "For friends and family", path: "/for-friends-family", desc: "A feed of only your people" },
-      { label: "For small teams", path: "/for-small-teams", desc: "Quieter than Slack, sharper than email" },
       { label: "For communities", path: "/for-communities", desc: "Human-scale rooms, by design" },
       { label: "For students", path: "/for-students", desc: "Study mode & campus rooms" },
     ],

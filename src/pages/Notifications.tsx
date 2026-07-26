@@ -6,7 +6,7 @@ import AnimatedSection from "@/components/AnimatedSection";
 import FAQ from "@/components/FAQ";
 import PromoPill from "@/components/home/PromoPill";
 import NotifHeroScene from "@/components/home/NotifHeroScene";
-import heroNotifications from "@/assets/hero-notifications.jpg";
+import tripPhotos from "@/assets/trip-photos.png";
 import messages from "@/assets/yankee/messages.png";
 import { blockCard } from "@/lib/yankeeBlock";
 
@@ -435,7 +435,7 @@ const Notifications = () => (
                 >
                   <div className="rounded-[1.1rem] overflow-hidden aspect-[5/3] bg-muted">
                     <img
-                      src={heroNotifications}
+                      src={tripPhotos}
                       alt=""
                       className="w-full h-full object-cover"
                       loading="lazy"

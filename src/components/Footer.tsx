@@ -16,9 +16,9 @@ const footerLinks = [
     {
         title: "Solutions",
         links: [
+            { label: "Yankee AI", to: "/yankee-ai" },
             { label: "For creators", to: "/for-creators" },
             { label: "For friends and family", to: "/for-friends-family" },
-            { label: "For small teams", to: "/for-small-teams" },
             { label: "For communities", to: "/for-communities" },
             { label: "For students", to: "/for-students" },
         ],

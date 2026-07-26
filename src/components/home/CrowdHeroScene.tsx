@@ -51,7 +51,7 @@ const featuredScenes = [
     name: "Coffee Club",
     count: "2.104",
     tags: ["#coffee", "#friends"],
-    pos: "50% 40%",
+    pos: "50% 100%",
   },
   {
     src: studyHall,

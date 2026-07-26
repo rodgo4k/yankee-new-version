@@ -6,7 +6,7 @@ import AnimatedSection from "@/components/AnimatedSection";
 import FAQ from "@/components/FAQ";
 import PromoPill from "@/components/home/PromoPill";
 import PrivacyHeroScene from "@/components/home/PrivacyHeroScene";
-import heroMountain from "@/assets/hero-mountain.jpg";
+import tripPhotos from "@/assets/trip-photos.png";
 import rememberOffice from "@/assets/remember-office.jpg";
 import { blockCard } from "@/lib/yankeeBlock";
 
@@ -400,9 +400,9 @@ const PrivacyFirst = () => (
 
               <div className="lg:col-span-5 relative min-h-[260px] lg:min-h-full border-t lg:border-t-0 lg:border-l border-border">
                 <img
-                  src={heroMountain}
+                  src={tripPhotos}
                   alt=""
-                  className="absolute inset-0 w-full h-full object-cover object-bottom"
+                  className="absolute inset-0 w-full h-full object-cover object-center"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />

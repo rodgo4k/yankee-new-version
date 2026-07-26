@@ -152,7 +152,7 @@ const memoryChat = [
   { from: "you" as const, text: "what was the name of that cafe we loved in lisbon?" },
   { from: "them" as const, text: "the one you saved as 'tiny blue door near the tram stop'? manteigaria." },
   { from: "you" as const, text: "right. and the photo dump from last summer?" },
-  { from: "them" as const, text: "album 'beach week' with 34 photos. july 14th." },
+  { from: "them" as const, text: "album 'college friends' with 34 photos. july 14th." },
   { from: "you" as const, text: "perfect. thanks yankee." },
 ];
 

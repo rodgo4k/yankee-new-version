@@ -55,7 +55,8 @@ const App = () => (<QueryClientProvider client={queryClient}>
           <Route path="/blog" element={<Blog />}/>
           <Route path="/for-creators" element={<ForCreators />}/>
           <Route path="/for-friends-family" element={<ForFriendsFamily />}/>
-          <Route path="/for-small-teams" element={<ForSmallTeams />}/>
+          <Route path="/yankee-ai" element={<ForSmallTeams />}/>
+          <Route path="/for-small-teams" element={<Navigate to="/yankee-ai" replace />}/>
           <Route path="/for-communities" element={<ForCommunities />}/>
           <Route path="/for-students" element={<ForStudents />}/>
 
