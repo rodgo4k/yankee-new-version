@@ -8,35 +8,35 @@ const testimonials = [
     quote:
       "you finally see every post from your friends again. no more wondering if anyone saw what you shared.",
     name: "maya r.",
-    role: "designer · são paulo",
+    role: "designer · boston",
     initials: "MR",
   },
   {
     quote:
       "crowds feel like the group chats we always wanted: small, calm, and actually about something we care about.",
     name: "leo k.",
-    role: "founder · berlin",
+    role: "founder · san francisco",
     initials: "LK",
   },
   {
     quote:
       "chat, calls and the feed in one place. your family won't need five apps just to stay in touch.",
     name: "jisoo p.",
-    role: "nurse · seoul",
+    role: "nurse · seattle",
     initials: "JP",
   },
   {
     quote:
       "post once and it reaches everyone who follows you. that alone is why yankee is on my home screen.",
     name: "andré s.",
-    role: "creator · lisbon",
+    role: "creator · austin",
     initials: "AS",
   },
   {
     quote:
       "a chronological feed again. social media before everything got loud, built the way it should be.",
     name: "nina t.",
-    role: "student · montreal",
+    role: "student · chicago",
     initials: "NT",
   },
 ];
