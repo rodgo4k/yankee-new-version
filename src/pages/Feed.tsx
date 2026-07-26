@@ -1,10 +1,12 @@
-import { ArrowRight, Clock, Users, BellOff, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Clock, Users, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import AnimatedSection from "@/components/AnimatedSection";
 import FAQ from "@/components/FAQ";
 import PromoPill from "@/components/home/PromoPill";
+import FeedHonestScene from "@/components/home/FeedHonestScene";
+import FeedStepsScene from "@/components/home/FeedStepsScene";
 import homeFeed from "@/assets/yankee/home-feed.png";
 import yankeeScene from "@/assets/yankee-scene.jpg";
 import { blockCard } from "@/lib/yankeeBlock";
@@ -57,24 +59,6 @@ const feedBlocks = [
   },
 ];
 
-const steps = [
-  {
-    n: "01",
-    t: "connect your accounts",
-    d: "link yankee to the feeds you already have. read only, no reposting.",
-  },
-  {
-    n: "02",
-    t: "yankee sorts the noise",
-    d: "it filters ads and dead accounts, and keeps only the people you actually follow.",
-  },
-  {
-    n: "03",
-    t: "open, scroll, close",
-    d: "chronological, finite and honest. when it ends, yankee tells you and lets you go.",
-  },
-];
-
 const principles = [
   {
     icon: Clock,
@@ -85,11 +69,6 @@ const principles = [
     icon: Users,
     title: "only who you follow",
     text: "no suggested accounts leaking into your scroll. ever.",
-  },
-  {
-    icon: BellOff,
-    title: "no ads in the feed",
-    text: "your attention is not the product. the feed stays clean.",
   },
   {
     icon: CheckCircle2,
@@ -223,28 +202,44 @@ const Feed = () => (
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/70" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
-        <AnimatedSection className="max-w-2xl mx-auto text-center">
-          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">the rules</p>
-          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
-            how the feed <span className="font-serif-display italic font-medium">stays honest</span>
-          </h2>
-        </AnimatedSection>
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <AnimatedSection className="lg:col-span-5 text-center lg:text-left">
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+              the rules
+            </p>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+              how the feed{" "}
+              <span className="font-serif-display italic font-medium">stays honest</span>
+            </h2>
+            <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto lg:mx-0">
+              chronological order, only people you follow, and a clear stop when you&apos;re done. no ranking games.
+            </p>
+            <ul className="mt-8 space-y-4 max-w-md mx-auto lg:mx-0 text-left">
+              {principles.map((p) => {
+                const Icon = p.icon;
+                return (
+                  <li key={p.title} className="flex items-start gap-3">
+                    <span className="mt-0.5 w-8 h-8 rounded-full bg-foreground/[0.06] flex items-center justify-center shrink-0 text-foreground/55">
+                      <Icon size={14} />
+                    </span>
+                    <div>
+                      <p className="text-[14px] font-semibold lowercase tracking-tight">{p.title}</p>
+                      <p className="mt-0.5 text-[13px] text-muted-foreground leading-relaxed lowercase">
+                        {p.text}
+                      </p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </AnimatedSection>
 
-        <div className="mt-12 md:mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {principles.map((p, i) => {
-            const Icon = p.icon;
-            return (
-              <AnimatedSection key={p.title} delay={i * 0.06}>
-                <div className={blockCard(i, "p-6")}>
-                  <div className="yankee-block__icon w-10 h-10 rounded-full flex items-center justify-center mb-5">
-                    <Icon size={18} />
-                  </div>
-                  <h3 className="text-[15px] font-semibold lowercase tracking-tight">{p.title}</h3>
-                  <p className="mt-3 text-[13px] yankee-block__muted leading-relaxed lowercase">{p.text}</p>
-                </div>
-              </AnimatedSection>
-            );
-          })}
+          <AnimatedSection
+            className="lg:col-span-7 flex justify-center lg:justify-end shrink-0"
+            delay={0.1}
+          >
+            <FeedHonestScene />
+          </AnimatedSection>
         </div>
       </div>
     </section>
@@ -300,17 +295,9 @@ const Feed = () => (
           </h2>
         </AnimatedSection>
 
-        <div className="mt-12 md:mt-14 grid md:grid-cols-3 gap-4">
-          {steps.map((s, i) => (
-            <AnimatedSection key={s.n} delay={i * 0.08}>
-              <div className={blockCard(i, "p-6 flex flex-col")}>
-                <span className="font-serif-display italic text-[1.5rem] yankee-block__kicker leading-none">{s.n}</span>
-                <h3 className="mt-5 text-[17px] font-semibold lowercase tracking-tight">{s.t}</h3>
-                <p className="mt-2 text-[13px] yankee-block__muted leading-relaxed lowercase">{s.d}</p>
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
+        <AnimatedSection className="mt-12 md:mt-14" delay={0.08}>
+          <FeedStepsScene />
+        </AnimatedSection>
       </div>
     </section>
 
