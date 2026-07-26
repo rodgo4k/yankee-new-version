@@ -15,6 +15,10 @@ import community from "@/assets/yankee/community.png";
 import profileView from "@/assets/yankee/profile-view.png";
 import searchImg from "@/assets/yankee/search.png";
 import { blockCard } from "@/lib/yankeeBlock";
+import FeedGuardsScene from "@/components/home/FeedGuardsScene";
+import FocusPresentScene from "@/components/home/FocusPresentScene";
+import PeopleCloseScene from "@/components/home/PeopleCloseScene";
+import PrivacyStayYoursScene from "@/components/home/PrivacyStayYoursScene";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 
@@ -294,48 +298,57 @@ const Features = () => (
     <section id="feed" className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/70" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
-        <AnimatedSection className="max-w-3xl mx-auto text-center">
-          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">what it does</p>
-          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
-            it fights <span className="font-serif-display italic font-medium">for your feed</span>
-          </h2>
-          <p className="mt-5 md:mt-6 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed max-w-xl mx-auto lowercase">
-            connect once. yankee watches every post, flags forgotten follows, keeps you inside your limits, and pings you the second something matters.
-          </p>
-        </AnimatedSection>
-
-        <div className="mt-12 md:mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {feedGuards.map((g, i) => {
-            const Icon = g.icon;
-            return (
-              <AnimatedSection key={g.title} delay={i * 0.06}>
-                <div className={blockCard(i, "p-6")}>
-                  <div className="yankee-block__icon w-10 h-10 rounded-full flex items-center justify-center mb-5">
-                    <Icon size={18} />
-                  </div>
-                  <h3 className="text-[15px] md:text-[16px] font-semibold tracking-tight lowercase">
-                    {g.title}
-                  </h3>
-                  <p className="mt-3 text-[13px] yankee-block__muted leading-relaxed lowercase">{g.text}</p>
-                </div>
-              </AnimatedSection>
-            );
-          })}
-        </div>
-
-        <AnimatedSection delay={0.2}>
-          <div className="mt-10 md:mt-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <p className="text-[13px] text-muted-foreground lowercase">
-              read only access · yankee never posts without your ok
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <AnimatedSection className="lg:col-span-5 text-center lg:text-left">
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+              what it does
             </p>
-            <Link
-              to="/feed"
-              className="inline-flex items-center gap-1.5 text-[14px] font-medium text-accent hover:opacity-80 lowercase"
-            >
-              see how the feed works <ArrowRight size={14} />
-            </Link>
-          </div>
-        </AnimatedSection>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+              it fights{" "}
+              <span className="font-serif-display italic font-medium">for your feed</span>
+            </h2>
+            <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto lg:mx-0">
+              connect once. yankee watches every post, flags forgotten follows, keeps you inside
+              your limits, and pings you the second something matters.
+            </p>
+            <ul className="mt-8 space-y-4 max-w-md mx-auto lg:mx-0 text-left">
+              {feedGuards.map((g) => {
+                const Icon = g.icon;
+                return (
+                  <li key={g.title} className="flex items-start gap-3">
+                    <span className="mt-0.5 w-8 h-8 rounded-full bg-foreground/[0.06] flex items-center justify-center shrink-0 text-foreground/55">
+                      <Icon size={14} />
+                    </span>
+                    <div>
+                      <p className="text-[14px] font-semibold lowercase tracking-tight">{g.title}</p>
+                      <p className="mt-0.5 text-[13px] text-muted-foreground leading-relaxed lowercase">
+                        {g.text}
+                      </p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+            <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-4">
+              <p className="text-[13px] text-muted-foreground lowercase">
+                read only access · yankee never posts without your ok
+              </p>
+              <Link
+                to="/feed"
+                className="inline-flex items-center gap-1.5 text-[14px] font-medium text-accent hover:opacity-80 lowercase shrink-0"
+              >
+                see how the feed works <ArrowRight size={14} />
+              </Link>
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection
+            className="lg:col-span-7 flex justify-center lg:justify-end shrink-0"
+            delay={0.1}
+          >
+            <FeedGuardsScene />
+          </AnimatedSection>
+        </div>
       </div>
     </section>
 
@@ -417,76 +430,77 @@ const Features = () => (
 
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/75" />
-      <div className="relative max-w-[1100px] mx-auto px-5 md:px-6">
-        <AnimatedSection className="max-w-2xl mx-auto text-center">
-          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">focus</p>
-          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
-            it keeps you <span className="font-serif-display italic font-medium">present</span>
-          </h2>
-          <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-lg mx-auto">
-            nudges that follow up, drafts that get finished, plans it won&apos;t let you ghost. ask once, yankee stays on it.
-          </p>
-        </AnimatedSection>
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <AnimatedSection className="lg:col-span-6 order-2 lg:order-1 flex justify-center lg:justify-start">
+            <FocusPresentScene />
+          </AnimatedSection>
 
-        <div className="mt-12 md:mt-14 grid md:grid-cols-3 gap-4">
-          {[
-            {
-              step: "01",
-              icon: PenLine,
-              title: "you ask once",
-              text: "finish the caption. remind me about saturday. keep that draft warm.",
-              note: "said once",
-            },
-            {
-              step: "02",
-              icon: Bell,
-              title: "yankee stays on it",
-              text: "quiet nudges at the right moment, without hijacking your whole day.",
-              note: "follows up",
-            },
-            {
-              step: "03",
-              icon: Calendar,
-              title: "it actually lands",
-              text: "the post goes out, the plan happens, the thread gets answered.",
-              note: "done",
-            },
-          ].map((item, i) => {
-            const Icon = item.icon;
-            return (
-              <AnimatedSection key={item.step} delay={i * 0.08}>
-                <div className={blockCard(i, "relative p-6 flex flex-col")}>
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="font-serif-display italic text-[1.5rem] yankee-block__kicker leading-none">
+          <AnimatedSection className="lg:col-span-6 order-1 lg:order-2" delay={0.08}>
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+              focus
+            </p>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+              it keeps you <span className="font-serif-display italic font-medium">present</span>
+            </h2>
+            <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md">
+              nudges that follow up, drafts that get finished, plans it won&apos;t let you ghost. ask
+              once, yankee stays on it.
+            </p>
+            <ul className="mt-8 space-y-4 max-w-md text-left">
+              {[
+                {
+                  step: "01",
+                  icon: PenLine,
+                  title: "you ask once",
+                  text: "finish the caption. remind me about saturday. keep that draft warm.",
+                  note: "said once",
+                },
+                {
+                  step: "02",
+                  icon: Bell,
+                  title: "yankee stays on it",
+                  text: "quiet nudges at the right moment, without hijacking your whole day.",
+                  note: "follows up",
+                },
+                {
+                  step: "03",
+                  icon: Calendar,
+                  title: "it actually lands",
+                  text: "the post goes out, the plan happens, the thread gets answered.",
+                  note: "done",
+                },
+              ].map((item) => {
+                const Icon = item.icon;
+                return (
+                  <li key={item.step} className="flex items-start gap-3">
+                    <span className="font-serif-display italic text-[1.25rem] text-foreground/30 leading-none shrink-0 w-8">
                       {item.step}
                     </span>
-                    <span className="inline-flex items-center rounded-full bg-white/15 px-2.5 py-1 text-[11px] lowercase">
-                      {item.note}
-                    </span>
-                  </div>
-                  <div className="yankee-block__icon mt-6 w-11 h-11 rounded-full flex items-center justify-center">
-                    <Icon size={18} />
-                  </div>
-                  <h3 className="mt-5 text-[17px] font-semibold lowercase tracking-tight">{item.title}</h3>
-                  <p className="mt-2 text-[13px] yankee-block__muted leading-relaxed lowercase flex-1">
-                    {item.text}
-                  </p>
-                </div>
-              </AnimatedSection>
-            );
-          })}
-        </div>
-
-        <AnimatedSection delay={0.28}>
-          <div className="mt-10 flex justify-center">
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <Icon size={13} className="text-foreground/45 shrink-0" />
+                        <p className="text-[14px] font-semibold lowercase tracking-tight">{item.title}</p>
+                        <span className="rounded-full bg-foreground/[0.06] px-2 py-0.5 text-[10px] text-foreground/50 lowercase">
+                          {item.note}
+                        </span>
+                      </div>
+                      <p className="mt-0.5 text-[13px] text-muted-foreground leading-relaxed lowercase">
+                        {item.text}
+                      </p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
             <Link
               to="/notifications"
-              className="yankee-surface yankee-surface--control inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-card text-[14px] font-medium text-foreground lowercase hover:-translate-y-1 transition-all"
+              className="yankee-surface yankee-surface--control mt-8 inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-card text-[14px] font-medium text-foreground lowercase hover:-translate-y-1 transition-all"
             >
               learn more <ArrowRight size={14} />
             </Link>
-          </div>
-        </AnimatedSection>
+          </AnimatedSection>
+        </div>
       </div>
     </section>
 
@@ -566,28 +580,22 @@ const Features = () => (
     <section id="people" className="relative py-20 md:py-28 overflow-hidden dotted-bg">
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
-          <AnimatedSection className="lg:col-span-5 order-2 lg:order-1">
-            <div className="relative mx-auto max-w-[280px]">
-              <motion.div
-                initial={{ opacity: 0, y: 24, rotate: -2 }}
-                whileInView={{ opacity: 1, y: 0, rotate: -1.5 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, ease }}
-                className="yankee-surface yankee-surface--media rounded-[1.75rem] bg-card p-3 overflow-hidden aspect-[9/17]"
-              >
-                <img src={messages} alt="Messages" className="w-full h-full object-cover object-top rounded-[1.25rem]" loading="lazy" />
-              </motion.div>
-            </div>
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <AnimatedSection className="lg:col-span-6 order-2 lg:order-1 flex justify-center lg:justify-start">
+            <PeopleCloseScene />
           </AnimatedSection>
 
-          <AnimatedSection className="lg:col-span-7 order-1 lg:order-2" delay={0.08}>
-            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">your people</p>
+          <AnimatedSection className="lg:col-span-6 order-1 lg:order-2" delay={0.08}>
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+              your people
+            </p>
             <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-semibold text-foreground tracking-tight leading-[0.98] lowercase max-w-[14ch]">
-              keeps your people <span className="font-serif-display italic font-medium">close</span>
+              keeps your people{" "}
+              <span className="font-serif-display italic font-medium">close</span>
             </h2>
             <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md">
-              the friends you keep meaning to hear from? yankee makes the thread, finds the moment and pulls the group together.
+              the friends you keep meaning to hear from? yankee makes the thread, finds the moment
+              and pulls the group together.
             </p>
             <ul className="mt-8 space-y-3 max-w-md">
               {[
@@ -595,7 +603,10 @@ const Features = () => (
                 "every request needs your ok · nothing automatic",
                 "they only ever learn whether it got done",
               ].map((item) => (
-                <li key={item} className="flex items-start gap-3 text-[14px] text-foreground/80 lowercase">
+                <li
+                  key={item}
+                  className="flex items-start gap-3 text-[14px] text-foreground/80 lowercase"
+                >
                   <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-foreground/40 shrink-0" />
                   {item}
                 </li>
@@ -614,44 +625,52 @@ const Features = () => (
 
     <section id="privacy" className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/75" />
-      <div className="relative max-w-[1100px] mx-auto px-5 md:px-6">
-        <AnimatedSection className="text-center max-w-2xl mx-auto">
-          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">privacy</p>
-          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
-            your data <span className="font-serif-display italic font-medium">stays yours</span>
-          </h2>
-          <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase">
-            yankee remembers things for you, not about you. private, encrypted, and wipeable whenever you want.
-          </p>
-        </AnimatedSection>
-
-        <div className="mt-12 grid sm:grid-cols-3 gap-4">
-          {privacyCards.map((p, i) => {
-            const Icon = p.icon;
-            return (
-              <AnimatedSection key={p.title} delay={i * 0.06}>
-                <div className={blockCard(i, "p-6")}>
-                  <div className="yankee-block__icon w-10 h-10 rounded-full flex items-center justify-center mb-5">
-                    <Icon size={18} />
-                  </div>
-                  <h3 className="text-[16px] font-semibold lowercase">{p.title}</h3>
-                  <p className="mt-3 text-[13px] yankee-block__muted leading-relaxed lowercase">{p.text}</p>
-                </div>
-              </AnimatedSection>
-            );
-          })}
-        </div>
-
-        <AnimatedSection delay={0.2}>
-          <div className="mt-8 text-center">
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <AnimatedSection className="lg:col-span-5 text-center lg:text-left">
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+              privacy
+            </p>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+              your data <span className="font-serif-display italic font-medium">stays yours</span>
+            </h2>
+            <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto lg:mx-0">
+              yankee remembers things for you, not about you. private, encrypted, and wipeable
+              whenever you want.
+            </p>
+            <ul className="mt-8 space-y-4 max-w-md mx-auto lg:mx-0 text-left">
+              {privacyCards.map((p) => {
+                const Icon = p.icon;
+                return (
+                  <li key={p.title} className="flex items-start gap-3">
+                    <span className="mt-0.5 w-8 h-8 rounded-full bg-foreground/[0.06] flex items-center justify-center shrink-0 text-foreground/55">
+                      <Icon size={14} />
+                    </span>
+                    <div>
+                      <p className="text-[14px] font-semibold lowercase tracking-tight">{p.title}</p>
+                      <p className="mt-0.5 text-[13px] text-muted-foreground leading-relaxed lowercase">
+                        {p.text}
+                      </p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
             <Link
               to="/privacy"
-              className="inline-flex items-center gap-1.5 text-[14px] font-medium text-accent hover:opacity-80 lowercase"
+              className="mt-8 inline-flex items-center gap-1.5 text-[14px] font-medium text-accent hover:opacity-80 lowercase"
             >
               read the privacy policy <ArrowRight size={14} />
             </Link>
-          </div>
-        </AnimatedSection>
+          </AnimatedSection>
+
+          <AnimatedSection
+            className="lg:col-span-7 flex justify-center lg:justify-end shrink-0"
+            delay={0.1}
+          >
+            <PrivacyStayYoursScene />
+          </AnimatedSection>
+        </div>
       </div>
     </section>
 

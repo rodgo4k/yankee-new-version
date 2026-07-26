@@ -7,61 +7,14 @@ import FAQ from "@/components/FAQ";
 import PromoPill from "@/components/home/PromoPill";
 import CrowdHeroScene from "@/components/home/CrowdHeroScene";
 import CrowdsBento from "@/components/home/CrowdsBento";
+import CrowdFeelScene from "@/components/home/CrowdFeelScene";
+import CrowdIdeaScene from "@/components/home/CrowdIdeaScene";
+import { CrowdStepsScene, CrowdInsideScene } from "@/components/home/CrowdFlowScenes";
 import CrowdAppCard from "@/components/home/CrowdAppCard";
 import cafeFriends from "@/assets/cafe-friends.jpg";
-import community from "@/assets/yankee/community.png";
-import { blockCard, blockTone } from "@/lib/yankeeBlock";
+import { blockTone } from "@/lib/yankeeBlock";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
-
-const blocks = [
-  {
-    kicker: "small on purpose",
-    title: (
-      <>
-        rooms that stay <span className="font-serif-display italic font-medium">human sized</span>
-      </>
-    ),
-    body: "every crowd caps at a few thousand active members. when one grows too big, it splits by region or interest.",
-    chat: [
-      { from: "you" as const, text: "is the film crowd still open?" },
-      {
-        from: "them" as const,
-        text: "just split into film · nyc and film · lisbon. want in?",
-      },
-    ],
-  },
-  {
-    kicker: "signal, no karma",
-    title: (
-      <>
-        threads that <span className="font-serif-display italic font-medium">actually reply</span>
-      </>
-    ),
-    body: "no karma to farm, no downvote brigades. yankee surfaces what your crowd is actually talking about.",
-    chat: [
-      { from: "you" as const, text: "anything worth reading in #reading this week?" },
-      {
-        from: "them" as const,
-        text: "three threads. a review, a poll, and a lisbon meetup.",
-      },
-    ],
-  },
-  {
-    kicker: "leaves the screen",
-    title: (
-      <>
-        meetups that <span className="font-serif-display italic font-medium">actually happen</span>
-      </>
-    ),
-    body: "photo walks, book clubs, listening parties. yankee handles the invite, reminders and rsvp.",
-    chat: [
-      { from: "them" as const, text: "photo walk saturday, golden hour. 12 going." },
-      { from: "you" as const, text: "count me in" },
-      { from: "them" as const, text: "saved. i'll ping you 1h before." },
-    ],
-  },
-];
 
 const topics = [
   "photography",
@@ -216,28 +169,45 @@ const Communities = () => (
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/70" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
-        <AnimatedSection className="max-w-2xl mx-auto text-center">
-          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">the idea</p>
-          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
-            what makes a <span className="font-serif-display italic font-medium">crowd different</span>
-          </h2>
-        </AnimatedSection>
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <AnimatedSection className="lg:col-span-5 text-center lg:text-left">
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+              the idea
+            </p>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+              what makes a{" "}
+              <span className="font-serif-display italic font-medium">crowd different</span>
+            </h2>
+            <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto lg:mx-0">
+              voice replies, member moderation, capped rooms and live voice. screens from the app,
+              animated.
+            </p>
+            <ul className="mt-8 space-y-4 max-w-md mx-auto lg:mx-0 text-left">
+              {principles.map((p) => {
+                const Icon = p.icon;
+                return (
+                  <li key={p.title} className="flex items-start gap-3">
+                    <span className="mt-0.5 w-8 h-8 rounded-full bg-foreground/[0.06] flex items-center justify-center shrink-0 text-foreground/55">
+                      <Icon size={14} />
+                    </span>
+                    <div>
+                      <p className="text-[14px] font-semibold lowercase tracking-tight">{p.title}</p>
+                      <p className="mt-0.5 text-[13px] text-muted-foreground leading-relaxed lowercase">
+                        {p.text}
+                      </p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </AnimatedSection>
 
-        <div className="mt-12 md:mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {principles.map((p, i) => {
-            const Icon = p.icon;
-            return (
-              <AnimatedSection key={p.title} delay={i * 0.06}>
-                <div className={blockCard(i, "p-6")}>
-                  <div className="yankee-block__icon w-10 h-10 rounded-full flex items-center justify-center mb-5">
-                    <Icon size={18} />
-                  </div>
-                  <h3 className="text-[15px] font-semibold lowercase tracking-tight">{p.title}</h3>
-                  <p className="mt-3 text-[13px] yankee-block__muted leading-relaxed lowercase">{p.text}</p>
-                </div>
-              </AnimatedSection>
-            );
-          })}
+          <AnimatedSection
+            className="lg:col-span-7 flex justify-center lg:justify-end shrink-0"
+            delay={0.1}
+          >
+            <CrowdIdeaScene />
+          </AnimatedSection>
         </div>
       </div>
     </section>
@@ -264,40 +234,42 @@ const Communities = () => (
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
-        <AnimatedSection className="max-w-2xl mx-auto text-center">
-          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">the feel</p>
-          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
-            what a crowd <br className="hidden md:block" />
-            <span className="font-serif-display italic font-medium">actually feels like</span>
-          </h2>
-        </AnimatedSection>
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <AnimatedSection className="lg:col-span-5 text-center lg:text-left">
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+              the feel
+            </p>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+              what a crowd{" "}
+              <span className="font-serif-display italic font-medium">actually feels like</span>
+            </h2>
+            <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto lg:mx-0">
+              explore crowds, drop into channels, then join voice. the same screens from the app,
+              animated.
+            </p>
+            <ul className="mt-8 space-y-3 max-w-md mx-auto lg:mx-0 text-left">
+              {[
+                "swipe crowds · join or request access",
+                "chat in channels with live member counts",
+                "jump into voice with a floating pip",
+              ].map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-3 text-[14px] text-foreground/80 lowercase"
+                >
+                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-foreground/40 shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </AnimatedSection>
 
-        <div className="mt-12 md:mt-16 grid md:grid-cols-3 gap-4">
-          {blocks.map((b, i) => (
-            <AnimatedSection key={b.kicker} delay={i * 0.08}>
-              <div className={blockCard(i, "p-6 md:p-7 flex flex-col gap-5")}>
-                <p className="font-serif-display italic text-[1.05rem] yankee-block__kicker lowercase leading-none">
-                  {b.kicker}
-                </p>
-                <h3 className="text-[22px] md:text-[24px] font-semibold leading-[1.08] tracking-tight lowercase">
-                  {b.title}
-                </h3>
-                <p className="text-[13px] md:text-[14px] yankee-block__muted leading-relaxed lowercase">{b.body}</p>
-
-                <div className="yankee-chat mt-auto">
-                  {b.chat.map((m, j) => (
-                    <div key={j} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>
-                      <span
-                        className={`yankee-chat__bubble ${ m.from === "you" ? "yankee-chat__bubble--you" : "yankee-chat__bubble--them" }`}
-                      >
-                        {m.text}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </AnimatedSection>
-          ))}
+          <AnimatedSection
+            className="lg:col-span-7 flex justify-center lg:justify-end shrink-0"
+            delay={0.1}
+          >
+            <CrowdFeelScene />
+          </AnimatedSection>
         </div>
       </div>
     </section>
@@ -383,24 +355,39 @@ const Communities = () => (
 
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/80" />
-      <div className="relative max-w-[1100px] mx-auto px-5 md:px-6">
-        <AnimatedSection className="max-w-2xl mx-auto text-center">
-          <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">how it works</p>
-          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
-            three steps. <span className="font-serif-display italic font-medium">then you&apos;re in.</span>
-          </h2>
-        </AnimatedSection>
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <AnimatedSection className="lg:col-span-5 text-center lg:text-left">
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+              how it works
+            </p>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+              three steps.{" "}
+              <span className="font-serif-display italic font-medium">then you&apos;re in.</span>
+            </h2>
+            <ul className="mt-8 space-y-4 max-w-md mx-auto lg:mx-0 text-left">
+              {steps.map((s) => (
+                <li key={s.n} className="flex items-start gap-3">
+                  <span className="font-serif-display italic text-[1.25rem] text-foreground/30 leading-none shrink-0 w-8">
+                    {s.n}
+                  </span>
+                  <div>
+                    <p className="text-[14px] font-semibold lowercase tracking-tight">{s.t}</p>
+                    <p className="mt-0.5 text-[13px] text-muted-foreground leading-relaxed lowercase">
+                      {s.d}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </AnimatedSection>
 
-        <div className="mt-12 md:mt-14 grid md:grid-cols-3 gap-4">
-          {steps.map((s, i) => (
-            <AnimatedSection key={s.n} delay={i * 0.08}>
-              <div className={blockCard(i, "p-6 flex flex-col")}>
-                <span className="font-serif-display italic text-[1.5rem] yankee-block__kicker leading-none">{s.n}</span>
-                <h3 className="mt-5 text-[17px] font-semibold lowercase tracking-tight">{s.t}</h3>
-                <p className="mt-2 text-[13px] yankee-block__muted leading-relaxed lowercase">{s.d}</p>
-              </div>
-            </AnimatedSection>
-          ))}
+          <AnimatedSection
+            className="lg:col-span-7 flex justify-center lg:justify-end shrink-0"
+            delay={0.1}
+          >
+            <CrowdStepsScene />
+          </AnimatedSection>
         </div>
       </div>
     </section>
@@ -408,33 +395,22 @@ const Communities = () => (
     <section className="relative py-20 md:py-28 overflow-hidden dotted-bg">
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
-          <AnimatedSection className="lg:col-span-5 order-2 lg:order-1">
-            <div className="relative mx-auto max-w-[280px]">
-              <motion.div
-                initial={{ opacity: 0, y: 24, rotate: 2 }}
-                whileInView={{ opacity: 1, y: 0, rotate: 1.5 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, ease }}
-                className="yankee-surface yankee-surface--media rounded-[1.75rem] bg-card p-3 overflow-hidden aspect-[9/17]"
-              >
-                <img
-                  src={community}
-                  alt="Inside a Crowd"
-                  className="w-full h-full object-cover object-top rounded-[1.25rem]"
-                  loading="lazy"
-                />
-              </motion.div>
-            </div>
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <AnimatedSection className="lg:col-span-6 order-2 lg:order-1 flex justify-center lg:justify-start">
+            <CrowdInsideScene />
           </AnimatedSection>
 
-          <AnimatedSection className="lg:col-span-7 order-1 lg:order-2" delay={0.08}>
-            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">inside a crowd</p>
+          <AnimatedSection className="lg:col-span-6 order-1 lg:order-2" delay={0.08}>
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+              inside a crowd
+            </p>
             <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[0.98] lowercase max-w-[14ch]">
-              one room, <span className="font-serif-display italic font-medium">many rhythms.</span>
+              one room,{" "}
+              <span className="font-serif-display italic font-medium">many rhythms.</span>
             </h2>
             <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md">
-              every crowd is a chronological thread, a small events board and a shared memory. no infinite scroll.
+              every crowd is a chronological thread, a small events board and a shared memory. no
+              infinite scroll.
             </p>
             <Link
               to="/features"
