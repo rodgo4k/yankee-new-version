@@ -79,6 +79,7 @@ const nameGender: Record<string, "f" | "m"> = {
   "jackson lee": "m",
   "liam johnson": "m",
   "ryan scott": "m",
+  "tyler shaw": "m",
   chris: "m",
   leo: "m",
   ethan: "m",
@@ -86,6 +87,7 @@ const nameGender: Record<string, "f" | "m"> = {
   jackson: "m",
   liam: "m",
   ryan: "m",
+  tyler: "m",
 };
 
 function genderOf(name: string): "f" | "m" {

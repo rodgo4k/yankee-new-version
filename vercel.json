@@ -1,5 +1,9 @@
 {
+  "redirects": [
+    { "source": "/yankee-ai", "destination": "/intelligence", "permanent": true },
+    { "source": "/for-small-teams", "destination": "/intelligence", "permanent": true }
+  ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!.*\\..*).*)", "destination": "/index.html" }
   ]
 }

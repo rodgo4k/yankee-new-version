@@ -5,6 +5,7 @@ const footerLinks = [
         title: "Product",
         links: [
             { label: "Features", to: "/features" },
+            { label: "Intelligence", to: "/intelligence" },
             { label: "The feed", to: "/feed" },
             { label: "Communities", to: "/communities" },
             { label: "Memory", to: "/memory" },
@@ -16,7 +17,6 @@ const footerLinks = [
     {
         title: "Solutions",
         links: [
-            { label: "Yankee AI", to: "/yankee-ai" },
             { label: "For creators", to: "/for-creators" },
             { label: "For friends and family", to: "/for-friends-family" },
             { label: "For communities", to: "/for-communities" },

@@ -21,6 +21,7 @@ const navItems: NavItem[] = [
     label: "product",
     children: [
       { label: "Features", path: "/features", desc: "The full product tour" },
+      { label: "Intelligence", path: "/intelligence", desc: "Multi-llm · collaborate on prompts" },
       { label: "The feed", path: "/feed", desc: "Chronological, finite, honest" },
       { label: "Communities", path: "/communities", desc: "Small rooms, on purpose" },
       { label: "Memory", path: "/memory", desc: "Private, encrypted library" },
@@ -32,7 +33,6 @@ const navItems: NavItem[] = [
   {
     label: "solutions",
     children: [
-      { label: "Yankee AI", path: "/yankee-ai", desc: "Multi-llm · collaborate on prompts" },
       { label: "For creators", path: "/for-creators", desc: "Reach every follower, every time" },
       { label: "For friends and family", path: "/for-friends-family", desc: "A feed of only your people" },
       { label: "For communities", path: "/for-communities", desc: "Human-scale rooms, by design" },

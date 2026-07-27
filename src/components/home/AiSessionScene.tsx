@@ -13,11 +13,54 @@ import {
   Sparkles,
 } from "lucide-react";
 import AiPhoneShell from "@/components/home/AiPhoneShell";
+import { faceFor, uniqueFacesFor } from "@/lib/crowdFaces";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 const BLUE = "#2f6bff";
 const GREEN = "#34c759";
 const RED = "#ff453a";
+
+const Face = ({
+  src,
+  letter,
+  tint,
+  size,
+  online = false,
+  onlineBorder = "#1c1c1e",
+}: {
+  src?: string;
+  letter: string;
+  tint: string;
+  size: number;
+  online?: boolean;
+  onlineBorder?: string;
+}) => (
+  <span
+    className="relative inline-flex shrink-0 items-center justify-center rounded-full text-white/85 font-medium"
+    style={{
+      width: size,
+      height: size,
+      minWidth: size,
+      minHeight: size,
+      background: tint,
+      fontSize: size * 0.38,
+    }}
+  >
+    <span className="absolute inset-0 rounded-full overflow-hidden">
+      {src ? (
+        <img src={src} alt="" className="absolute inset-0 w-full h-full object-cover" />
+      ) : (
+        <span className="absolute inset-0 flex items-center justify-center">{letter}</span>
+      )}
+    </span>
+    {online && (
+      <span
+        className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#34c759] z-[1]"
+        style={{ border: `1.5px solid ${onlineBorder}` }}
+      />
+    )}
+  </span>
+);
 
 type Phase = "choose" | "session" | "invite" | "permissions" | "contribute";
 
@@ -405,6 +448,13 @@ const SessionPhase = () => {
   );
 };
 
+const memberFaces = uniqueFacesFor([
+  "Chris Parker",
+  "Maya Reed",
+  "Ryan Scott",
+  "Tyler Shaw",
+]);
+
 const members = [
   {
     name: "Chris Parker",
@@ -414,6 +464,7 @@ const members = [
     from: -56,
     tint: "#4a6fa5",
     invited: true,
+    src: memberFaces[0],
   },
   {
     name: "Maya Reed",
@@ -423,6 +474,7 @@ const members = [
     from: 56,
     tint: "#8b5a7a",
     invited: true,
+    src: memberFaces[1],
   },
   {
     name: "Ryan Scott",
@@ -432,6 +484,7 @@ const members = [
     from: -56,
     tint: "#5a6b5a",
     invited: false,
+    src: memberFaces[2],
   },
   {
     name: "Tyler Shaw",
@@ -441,6 +494,7 @@ const members = [
     from: 56,
     tint: "#2d8a6e",
     invited: true,
+    src: memberFaces[3],
   },
 ];
 
@@ -494,11 +548,8 @@ const InvitePhase = () => {
                       transition={{ duration: 0.5, ease }}
                       className="rounded-2xl bg-[#1c1c1e] px-3 py-2.5 flex items-center gap-2.5 border border-white/[0.06]"
                     >
-                      <span
-                        className="relative w-9 h-9 rounded-full flex items-center justify-center text-[12px] text-white/85 font-medium shrink-0"
-                        style={{ background: m.tint }}
-                      >
-                        {m.name[0]}
+                      <span className="relative shrink-0">
+                        <Face src={m.src} letter={m.name[0]} tint={m.tint} size={36} />
                         {m.invited && (
                           <motion.span
                             initial={{ scale: 0 }}
@@ -652,6 +703,10 @@ const PermissionsPhase = () => {
   );
 };
 
+const contribFaces = uniqueFacesFor(["Chris Parker", "Maya Reed"]);
+const youFace = faceFor("Mia Taylor");
+const sessionFaces = uniqueFacesFor(["Chris Parker", "Maya Reed", "Tyler Shaw"]);
+
 const contribs = [
   {
     name: "Chris Parker",
@@ -660,6 +715,7 @@ const contribs = [
     text: "Use the Blue Hills terrain notes and the $600 budget.",
     from: -56,
     tint: "#4a6fa5",
+    src: contribFaces[0],
   },
   {
     name: "Maya Reed",
@@ -668,21 +724,34 @@ const contribs = [
     text: "Pin the 2 Notions about waterproofing.",
     from: 56,
     tint: "#8b5a7a",
+    src: contribFaces[1],
   },
 ];
 
-const ContributePhase = () => {
+const ContributePhase = ({ onSent }: { onSent?: () => void } = {}) => {
   const [cards, setCards] = useState(0);
   const draft = "Add the two trails we did in May and the group's average time";
   const [typed, setTyped] = useState("");
+  const [ready, setReady] = useState(false);
   const [sent, setSent] = useState(false);
   const [showRun, setShowRun] = useState(false);
+  const [multiline, setMultiline] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const draftTextRef = useRef<HTMLParagraphElement>(null);
 
   const scrollToBottom = () => {
     const el = scrollRef.current;
     if (!el) return;
     el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+  };
+
+  const sendContribution = () => {
+    if (!ready || sent) return;
+    setSent(true);
+    setShowRun(true);
+    setTyped("");
+    setMultiline(false);
+    onSent?.();
   };
 
   useEffect(() => {
@@ -698,14 +767,9 @@ const ContributePhase = () => {
         setTyped(draft.slice(0, i));
         if (i >= draft.length) {
           window.clearInterval(typeId);
-          timers.push(
-            window.setTimeout(() => {
-              setSent(true);
-              setShowRun(true);
-            }, 450),
-          );
+          setReady(true);
         }
-      }, 22);
+      }, 52);
     }, 1200);
     timers.push(startType);
     return () => {
@@ -715,9 +779,19 @@ const ContributePhase = () => {
   }, []);
 
   useEffect(() => {
+    const el = draftTextRef.current;
+    if (!el || sent || !typed) {
+      setMultiline(false);
+      return;
+    }
+    const lineHeight = Number.parseFloat(getComputedStyle(el).lineHeight) || 15;
+    setMultiline(el.scrollHeight > lineHeight + 2);
+  }, [typed, sent]);
+
+  useEffect(() => {
     const id = window.setTimeout(scrollToBottom, 60);
     return () => window.clearTimeout(id);
-  }, [cards, sent, showRun, typed]);
+  }, [cards, sent, showRun, typed, multiline]);
 
   const shownCount = cards + (sent ? 1 : 0);
 
@@ -752,16 +826,13 @@ const ContributePhase = () => {
 
       <div className="flex items-center gap-2 px-3.5 mb-2.5 shrink-0">
         <div className="flex items-center -space-x-1.5">
-          {["C", "M", "T"].map((letter, i) => (
+          {sessionFaces.map((src, i) => (
             <span
-              key={letter}
-              className="w-[22px] h-[22px] rounded-full border border-black flex items-center justify-center text-[8px] text-white/85 font-medium"
-              style={{
-                background: ["#4a6fa5", "#8b5a7a", "#2d8a6e"][i],
-                zIndex: 3 - i,
-              }}
+              key={i}
+              className="relative w-[22px] h-[22px] rounded-full border border-black overflow-hidden shrink-0"
+              style={{ zIndex: 3 - i }}
             >
-              {letter}
+              <img src={src} alt="" className="absolute inset-0 w-full h-full object-cover" />
             </span>
           ))}
         </div>
@@ -808,13 +879,7 @@ const ContributePhase = () => {
                       className="rounded-2xl bg-[#1c1c1e] border border-white/5 p-2.5"
                     >
                       <div className="flex items-center gap-2 mb-1.5">
-                        <span
-                          className="relative w-6 h-6 rounded-full flex items-center justify-center text-[10px] text-white/85 shrink-0"
-                          style={{ background: c.tint }}
-                        >
-                          {c.name[0]}
-                          <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#34c759] border border-[#1c1c1e]" />
-                        </span>
+                        <Face src={c.src} letter={c.name[0]} tint={c.tint} size={24} online />
                         <p className="text-[11px] text-white font-medium truncate flex-1">{c.name}</p>
                         <span
                           className="rounded-full px-1.5 py-0.5 text-[8px] font-semibold text-white lowercase"
@@ -835,18 +900,22 @@ const ContributePhase = () => {
           <AnimatePresence>
             {sent && (
               <motion.div
-                initial={{ opacity: 0, x: -56 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, x: -56, scale: 0.96 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.5, ease }}
+                transition={{ duration: 0.45, ease }}
                 onAnimationComplete={scrollToBottom}
                 className="rounded-2xl bg-[#2f6bff]/12 border border-[#2f6bff]/35 p-2.5 shrink-0"
               >
                 <div className="flex items-center gap-2 mb-1.5">
-                  <span className="relative w-6 h-6 rounded-full bg-[#2f6bff]/35 flex items-center justify-center text-[10px] text-white shrink-0">
-                    Y
-                    <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#34c759] border border-[#0a0a0b]" />
-                  </span>
+                  <Face
+                    src={youFace}
+                    letter="Y"
+                    tint="#2f6bff"
+                    size={24}
+                    online
+                    onlineBorder="#0a0a0b"
+                  />
                   <p className="text-[11px] text-white font-medium flex-1">You</p>
                   <span
                     className="rounded-full px-1.5 py-0.5 text-[8px] font-semibold text-white lowercase"
@@ -873,53 +942,107 @@ const ContributePhase = () => {
         )}
 
         <div className="shrink-0 pt-1">
-          {showRun && (
-            <motion.button
-              type="button"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                boxShadow: [
-                  "0 0 0 0 rgba(47,107,255,0)",
-                  "0 0 0 6px rgba(47,107,255,0.22)",
-                  "0 0 0 0 rgba(47,107,255,0)",
-                ],
-              }}
-              transition={{
-                boxShadow: { duration: 1.5, repeat: Infinity, delay: 0.3 },
-              }}
-              className="mt-1.5 w-full rounded-full py-3 text-[12px] font-semibold text-white"
-              style={{ background: BLUE }}
-            >
-              Run with {shownCount} contributions
-            </motion.button>
-          )}
+          <AnimatePresence>
+            {showRun && (
+              <motion.button
+                type="button"
+                initial={{ opacity: 0, y: 8, height: 0 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  height: "auto",
+                  boxShadow: [
+                    "0 0 0 0 rgba(47,107,255,0)",
+                    "0 0 0 6px rgba(47,107,255,0.22)",
+                    "0 0 0 0 rgba(47,107,255,0)",
+                  ],
+                }}
+                exit={{ opacity: 0, y: 8 }}
+                transition={{
+                  boxShadow: { duration: 1.5, repeat: Infinity, delay: 0.3 },
+                }}
+                className="mt-1.5 w-full rounded-full py-3 text-[12px] font-semibold text-white"
+                style={{ background: BLUE }}
+              >
+                Run with {shownCount} contributions
+              </motion.button>
+            )}
+          </AnimatePresence>
 
           <motion.div
             animate={{
-              borderColor: sent ? "rgba(255,255,255,0.08)" : "rgba(47,107,255,0.7)",
+              borderColor: sent
+                ? "rgba(255,255,255,0.08)"
+                : ready
+                  ? "rgba(47,107,255,0.85)"
+                  : typed
+                    ? "rgba(47,107,255,0.45)"
+                    : "rgba(255,255,255,0.08)",
             }}
-            className="mt-2 mb-1 rounded-full border bg-[#1c1c1e] px-3 py-2 flex items-center gap-2"
+            className={`mt-2 mb-1 border bg-[#1c1c1e] px-3 flex gap-2 ${
+              multiline
+                ? "rounded-[22px] py-2.5 items-end"
+                : "rounded-full py-2 items-center"
+            }`}
           >
-            <p className="flex-1 text-[11px] text-white/70 truncate min-h-[14px]">
-              {sent
-                ? "Write another contribution…"
-                : typed || "Write another contribution…"}
-              {!sent && typed.length < draft.length && typed.length > 0 && (
-                <motion.span
-                  animate={{ opacity: [1, 0] }}
-                  transition={{ duration: 0.55, repeat: Infinity }}
-                  className="inline-block w-[1.5px] h-[11px] bg-[#2f6bff] align-middle ml-0.5"
-                />
+            <p
+              ref={draftTextRef}
+              className="flex-1 text-[11px] text-white/70 leading-[1.35] min-w-0"
+              style={
+                sent || !typed
+                  ? { whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }
+                  : { whiteSpace: "pre-wrap", overflowWrap: "anywhere", wordBreak: "break-word" }
+              }
+            >
+              {sent || !typed ? (
+                <span className="text-white/35">Write another contribution…</span>
+              ) : (
+                <>
+                  {typed}
+                  {typed.length < draft.length && (
+                    <motion.span
+                      animate={{ opacity: [1, 0] }}
+                      transition={{ duration: 0.55, repeat: Infinity }}
+                      className="inline-block w-[1.5px] h-[11px] bg-[#2f6bff] align-[-1px] ml-0.5"
+                    />
+                  )}
+                </>
               )}
             </p>
-            <span
+            <motion.button
+              type="button"
+              aria-label="Send contribution"
+              disabled={!ready || sent}
+              onClick={sendContribution}
+              initial={false}
+              animate={
+                ready && !sent
+                  ? {
+                      opacity: 1,
+                      scale: [1, 1.08, 1],
+                      boxShadow: [
+                        "0 0 0 0 rgba(47,107,255,0)",
+                        "0 0 0 5px rgba(47,107,255,0.28)",
+                        "0 0 0 0 rgba(47,107,255,0)",
+                      ],
+                    }
+                  : {
+                      opacity: ready ? 1 : 0.35,
+                      scale: 1,
+                      boxShadow: "0 0 0 0 rgba(47,107,255,0)",
+                    }
+              }
+              transition={
+                ready && !sent
+                  ? { duration: 1.25, repeat: Infinity, ease: "easeInOut", delay: 0.15 }
+                  : { duration: 0.25, ease }
+              }
+              whileTap={ready && !sent ? { scale: 0.92 } : undefined}
               className="w-7 h-7 rounded-full flex items-center justify-center shrink-0"
               style={{ background: BLUE }}
             >
               <ArrowUp size={13} className="text-white" />
-            </span>
+            </motion.button>
           </motion.div>
         </div>
       </div>
@@ -937,14 +1060,18 @@ const phaseLabel: Record<Phase, string> = {
 
 const AiSessionScene = ({ className = "" }: { className?: string }) => {
   const [phaseIndex, setPhaseIndex] = useState(0);
+  const [contributeDone, setContributeDone] = useState(false);
   const phase = phases[phaseIndex];
 
   useEffect(() => {
+    if (phase === "contribute" && !contributeDone) return;
+    const hold = phase === "contribute" && contributeDone ? 2800 : PHASE_HOLD_MS[phase];
     const id = window.setTimeout(() => {
       setPhaseIndex((i) => (i + 1) % phases.length);
-    }, PHASE_HOLD_MS[phase]);
-    return () => clearTimeout(id);
-  }, [phase, phaseIndex]);
+      setContributeDone(false);
+    }, hold);
+    return () => window.clearTimeout(id);
+  }, [phase, phaseIndex, contributeDone]);
 
   return (
     <div className={`w-[280px] sm:w-[300px] shrink-0 ${className}`}>
@@ -966,7 +1093,9 @@ const AiSessionScene = ({ className = "" }: { className?: string }) => {
           {phase === "session" && <SessionPhase key="session" />}
           {phase === "invite" && <InvitePhase key="invite" />}
           {phase === "permissions" && <PermissionsPhase key="permissions" />}
-          {phase === "contribute" && <ContributePhase key="contribute" />}
+          {phase === "contribute" && (
+            <ContributePhase key="contribute" onSent={() => setContributeDone(true)} />
+          )}
         </AnimatePresence>
       </AiPhoneShell>
       <p className="mt-4 text-center text-[12px] text-foreground/45 lowercase tracking-tight">

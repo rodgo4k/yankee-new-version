@@ -6,17 +6,14 @@ import AnimatedSection from "@/components/AnimatedSection";
 import FAQ from "@/components/FAQ";
 import PromoPill from "@/components/home/PromoPill";
 import TeamHeroScene from "@/components/home/TeamHeroScene";
-import { AiModelsStrip } from "@/components/home/AiFeatureScenes";
+import AiSessionScene from "@/components/home/AiSessionScene";
 import {
   AiChooseDemo,
   AiContributeDemo,
   AiInviteDemo,
+  AiModelsStrip,
   AiTrioScene,
-  AiCollabDemo,
-  AiResultDemo,
-  AiCommandsDemo,
-  AiSessionScene,
-} from "@/components/home/AiPrintDemos";
+} from "@/components/home/AiFeatureScenes";
 import smallTeamCollab from "@/assets/small-team-collab.jpg";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
@@ -64,7 +61,7 @@ const faqs = [
 
 const ForSmallTeams = () => (
   <Layout>
-    {}
+    {/* ── hero (banner component unchanged) ── */}
     <section className="relative -mt-12 md:-mt-14 pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden dotted-bg">
       <div className="absolute inset-0 bg-background/85" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
@@ -76,7 +73,7 @@ const ForSmallTeams = () => (
               transition={{ duration: 0.5 }}
               className="flex justify-center lg:justify-start"
             >
-              <PromoPill tag="yankee ai" text="multi-llm · collaborate on prompts" to="/features" />
+              <PromoPill tag="intelligence" text="multi-llm · collaborate on prompts" to="/features" />
             </motion.div>
 
             <motion.h1
@@ -129,7 +126,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
-    {}
+    {/* ── multi-llm strip ── */}
     <section className="relative py-16 md:py-20 dotted-bg">
       <div className="absolute inset-0 bg-background/70" />
       <div className="relative max-w-[900px] mx-auto px-5 md:px-6 text-center">
@@ -152,7 +149,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
-    {}
+    {/* ── choose type ── */}
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
@@ -196,7 +193,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
-    {}
+    {/* ── trio: session / invite / contributions ── */}
     <section id="in-app" className="relative py-20 md:py-28 dotted-bg overflow-hidden">
       <div className="absolute inset-0 bg-background/75" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
@@ -220,7 +217,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
-    {}
+    {/* ── invite + roles ── */}
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
@@ -264,7 +261,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
-    {}
+    {/* ── contributions ── */}
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/75" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
@@ -289,82 +286,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
-    {}
-    <section className="relative py-20 md:py-28 dotted-bg">
-      <div className="absolute inset-0 bg-background/80" />
-      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
-          <AnimatedSection className="lg:col-span-6">
-            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
-              in the crowd
-            </p>
-            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase max-w-[14ch]">
-              a live collaborative prompt{" "}
-              <span className="font-serif-display italic font-medium">inside the channel.</span>
-            </h2>
-            <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md">
-              see who is online, add inputs as a card in the chat, react, and run when the crowd is
-              ready. ai lives where the conversation already is.
-            </p>
-          </AnimatedSection>
-          <AnimatedSection className="lg:col-span-6 flex justify-center lg:justify-end" delay={0.1}>
-            <AiCollabDemo />
-          </AnimatedSection>
-        </div>
-      </div>
-    </section>
-
-    {}
-    <section className="relative py-20 md:py-28 dotted-bg">
-      <div className="absolute inset-0 bg-background/75" />
-      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
-          <AnimatedSection className="lg:col-span-6 order-2 lg:order-1 flex justify-center lg:justify-start">
-            <AiResultDemo />
-          </AnimatedSection>
-          <AnimatedSection className="lg:col-span-6 order-1 lg:order-2" delay={0.08}>
-            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
-              crowd sources
-            </p>
-            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase max-w-[15ch]">
-              the answer cites{" "}
-              <span className="font-serif-display italic font-medium">your crowd.</span>
-            </h2>
-            <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md">
-              top picks, week summaries and source chips from chat, notions and budget notes. then
-              iterate, save or publish back to the feed.
-            </p>
-          </AnimatedSection>
-        </div>
-      </div>
-    </section>
-
-    {}
-    <section className="relative py-20 md:py-28 dotted-bg">
-      <div className="absolute inset-0 bg-background/80" />
-      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
-          <AnimatedSection className="lg:col-span-6">
-            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
-              commands
-            </p>
-            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase max-w-[14ch]">
-              /prompt, /run, /invite{" "}
-              <span className="font-serif-display italic font-medium">right in chat.</span>
-            </h2>
-            <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md">
-              start a collaborative prompt, pick sources, invite members and iterate without leaving
-              the crowd channel.
-            </p>
-          </AnimatedSection>
-          <AnimatedSection className="lg:col-span-6 flex justify-center lg:justify-end" delay={0.1}>
-            <AiCommandsDemo />
-          </AnimatedSection>
-        </div>
-      </div>
-    </section>
-
-    {}
+    {/* ── full flow phone ── */}
     <section className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/70" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
@@ -378,7 +300,8 @@ const ForSmallTeams = () => (
               <span className="font-serif-display italic font-medium">session play out.</span>
             </h2>
             <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md">
-              hello → ask → generate. the same yankee ai screens from the app, animated end to end.
+              choose type → define goal &amp; sources → invite with roles → set permissions →
+              collect contributions. the same screens from the app, animated.
             </p>
           </AnimatedSection>
           <AnimatedSection className="lg:col-span-7 flex justify-center lg:justify-end shrink-0" delay={0.1}>
@@ -388,7 +311,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
-    {}
+    {/* ── steps ── */}
     <section id="how" className="relative py-20 md:py-28 dotted-bg">
       <div className="absolute inset-0 bg-background/70" />
       <div className="relative max-w-[1100px] mx-auto px-5 md:px-6">
@@ -420,7 +343,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
-    {}
+    {/* ── faq ── */}
     <section className="py-20 md:py-28">
       <div className="max-w-[900px] mx-auto px-5 md:px-6">
         <AnimatedSection className="text-center">
@@ -437,7 +360,7 @@ const ForSmallTeams = () => (
       </div>
     </section>
 
-    {}
+    {/* ── cta ── */}
     <section className="relative py-20 md:py-28 overflow-hidden dotted-bg">
       <div className="absolute inset-0 bg-background/80" />
       <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
@@ -450,7 +373,7 @@ const ForSmallTeams = () => (
                 viewport={{ once: true }}
                 className="font-serif-display italic text-[1.35rem] md:text-[1.6rem] text-foreground/55 lowercase leading-none"
               >
-                yankee ai
+                intelligence
               </motion.p>
               <motion.h2
                 initial={{ opacity: 0, y: 22 }}
