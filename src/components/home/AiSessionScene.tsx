@@ -1076,18 +1076,6 @@ const AiSessionScene = ({ className = "" }: { className?: string }) => {
   return (
     <div className={`w-[280px] sm:w-[300px] shrink-0 ${className}`}>
       <AiPhoneShell className="!w-full !max-w-none">
-        <div className="absolute top-11 right-4 z-30 flex gap-1">
-          {phases.map((p, i) => (
-            <motion.span
-              key={p}
-              animate={{
-                width: i === phaseIndex ? 14 : 4,
-                backgroundColor: i === phaseIndex ? BLUE : "rgba(255,255,255,0.18)",
-              }}
-              className="h-1 rounded-full"
-            />
-          ))}
-        </div>
         <AnimatePresence mode="wait">
           {phase === "choose" && <ChoosePhase key="choose" />}
           {phase === "session" && <SessionPhase key="session" />}

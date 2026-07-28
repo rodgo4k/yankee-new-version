@@ -1,4 +1,4 @@
-import { ArrowRight, Bell, Filter, Sliders, Radio, Lock, Trash2, EyeOff, Calendar, FileText, PenLine, Compass, Plane } from "lucide-react";
+import { ArrowRight, Bell, Filter, Sliders, Radio, Lock, Trash2, EyeOff, Calendar, FileText, PenLine, Compass, Plane, MessageSquare, Sparkles, Quote, Shuffle, MapPin, Feather, Video, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -11,6 +11,11 @@ import PeopleCloseScene from "@/components/home/PeopleCloseScene";
 import PrivacyStayYoursScene from "@/components/home/PrivacyStayYoursScene";
 import MemoryVaultScene from "@/components/home/MemoryVaultScene";
 import { FeaturesAlwaysScene } from "@/components/home/FeaturesAlwaysScene";
+import {
+  SpinScene,
+  MapsPinsScene,
+} from "@/components/home/FeaturesNewScenes";
+import NotionsScene from "@/components/home/NotionsScene";
 import homeFeed from "@/assets/yankee/home-feed.png";
 import chatImg from "@/assets/yankee/chat.png";
 import crowdsHome from "@/assets/yankee/crowds-home.png";
@@ -20,10 +25,9 @@ import voiceCall from "@/assets/yankee/voice-call.png";
 import facetime from "@/assets/yankee/facetime.png";
 import profileView from "@/assets/yankee/profile-view.png";
 import profileEdit from "@/assets/yankee/profile-edit.png";
-import searchImg from "@/assets/yankee/search.png";
-import searchTyping from "@/assets/yankee/search-typing.png";
 import contacting from "@/assets/yankee/contacting.png";
-import aiChat from "@/assets/yankee/ai-chat.png";
+import aiEmpty from "@/assets/yankee/ai-empty.png";
+import aiVoiceListening from "@/assets/yankee/ai-voice-listening.png";
 import aiHello from "@/assets/yankee/ai-hello.png";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
@@ -36,7 +40,9 @@ const heroPhones = [
 
 const jumpLinks = [
   { label: "feed", href: "#feed" },
-  { label: "memory", href: "#memory" },
+  { label: "notions", href: "#notions" },
+  { label: "spin", href: "#spin" },
+  { label: "maps", href: "#maps" },
   { label: "people", href: "#people" },
   { label: "privacy", href: "#privacy" },
 ];
@@ -163,12 +169,11 @@ const marqueePrints = [
   messages,
   videoCall,
   voiceCall,
-  aiChat,
+  aiEmpty,
+  aiVoiceListening,
   aiHello,
   profileView,
   profileEdit,
-  searchImg,
-  searchTyping,
   chatImg,
   crowdsHome,
   facetime,
@@ -282,7 +287,7 @@ const Features = () => (
                 transition={{ duration: 0.5, delay: 0.55 }}
                 className="absolute top-4 right-2 md:top-8 md:right-6 z-20"
               >
-                <PromoPill tag="soon" text="feed · chat · crowds" to="/feed" />
+                <PromoPill tag="notions" text="feed · spin · crowds" to="/features" />
               </motion.div>
             </div>
           </div>
@@ -347,7 +352,7 @@ const Features = () => (
                 read only access · yankee never posts without your ok
               </p>
               <Link
-                to="/feed"
+                to="/features"
                 className="inline-flex items-center gap-1.5 text-[14px] font-medium text-accent hover:opacity-80 lowercase shrink-0"
               >
                 see how the feed works <ArrowRight size={14} />
@@ -408,37 +413,38 @@ const Features = () => (
 
           <AnimatedSection className="lg:col-span-6 order-1 lg:order-2" delay={0.08}>
             <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
-              focus
+              yankee ai
             </p>
             <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
-              it keeps you <span className="font-serif-display italic font-medium">present</span>
+              ask once, with your{" "}
+              <span className="font-serif-display italic font-medium">world in scope</span>
             </h2>
             <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md">
-              nudges that follow up, drafts that get finished, plans it won&apos;t let you ghost. ask
-              once, yankee stays on it.
+              conversational or terminal. scoped to your crowds, connections, posts and notions.
+              answers come with sources, not vibes.
             </p>
             <ul className="mt-8 space-y-4 max-w-md text-left">
               {[
                 {
                   step: "01",
-                  icon: PenLine,
-                  title: "you ask once",
-                  text: "finish the caption. remind me about saturday. keep that draft warm.",
-                  note: "said once",
+                  icon: MessageSquare,
+                  title: "choose your interface",
+                  text: "calm chat bubbles, or a terminal with tools visible. switch anytime in settings.",
+                  note: "your call",
                 },
                 {
                   step: "02",
-                  icon: Bell,
-                  title: "yankee stays on it",
-                  text: "quiet nudges at the right moment, without hijacking your whole day.",
-                  note: "follows up",
+                  icon: Sparkles,
+                  title: "ask with context",
+                  text: "suggested prompts scoped to app, a crowd, or your notions. nothing from outside unless you open it.",
+                  note: "in scope",
                 },
                 {
                   step: "03",
-                  icon: Calendar,
-                  title: "it actually lands",
-                  text: "the post goes out, the plan happens, the thread gets answered.",
-                  note: "done",
+                  icon: Quote,
+                  title: "answers with sources",
+                  text: "streaming replies cite the posts and threads they used. every claim has a trail.",
+                  note: "cited",
                 },
               ].map((item) => {
                 const Icon = item.icon;
@@ -464,11 +470,191 @@ const Features = () => (
               })}
             </ul>
             <Link
-              to="/notifications"
+              to="/intelligence"
               className="yankee-surface yankee-surface--control mt-8 inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-card text-[14px] font-medium text-foreground lowercase hover:-translate-y-1 transition-all"
             >
               learn more <ArrowRight size={14} />
             </Link>
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+
+    <section id="notions" className="relative py-20 md:py-28 dotted-bg">
+      <div className="absolute inset-0 bg-background/75" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <AnimatedSection className="lg:col-span-5 text-center lg:text-left">
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+              notions
+            </p>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase">
+              short posts,{" "}
+              <span className="font-serif-display italic font-medium">real community</span>
+            </h2>
+            <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto lg:mx-0">
+              notions are the quick thoughts you share with people who actually care. chronological,
+              searchable, and scoped to your world.
+            </p>
+            <ul className="mt-8 space-y-4 max-w-md mx-auto lg:mx-0 text-left">
+              {[
+                {
+                  icon: Feather,
+                  title: "compose in place",
+                  text: "write a notion, attach photos, post into trending or followers.",
+                },
+                {
+                  icon: Sparkles,
+                  title: "community first",
+                  text: "stories, search, and reactions stay inside the rooms you choose.",
+                },
+                {
+                  icon: MessageSquare,
+                  title: "hearts with context",
+                  text: "replies and likes land on the post, not in an algorithmic void.",
+                },
+              ].map((item) => {
+                const Icon = item.icon;
+                return (
+                  <li key={item.title} className="flex items-start gap-3">
+                    <span className="mt-0.5 w-8 h-8 rounded-full bg-foreground/[0.06] flex items-center justify-center shrink-0 text-foreground/55">
+                      <Icon size={14} />
+                    </span>
+                    <div>
+                      <p className="text-[14px] font-semibold lowercase tracking-tight">{item.title}</p>
+                      <p className="mt-0.5 text-[13px] text-muted-foreground leading-relaxed lowercase">
+                        {item.text}
+                      </p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </AnimatedSection>
+          <AnimatedSection
+            className="lg:col-span-7 flex justify-center lg:justify-end shrink-0"
+            delay={0.1}
+          >
+            <NotionsScene />
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+
+    <section id="spin" className="relative py-20 md:py-28 overflow-hidden dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <AnimatedSection className="lg:col-span-6 text-center lg:text-left">
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+              spin
+            </p>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase max-w-[16ch] mx-auto lg:mx-0">
+              match face to face,{" "}
+              <span className="font-serif-display italic font-medium">or chat first</span>
+            </h2>
+            <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto lg:mx-0">
+              spin is yankee&apos;s live match flow. filter who you meet, swipe into a room, and talk
+              with up to four people without leaving the app.
+            </p>
+            <ul className="mt-8 space-y-4 max-w-md mx-auto lg:mx-0 text-left">
+              {[
+                {
+                  icon: Video,
+                  title: "facetime or chat mode",
+                  text: "pick the vibe before you match. switch anytime from the same surface.",
+                },
+                {
+                  icon: Sliders,
+                  title: "filter your spin",
+                  text: "topic, distance, age, language. you set the room before it finds you.",
+                },
+                {
+                  icon: Shuffle,
+                  title: "swipe, then meet",
+                  text: "slide into matches, land in a grid, leave only when you confirm.",
+                },
+              ].map((item) => {
+                const Icon = item.icon;
+                return (
+                  <li key={item.title} className="flex items-start gap-3">
+                    <span className="mt-0.5 w-8 h-8 rounded-full bg-foreground/[0.06] flex items-center justify-center shrink-0 text-foreground/55">
+                      <Icon size={14} />
+                    </span>
+                    <div>
+                      <p className="text-[14px] font-semibold lowercase tracking-tight">{item.title}</p>
+                      <p className="mt-0.5 text-[13px] text-muted-foreground leading-relaxed lowercase">
+                        {item.text}
+                      </p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </AnimatedSection>
+          <AnimatedSection
+            className="lg:col-span-6 flex justify-center lg:justify-end shrink-0"
+            delay={0.1}
+          >
+            <SpinScene />
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+
+    <section id="maps" className="relative py-20 md:py-28 overflow-hidden dotted-bg">
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="relative max-w-[1200px] mx-auto px-5 md:px-6">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <AnimatedSection className="lg:col-span-6 order-2 lg:order-1 flex justify-center lg:justify-start">
+            <MapsPinsScene />
+          </AnimatedSection>
+          <AnimatedSection className="lg:col-span-6 order-1 lg:order-2" delay={0.08}>
+            <p className="font-serif-display italic text-[1.25rem] text-foreground/50 lowercase">
+              maps
+            </p>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-[1.02] lowercase max-w-[15ch]">
+              the map, and{" "}
+              <span className="font-serif-display italic font-medium">every pin on it</span>
+            </h2>
+            <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md">
+              chillin&apos;, moments, sos, events, aid. drop pins where life is happening and find
+              people already there.
+            </p>
+            <ul className="mt-8 space-y-4 max-w-md text-left">
+              {[
+                {
+                  icon: MapPin,
+                  title: "live pins",
+                  text: "markers land on the map as people post places that matter.",
+                },
+                {
+                  icon: Plus,
+                  title: "one tap to drop",
+                  text: "the plus opens every pin type. pick, place, done.",
+                },
+                {
+                  icon: Filter,
+                  title: "filter the surface",
+                  text: "chips along the bottom keep sos next to events without the clutter.",
+                },
+              ].map((item) => {
+                const Icon = item.icon;
+                return (
+                  <li key={item.title} className="flex items-start gap-3">
+                    <span className="mt-0.5 w-8 h-8 rounded-full bg-foreground/[0.06] flex items-center justify-center shrink-0 text-foreground/55">
+                      <Icon size={14} />
+                    </span>
+                    <div>
+                      <p className="text-[14px] font-semibold lowercase tracking-tight">{item.title}</p>
+                      <p className="mt-0.5 text-[13px] text-muted-foreground leading-relaxed lowercase">
+                        {item.text}
+                      </p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
           </AnimatedSection>
         </div>
       </div>

@@ -6,11 +6,8 @@ const footerLinks = [
         links: [
             { label: "Features", to: "/features" },
             { label: "Intelligence", to: "/intelligence" },
-            { label: "The feed", to: "/feed" },
             { label: "Communities", to: "/communities" },
             { label: "Memory", to: "/memory" },
-            { label: "Reach", to: "/reach" },
-            { label: "Notifications", to: "/notifications" },
             { label: "Privacy", to: "/privacy-first" },
         ],
     },
@@ -36,7 +33,7 @@ const footerLinks = [
         title: "Social",
         links: [
             { label: "Instagram", href: "https://instagram.com/yankeeapp" },
-            { label: "X / Twitter", href: "https://x.com/yankeeapp" },
+            { label: "X / Twitter", href: "https://x.com/getyankee" },
             { label: "TikTok", href: "https://tiktok.com/@yankeeapp" },
         ],
     },

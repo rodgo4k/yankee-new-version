@@ -6,38 +6,38 @@ import { surface } from "@/lib/yankeeSurface";
 const testimonials = [
   {
     quote:
-      "you finally see every post from your friends again. no more wondering if anyone saw what you shared.",
-    name: "maya r.",
-    role: "designer · boston",
-    initials: "MR",
+      "lowkey forgot algorithms could be this bad 😭 now i actually see everyone's posts again. notions + the map got me finding people i would've never met.",
+    name: "ava m.",
+    role: "student · boston",
+    initials: "AM",
   },
   {
     quote:
-      "crowds feel like the group chats we always wanted: small, calm, and actually about something we care about.",
-    name: "leo k.",
-    role: "founder · san francisco",
-    initials: "LK",
+      "our crowd is literally active 24/7 😭 we plan everything there instead of juggling different apps. it's giving organized chaos.",
+    name: "jayden t.",
+    role: "content creator · chicago",
+    initials: "JT",
   },
   {
     quote:
-      "chat, calls and the feed in one place. your family won't need five apps just to stay in touch.",
-    name: "jisoo p.",
-    role: "nurse · seattle",
-    initials: "JP",
+      "spin is actually crazy!! matched with people that are deadass into the same niche as me. instant vibes.",
+    name: "noah l.",
+    role: "software engineer · austin",
+    initials: "NL",
   },
   {
     quote:
-      "post once and it reaches everyone who follows you. that alone is why yankee is on my home screen.",
-    name: "andré s.",
-    role: "creator · austin",
-    initials: "AS",
+      "made my profile look exactly how i wanted instead of everyone having the same boring page 🥳",
+    name: "zoe k.",
+    role: "graphic designer · los angeles",
+    initials: "ZK",
   },
   {
     quote:
-      "a chronological feed again. social media before everything got loud, built the way it should be.",
-    name: "nina t.",
-    role: "student · chicago",
-    initials: "NT",
+      "never thought i'd actually want ai inside a social app, but planning projects with my crowd, getting code help, and creating stuff without leaving the app is kinda insane.",
+    name: "ethan c.",
+    role: "full-stack developer · san francisco",
+    initials: "EC",
   },
 ];
 
@@ -69,7 +69,7 @@ const TestimonialCarousel = () => {
         </button>
       </div>
 
-      <div className="relative min-h-[200px] md:min-h-[180px]">
+      <div className="relative min-h-[240px] md:min-h-[220px]">
         <AnimatePresence mode="wait">
           <motion.div
             key={t.name}

@@ -9,11 +9,11 @@ import messages from "@/assets/yankee/messages.png";
 import aiChat from "@/assets/yankee/ai-chat.png";
 import profileView from "@/assets/yankee/profile-view.png";
 import searchImg from "@/assets/yankee/search.png";
-import { isMotionPaused, observeInView, subscribeMotionPause } from "@/lib/motionPause";
+import { observeInView } from "@/lib/motionPause";
 
 gsap.registerPlugin(Draggable);
 
-const cards = [
+const allCards = [
   { src: homeFeed, label: "feed" },
   { src: chat, label: "chat" },
   { src: videoCall, label: "calls" },
@@ -23,6 +23,11 @@ const cards = [
   { src: profileView, label: "profile" },
   { src: searchImg, label: "search" },
 ];
+
+const cards =
+  typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches
+    ? allCards.slice(0, 5)
+    : allCards;
 
 const norm = (deg: number) => {
   let d = ((deg % 360) + 360) % 360;
@@ -56,12 +61,11 @@ const RadialCardsSlider = () => {
       const HALF_ARC = 52;
       const narrow = window.matchMedia("(max-width: 768px)").matches;
       const PACK = narrow ? 0.33 : 0.38;
-      const frameMs = narrow ? 50 : 16;
-      const spin = narrow ? 0.42 : 0.1;
+      const frameMs = narrow ? 72 : 16;
+      const spin = narrow ? 0.55 : 0.1;
       let angle = 0;
       let dragging = false;
       let inView = true;
-      let paused = isMotionPaused();
       let leaveTimer = 0;
       let raf = 0;
       let lastTs = 0;
@@ -112,15 +116,21 @@ const RadialCardsSlider = () => {
 
       layout();
 
-      const shouldRun = () => inView && !paused;
+      const shouldRun = () => inView;
 
       const loop = (ts: number) => {
-        raf = requestAnimationFrame(loop);
-        if (!shouldRun() || dragging) return;
-        if (ts - lastTs < frameMs) return;
+        if (!shouldRun() || dragging) {
+          raf = requestAnimationFrame(loop);
+          return;
+        }
+        if (ts - lastTs < frameMs) {
+          raf = requestAnimationFrame(loop);
+          return;
+        }
         lastTs = ts;
         angle += spin;
         layout();
+        raf = requestAnimationFrame(loop);
       };
       raf = requestAnimationFrame(loop);
 
@@ -133,7 +143,7 @@ const RadialCardsSlider = () => {
           dragging = true;
         },
         onDrag() {
-          if (!inView || paused) return;
+          if (!inView) return;
           angle += this.deltaX * 0.34;
           layout();
         },
@@ -162,18 +172,12 @@ const RadialCardsSlider = () => {
         { rootMargin: "160px 0px", threshold: 0 },
       );
 
-      const unsubPause = subscribeMotionPause((next) => {
-        paused = next;
-        if (!next && inView) layout();
-      });
-
       cleanup = () => {
         cancelAnimationFrame(raf);
         draggable?.kill();
         window.removeEventListener("resize", onResize);
         window.clearTimeout(leaveTimer);
         unsubView();
-        unsubPause();
         cardEls.forEach((card) => {
           card.style.willChange = "auto";
         });

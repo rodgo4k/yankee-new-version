@@ -345,18 +345,6 @@ const PeopleCloseScene = ({ className = "" }: { className?: string }) => {
   return (
     <div className={`w-[280px] sm:w-[300px] shrink-0 ${className}`}>
       <AiPhoneShell className="!w-full !max-w-none" rotate={-1.5}>
-        <div className="absolute top-11 right-4 z-30 flex gap-1">
-          {phases.map((p, idx) => (
-            <motion.span
-              key={p}
-              animate={{
-                width: idx === i ? 14 : 4,
-                backgroundColor: idx === i ? BLUE : "rgba(255,255,255,0.18)",
-              }}
-              className="h-1 rounded-full"
-            />
-          ))}
-        </div>
         <AnimatePresence mode="wait">
           {phase === "chats" && <ChatsPhase key="chats" />}
           {phase === "contacting" && <ContactingPhase key="contacting" />}

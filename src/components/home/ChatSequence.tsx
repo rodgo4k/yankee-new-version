@@ -1,35 +1,30 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Rss } from "lucide-react";
+import { MapPin } from "lucide-react";
 import TypingDots from "@/components/TypingDots";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 const exitEase = [0.4, 0, 0.2, 1] as const;
 
-const phrases = [
-  "only people you follow",
-  "no suggested posts",
-  "chronological, always",
-  "your friends first",
-];
+const cities = ["New York", "Los Angeles", "Chicago", "Miami"];
 
 const ChatSequence = () => {
   const [step, setStep] = useState(0);
-  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [cityIndex, setCityIndex] = useState(0);
   const [cycle, setCycle] = useState(0);
 
   useEffect(() => {
     setStep(0);
-    setPhraseIndex(0);
+    setCityIndex(0);
 
     const timers = [
       window.setTimeout(() => setStep(1), 250),
       window.setTimeout(() => setStep(2), 1400),
       window.setTimeout(() => setStep(3), 2400),
       window.setTimeout(() => setStep(4), 4400),
-      window.setTimeout(() => setPhraseIndex(1), 6400),
-      window.setTimeout(() => setPhraseIndex(2), 8400),
-      window.setTimeout(() => setPhraseIndex(3), 10400),
+      window.setTimeout(() => setCityIndex(1), 6400),
+      window.setTimeout(() => setCityIndex(2), 8400),
+      window.setTimeout(() => setCityIndex(3), 10400),
       window.setTimeout(() => setStep(3), 12400),
       window.setTimeout(() => setStep(1), 13100),
       window.setTimeout(() => setStep(0), 13800),
@@ -94,32 +89,31 @@ const ChatSequence = () => {
             className="rounded-2xl bg-card border border-border shadow-[0_12px_32px_-12px_rgba(0,0,0,0.18)] p-4 flex items-center gap-3"
           >
             <div className="w-11 h-11 rounded-xl bg-primary text-primary-foreground flex items-center justify-center shrink-0">
-              <Rss size={18} />
+              <MapPin size={18} />
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-[14px] font-semibold text-foreground lowercase">feed watch</p>
+              <p className="text-[14px] font-semibold text-foreground lowercase">use everywhere</p>
               <div className="mt-0.5 flex items-center gap-1.5 h-5 overflow-hidden">
-                <motion.span
-                  className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block shrink-0"
-                  animate={{ scale: [1, 1.35, 1], opacity: [1, 0.55, 1] }}
-                  transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
-                />
+                <span className="text-[12px] text-muted-foreground lowercase shrink-0">showing</span>
                 <div className="relative h-5 flex-1 overflow-hidden">
                   <AnimatePresence mode="wait" initial={false}>
                     <motion.p
-                      key={`${cycle}-${phraseIndex}`}
+                      key={`${cycle}-${cityIndex}`}
                       initial={{ y: 14, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       exit={{ y: -14, opacity: 0 }}
                       transition={{ duration: 0.35, ease }}
-                      className="absolute inset-0 text-[12px] text-muted-foreground lowercase truncate leading-5"
+                      className="absolute inset-0 text-[12px] font-medium text-foreground lowercase truncate leading-5"
                     >
-                      {phrases[phraseIndex]}
+                      {cities[cityIndex]}
                     </motion.p>
                   </AnimatePresence>
                 </div>
               </div>
             </div>
+            <span className="shrink-0 rounded-full bg-foreground/[0.06] px-2.5 py-1 text-[11px] font-medium text-foreground/70 lowercase">
+              change
+            </span>
           </motion.div>
         )}
       </AnimatePresence>

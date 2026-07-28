@@ -1,7 +1,11 @@
 {
   "redirects": [
     { "source": "/yankee-ai", "destination": "/intelligence", "permanent": true },
-    { "source": "/for-small-teams", "destination": "/intelligence", "permanent": true }
+    { "source": "/for-small-teams", "destination": "/intelligence", "permanent": true },
+    { "source": "/feed", "destination": "/features", "permanent": true },
+    { "source": "/reach", "destination": "/features", "permanent": true },
+    { "source": "/notifications", "destination": "/features", "permanent": true },
+    { "source": "/cross-posting", "destination": "/features", "permanent": true }
   ],
   "rewrites": [
     { "source": "/((?!.*\\..*).*)", "destination": "/index.html" }

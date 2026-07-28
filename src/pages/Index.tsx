@@ -43,8 +43,8 @@ const Index = () => (
   <Layout>
     <section className="relative -mt-12 md:-mt-14 min-h-[100svh] overflow-x-clip bg-card flex flex-col">
       <PrismGrid
-        className="pointer-events-auto z-0"
-        backgroundColor="hsl(40 30% 97%)"
+        className="pointer-events-none z-0"
+        backgroundColor="hsl(var(--card))"
         boxSize={48}
         borderWidth={1}
         borderColor="rgba(30, 20, 10, 0.07)"
@@ -126,7 +126,7 @@ const Index = () => (
               exactly where you left them.
             </p>
             <Link
-              to="/notifications"
+              to="/features"
               className="mt-6 inline-flex items-center gap-1.5 text-[14px] font-medium text-accent hover:opacity-80 lowercase"
             >
               learn more <ArrowRight size={14} />
@@ -167,7 +167,7 @@ const Index = () => (
             no opaque ranking. every post you publish reaches every person who follows you, in the order you posted.
           </p>
           <Link
-            to="/feed"
+            to="/features"
             className="mt-8 inline-flex items-center gap-1.5 text-[14px] font-medium text-accent hover:opacity-80 lowercase"
           >
             learn more <ArrowRight size={14} />

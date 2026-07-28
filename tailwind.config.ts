@@ -15,6 +15,7 @@ export default {
             fontFamily: {
                 sans: ['Figtree', 'system-ui', 'sans-serif'],
                 display: ['Outfit', 'system-ui', 'sans-serif'],
+                phone: ['Poppins', 'system-ui', 'sans-serif'],
             },
             colors: {
                 border: "hsl(var(--border))",

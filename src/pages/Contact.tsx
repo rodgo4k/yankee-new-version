@@ -21,7 +21,7 @@ const channels = [
   { name: "partnerships", handle: YANKEE_EMAIL, href: YANKEE_MAILTO, icon: Mail, kind: "email" as const },
   { name: "jobs", handle: YANKEE_EMAIL, href: YANKEE_MAILTO, icon: Mail, kind: "email" as const },
   { name: "instagram", handle: "@yankeeapp", href: "https://instagram.com/yankeeapp", icon: Instagram, kind: "social" as const },
-  { name: "x / twitter", handle: "@yankeeapp", href: "https://x.com/yankeeapp", icon: Twitter, kind: "social" as const },
+  { name: "x / twitter", handle: "@getyankee", href: "https://x.com/getyankee", icon: Twitter, kind: "social" as const },
   { name: "tiktok", handle: "@yankeeapp", href: "https://tiktok.com/@yankeeapp", icon: Music2, kind: "social" as const },
 ];
 
@@ -225,7 +225,7 @@ const Contact = () => (
             <span className="font-serif-display italic font-medium">where to write?</span>
           </h2>
           <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto">
-            start with yankee@. we&apos;ll route it to the right person.
+            email us. we&apos;ll route it to the right person.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <a

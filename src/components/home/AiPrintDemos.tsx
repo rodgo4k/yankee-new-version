@@ -505,18 +505,6 @@ export const AiSessionScene = () => {
 
   return (
     <PhoneFrame rotate={1.5} label={labels[phase]}>
-      <div className="absolute top-14 left-2 z-30 flex flex-col gap-1.5">
-        {phases.map((p, idx) => (
-          <motion.span
-            key={p}
-            animate={{
-              height: idx === i ? 16 : 4,
-              backgroundColor: idx === i ? BLUE : "rgba(255,255,255,0.18)",
-            }}
-            className="w-1 rounded-full"
-          />
-        ))}
-      </div>
       <AnimatePresence mode="wait">
         {phase === "hello" && (
           <motion.div key="hello" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, filter: "blur(6px)" }} className="h-full">

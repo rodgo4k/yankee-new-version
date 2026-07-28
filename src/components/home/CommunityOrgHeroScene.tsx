@@ -91,14 +91,11 @@ const CommunityOrgHeroScene = () => {
         initial={false}
         animate={{ opacity: split ? 1 : 0, y: split ? 0 : 8 }}
         transition={{ duration: 0.35, ease }}
-        className="absolute -left-2 md:-left-6 bottom-[18%] z-10 max-w-[70%]"
+        className="absolute -left-2 md:-left-6 bottom-[18%] z-10"
       >
-        <div className="yankee-chat__bubble yankee-chat__bubble--them text-[12px]">
-          <span className="inline-flex items-center gap-1.5 font-semibold">
-            <Split size={12} />
-            film · nyc
-          </span>
-          <span className="block mt-0.5 text-foreground/70">and film · london just opened</span>
+        <div className="yankee-chat__bubble yankee-chat__bubble--them !inline-flex !items-center !gap-1.5 !w-auto !max-w-none !py-1.5 !px-3 text-[12px] leading-none whitespace-nowrap">
+          <Split size={12} className="shrink-0" />
+          film · nyc
         </div>
       </motion.div>
     </div>

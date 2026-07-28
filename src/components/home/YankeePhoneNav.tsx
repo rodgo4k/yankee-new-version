@@ -3,7 +3,7 @@ import { CopyPlus, MessagesSquare, Send, Users } from "lucide-react";
 
 type Tab = "crowd" | "dm" | "create" | "ai" | "chat";
 
-const IconAlien = ({ size = 19 }: { size?: number }) => (
+const IconAlien = ({ size = 16 }: { size?: number }) => (
   <svg
     width={size}
     height={size}
@@ -43,22 +43,22 @@ const YankeePhoneNav = ({
               : "crowd";
 
   const items: { id: Tab; icon: ReactNode; create?: boolean }[] = [
-    { id: "crowd", icon: <Users size={18} strokeWidth={1.75} /> },
-    { id: "dm", icon: <Send size={17} strokeWidth={1.75} /> },
-    { id: "create", icon: <CopyPlus size={17} strokeWidth={1.85} />, create: true },
-    { id: "ai", icon: <IconAlien /> },
-    { id: "chat", icon: <MessagesSquare size={17} strokeWidth={1.75} /> },
+    { id: "crowd", icon: <Users size={15} strokeWidth={1.75} /> },
+    { id: "dm", icon: <Send size={14} strokeWidth={1.75} /> },
+    { id: "create", icon: <CopyPlus size={14} strokeWidth={1.85} />, create: true },
+    { id: "ai", icon: <IconAlien size={15} /> },
+    { id: "chat", icon: <MessagesSquare size={14} strokeWidth={1.75} /> },
   ];
 
   return (
-    <div className="absolute bottom-5 inset-x-3 z-30 pointer-events-none">
-      <div className="rounded-full bg-[#2c2c2e]/95 border border-white/[0.1] px-3.5 py-[7px] flex items-center justify-between shadow-[0_10px_32px_-10px_rgba(0,0,0,0.75)]">
+    <div className="absolute bottom-2.5 inset-x-3.5 z-20 pointer-events-none">
+      <div className="rounded-full bg-[#2c2c2e]/95 border border-white/[0.1] px-2.5 py-[3px] flex items-center justify-between shadow-[0_10px_32px_-10px_rgba(0,0,0,0.75)]">
         {items.map((it) => {
           if (it.create) {
             return (
               <span
                 key={it.id}
-                className="w-[38px] h-[38px] rounded-full bg-white text-black flex items-center justify-center shrink-0"
+                className="w-[28px] h-[28px] rounded-full bg-white text-black flex items-center justify-center shrink-0"
               >
                 {it.icon}
               </span>
@@ -68,13 +68,13 @@ const YankeePhoneNav = ({
           return (
             <span
               key={it.id}
-              className={`relative w-9 h-9 flex items-center justify-center shrink-0 ${
+              className={`relative w-7 h-7 flex items-center justify-center shrink-0 ${
                 on ? "text-white" : "text-white/50"
               }`}
             >
               {it.icon}
               {it.id === "chat" && badge != null && badge > 0 && (
-                <span className="absolute top-0 right-0 min-w-[15px] h-[15px] px-0.5 rounded-full bg-[#48484a] text-[8px] font-semibold text-white flex items-center justify-center leading-none">
+                <span className="absolute -top-0.5 -right-0.5 min-w-[13px] h-[13px] px-0.5 rounded-full bg-[#48484a] text-[7px] font-semibold text-white flex items-center justify-center leading-none">
                   {badge > 9 ? "9+" : badge}
                 </span>
               )}

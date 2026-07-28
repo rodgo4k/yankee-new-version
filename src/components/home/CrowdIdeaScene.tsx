@@ -173,7 +173,7 @@ const ChatsPhase = () => {
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ duration: 0.4, ease }}
-            className="absolute inset-x-0 bottom-0 z-30 rounded-t-[1.5rem] bg-[#1c1c1e] border-t border-white/10 px-4 pb-6"
+            className="absolute inset-x-0 bottom-0 z-40 rounded-t-[1.5rem] bg-[#1c1c1e] border-t border-white/10 px-4 pb-6"
           >
             <SheetHandle />
             <p className="text-[15px] font-semibold text-white text-center mt-2">Reply to Chris?</p>
@@ -196,7 +196,7 @@ const ChatsPhase = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      <YankeePhoneNav active="dm" />
+      {!sheet && <YankeePhoneNav active="dm" />}
     </motion.div>
   );
 };
@@ -267,7 +267,7 @@ const ProfilePhase = () => {
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ duration: 0.4, ease }}
-            className="absolute inset-x-0 bottom-0 z-30 rounded-t-[1.5rem] bg-[#1c1c1e] border-t border-white/10 px-4 pb-6"
+            className="absolute inset-x-0 bottom-0 z-40 rounded-t-[1.5rem] bg-[#1c1c1e] border-t border-white/10 px-4 pb-6"
           >
             <SheetHandle />
             <p className="text-[15px] font-semibold text-white text-center mt-2">Delete this post?</p>
@@ -593,18 +593,6 @@ const CrowdIdeaScene = ({ className = "" }: { className?: string }) => {
   return (
     <div className={`w-[280px] sm:w-[300px] shrink-0 ${className}`}>
       <AiPhoneShell className="!w-full !max-w-none" rotate={-1.5}>
-        <div className="absolute top-11 right-4 z-30 flex gap-1">
-          {phases.map((p, idx) => (
-            <motion.span
-              key={p}
-              animate={{
-                width: idx === i ? 14 : 4,
-                backgroundColor: idx === i ? BLUE : "rgba(255,255,255,0.18)",
-              }}
-              className="h-1 rounded-full"
-            />
-          ))}
-        </div>
         <AnimatePresence mode="wait">
           {phase === "chats" && <ChatsPhase key="chats" />}
           {phase === "profile" && <ProfilePhase key="profile" />}

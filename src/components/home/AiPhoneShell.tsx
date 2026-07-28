@@ -29,7 +29,7 @@ const AiPhoneShell = ({ children, className = "", rotate = -1.5, bleed = false, 
           "0 28px 80px -28px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.04)",
       }}
     >
-      <div className={`relative aspect-[9/19.2] rounded-[1.55rem] overflow-hidden ${light ? "bg-[#f4c4d4]" : "bg-black"}`}>
+      <div className={`relative aspect-[9/19.2] rounded-[1.55rem] overflow-hidden font-phone antialiased ${light ? "bg-[#f4c4d4]" : "bg-black"}`}>
         {!bleed && (
           <div className="absolute top-0 inset-x-0 z-20 flex items-center justify-between px-5 pt-2.5 pointer-events-none">
             <span className={`text-[11px] font-semibold tracking-tight ${light ? "text-black/80" : "text-white"}`}>9:41</span>
@@ -42,7 +42,7 @@ const AiPhoneShell = ({ children, className = "", rotate = -1.5, bleed = false, 
           </div>
         )}
 
-        <div className={bleed ? "absolute inset-0" : "absolute inset-0 pt-11 pb-5 flex flex-col"}>
+        <div className={bleed ? "absolute inset-0 font-phone" : "absolute inset-0 pt-11 pb-5 flex flex-col font-phone"}>
           {children}
         </div>
 

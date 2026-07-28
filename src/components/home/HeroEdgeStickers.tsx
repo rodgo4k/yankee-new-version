@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
+import { isMotionPaused, subscribeMotionPause } from "@/lib/motionPause";
 
 export type HeroSatellite = {
   id: string;
@@ -109,23 +110,30 @@ export const SatelliteSticker = ({
   onClose: () => void;
 }) => {
   const [hovered, setHovered] = useState(false);
+  const [paused, setPaused] = useState(() => isMotionPaused());
   const sz = stickerSizes[sat.size ?? "md"];
   const winW = windowWidths[sat.windowSize ?? (sat.startOpen ? "lg" : "md")];
   const floatY = sat.floatY ?? (sat.startOpen ? 10 : 7);
   const floatDuration = sat.floatDuration ?? 4.2;
   const isExpanded = sat.startOpen || open;
 
+  useEffect(() => subscribeMotionPause(setPaused), []);
+
   return (
     <motion.div
       className="relative"
       style={{ zIndex: hovered ? 70 : isExpanded ? 50 : 30 }}
-      animate={{ y: [0, -floatY, 0] }}
-      transition={{
-        duration: floatDuration,
-        repeat: Infinity,
-        ease: "easeInOut",
-        delay: floatDuration * 0.15,
-      }}
+      animate={paused ? { y: 0 } : { y: [0, -floatY, 0] }}
+      transition={
+        paused
+          ? { duration: 0.2 }
+          : {
+              duration: floatDuration,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: floatDuration * 0.15,
+            }
+      }
       onMouseEnter={() => {
         setHovered(true);
         if (!sat.startOpen) onOpen();

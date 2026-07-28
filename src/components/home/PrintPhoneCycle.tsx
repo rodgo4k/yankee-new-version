@@ -30,20 +30,6 @@ const PrintPhoneCycle = ({ slides, rotate = -1.5, className = "" }: PrintPhoneCy
   return (
     <div className={`w-[280px] sm:w-[300px] shrink-0 ${className}`}>
       <AiPhoneShell className="!w-full !max-w-none" rotate={rotate} bleed>
-        {slides.length > 1 && (
-          <div className="absolute top-11 right-4 z-30 flex gap-1">
-            {slides.map((s, idx) => (
-              <motion.span
-                key={s.src + s.label}
-                animate={{
-                  width: idx === i ? 14 : 4,
-                  backgroundColor: idx === i ? "#2f6bff" : "rgba(255,255,255,0.18)",
-                }}
-                className="h-1 rounded-full"
-              />
-            ))}
-          </div>
-        )}
         <AnimatePresence mode="wait">
           <motion.img
             key={slide.src + slide.label}

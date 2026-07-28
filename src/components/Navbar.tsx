@@ -22,11 +22,8 @@ const navItems: NavItem[] = [
     children: [
       { label: "Features", path: "/features", desc: "The full product tour" },
       { label: "Intelligence", path: "/intelligence", desc: "Multi-llm · collaborate on prompts" },
-      { label: "The feed", path: "/feed", desc: "Chronological, finite, honest" },
       { label: "Communities", path: "/communities", desc: "Small rooms, on purpose" },
       { label: "Memory", path: "/memory", desc: "Private, encrypted library" },
-      { label: "Reach", path: "/reach", desc: "Every follower, every time" },
-      { label: "Notifications", path: "/notifications", desc: "Only pings you asked for" },
       { label: "Privacy", path: "/privacy-first", desc: "Private by design" },
     ],
   },
@@ -71,9 +68,9 @@ const Navbar = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    setNavMotionPaused(isOpen);
+    setNavMotionPaused(isOpen || openMenu !== null);
     return () => setNavMotionPaused(false);
-  }, [isOpen]);
+  }, [isOpen, openMenu]);
 
   useEffect(() => {
     const tick = () => {
@@ -226,12 +223,12 @@ const Navbar = () => {
                     onClick={() =>
                       setOpenMobileGroup(groupOpen ? null : item.label)
                     }
-                    className="flex items-center justify-between px-3 py-3 text-[15px] font-medium text-foreground lowercase rounded-xl hover:bg-muted/60"
+                    className="flex items-center justify-between px-3 py-3 text-[15px] font-medium text-foreground lowercase rounded-xl active:bg-muted/60"
                   >
                     {item.label}
                     <ChevronDown
                       size={16}
-                      className={`transition-transform duration-100 ${
+                      className={`transition-transform duration-75 ${
                         groupOpen ? "rotate-180" : ""
                       }`}
                     />
@@ -242,7 +239,7 @@ const Navbar = () => {
                         <Link
                           key={c.path}
                           to={c.path}
-                          className="block px-3 py-2.5 text-[14px] text-muted-foreground hover:text-foreground lowercase rounded-xl hover:bg-muted/50"
+                          className="block px-3 py-2.5 text-[14px] text-muted-foreground active:text-foreground lowercase rounded-xl active:bg-muted/50"
                         >
                           {c.label}
                         </Link>

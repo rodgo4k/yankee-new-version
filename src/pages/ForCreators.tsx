@@ -52,7 +52,7 @@ const ForCreators = () => (
               transition={{ duration: 0.5 }}
               className="flex justify-center lg:justify-start"
             >
-              <PromoPill tag="for creators" text="reach every follower · every time" to="/reach" />
+              <PromoPill tag="for creators" text="reach every follower · every time" to="/features" />
             </motion.div>
 
             <motion.h1
@@ -174,10 +174,10 @@ const ForCreators = () => (
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Link
-                    to="/reach"
+                    to="/features"
                     className="yankee-surface yankee-surface--control inline-flex items-center gap-1.5 px-5 py-3 rounded-full bg-background text-[14px] font-medium text-foreground lowercase hover:-translate-y-1 transition-all"
                   >
-                    learn about reach
+                    explore features
                   </Link>
                   <Link
                     to="/communities"
