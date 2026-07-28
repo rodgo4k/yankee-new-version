@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
+  Eye,
   Heart,
   Image as ImageIcon,
   MapPin,
   MessageCircle,
+  MoreHorizontal,
   Plus,
+  Repeat2,
   Search,
-  Send,
   StickyNote,
 } from "lucide-react";
 import AiPhoneShell from "@/components/home/AiPhoneShell";
@@ -332,7 +334,7 @@ const NotionsInner = ({ phase }: { phase: Phase }) => {
                 initial={{ opacity: 0, y: -44, scale: 0.94 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ type: "spring", stiffness: 250, damping: 22 }}
-                className="relative rounded-2xl bg-[#141416] border border-white/[0.06] p-2.5 overflow-hidden"
+                className="relative overflow-hidden"
               >
                 <div className="flex items-center gap-2 mb-2">
                   <Avatar src={jackson} size={32} />
@@ -399,19 +401,37 @@ const NotionsInner = ({ phase }: { phase: Phase }) => {
                   <HeartBurst show={burst} />
                 </div>
 
-                <div className="flex items-center gap-3.5 text-white/45 pt-1">
+                <div className="flex items-center gap-4 text-white/45 pt-1.5">
                   <motion.span
                     animate={liked ? { scale: [1, 1.3, 1], color: RED } : {}}
-                    className="inline-flex items-center gap-1 text-[10px]"
+                    className="inline-flex items-center"
                   >
-                    <Heart size={13} fill={liked ? RED : "transparent"} />
-                    {liked ? "1.2k" : "248"}
+                    <Heart size={15} strokeWidth={1.75} fill={liked ? RED : "transparent"} />
                   </motion.span>
-                  <span className="inline-flex items-center gap-1 text-[10px]">
-                    <MessageCircle size={13} /> 36
+                  <span className="inline-flex items-center">
+                    <MessageCircle size={15} strokeWidth={1.75} />
                   </span>
-                  <span className="inline-flex items-center gap-1 text-[10px] ml-auto">
-                    <Send size={12} />
+                  <span className="inline-flex items-center">
+                    <Repeat2 size={15} strokeWidth={1.75} />
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-[11px] tabular-nums">
+                    <span className="relative inline-flex w-[16px] h-[15px] items-center justify-center">
+                      <Eye size={15} strokeWidth={1.75} />
+                      <svg
+                        className="absolute -bottom-0.5 -right-0.5"
+                        width="7"
+                        height="7"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        aria-hidden
+                      >
+                        <path d="M12 2.5l2.6 6.2 6.7.6-5.1 4.4 1.5 6.5L12 16.8 6.3 20.2l1.5-6.5-5.1-4.4 6.7-.6L12 2.5z" />
+                      </svg>
+                    </span>
+                    {liked ? "1.2k" : "172"}
+                  </span>
+                  <span className="inline-flex items-center ml-auto">
+                    <MoreHorizontal size={15} strokeWidth={1.75} />
                   </span>
                 </div>
               </motion.article>
@@ -422,7 +442,7 @@ const NotionsInner = ({ phase }: { phase: Phase }) => {
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              className="rounded-2xl bg-[#141416] border border-white/[0.06] p-3"
+              className="overflow-hidden"
             >
               <p className="text-[11px] text-white/50">
                 {tab === "#Trending"

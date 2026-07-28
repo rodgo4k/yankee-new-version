@@ -1,9 +1,12 @@
-﻿import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useMotionValue, useTransform, animate } from "framer-motion";
+﻿import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, animate } from "framer-motion";
 import {
   ArrowLeft,
   Bell,
   Calendar,
+  ChevronRight,
+  CircleAlert,
+  Hand,
   Heart,
   MapPin,
   MessageCircle,
@@ -12,6 +15,7 @@ import {
   PhoneOff,
   Plus,
   Search,
+  Smile,
   Sparkles,
   StickyNote,
   SwitchCamera,
@@ -23,8 +27,9 @@ import {
 import AiPhoneShell from "@/components/home/AiPhoneShell";
 import { faceFor, uniqueFacesFor } from "@/lib/crowdFaces";
 import cafeFriends from "@/assets/cafe-friends.jpg";
+import filmNight from "@/assets/film-night.png";
 import studentsHero from "@/assets/students-hero.jpg";
-import hillsSunset from "@/assets/hills-sunset.jpg";
+import mapsChillinDrink from "@/assets/yankee/maps-chillin-drink.png";
 import mapsNycBg from "@/assets/yankee/maps-nyc-bg.png";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
@@ -79,13 +84,13 @@ const Avatar = ({ src, size, className = "" }: { src: string; size: number; clas
    SPIN â€” match / facetime / filter / swipe
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
-type SpinPhase = "mode" | "filter" | "matching" | "swipe" | "grid";
-const spinPhases: SpinPhase[] = ["mode", "filter", "matching", "swipe", "grid"];
+type SpinPhase = "mode" | "filter" | "matching" | "meet" | "grid";
+const spinPhases: SpinPhase[] = ["mode", "filter", "matching", "meet", "grid"];
 const spinHold: Record<SpinPhase, number> = {
   mode: 4200,
-  filter: 4800,
+  filter: 6200,
   matching: 4200,
-  swipe: 5600,
+  meet: 4800,
   grid: 5200,
 };
 
@@ -188,15 +193,22 @@ const ModePhase = () => {
 };
 
 const FilterPhase = () => {
+  const [amount, setAmount] = useState(1);
   const [miles, setMiles] = useState(25);
   const [age, setAge] = useState(18);
+
   useEffect(() => {
-    const a = animate(25, 50, {
+    const a = animate(1, 4, {
+      duration: 2.0,
+      ease: "easeInOut",
+      onUpdate: (v) => setAmount(Math.round(v)),
+    });
+    const b = animate(25, 50, {
       duration: 2.2,
       ease: "easeInOut",
       onUpdate: (v) => setMiles(Math.round(v)),
     });
-    const b = animate(18, 42, {
+    const c = animate(18, 57, {
       duration: 2.4,
       ease: "easeInOut",
       onUpdate: (v) => setAge(Math.round(v)),
@@ -204,16 +216,54 @@ const FilterPhase = () => {
     return () => {
       a.stop();
       b.stop();
+      c.stop();
     };
   }, []);
 
-  const rows = [
-    { label: "Topic", value: "Random" },
-    { label: "What I'm looking for...", value: "New friends" },
-    { label: "Language", value: "Global" },
-    { label: "Location", value: "Random" },
-    { label: "Gender", value: "Random" },
-  ];
+  const Row = ({ label, value }: { label: string; value: string }) => (
+    <div className="rounded-xl bg-[#141416] border border-white/[0.06] px-3 py-2 flex items-center justify-between gap-2">
+      <p className="text-[11px] text-white/70 truncate">{label}</p>
+      <span className="inline-flex items-center gap-0.5 text-[11px] text-white/45 shrink-0">
+        {value}
+        <ChevronRight size={12} strokeWidth={2} className="text-white/35" />
+      </span>
+    </div>
+  );
+
+  const SliderRow = ({
+    label,
+    valueLabel,
+    pct,
+    leftMark,
+    rightMark,
+  }: {
+    label: string;
+    valueLabel: string;
+    pct: number;
+    leftMark: string;
+    rightMark: string;
+  }) => (
+    <div className="rounded-xl bg-[#141416] border border-white/[0.06] px-3 py-2.5">
+      <div className="flex justify-between text-[10px] text-white/50 mb-2">
+        <span>{label}</span>
+        <span className="text-white font-semibold">{valueLabel}</span>
+      </div>
+      <div className="h-1 rounded-full bg-white/10 relative">
+        <motion.div
+          className="absolute left-0 top-0 h-full rounded-full bg-white"
+          style={{ width: `${pct}%` }}
+        />
+        <motion.span
+          className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-white shadow"
+          style={{ left: `calc(${pct}% - 7px)` }}
+        />
+      </div>
+      <div className="mt-1.5 flex justify-between text-[9px] text-white/30">
+        <span>{leftMark}</span>
+        <span>{rightMark}</span>
+      </div>
+    </div>
+  );
 
   return (
     <motion.div
@@ -230,59 +280,38 @@ const FilterPhase = () => {
           <p className="text-[10px] text-white/40">Filter your preferences to get the best match.</p>
         </div>
       </div>
-      <div className="flex-1 min-h-0 overflow-hidden space-y-2.5">
-        <p className="text-[10px] font-medium text-white/40 uppercase tracking-wide">About match</p>
-        {rows.slice(0, 2).map((r) => (
-          <div
-            key={r.label}
-            className="rounded-xl bg-[#141416] border border-white/[0.06] px-3 py-2 flex items-center justify-between"
-          >
-            <p className="text-[11px] text-white/70">{r.label}</p>
-            <p className="text-[11px] text-white/45">{r.value} â€º</p>
-          </div>
-        ))}
-        <div className="rounded-xl bg-[#141416] border border-white/[0.06] px-3 py-2.5">
-          <div className="flex justify-between text-[10px] text-white/50 mb-2">
-            <span>Miles</span>
-            <span className="text-white font-semibold">{miles}-50 mi</span>
-          </div>
-          <div className="h-1 rounded-full bg-white/10 relative">
-            <motion.div
-              className="absolute left-0 top-0 h-full rounded-full"
-              style={{ width: `${((miles - 25) / 75) * 100}%`, background: BLUE }}
-            />
-            <motion.span
-              className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-white shadow"
-              style={{ left: `calc(${((miles - 25) / 75) * 100}% - 7px)` }}
-            />
-          </div>
-        </div>
-        <p className="text-[10px] font-medium text-white/40 uppercase tracking-wide pt-1">About Spinners</p>
-        {rows.slice(4).map((r) => (
-          <div
-            key={r.label}
-            className="rounded-xl bg-[#141416] border border-white/[0.06] px-3 py-2 flex items-center justify-between"
-          >
-            <p className="text-[11px] text-white/70">{r.label}</p>
-            <p className="text-[11px] text-white/45">{r.value} â€º</p>
-          </div>
-        ))}
-        <div className="rounded-xl bg-[#141416] border border-white/[0.06] px-3 py-2.5">
-          <div className="flex justify-between text-[10px] text-white/50 mb-2">
-            <span>Age</span>
-            <span className="text-white font-semibold">18-{age}</span>
-          </div>
-          <div className="h-1 rounded-full bg-white/10 relative">
-            <motion.div
-              className="absolute left-0 top-0 h-full rounded-full"
-              style={{ width: `${((age - 18) / 42) * 100}%`, background: BLUE }}
-            />
-            <motion.span
-              className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-white shadow"
-              style={{ left: `calc(${((age - 18) / 42) * 100}% - 7px)` }}
-            />
-          </div>
-        </div>
+      <div className="flex-1 min-h-0 overflow-y-auto space-y-2 pr-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <p className="text-[10px] font-medium text-white/40">About match</p>
+        <Row label="Topic" value="Random" />
+        <Row label="What I'm looking for..." value="New friends" />
+        <SliderRow
+          label="Amount"
+          valueLabel={`1-${amount}`}
+          pct={((amount - 1) / 3) * 100}
+          leftMark="1"
+          rightMark="4"
+        />
+        <Row label="Language" value="Global" />
+        <Row label="Location" value="Random" />
+        <SliderRow
+          label="Miles"
+          valueLabel={`25-${miles} mi`}
+          pct={((miles - 25) / 75) * 100}
+          leftMark="25 mi"
+          rightMark="100 mi"
+        />
+
+        <p className="text-[10px] font-medium text-white/40 pt-1">About Spinners</p>
+        <Row label="Gender" value="Random" />
+        <SliderRow
+          label="Age"
+          valueLabel={`18-${age}`}
+          pct={((age - 18) / 62) * 100}
+          leftMark="18"
+          rightMark="80"
+        />
+        <Row label="Sign" value="Random" />
+        <Row label="Spin with a friend" value="@sophymartin" />
       </div>
       <div
         className="mt-2 mb-1 rounded-full py-3 text-center text-[13px] font-semibold text-white shrink-0"
@@ -294,8 +323,65 @@ const FilterPhase = () => {
   );
 };
 
+const SpinRings = () => {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const COUNT = 24;
+
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    if (!wrap) return;
+    const nodes = Array.from(wrap.children) as HTMLElement[];
+    let raf = 0;
+    let offset = 0;
+    let last = performance.now();
+
+    const tick = (now: number) => {
+      const dt = Math.min(0.05, (now - last) / 1000);
+      last = now;
+      offset = (offset + dt * 0.52) % 2;
+
+      for (let i = 0; i < COUNT; i++) {
+        let u = (i / COUNT) * 2 - 1 + offset;
+        if (u > 1) u -= 2;
+        if (u < -1) u += 2;
+        const absU = Math.abs(u);
+        const width = 1.4 + absU * 16;
+        const height = 62 + absU * 4;
+        const t = absU;
+        const r = Math.round(95 + (18 - 95) * t);
+        const g = Math.round(185 + (42 - 185) * t);
+        const b = Math.round(255 + (130 - 255) * t);
+        const color = `rgb(${r},${g},${b})`;
+        const el = nodes[i];
+        el.style.width = `${width}px`;
+        el.style.height = `${height}px`;
+        el.style.background = color;
+        el.style.boxShadow = `0 0 ${3 + absU * 8}px ${color}66`;
+        el.style.transform = `translate(-50%, -50%) translateX(${u * 98}px)`;
+        el.style.zIndex = String(Math.round((1 - absU) * 100));
+        el.style.opacity = String(0.5 + (1 - absU) * 0.5);
+      }
+      raf = requestAnimationFrame(tick);
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  return (
+    <div ref={wrapRef} className="relative w-full h-[80px] max-w-[230px] mx-auto">
+      {Array.from({ length: COUNT }, (_, i) => (
+        <span
+          key={i}
+          className="absolute top-1/2 left-1/2 rounded-full will-change-transform"
+          style={{ width: 2, height: 64 }}
+        />
+      ))}
+    </div>
+  );
+};
+
 const MatchingPhase = () => {
-  const bars = [0.35, 0.7, 1, 0.55, 0.85, 0.4, 0.95, 0.6];
   return (
     <motion.div
       key="matching"
@@ -304,94 +390,67 @@ const MatchingPhase = () => {
       exit={{ opacity: 0 }}
       className="flex flex-col h-full min-h-0 px-3.5"
     >
-      <div className="flex items-center justify-between mb-2 shrink-0">
-        <ArrowLeft size={15} className="text-white/50" />
+      <div className="relative flex items-center justify-center mb-1 shrink-0">
+        <ArrowLeft size={15} className="absolute left-0 text-white/55" />
         <p className="text-[13px] font-semibold text-white">Random&apos;s Spin</p>
-        <p className="text-[11px] text-white/40 tabular-nums">00:00</p>
       </div>
-      <div className="flex-1 flex flex-col items-center justify-center">
-        <p className="text-[11px] text-white/45 mb-6">Wait a minute, don&apos;t close the app.</p>
-        <div className="flex items-end gap-1.5 h-16">
-          {bars.map((h, i) => (
-            <motion.span
-              key={i}
-              animate={{ height: [`${h * 40}%`, `${Math.min(1, h + 0.35) * 100}%`, `${h * 55}%`] }}
-              transition={{ duration: 0.85, repeat: Infinity, delay: i * 0.08, ease: "easeInOut" }}
-              className="w-3 rounded-full"
-              style={{ background: BLUE, minHeight: 10 }}
-            />
-          ))}
-        </div>
-        <p className="mt-5 text-[14px] font-semibold text-white">Match Spinners...</p>
+      <div className="flex-1 flex flex-col items-center justify-center min-h-0">
+        <p className="text-[11px] text-white/45 mb-7">Wait a minute, don&apos;t close the app.</p>
+        <SpinRings />
+        <p className="mt-6 text-[14px] font-semibold text-white">Match Spinners...</p>
         <p className="text-[11px] text-white/40 mt-1">0/1</p>
+      </div>
+      <div className="shrink-0 flex items-center gap-2 pb-1 pt-2">
+        <span className="w-8 h-8 rounded-full bg-[#1c1c1e] border border-white/10 flex items-center justify-center shrink-0">
+          <Plus size={14} className="text-white/70" strokeWidth={1.75} />
+        </span>
+        <div className="flex-1 h-8 rounded-full bg-[#1c1c1e] border border-white/10 flex items-center px-3 gap-2 min-w-0">
+          <span className="text-[11px] text-white/35 flex-1">Text Here</span>
+          <Smile size={14} className="text-white/45 shrink-0" strokeWidth={1.75} />
+        </div>
+        <span className="w-8 h-8 rounded-full bg-[#1c1c1e] border border-white/10 flex items-center justify-center shrink-0">
+          <Mic size={14} className="text-white/70" strokeWidth={1.75} />
+        </span>
       </div>
     </motion.div>
   );
 };
 
-const SwipePhase = () => {
+const MeetPhase = () => {
   const emily = faceFor("Emily Carter");
-  const x = useMotionValue(0);
-  const rotate = useTransform(x, [-140, 140], [-14, 14]);
-  const likeOp = useTransform(x, [40, 120], [0, 1]);
-  const nopeOp = useTransform(x, [-120, -40], [1, 0]);
-
-  useEffect(() => {
-    const controls = animate(x, [0, 90, 0, -70, 0, 160], {
-      duration: 4.8,
-      times: [0, 0.22, 0.38, 0.55, 0.7, 1],
-      ease: "easeInOut",
-    });
-    return () => controls.stop();
-  }, [x]);
+  const self = faceFor("Chris Parker");
 
   return (
     <motion.div
-      key="swipe"
+      key="meet"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="relative flex flex-col h-full min-h-0 overflow-hidden"
     >
-      <div className="absolute inset-0">
-        <img src={hillsSunset} alt="" className="absolute inset-0 w-full h-full object-cover opacity-40" />
-        <div className="absolute inset-0 bg-black/55" />
+      <div className="absolute inset-0 bg-black">
+        <img
+          src={emily}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-top scale-[1.45]"
+        />
       </div>
-      <div className="relative z-10 flex items-center justify-between px-3.5 pt-0.5 mb-2">
-        <ArrowLeft size={15} className="text-white/70" />
-        <p className="text-[13px] font-semibold text-white">Random&apos;s Spin</p>
-        <p className="text-[11px] text-white/50 tabular-nums">04:35</p>
+      <div className="relative z-10 flex items-center justify-between px-3.5 pt-0.5">
+        <ArrowLeft size={15} className="text-white drop-shadow" />
+        <p className="text-[13px] font-semibold text-white drop-shadow">Random&apos;s Spin</p>
+        <p className="text-[11px] text-white/80 tabular-nums drop-shadow">04:35</p>
       </div>
-      <div className="relative z-10 flex-1 flex items-center justify-center px-4">
-        <motion.div
-          style={{ x, rotate }}
-          className="relative w-full max-w-[220px] aspect-[3/4] rounded-[1.35rem] overflow-hidden border border-white/15 shadow-2xl"
-        >
-          <img src={emily} alt="" className="absolute inset-0 w-full h-full object-cover object-top scale-[1.45]" />
-          <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/80 to-transparent">
-            <div className="flex items-center gap-2">
-              <Avatar src={emily} size={28} />
-              <div>
-                <p className="text-[13px] font-semibold text-white">Emily Carter</p>
-                <p className="text-[10px] text-white/55">@emilyy21x</p>
-              </div>
-            </div>
-          </div>
-          <motion.span
-            style={{ opacity: likeOp }}
-            className="absolute top-4 left-4 rounded-lg border-2 border-emerald-400 text-emerald-400 px-2 py-0.5 text-[12px] font-bold rotate-[-12deg]"
-          >
-            MATCH
-          </motion.span>
-          <motion.span
-            style={{ opacity: nopeOp }}
-            className="absolute top-4 right-4 rounded-lg border-2 border-red-400 text-red-400 px-2 py-0.5 text-[12px] font-bold rotate-[12deg]"
-          >
-            SKIP
-          </motion.span>
-        </motion.div>
+      <div className="relative z-10 mt-2 ml-3 inline-flex items-center gap-1.5 self-start rounded-full bg-black/45 px-1.5 py-1">
+        <Avatar src={emily} size={18} />
+        <div className="pr-1.5">
+          <p className="text-[9px] text-white font-medium leading-tight">Emily Carter</p>
+          <p className="text-[8px] text-white/55 leading-tight">@emilyy21x</p>
+        </div>
       </div>
-      <div className="relative z-10 mx-auto mb-2 inline-flex items-center gap-3 rounded-full bg-[#1c1c1e]/90 border border-white/10 px-3 py-2">
+      <div className="absolute bottom-10 right-3 z-10 rounded-xl overflow-hidden border border-white/30 w-16 h-[88px] shadow-lg bg-[#1c1c1e]">
+        <img src={self} alt="" className="w-full h-full object-cover object-top scale-[1.45]" />
+      </div>
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-10 inline-flex items-center gap-3 rounded-full bg-[#1c1c1e]/90 border border-white/10 px-3 py-2">
         <SwitchCamera size={14} className="text-white/70" />
         <Video size={14} className="text-white/70" />
         <Mic size={14} className="text-white/70" />
@@ -490,7 +549,7 @@ export const SpinScene = ({ className = "" }: { className?: string }) => {
     mode: "pick face or chat",
     filter: "tune the match",
     matching: "finding spinners",
-    swipe: "slide into the room",
+    meet: "you're in",
     grid: "up to four faces",
   };
   return (
@@ -500,7 +559,7 @@ export const SpinScene = ({ className = "" }: { className?: string }) => {
           {phase === "mode" && <ModePhase key="mode" />}
           {phase === "filter" && <FilterPhase key="filter" />}
           {phase === "matching" && <MatchingPhase key="matching" />}
-          {phase === "swipe" && <SwipePhase key="swipe" />}
+          {phase === "meet" && <MeetPhase key="meet" />}
           {phase === "grid" && <GridPhase key="grid" />}
         </AnimatePresence>
       </PhoneWrap>
@@ -514,7 +573,7 @@ export const SpinScene = ({ className = "" }: { className?: string }) => {
 
 type MapsPhase = "pins" | "fab" | "focus";
 const mapsPhases: MapsPhase[] = ["pins", "fab", "focus"];
-const mapsHold: Record<MapsPhase, number> = { pins: 4800, fab: 5200, focus: 5000 };
+const mapsHold: Record<MapsPhase, number> = { pins: 4200, fab: 4800, focus: 7200 };
 
 const pinCats = [
   { label: "Chillin'", color: "#2f6bff", ink: "#0b2f8f", Icon: Sparkles },
@@ -524,6 +583,80 @@ const pinCats = [
   { label: "AID", color: "#ff3b30", ink: "#8f100c", Icon: TriangleAlert },
 ];
 
+type PinCardKind = "chillin" | "event";
+
+type PinCardData = {
+  kind: PinCardKind;
+  name: string;
+  withName: string;
+  face: string;
+  timeAgo: string;
+  title: string;
+  body: string;
+  photo: string;
+  likes: string;
+  comments: string;
+};
+
+const MapPinCard = ({ card }: { card: PinCardData }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.94, y: 12 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.96, y: 8 }}
+      transition={{ type: "spring", stiffness: 420, damping: 30 }}
+      className="relative z-10 w-full px-2.5"
+    >
+      <div className="rounded-[1.15rem] bg-[#2c2c2e]/92 border border-white/[0.08] shadow-2xl px-3 pt-2.5 pb-3">
+        <div className="flex items-center gap-2">
+          <Avatar src={card.face} size={30} />
+          <div className="flex-1 min-w-0 flex items-baseline gap-1.5">
+            <span className="text-[12px] font-semibold text-white truncate">{card.name}</span>
+            <span className="text-[10px] text-white/40 truncate">W/ {card.withName}</span>
+          </div>
+          <span className="text-[10px] text-white/40 shrink-0 tabular-nums">{card.timeAgo}</span>
+        </div>
+
+        <div className="mt-2.5 flex gap-2.5 items-start">
+          <div className="flex-1 min-w-0">
+            <p className="text-[13px] font-semibold text-white leading-snug">{card.title}</p>
+            <p className="mt-1 text-[11px] text-white/65 leading-snug">{card.body}</p>
+            <div className="mt-2.5 flex items-center gap-3.5">
+              <span className="inline-flex items-center gap-1 text-[11px] text-white/85 tabular-nums">
+                <Heart size={12} fill={RED} style={{ color: RED }} />
+                {card.likes}
+              </span>
+              <span className="inline-flex items-center gap-1 text-[11px] text-white/45 tabular-nums">
+                <MessageCircle size={12} strokeWidth={1.75} />
+                {card.comments}
+              </span>
+            </div>
+          </div>
+          <img
+            src={card.photo}
+            alt=""
+            className="w-[76px] h-[76px] rounded-[0.85rem] object-cover shrink-0"
+          />
+        </div>
+      </div>
+
+      <div className="mt-2.5 flex gap-2">
+        <span className="flex-1 rounded-full bg-[#2c2c2e]/90 border border-white/[0.06] py-2 text-center text-[11px] font-medium text-white">
+          See profile
+        </span>
+        <span className="flex-1 rounded-full bg-[#2c2c2e]/90 border border-white/[0.06] py-2 inline-flex items-center justify-center gap-1 text-[11px] font-medium" style={{ color: BLUE }}>
+          <Hand size={12} strokeWidth={2} />
+          Touch
+        </span>
+        <span className="flex-1 rounded-full bg-[#2c2c2e]/90 border border-white/[0.06] py-2 inline-flex items-center justify-center gap-1 text-[11px] font-medium" style={{ color: RED }}>
+          <CircleAlert size={12} strokeWidth={2} />
+          Report
+        </span>
+      </div>
+    </motion.div>
+  );
+};
+
 const MapsInner = ({ phase }: { phase: MapsPhase }) => {
   const faces = uniqueFacesFor([
     "Maya Reed",
@@ -532,15 +665,48 @@ const MapsInner = ({ phase }: { phase: MapsPhase }) => {
     "Sophie Carter",
     "Chris Parker",
   ]);
+  const julia = faceFor("Julia Carter");
+  const emily = faceFor("Emily Clark");
   const names = ["Maya", "Leo", "Emily", "Sophie", "Chris"];
   const [fabOpen, setFabOpen] = useState(false);
   const [pinN, setPinN] = useState(0);
   const [focus, setFocus] = useState(-1);
+  const [card, setCard] = useState<PinCardData | null>(null);
+
+  const cardsFor = (i: number): PinCardData => {
+    if (i === 1) {
+      return {
+        kind: "chillin",
+        name: "Julia Carter",
+        withName: "Emily Carter",
+        face: julia,
+        timeAgo: "4 min",
+        title: "At Starbucks!",
+        body: "Anyone nearby wants to join for a quick coffee?",
+        photo: mapsChillinDrink,
+        likes: "25k",
+        comments: "86k",
+      };
+    }
+    return {
+      kind: "event",
+      name: "Emily Clark",
+      withName: "Sophie Carter",
+      face: emily,
+      timeAgo: "12 min",
+      title: "Film night tonight!",
+      body: "Rooftop screening in the LES. Bring a jacket.",
+      photo: filmNight,
+      likes: "8.2k",
+      comments: "1.4k",
+    };
+  };
 
   useEffect(() => {
     setFabOpen(false);
     setPinN(0);
     setFocus(-1);
+    setCard(null);
     if (phase === "pins") {
       const timers = [1, 2, 3, 4, 5].map((n, i) => window.setTimeout(() => setPinN(n), 350 + i * 280));
       return () => timers.forEach(clearTimeout);
@@ -552,7 +718,14 @@ const MapsInner = ({ phase }: { phase: MapsPhase }) => {
     }
     setPinN(5);
     setFabOpen(false);
-    const timers = [0, 1, 2].map((n, i) => window.setTimeout(() => setFocus(n), 400 + i * 700));
+    const timers = [
+      window.setTimeout(() => setFocus(1), 350),
+      window.setTimeout(() => setCard(cardsFor(1)), 900),
+      window.setTimeout(() => {
+        setFocus(2);
+        setCard(cardsFor(2));
+      }, 4000),
+    ];
     return () => timers.forEach(clearTimeout);
   }, [phase]);
 
@@ -564,6 +737,13 @@ const MapsInner = ({ phase }: { phase: MapsPhase }) => {
     { x: "48%", y: "74%" },
   ];
 
+  const openPin = (i: number) => {
+    if (phase !== "focus") return;
+    if (i !== 1 && i !== 2) return;
+    setFocus(i);
+    setCard(cardsFor(i));
+  };
+
   return (
     <motion.div
       key={phase}
@@ -572,17 +752,22 @@ const MapsInner = ({ phase }: { phase: MapsPhase }) => {
       exit={{ opacity: 0 }}
       className="relative flex flex-col h-full min-h-0 overflow-hidden bg-black"
     >
-      {/* Real NYC dark map — framed on Manhattan streets */}
       <div className="absolute inset-0">
         <img
           src={mapsNycBg}
           alt=""
-          className="absolute inset-0 w-full h-full object-cover object-[48%_42%] scale-110"
+          className={`absolute inset-0 w-full h-full object-cover object-[48%_42%] scale-110 transition-[filter] duration-300 ${
+            card ? "blur-[10px] scale-[1.18]" : ""
+          }`}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-black/50" />
+        <div
+          className={`absolute inset-0 transition-colors duration-300 ${
+            card ? "bg-black/45" : "bg-gradient-to-b from-black/35 via-transparent to-black/50"
+          }`}
+        />
       </div>
 
-      <div className="relative z-10 px-3.5 flex items-center justify-center mb-2">
+      <div className={`relative z-10 px-3.5 flex items-center justify-center mb-2 ${card ? "opacity-0 pointer-events-none" : ""}`}>
         <div className="inline-flex items-center rounded-full bg-[#1c1c1e] border border-white/[0.08] p-0.5">
           <span className="w-7 h-7 rounded-full flex items-center justify-center text-white/45">
             <StickyNote size={12} />
@@ -598,20 +783,22 @@ const MapsInner = ({ phase }: { phase: MapsPhase }) => {
         if (i >= pinN) return null;
         const isFocus = focus === i;
         return (
-          <motion.div
+          <motion.button
+            type="button"
             key={names[i]}
             initial={{ scale: 0, opacity: 0 }}
             animate={{
-              scale: isFocus ? 1.18 : 1,
-              opacity: 1,
-              y: isFocus ? [0, -4, 0] : 0,
+              scale: isFocus && !card ? 1.18 : 1,
+              opacity: card ? 0 : 1,
+              y: isFocus && !card ? [0, -4, 0] : 0,
             }}
             transition={{ type: "spring", stiffness: 420, damping: 18 }}
-            className="absolute z-10 -translate-x-1/2 -translate-y-1/2"
+            className="absolute z-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer"
             style={{ left: p.x, top: p.y }}
+            onClick={() => openPin(i)}
           >
             <Avatar src={faces[i]} size={32} />
-            {isFocus && (
+            {isFocus && !card && (
               <motion.span
                 initial={{ opacity: 0, y: 4 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -620,61 +807,77 @@ const MapsInner = ({ phase }: { phase: MapsPhase }) => {
                 {names[i]}
               </motion.span>
             )}
-          </motion.div>
+          </motion.button>
         );
       })}
 
-      {/* filter chips */}
-      <div className="absolute bottom-4 inset-x-0 z-20 px-2 flex gap-1.5 overflow-hidden pr-14">
-        {pinCats.map((c) => {
-          const Icon = c.Icon;
-          return (
-            <span
-              key={c.label}
-              className="inline-flex items-center gap-1 rounded-full bg-[#1c1c1e]/90 border border-white/10 px-2 py-1 text-[9px] text-white/80 shrink-0"
-            >
-              <Icon size={10} style={{ color: c.color }} />
-              {c.label}
-            </span>
-          );
-        })}
-      </div>
+      {!card && (
+        <div className="absolute bottom-4 inset-x-0 z-20 px-2 flex gap-1.5 overflow-hidden pr-14">
+          {pinCats.map((c) => {
+            const Icon = c.Icon;
+            return (
+              <span
+                key={c.label}
+                className="inline-flex items-center gap-1 rounded-full bg-[#1c1c1e]/90 border border-white/10 px-2 py-1 text-[9px] text-white/80 shrink-0"
+              >
+                <Icon size={10} style={{ color: c.color }} />
+                {c.label}
+              </span>
+            );
+          })}
+        </div>
+      )}
 
-      {/* FAB + menu */}
-      <div className="absolute bottom-3 right-3 z-30 flex flex-col items-end gap-2">
-        <AnimatePresence>
-          {fabOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: 12, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 8, scale: 0.95 }}
-              className="rounded-2xl bg-[#1c1c1e]/92 backdrop-blur-md border border-white/12 overflow-hidden min-w-[120px]"
-            >
-              {pinCats.map((c, i) => {
-                const Icon = c.Icon;
-                return (
-                  <motion.div
-                    key={c.label}
-                    initial={{ opacity: 0, x: 10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.05 * i }}
-                    className="flex items-center gap-2 px-3 py-2 border-b border-white/[0.06] last:border-0"
-                  >
-                    <Icon size={12} style={{ color: c.color }} />
-                    <span className="text-[11px] text-white/85">{c.label}</span>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
-          )}
-        </AnimatePresence>
-        <motion.span
-          animate={{ rotate: fabOpen ? 45 : 0 }}
-          className="w-11 h-11 rounded-full bg-black border border-white/20 flex items-center justify-center text-white shadow-xl"
-        >
-          {fabOpen ? <X size={18} /> : <Plus size={18} />}
-        </motion.span>
-      </div>
+      {!card && (
+        <div className="absolute bottom-3 right-3 z-30 flex flex-col items-end gap-2">
+          <AnimatePresence>
+            {fabOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: 12, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                className="rounded-2xl bg-[#1c1c1e]/92 backdrop-blur-md border border-white/[0.08] overflow-hidden min-w-[120px]"
+              >
+                {pinCats.map((c, i) => {
+                  const Icon = c.Icon;
+                  return (
+                    <motion.div
+                      key={c.label}
+                      initial={{ opacity: 0, x: 10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.05 * i }}
+                      className="flex items-center gap-2 px-3 py-2 border-b border-white/[0.06] last:border-0"
+                    >
+                      <Icon size={12} style={{ color: c.color }} />
+                      <span className="text-[11px] text-white/85">{c.label}</span>
+                    </motion.div>
+                  );
+                })}
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <motion.span
+            animate={{ rotate: fabOpen ? 45 : 0 }}
+            className="w-11 h-11 rounded-full bg-black border border-white/20 flex items-center justify-center text-white shadow-xl"
+          >
+            {fabOpen ? <X size={18} /> : <Plus size={18} />}
+          </motion.span>
+        </div>
+      )}
+
+      <AnimatePresence>
+        {card && (
+          <motion.div
+            key={card.kind + card.name}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 z-40 flex flex-col items-center justify-center"
+          >
+            <MapPinCard card={card} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };
@@ -684,7 +887,7 @@ export const MapsPinsScene = ({ className = "" }: { className?: string }) => {
   const labels: Record<MapsPhase, string> = {
     pins: "pins drop in live",
     fab: "drop what matters",
-    focus: "tap a pin, see why",
+    focus: "tap a pin, open the card",
   };
   return (
     <div className={className}>

@@ -13,7 +13,7 @@ import { observeInView } from "@/lib/motionPause";
 
 gsap.registerPlugin(Draggable);
 
-const allCards = [
+const desktopCards = [
   { src: homeFeed, label: "feed" },
   { src: chat, label: "chat" },
   { src: videoCall, label: "calls" },
@@ -24,10 +24,19 @@ const allCards = [
   { src: searchImg, label: "search" },
 ];
 
-const cards =
-  typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches
-    ? allCards.slice(0, 5)
-    : allCards;
+/** Match the hero print on iPhone: five tightly packed phones. */
+const mobileCards = [
+  { src: aiChat, label: "AI agent" },
+  { src: profileView, label: "profile" },
+  { src: searchImg, label: "search" },
+  { src: homeFeed, label: "feed" },
+  { src: chat, label: "chat" },
+];
+
+const isNarrow = () =>
+  typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
+
+const cards = isNarrow() ? mobileCards : desktopCards;
 
 const norm = (deg: number) => {
   let d = ((deg % 360) + 360) % 360;
@@ -58,20 +67,23 @@ const RadialCardsSlider = () => {
       const n = cardEls.length;
       const step = 360 / n;
       const proxy = document.createElement("div");
-      const HALF_ARC = 52;
-      const narrow = window.matchMedia("(max-width: 768px)").matches;
-      const PACK = narrow ? 0.33 : 0.38;
-      const frameMs = narrow ? 72 : 16;
-      const spin = narrow ? 0.55 : 0.1;
+      const narrow = isNarrow();
+      const HALF_ARC = narrow ? 48 : 52;
+      // Lower PACK = neighbors sit closer on the arc
+      const PACK = narrow ? 0.26 : 0.38;
+      // iPhone: low tick rate, tiny spin. Avoid rAF every frame.
+      const frameMs = narrow ? 110 : 16;
+      const spin = narrow ? 0.42 : 0.1;
       let angle = 0;
       let dragging = false;
       let inView = true;
       let leaveTimer = 0;
+      let tickTimer = 0;
       let raf = 0;
-      let lastTs = 0;
 
       cardEls.forEach((card) => {
         card.style.transformOrigin = "50% 100%";
+        card.style.contain = "layout style";
         if (!narrow) card.style.willChange = "transform, opacity";
         card.style.opacity = "0";
         card.style.visibility = "hidden";
@@ -79,8 +91,13 @@ const RadialCardsSlider = () => {
 
       const layout = () => {
         const w = root.clientWidth || window.innerWidth;
-        const radiusX = Math.min(560, Math.max(300, w * (narrow ? 0.40 : 0.46)));
-        const radiusY = Math.min(300, Math.max(170, w * (narrow ? 0.24 : 0.26)));
+        // CRITICAL: do not floor mobile radius at 300 — that spreads cards on iPhone.
+        const radiusX = narrow
+          ? Math.min(152, Math.max(112, w * 0.36))
+          : Math.min(560, Math.max(300, w * 0.46));
+        const radiusY = narrow
+          ? Math.min(108, Math.max(78, w * 0.2))
+          : Math.min(300, Math.max(170, w * 0.26));
 
         for (let i = 0; i < n; i++) {
           const card = cardEls[i];
@@ -104,13 +121,13 @@ const RadialCardsSlider = () => {
             Math.PI;
           const edge = Math.min(1, abs / HALF_ARC);
           const fade = Math.pow(1 - edge, 1.05);
-          const scale = 0.9 + fade * 0.18;
+          const scale = narrow ? 0.92 + fade * 0.14 : 0.9 + fade * 0.18;
 
           card.style.visibility = "visible";
-          card.style.opacity = String(Math.max(0.08, fade));
+          card.style.opacity = String(Math.max(0.12, fade));
           card.style.zIndex = String(Math.round(fade * 100));
           card.style.pointerEvents = fade > 0.12 ? "auto" : "none";
-          card.style.transform = `translate(-50%, 0) translate3d(${x}px, ${y}px, 0) rotate(${rot}deg) scale(${scale})`;
+          card.style.transform = `translate(-50%, 0) translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) rotate(${rot.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
         }
       };
 
@@ -118,21 +135,35 @@ const RadialCardsSlider = () => {
 
       const shouldRun = () => inView;
 
-      const loop = (ts: number) => {
-        if (!shouldRun() || dragging) {
-          raf = requestAnimationFrame(loop);
+      const clearTick = () => {
+        window.clearTimeout(tickTimer);
+        cancelAnimationFrame(raf);
+        tickTimer = 0;
+        raf = 0;
+      };
+
+      const scheduleTick = () => {
+        clearTick();
+        if (narrow) {
+          tickTimer = window.setTimeout(() => {
+            if (shouldRun() && !dragging) {
+              angle += spin;
+              layout();
+            }
+            if (shouldRun()) scheduleTick();
+          }, frameMs);
           return;
         }
-        if (ts - lastTs < frameMs) {
+        const loop = () => {
           raf = requestAnimationFrame(loop);
-          return;
-        }
-        lastTs = ts;
-        angle += spin;
-        layout();
+          if (!shouldRun() || dragging) return;
+          angle += spin;
+          layout();
+        };
         raf = requestAnimationFrame(loop);
       };
-      raf = requestAnimationFrame(loop);
+
+      scheduleTick();
 
       const [draggable] = Draggable.create(proxy, {
         trigger: root,
@@ -144,7 +175,7 @@ const RadialCardsSlider = () => {
         },
         onDrag() {
           if (!inView) return;
-          angle += this.deltaX * 0.34;
+          angle += this.deltaX * (narrow ? 0.28 : 0.34);
           layout();
         },
         onRelease() {
@@ -162,18 +193,20 @@ const RadialCardsSlider = () => {
             window.clearTimeout(leaveTimer);
             inView = true;
             layout();
+            scheduleTick();
             return;
           }
           window.clearTimeout(leaveTimer);
           leaveTimer = window.setTimeout(() => {
             inView = false;
+            clearTick();
           }, 450);
         },
         { rootMargin: "160px 0px", threshold: 0 },
       );
 
       cleanup = () => {
-        cancelAnimationFrame(raf);
+        clearTick();
         draggable?.kill();
         window.removeEventListener("resize", onResize);
         window.clearTimeout(leaveTimer);
@@ -193,6 +226,8 @@ const RadialCardsSlider = () => {
     };
   }, []);
 
+  const narrow = isNarrow();
+
   return (
     <div className="w-full h-full select-none">
       <div
@@ -207,7 +242,7 @@ const RadialCardsSlider = () => {
               ref={(el) => {
                 cardRefs.current[i] = el;
               }}
-              className="absolute left-0 top-0 w-[110px] sm:w-[138px] md:w-[152px]"
+              className={`absolute left-0 top-0 ${narrow ? "w-[96px]" : "w-[110px] sm:w-[138px] md:w-[152px]"}`}
               style={{ opacity: 0, visibility: "hidden" as const }}
             >
               <div className="yankee-surface yankee-surface--media rounded-[1.15rem] bg-card overflow-hidden">
@@ -218,7 +253,7 @@ const RadialCardsSlider = () => {
                     className="w-full h-full object-cover object-top pointer-events-none"
                     draggable={false}
                     decoding="async"
-                    loading={i < 4 ? "eager" : "lazy"}
+                    loading={i < 3 ? "eager" : "lazy"}
                   />
                 </div>
                 <p className="px-2 py-1.5 text-center text-[11px] font-medium lowercase tracking-tight border-t border-foreground/8">

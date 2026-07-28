@@ -4,22 +4,22 @@ import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
 import AnimatedSection from "@/components/AnimatedSection";
 import StoryHeroVideo from "@/components/story/StoryHeroVideo";
-import { StoryPrinciplesScene } from "@/components/home/StoryFeatureScenes";
+import StoryManifesto from "@/components/story/StoryManifesto";
 import { Logo } from "@/components/Logo";
 import rememberOffice from "@/assets/remember-office.jpg";
 import cafeFriends from "@/assets/cafe-friends.jpg";
-import familyField from "@/assets/family-field.jpg";
-import smallTeamCollab from "@/assets/small-team-collab.jpg";
+import bookstoreFriends from "@/assets/yankee/bookstore-friends.png";
+import smallTeamCollab from "@/assets/yankee/quiet-office-team.png";
 import tripPhotos from "@/assets/trip-photos.png";
 import studentsHero from "@/assets/students-hero.jpg";
-import homeFeed from "@/assets/yankee/home-feed.png";
+import picnicFriends from "@/assets/yankee/picnic-friends.png";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 
 const moments = [
   { src: rememberOffice, caption: "a group that actually shows up", rotate: -2 },
   { src: cafeFriends, caption: "a weekend with the people you choose", rotate: 1.5 },
-  { src: familyField, caption: "time away from the timeline", rotate: -1 },
+  { src: bookstoreFriends, caption: "lost in the shelves together", rotate: -1 },
 ];
 
 const howWeBuild = [
@@ -187,9 +187,9 @@ const Story = () => (
                 className="yankee-surface yankee-surface--media rounded-[1.75rem] bg-card p-3 overflow-hidden aspect-[9/17]"
               >
                 <img
-                  src={homeFeed}
-                  alt="Yankee feed"
-                  className="w-full h-full object-cover object-top rounded-[1.25rem]"
+                  src={picnicFriends}
+                  alt=""
+                  className="w-full h-full object-cover object-center rounded-[1.25rem]"
                   loading="lazy"
                 />
               </motion.div>
@@ -201,7 +201,7 @@ const Story = () => (
                 className="absolute -right-2 bottom-[20%] z-10 max-w-[75%]"
               >
                 <div className="yankee-chat__bubble yankee-chat__bubble--you text-[12px]">
-                  chronological · always
+                  friends · not a product
                 </div>
               </motion.div>
             </div>
@@ -221,7 +221,7 @@ const Story = () => (
         </AnimatedSection>
 
         <div className="mt-12 md:mt-14">
-          <StoryPrinciplesScene />
+          <StoryManifesto />
         </div>
       </div>
     </section>

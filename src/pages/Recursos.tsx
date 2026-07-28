@@ -1,4 +1,4 @@
-import { ArrowRight, Bell, Filter, Sliders, Radio, Lock, Trash2, EyeOff, Calendar, FileText, PenLine, Compass, Plane, MessageSquare, Sparkles, Quote, Shuffle, MapPin, Feather, Video, Plus } from "lucide-react";
+import { ArrowRight, Bell, Filter, Sliders, Radio, Lock, Trash2, EyeOff, Calendar, FileText, PenLine, Compass, Plane, MessageSquare, Sparkles, Quote, MapPin, Feather, Video, Plus, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -554,7 +554,7 @@ const Features = () => (
               <span className="font-serif-display italic font-medium">or chat first</span>
             </h2>
             <p className="mt-5 text-[15px] md:text-[16px] text-muted-foreground leading-relaxed lowercase max-w-md mx-auto lg:mx-0">
-              spin is yankee&apos;s live match flow. filter who you meet, swipe into a room, and talk
+              spin is yankee&apos;s live match flow. filter who you meet, land in a room, and talk
               with up to four people without leaving the app.
             </p>
             <ul className="mt-8 space-y-4 max-w-md mx-auto lg:mx-0 text-left">
@@ -570,9 +570,9 @@ const Features = () => (
                   text: "topic, distance, age, language. you set the room before it finds you.",
                 },
                 {
-                  icon: Shuffle,
-                  title: "swipe, then meet",
-                  text: "slide into matches, land in a grid, leave only when you confirm.",
+                  icon: Users,
+                  title: "match, then meet",
+                  text: "when the spin finds someone, you go straight into photo or chat.",
                 },
               ].map((item) => {
                 const Icon = item.icon;
