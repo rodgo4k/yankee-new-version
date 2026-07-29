@@ -325,7 +325,7 @@ const FilterPhase = () => {
 
 const SpinRings = () => {
   const wrapRef = useRef<HTMLDivElement>(null);
-  const COUNT = 24;
+  const COUNT = 16;
 
   useEffect(() => {
     const wrap = wrapRef.current;
@@ -335,32 +335,42 @@ const SpinRings = () => {
     let offset = 0;
     let last = performance.now();
 
-    const tick = (now: number) => {
-      const dt = Math.min(0.05, (now - last) / 1000);
-      last = now;
-      offset = (offset + dt * 0.52) % 2;
-
+    const paint = (o: number) => {
       for (let i = 0; i < COUNT; i++) {
-        let u = (i / COUNT) * 2 - 1 + offset;
+        let u = (i / COUNT) * 2 - 1 + o;
         if (u > 1) u -= 2;
         if (u < -1) u += 2;
         const absU = Math.abs(u);
-        const width = 1.4 + absU * 16;
-        const height = 62 + absU * 4;
+        // Fake 3D (parent phone transform flattens real rotateY):
+        // center = edge-on (tiny scaleX), edges = face-on (full oval).
+        const face = Math.pow(absU, 0.85);
+        const scaleX = 0.07 + face * 0.93;
+        const h = 74;
+        const w = h * 0.72;
         const t = absU;
-        const r = Math.round(95 + (18 - 95) * t);
-        const g = Math.round(185 + (42 - 185) * t);
-        const b = Math.round(255 + (130 - 255) * t);
+        const r = Math.round(130 + (16 - 130) * t);
+        const g = Math.round(210 + (32 - 210) * t);
+        const b = Math.round(255 + (118 - 255) * t);
         const color = `rgb(${r},${g},${b})`;
         const el = nodes[i];
-        el.style.width = `${width}px`;
-        el.style.height = `${height}px`;
+        el.style.width = `${w}px`;
+        el.style.height = `${h}px`;
         el.style.background = color;
-        el.style.boxShadow = `0 0 ${3 + absU * 8}px ${color}66`;
-        el.style.transform = `translate(-50%, -50%) translateX(${u * 98}px)`;
-        el.style.zIndex = String(Math.round((1 - absU) * 100));
-        el.style.opacity = String(0.5 + (1 - absU) * 0.5);
+        el.style.boxShadow = `0 0 ${8 + face * 14}px ${color}99`;
+        // scaleX simulates the turn toward the camera at the sides
+        el.style.transform = `translate(-50%, -50%) translateX(${u * 112}px) scaleX(${scaleX.toFixed(3)})`;
+        el.style.zIndex = String(Math.round((1 - absU) * 200));
+        el.style.opacity = String(0.38 + (1 - absU) * 0.62);
       }
+    };
+
+    paint(0);
+
+    const tick = (now: number) => {
+      const dt = Math.min(0.05, (now - last) / 1000);
+      last = now;
+      offset = (offset + dt * 0.18) % 2;
+      paint(offset);
       raf = requestAnimationFrame(tick);
     };
 
@@ -369,12 +379,12 @@ const SpinRings = () => {
   }, []);
 
   return (
-    <div ref={wrapRef} className="relative w-full h-[80px] max-w-[230px] mx-auto">
+    <div ref={wrapRef} className="relative w-full h-[96px] max-w-[260px] mx-auto overflow-visible">
       {Array.from({ length: COUNT }, (_, i) => (
         <span
           key={i}
           className="absolute top-1/2 left-1/2 rounded-full will-change-transform"
-          style={{ width: 2, height: 64 }}
+          style={{ width: 52, height: 74, background: "#5aa8ff" }}
         />
       ))}
     </div>
@@ -390,14 +400,14 @@ const MatchingPhase = () => {
       exit={{ opacity: 0 }}
       className="flex flex-col h-full min-h-0 px-3.5"
     >
-      <div className="relative flex items-center justify-center mb-1 shrink-0">
-        <ArrowLeft size={15} className="absolute left-0 text-white/55" />
+      <div className="relative flex flex-col items-center justify-center mb-1 shrink-0 pt-0.5">
+        <ArrowLeft size={15} className="absolute left-0 top-1 text-white/55" strokeWidth={1.75} />
         <p className="text-[13px] font-semibold text-white">Random&apos;s Spin</p>
+        <p className="text-[10px] text-white/40 mt-0.5">Wait a minute, don&apos;t close the app.</p>
       </div>
       <div className="flex-1 flex flex-col items-center justify-center min-h-0">
-        <p className="text-[11px] text-white/45 mb-7">Wait a minute, don&apos;t close the app.</p>
         <SpinRings />
-        <p className="mt-6 text-[14px] font-semibold text-white">Match Spinners...</p>
+        <p className="mt-7 text-[14px] font-semibold text-white">Match Spinners...</p>
         <p className="text-[11px] text-white/40 mt-1">0/1</p>
       </div>
       <div className="shrink-0 flex items-center gap-2 pb-1 pt-2">
