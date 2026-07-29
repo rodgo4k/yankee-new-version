@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from "react";
+﻿import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { AnimatePresence, motion, animate } from "framer-motion";
 import {
   ArrowLeft,
@@ -12,7 +12,7 @@ import {
   MessageCircle,
   Mic,
   MicOff,
-  PhoneOff,
+  Phone,
   Plus,
   Search,
   Smile,
@@ -21,7 +21,6 @@ import {
   SwitchCamera,
   TriangleAlert,
   Video,
-  VideoOff,
   X,
 } from "lucide-react";
 import AiPhoneShell from "@/components/home/AiPhoneShell";
@@ -31,6 +30,10 @@ import filmNight from "@/assets/film-night.png";
 import studentsHero from "@/assets/students-hero.jpg";
 import mapsChillinDrink from "@/assets/yankee/maps-chillin-drink.png";
 import mapsNycBg from "@/assets/yankee/maps-nyc-bg.png";
+import spinEmily from "@/assets/yankee/spin-emily.png";
+import spinSelf from "@/assets/yankee/spin-self.png";
+import spinGuy from "@/assets/yankee/spin-guy.png";
+import spinNeon from "@/assets/yankee/spin-neon.png";
 
 const ease = [0.25, 0.4, 0.25, 1] as const;
 const BLUE = "#2f6bff";
@@ -81,16 +84,18 @@ const Avatar = ({ src, size, className = "" }: { src: string; size: number; clas
 
 
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   SPIN â€” match / facetime / filter / swipe
+   SPIN â€” mode / filter / sign / friend / matching / meet / grid
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
-type SpinPhase = "mode" | "filter" | "matching" | "meet" | "grid";
-const spinPhases: SpinPhase[] = ["mode", "filter", "matching", "meet", "grid"];
+type SpinPhase = "mode" | "filter" | "sign" | "friend" | "matching" | "meet" | "grid";
+const spinPhases: SpinPhase[] = ["mode", "filter", "sign", "friend", "matching", "meet", "grid"];
 const spinHold: Record<SpinPhase, number> = {
   mode: 4200,
-  filter: 6200,
-  matching: 4200,
-  meet: 4800,
+  filter: 5600,
+  sign: 5400,
+  friend: 5200,
+  matching: 4800,
+  meet: 5000,
   grid: 5200,
 };
 
@@ -273,12 +278,10 @@ const FilterPhase = () => {
       exit={{ opacity: 0, x: -16 }}
       className="flex flex-col h-full min-h-0 px-3.5"
     >
-      <div className="flex items-center gap-2 mb-2 shrink-0">
-        <ArrowLeft size={15} className="text-white/50" />
-        <div>
-          <p className="text-[15px] font-semibold text-white tracking-tight">Filter Spin</p>
-          <p className="text-[10px] text-white/40">Filter your preferences to get the best match.</p>
-        </div>
+      <div className="relative flex flex-col items-center mb-2 shrink-0 pt-0.5">
+        <ArrowLeft size={15} className="absolute left-0 top-1 text-white/50" />
+        <p className="text-[15px] font-semibold text-white tracking-tight">Filter Spin</p>
+        <p className="text-[10px] text-white/40">Filter your preferences to get the best match.</p>
       </div>
       <div className="flex-1 min-h-0 overflow-y-auto space-y-2 pr-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <p className="text-[10px] font-medium text-white/40">About match</p>
@@ -426,60 +429,101 @@ const MatchingPhase = () => {
   );
 };
 
-const MeetPhase = () => {
-  const emily = faceFor("Emily Carter");
-  const self = faceFor("Chris Parker");
+const CallChrome = ({ muted = true }: { muted?: boolean }) => (
+  <>
+    <div className="absolute top-0 inset-x-0 z-30 flex items-center justify-between px-3.5 pt-[2.85rem] pointer-events-none">
+      <ArrowLeft size={18} className="text-white drop-shadow" strokeWidth={2} />
+      <p className="text-[15px] font-semibold text-white drop-shadow tracking-tight">Random&apos;s Spin</p>
+      <p className="text-[13px] text-white tabular-nums drop-shadow w-[42px] text-right">04:35</p>
+    </div>
+    <div className="absolute bottom-[1.15rem] left-1/2 -translate-x-1/2 z-30 inline-flex items-center gap-4 rounded-full bg-[#2c2c2e]/92 px-4 py-2.5 shadow-lg">
+      <SwitchCamera size={18} className="text-white" strokeWidth={1.75} />
+      <Video size={18} className="text-white" strokeWidth={1.75} />
+      {muted ? (
+        <MicOff size={18} className="text-white" strokeWidth={1.75} />
+      ) : (
+        <Mic size={18} className="text-white" strokeWidth={1.75} />
+      )}
+      <span
+        className="w-10 h-10 rounded-full flex items-center justify-center -my-1"
+        style={{ background: RED }}
+      >
+        <Phone size={16} className="text-white rotate-[135deg]" strokeWidth={2.25} />
+      </span>
+    </div>
+  </>
+);
 
+const EmilyBadge = () => (
+  <div className="absolute top-3 left-3 z-20 inline-flex items-center gap-1.5 self-start">
+    <Avatar src={spinEmily} size={28} />
+    <div className="leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+      <p className="text-[11px] text-white font-semibold">Emily Carter</p>
+      <p className="text-[9px] text-white/70">@emilyy754</p>
+    </div>
+  </div>
+);
+
+const SelfPip = () => (
+  <div className="pointer-events-none absolute bottom-2.5 right-2.5 z-20 h-[96px] w-[68px] overflow-hidden rounded-[12px]">
+    <img
+      src={spinSelf}
+      alt=""
+      className="absolute inset-0 h-full w-full object-cover object-[50%_18%]"
+    />
+  </div>
+);
+
+/** Outer corner strongly rounded; the other 3 corners stay subtle. */
+const GRID_RADIUS = [
+  "22px 6px 6px 6px",
+  "6px 22px 6px 6px",
+  "6px 6px 6px 22px",
+  "6px 6px 22px 6px",
+] as const;
+
+/** Shared inset: gap under header + above control bar */
+const CALL_STAGE: CSSProperties = {
+  position: "absolute",
+  left: 10,
+  right: 10,
+  top: 104,
+  bottom: 96,
+};
+
+const MeetPhase = () => {
   return (
     <motion.div
       key="meet"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="relative flex flex-col h-full min-h-0 overflow-hidden"
+      className="absolute inset-x-0 -top-11 -bottom-5 z-10 overflow-hidden bg-black"
     >
-      <div className="absolute inset-0 bg-black">
+      <div style={CALL_STAGE} className="overflow-hidden rounded-[22px]">
         <img
-          src={emily}
+          src={spinEmily}
           alt=""
-          className="absolute inset-0 w-full h-full object-cover object-top scale-[1.45]"
+          className="absolute inset-0 h-full w-full object-cover object-[50%_18%]"
         />
+        <EmilyBadge />
+        <SelfPip />
       </div>
-      <div className="relative z-10 flex items-center justify-between px-3.5 pt-0.5">
-        <ArrowLeft size={15} className="text-white drop-shadow" />
-        <p className="text-[13px] font-semibold text-white drop-shadow">Random&apos;s Spin</p>
-        <p className="text-[11px] text-white/80 tabular-nums drop-shadow">04:35</p>
-      </div>
-      <div className="relative z-10 mt-2 ml-3 inline-flex items-center gap-1.5 self-start rounded-full bg-black/45 px-1.5 py-1">
-        <Avatar src={emily} size={18} />
-        <div className="pr-1.5">
-          <p className="text-[9px] text-white font-medium leading-tight">Emily Carter</p>
-          <p className="text-[8px] text-white/55 leading-tight">@emilyy21x</p>
-        </div>
-      </div>
-      <div className="absolute bottom-10 right-3 z-10 rounded-xl overflow-hidden border border-white/30 w-16 h-[88px] shadow-lg bg-[#1c1c1e]">
-        <img src={self} alt="" className="w-full h-full object-cover object-top scale-[1.45]" />
-      </div>
-      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-10 inline-flex items-center gap-3 rounded-full bg-[#1c1c1e]/90 border border-white/10 px-3 py-2">
-        <SwitchCamera size={14} className="text-white/70" />
-        <Video size={14} className="text-white/70" />
-        <Mic size={14} className="text-white/70" />
-        <span className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: RED }}>
-          <PhoneOff size={14} className="text-white" />
-        </span>
-      </div>
+      <CallChrome muted />
     </motion.div>
   );
 };
 
 const GridPhase = () => {
-  const faces = uniqueFacesFor(["Emily Carter", "Maya Reed", "Leo Hart", "Sophie Carter", "Chris Parker"]);
-  const names = ["Emily", "Maya", "Leo", "Sophie"];
-  const [leave, setLeave] = useState(false);
-  useEffect(() => {
-    const t = window.setTimeout(() => setLeave(true), 2800);
-    return () => clearTimeout(t);
-  }, []);
+  const tiles = [spinEmily, spinGuy, spinSelf, spinNeon];
+  const gap = 4;
+  const half = `calc(50% - ${gap / 2}px)`;
+  const slots: CSSProperties[] = [
+    { top: 0, left: 0 },
+    { top: 0, right: 0 },
+    { bottom: 0, left: 0 },
+    { bottom: 0, right: 0 },
+  ];
 
   return (
     <motion.div
@@ -487,68 +531,224 @@ const GridPhase = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="relative flex flex-col h-full min-h-0"
+      className="absolute inset-x-0 -top-11 -bottom-5 z-10 overflow-hidden bg-black"
     >
-      <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 gap-[2px] bg-black">
-        {faces.slice(0, 4).map((src, i) => (
-          <div key={names[i]} className="relative overflow-hidden bg-[#1c1c1e]">
+      <div style={CALL_STAGE}>
+        {tiles.map((src, i) => (
+          <div
+            key={i}
+            className="overflow-hidden"
+            style={{
+              position: "absolute",
+              width: half,
+              height: half,
+              borderRadius: GRID_RADIUS[i],
+              ...slots[i],
+            }}
+          >
             <img
               src={src}
               alt=""
-              className="absolute inset-0 w-full h-full object-cover object-top scale-[1.45]"
+              className="block h-full w-full object-cover object-[50%_16%]"
+              draggable={false}
             />
             {i === 0 && (
-              <div className="absolute top-2 left-2 flex items-center gap-1.5 rounded-full bg-black/45 px-1.5 py-1">
-                <Avatar src={faces[0]} size={18} />
-                <p className="text-[9px] text-white font-medium pr-1">Emily</p>
+              <div className="absolute top-2.5 left-2.5 z-10 inline-flex items-center gap-1.5">
+                <Avatar src={spinEmily} size={24} />
+                <div className="leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+                  <p className="text-[10px] text-white font-semibold">Emily Carter</p>
+                  <p className="text-[8px] text-white/70">@emilyy754</p>
+                </div>
               </div>
             )}
+            {i === 3 && <SelfPip />}
           </div>
         ))}
       </div>
-      <div className="relative z-10 flex items-center justify-between px-3.5 pt-0.5">
-        <ArrowLeft size={15} className="text-white drop-shadow" />
-        <p className="text-[13px] font-semibold text-white drop-shadow">Random&apos;s Spin</p>
-        <p className="text-[11px] text-white/80 tabular-nums">04:35</p>
+      <CallChrome muted />
+    </motion.div>
+  );
+};
+
+const ZODIAC = [
+  { name: "Random", on: false },
+  { name: "Aries", on: true },
+  { name: "Taurus", on: false },
+  { name: "Gemini", on: true },
+  { name: "Cancer", on: false },
+  { name: "Leo", on: true },
+  { name: "Virgo", on: false },
+  { name: "Libra", on: true },
+  { name: "Scorpio", on: false },
+  { name: "Sagittarius", on: true },
+  { name: "Capricorn", on: false },
+  { name: "Aquarius", on: true },
+  { name: "Pisces", on: false },
+];
+
+const Toggle = ({ on }: { on: boolean }) => (
+  <span
+    className={`relative inline-flex h-[22px] w-[40px] shrink-0 items-center rounded-full transition-colors ${
+      on ? "justify-end" : "justify-start"
+    }`}
+    style={{ background: on ? BLUE : "#3a3a3c", padding: 2 }}
+  >
+    <span className="block h-[18px] w-[18px] rounded-full bg-white shadow" />
+  </span>
+);
+
+const SignPhase = () => {
+  return (
+    <motion.div
+      key="sign"
+      initial={{ opacity: 0, x: 16 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -16 }}
+      className="flex flex-col h-full min-h-0 bg-black px-3.5"
+    >
+      <div className="relative flex flex-col items-center mb-3 shrink-0 pt-0.5">
+        <ArrowLeft size={15} className="absolute left-0 top-1 text-white/50" />
+        <p className="text-[17px] font-semibold text-white tracking-tight">Sign</p>
+        <p className="mt-1 text-center text-[11px] text-white/40 leading-snug px-2">
+          Choose one or more zodiac signs that you want to match with.
+        </p>
       </div>
-      <div className="absolute bottom-10 right-3 z-10 rounded-xl overflow-hidden border border-white/30 w-16 h-[88px] shadow-lg bg-[#1c1c1e]">
-        <img src={faces[4]} alt="" className="w-full h-full object-cover object-top scale-[1.45]" />
-      </div>
-      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-10 inline-flex items-center gap-3 rounded-full bg-[#1c1c1e]/90 border border-white/10 px-3 py-2">
-        <SwitchCamera size={14} className="text-white/70" />
-        <VideoOff size={14} className="text-white/70" />
-        <MicOff size={14} className="text-white/70" />
-        <span className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: RED }}>
-          <PhoneOff size={14} className="text-white" />
-        </span>
-      </div>
-      <AnimatePresence>
-        {leave && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 z-20 bg-black/55 backdrop-blur-[2px] flex items-center justify-center px-6"
+      <div className="flex-1 min-h-0 overflow-y-auto space-y-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        {ZODIAC.map((z) => (
+          <div
+            key={z.name}
+            className="rounded-2xl bg-[#2c2c2e] px-3.5 py-3 flex items-center justify-between"
           >
-            <motion.div
-              initial={{ scale: 0.9, y: 10 }}
-              animate={{ scale: 1, y: 0 }}
-              className="w-full rounded-2xl bg-[#1c1c1e] border border-white/10 p-4 text-center"
+            <p className="text-[13px] text-white font-medium">{z.name}</p>
+            <Toggle on={z.on} />
+          </div>
+        ))}
+      </div>
+      <div
+        className="mt-2 mb-1 rounded-full py-3.5 text-center text-[14px] font-semibold text-white shrink-0"
+        style={{ background: BLUE }}
+      >
+        Add Sign
+      </div>
+    </motion.div>
+  );
+};
+
+const FriendPhase = () => {
+  const amountPct = 55;
+  return (
+    <motion.div
+      key="friend"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="relative flex flex-col h-full min-h-0 bg-black overflow-hidden"
+    >
+      {/* Filter Spin behind the sheet */}
+      <div className="flex flex-col h-full min-h-0 px-3.5 pt-0.5 pointer-events-none">
+        <div className="relative flex flex-col items-center mb-2 shrink-0">
+          <ArrowLeft size={15} className="absolute left-0 top-1 text-white/50" />
+          <p className="text-[15px] font-semibold text-white tracking-tight">Filter Spin</p>
+          <p className="text-[10px] text-white/40">Filter your preferences to get the best match.</p>
+        </div>
+        <div className="space-y-2">
+          <p className="text-[10px] font-medium text-white/40">About match</p>
+          {[
+            ["Topic", "Random"],
+            ["What I'm looking for...", "New friends"],
+          ].map(([label, value]) => (
+            <div
+              key={label}
+              className="rounded-xl bg-[#141416] border border-white/[0.06] px-3 py-2 flex items-center justify-between"
             >
-              <p className="text-[14px] font-semibold text-white">Leave Random&apos;s Spin?</p>
-              <p className="mt-2 text-[11px] text-white/50 leading-snug">
-                If you leave now, the users you&apos;ve met and the messages will be lost.
-              </p>
-              <div className="mt-4 flex gap-2">
-                <span className="flex-1 rounded-full bg-white/10 py-2 text-[12px] text-white/80">Cancel</span>
-                <span className="flex-1 rounded-full py-2 text-[12px] font-semibold" style={{ color: RED }}>
-                  Leave
-                </span>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              <p className="text-[11px] text-white/70">{label}</p>
+              <span className="inline-flex items-center gap-0.5 text-[11px] text-white/45">
+                {value}
+                <ChevronRight size={12} className="text-white/35" />
+              </span>
+            </div>
+          ))}
+          <div className="rounded-xl bg-[#141416] border border-white/[0.06] px-3 py-2.5">
+            <div className="flex justify-between text-[10px] text-white/50 mb-2">
+              <span>Amount</span>
+              <span className="text-white font-semibold">1-4</span>
+            </div>
+            <div className="h-1 rounded-full bg-white/10 relative">
+              <div
+                className="absolute left-0 top-0 h-full rounded-full bg-white"
+                style={{ width: `${amountPct}%` }}
+              />
+              <span
+                className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-white shadow"
+                style={{ left: `calc(${amountPct}% - 7px)` }}
+              />
+            </div>
+            <div className="mt-1.5 flex justify-between text-[9px] text-white/30">
+              <span>1</span>
+              <span>4</span>
+            </div>
+          </div>
+          {[
+            ["Language", "Global"],
+            ["Location", "Random"],
+          ].map(([label, value]) => (
+            <div
+              key={label}
+              className="rounded-xl bg-[#141416] border border-white/[0.06] px-3 py-2 flex items-center justify-between"
+            >
+              <p className="text-[11px] text-white/70">{label}</p>
+              <span className="inline-flex items-center gap-0.5 text-[11px] text-white/45">
+                {value}
+                <ChevronRight size={12} className="text-white/35" />
+              </span>
+            </div>
+          ))}
+          <div className="rounded-xl bg-[#141416] border border-white/[0.06] px-3 py-2 flex items-center justify-between">
+            <p className="text-[11px] text-white/70">Miles</p>
+            <span className="text-[11px] text-white/45">25-50 mi</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="absolute inset-0 z-20 bg-black/50" />
+
+      <motion.div
+        initial={{ y: "100%" }}
+        animate={{ y: 0 }}
+        transition={{ type: "spring", stiffness: 360, damping: 34 }}
+        className="absolute inset-x-0 bottom-0 z-30 rounded-t-[1.35rem] bg-[#1c1c1e] px-3.5 pt-2 pb-3"
+      >
+        <span className="mx-auto mb-2.5 block h-1 w-9 rounded-full bg-white/25" />
+        <p className="text-center text-[17px] font-semibold text-white">Spin with a friend</p>
+        <p className="mt-1.5 text-center text-[11px] text-white/40 leading-snug px-3">
+          Spin alone or select a contact to match together.
+        </p>
+        <div className="mt-3.5 space-y-2">
+          <div className="rounded-2xl bg-[#2c2c2e] px-3.5 py-3.5 flex items-center gap-2.5">
+            <span className="w-[20px] h-[20px] rounded-full border-2 border-white/30 shrink-0" />
+            <p className="text-[13px] text-white font-medium">Alone</p>
+          </div>
+          <div className="rounded-2xl bg-[#2c2c2e] px-3.5 py-3.5 flex items-center gap-2.5">
+            <span
+              className="w-[20px] h-[20px] rounded-full shrink-0 flex items-center justify-center"
+              style={{ background: BLUE }}
+            >
+              <span className="w-[7px] h-[7px] rounded-full bg-white" />
+            </span>
+            <p className="text-[13px] text-white font-medium flex-1">With a friend</p>
+            <span className="inline-flex items-center gap-0.5 text-[12px] text-white/45">
+              Select
+              <ChevronRight size={13} className="text-white/35" />
+            </span>
+          </div>
+        </div>
+        <div
+          className="mt-3.5 rounded-full py-3.5 text-center text-[14px] font-semibold text-white"
+          style={{ background: BLUE }}
+        >
+          Add Filter
+        </div>
+      </motion.div>
     </motion.div>
   );
 };
@@ -558,6 +758,8 @@ export const SpinScene = ({ className = "" }: { className?: string }) => {
   const labels: Record<SpinPhase, string> = {
     mode: "pick face or chat",
     filter: "tune the match",
+    sign: "pick the signs",
+    friend: "spin with a friend",
     matching: "finding spinners",
     meet: "you're in",
     grid: "up to four faces",
@@ -565,13 +767,17 @@ export const SpinScene = ({ className = "" }: { className?: string }) => {
   return (
     <div className={className}>
       <PhoneWrap label={labels[phase]} rotate={-1.5}>
-        <AnimatePresence mode="wait">
-          {phase === "mode" && <ModePhase key="mode" />}
-          {phase === "filter" && <FilterPhase key="filter" />}
-          {phase === "matching" && <MatchingPhase key="matching" />}
-          {phase === "meet" && <MeetPhase key="meet" />}
-          {phase === "grid" && <GridPhase key="grid" />}
-        </AnimatePresence>
+        <div className="relative h-full min-h-0">
+          <AnimatePresence mode="wait">
+            {phase === "mode" && <ModePhase key="mode" />}
+            {phase === "filter" && <FilterPhase key="filter" />}
+            {phase === "sign" && <SignPhase key="sign" />}
+            {phase === "friend" && <FriendPhase key="friend" />}
+            {phase === "matching" && <MatchingPhase key="matching" />}
+            {phase === "meet" && <MeetPhase key="meet" />}
+            {phase === "grid" && <GridPhase key="grid" />}
+          </AnimatePresence>
+        </div>
       </PhoneWrap>
     </div>
   );
