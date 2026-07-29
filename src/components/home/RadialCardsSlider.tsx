@@ -59,10 +59,9 @@ const RadialCardsSlider = () => {
       const step = 360 / n;
       const proxy = document.createElement("div");
       const narrow = window.matchMedia("(max-width: 768px)").matches;
-      /** Match the hero print on iPhone: five tightly packed phones. */
-      const HALF_ARC = narrow ? 48 : 52;
-      // Lower PACK = neighbors sit closer on the arc
-      const PACK = narrow ? 0.26 : 0.38;
+      const HALF_ARC = 52;
+      // Lower PACK = neighbors sit closer on the arc (mobile only)
+      const PACK = narrow ? 0.29 : 0.38;
       const frameMs = narrow ? 72 : 16;
       const spin = narrow ? 0.55 : 0.1;
       let angle = 0;
@@ -82,12 +81,12 @@ const RadialCardsSlider = () => {
 
       const layout = () => {
         const w = root.clientWidth || window.innerWidth;
-        // CRITICAL: do not floor mobile radius at 300 — that spreads cards on iPhone.
+        // Desktop keeps the wide arc. Mobile uses a smaller radius (never floor at 300).
         const radiusX = narrow
-          ? Math.min(152, Math.max(112, w * 0.36))
+          ? Math.min(168, Math.max(124, w * 0.39))
           : Math.min(560, Math.max(300, w * 0.46));
         const radiusY = narrow
-          ? Math.min(108, Math.max(78, w * 0.2))
+          ? Math.min(118, Math.max(86, w * 0.22))
           : Math.min(300, Math.max(170, w * 0.26));
 
         for (let i = 0; i < n; i++) {
@@ -112,13 +111,13 @@ const RadialCardsSlider = () => {
             Math.PI;
           const edge = Math.min(1, abs / HALF_ARC);
           const fade = Math.pow(1 - edge, 1.05);
-          const scale = narrow ? 0.92 + fade * 0.14 : 0.9 + fade * 0.18;
+          const scale = 0.9 + fade * 0.18;
 
           card.style.visibility = "visible";
-          card.style.opacity = String(Math.max(0.12, fade));
+          card.style.opacity = String(Math.max(0.08, fade));
           card.style.zIndex = String(Math.round(fade * 100));
           card.style.pointerEvents = fade > 0.12 ? "auto" : "none";
-          card.style.transform = `translate(-50%, 0) translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) rotate(${rot.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
+          card.style.transform = `translate(-50%, 0) translate3d(${x}px, ${y}px, 0) rotate(${rot}deg) scale(${scale})`;
         }
       };
 
@@ -176,7 +175,7 @@ const RadialCardsSlider = () => {
         },
         onDrag() {
           if (!inView) return;
-          angle += this.deltaX * (narrow ? 0.28 : 0.34);
+          angle += this.deltaX * 0.34;
           layout();
         },
         onRelease() {
@@ -234,14 +233,15 @@ const RadialCardsSlider = () => {
         className="relative h-full cursor-grab active:cursor-grabbing touch-none overflow-visible"
         aria-label="Drag to spin feature cards along the arc"
       >
-        <div className="absolute left-1/2 top-[78%] md:top-[82%] -translate-x-1/2 w-0 h-0">
+        {/* Desktop: original 78/82. Mobile-only: lift higher */}
+        <div className="absolute left-1/2 -translate-x-1/2 w-0 h-0 top-[78%] md:top-[82%] max-md:!top-[54%]">
           {cards.map((card, i) => (
             <div
               key={card.label}
               ref={(el) => {
                 cardRefs.current[i] = el;
               }}
-              className="absolute left-0 top-0 w-[96px] sm:w-[138px] md:w-[152px]"
+              className="absolute left-0 top-0 w-[110px] sm:w-[138px] md:w-[152px] max-md:!w-[100px]"
               style={{ opacity: 0, visibility: "hidden" as const }}
             >
               <div className="yankee-surface yankee-surface--media rounded-[1.15rem] bg-card overflow-hidden">
